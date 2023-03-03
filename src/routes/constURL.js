@@ -1,1 +1,9 @@
-export const HOMEPAGE = "/";
+export const Login = "/";
+export const Customerslist = "/customers";
+export const Vechicleslist = "/vehicles";
+export const Appointmentlist = "/appointments";
+export const Stafflist = "/staff";
+export const truckingCompanieslist = "/truckingcompanies";
+export const Storelist = "/store";
+export const Locationlist = "/location";
+export const Profile = "/profile";

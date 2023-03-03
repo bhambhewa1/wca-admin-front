@@ -12,8 +12,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Index from "../../routes/index.js";
 import { drawerData } from "../../config/mockData";
-import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
-import { IconButton, Typography, useMediaQuery } from "@mui/material";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import { storage as LocalStorage } from "../../config/storage";
 let drawerWidth = 240;
@@ -44,13 +44,13 @@ const PermanentDrawerRight = () => {
   // React.useEffect(() => {
   //   setfirst(adminInfo?.adminName);
   }, []);
-  // const redirect = (redirect) => {
-  //   if (redirect) {
-  //     navigate(redirect);
-  //   } else {
-  //     setOpen(true);
-  //   }
-  // };
+  const redirect = (redirect) => {
+    if (redirect) {
+      navigate(redirect);
+    } else {
+      setOpen(true);
+    }
+  };
   // const logOutAdmin = () => {
   //   LocalStorage.destroy.authToken();
   //   LocalStorage.destroy.adminfirstname();

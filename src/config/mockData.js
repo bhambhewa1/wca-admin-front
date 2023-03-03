@@ -3,48 +3,48 @@ export const drawerData = [
     val: "Customers",
     isActive: false,
     src: require("../assests/profile.png"),
-    Routes: "/profile",
+    Routes: "/customers",
   },
   {
     val: "Vehicles",
     isActive: false,
     // src: require("../assets/greeting.png"),
-    Routes: "/greeting/categories",
+    Routes: "/vehicles",
   },
   {
     val: "Appointments",
     isActive: false,
     // src: require("../assets/egift.png"),
-    Routes: "/e-giftcards/list",
+    Routes: "/appointments",
   },
   {
     val: "Staff",
     isActive: false,
     // src: require("../assets/gift.png"),
-    Routes: "/giftcards",
+    Routes: "/staff",
   },
   {
     val: "Trucking companies",
     isActive: false,
     // src: require("../assets/users.png"),
-    Routes: "/Users",
+    Routes: "/truckingcompanies",
   },
   {
     val: "Stores",
     isActive: false,
     // src: require("../assets/orders.png"),
-    Routes: "/orders/list",
+    Routes: "/store",
   },
   {
     val: "Locations",
     isActive: false,
 
     // src: require("../assets/setting.png"),
-    Routes: "/configurations",
+    Routes: "/location",
   },
   { val: "Profile", 
   // src: require("../assets/logout.png"), 
-  Routes: "" },
+  Routes: "/profile" },
 ];
 
 export const FILE_TYPE = {
