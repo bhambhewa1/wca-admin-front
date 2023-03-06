@@ -1,8 +1,13 @@
 import React from 'react'
+import TopBox from '../../components/TableHeader/TopBox'
 
 const CustomersList = () => {
   return (
-    <div>CustomersList</div>
+    <TopBox 
+    headerText={"Customer"}
+    button_one={"+ Add Customer"}
+    searchText={"Search customer"}
+    />
   )
 }
 
