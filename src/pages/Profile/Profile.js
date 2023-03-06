@@ -61,7 +61,7 @@ const Style = {
     color: "#000000",
     display: "flex",
     pb: 3,
-    pl:3
+    pl:{xs:0,md:3}
   },
   inputStyle: {
     width: {
@@ -195,7 +195,7 @@ useEffect(() => {
             borderTop:"1px solid gray"
           }}
         >
-        <Typography sx={Style.typographyStyle}>Profile Information</Typography>
+        <Typography sx={Style.typographyStyle}>Profile information</Typography>
         <Box sx={{
           display:'flex',
           flexDirection:'column',
@@ -373,10 +373,10 @@ useEffect(() => {
           </Box>
           <Typography
                 sx={{
-                  fontSize: { xs: "24px", md: "24px" },
-                  fontWeight: { xs: "500", md: "400" },
+                  fontSize: { xs: "20px", md: "20px" },
+                  fontWeight: { xs: "500", md: "700" },
                   mb: 2,
-                  pl:3
+                  pl:{xs:0,md:3}
                 }}
               >
                 Set Password
@@ -401,7 +401,7 @@ useEffect(() => {
                 {!loading && (
                   <Box sx={Style.inputStyle}>
                     <FormLabel sx={Style.label}>
-                      New Password
+                      Password
                       <span style={Style.star}>*</span>
                     </FormLabel>
                     <TextField
@@ -477,13 +477,14 @@ useEffect(() => {
         </Box>
         <Box
           sx={{
-            // width: { xs: "100%", md: "35%", lg: "40%" },
+            width: { xs: "100%", md: "35%", lg: "40%" },
             float: "right",
             display: "flex",
             justifyContent: {xs: "space-between",md:"flex-end"},
             pt: 4,
             pb:3,
-            pr:3
+            pr:3,
+            pl:{xs:2,md:0}
           }}
         >
           <Button
@@ -498,6 +499,7 @@ useEffect(() => {
               textTransform: "none",
               border: "1px solid #EB5757",
               bgcolor: "#EB5757",
+              width:{xs:'40%',md:'50%'},
               color: "white",
               "&.MuiButtonBase-root:hover": {
                 border: "1px solid #EB5757",
@@ -523,6 +525,7 @@ useEffect(() => {
               color: "white",
               bgcolor: "#27AE60",
               border: "1px solid #27AE60",
+              width:{xs:'40%',md:'50%'},
               "&.MuiButtonBase-root:hover": {
                 border: "1px solid #27AE60",
                 color: "white",

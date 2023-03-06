@@ -18,12 +18,13 @@ import { useTheme } from "@emotion/react";
 import { UserContext } from "../../App";
 import { storage as LocalStorage } from "../../config/storage";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-let drawerWidth = 280;
+
+let drawerWidth = 260;
 
 const PermanentDrawerRight = () => {
   const theme = useTheme();
-  // const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  // isMobile ? (drawerWidth = 80) : (drawerWidth = 240);
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  isMobile ? (drawerWidth = 80) : (drawerWidth = 260);
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = React.useState(false);
@@ -49,12 +50,10 @@ const PermanentDrawerRight = () => {
   const redirect = (redirect) => {
     if (redirect) {
       navigate(redirect);
+      
     } else {
     }
   };
-  const handleClick = () => {
-    setOpen(!open);
-  }
   // const logOutAdmin = () => {
   //   LocalStorage.destroy.authToken();
   //   LocalStorage.destroy.adminfirstname();
@@ -149,21 +148,22 @@ const PermanentDrawerRight = () => {
               }}
             >
               <Box>
-                {/* {isMobile && (
+                {isMobile && (
                   <img
                     alt="logo"
                     className="logoSize"
-                    style={{ width: "50px" }}
+                  src={require('../../assests/logo@2x.png')}
+                  style={{ width: "50px" }}
                   />
-                )} */}
-                {/* {!isMobile && ( */}
+                )} 
+                {!isMobile && (
                 <img
                   alt="logo"
                   className="logoSize"
                   src={require('../../assests/logo@2x.png')}
-                  style={{ width: "129px", height: "83px" }}
+                  style={{ width: "129px", height: "75px" }}
                 />
-                {/* )} */}
+                )}
               </Box>
             </Link>
           </Box>
@@ -193,54 +193,50 @@ const PermanentDrawerRight = () => {
             {data.map((text, index) => (
               <>
                 {text.val === "Vehicles" &&
-                  <List>
+                  <List sx={{
+                    "&.MuiList-root":{
+                      p:0
+                    }
+                  }}>
                     <ListItem
                       sx={{
-                        color: "white",
-                        bgcolor: text.isActive ? "#2B4C9" : "",
-                        borderRadius: "5px",
-                        mt: "10px",
+                        color: "#B2C1F0",
+                        bgcolor: text.isActive ? "#2B4C91" : "",
+                        borderTop: '0.5px solid #B2C1F0',
+                        // mt: "10px",
                       }}
                       key={index}
                       disablePadding
                     >
                       <ListItemButton onClick={() => {
                         redirect(text.Routes)
-                        handleClick()
                       }}>
                         <ListItemIcon
                           sx={{
-                            color: "white",
-                            maxWidth: "22px",
-                            minWidth: "18px",
-                            mr: "30px",
+                            color: "#B2C1F0",
+                            // maxWidth: "22px",
+                            // minWidth: "18px",
+                            // mr: "30px",
                           }}
                         >
-                          <img
-                            alt="Icon"
-                            src={text.src}
-                            style={{
-                              width: "100%",
-                              // filter: text.isActive ? "invert(100%)" : "",
-                            }}
-                          />
+                          {text.src}
                         </ListItemIcon>
                         <ListItemText
                           sx={{
                             fontWeight: "400",
-                            fontSize: "18px",
-                            display: { xs: "none", sm: "flex" },
+                            // fontSize: "16px",
+                            // display: { xs: "none", sm: "flex" },
                           }}
                           primary={text.val}
                         />
-                            < ArrowForwardIosIcon color="white" />
+                        < ArrowForwardIosIcon color="white" />
 
                       </ListItemButton>
 
                     </ListItem>
-                    <Collapse in={open} timeout="auto" unmountOnExit>
+                    <Collapse in={text.isActive} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
-                        <ListItemButton sx={{ pl: 5 , color:'white',fontSize:'18px'}}>
+                        <ListItemButton sx={{ pl: 5, color: '#B2C1F0', fontSize: '16px' }}>
                           <ListItemText primary="Sold and Unsold vehicles" />
                         </ListItemButton>
                       </List>
@@ -250,10 +246,11 @@ const PermanentDrawerRight = () => {
                 {text.val !== "Vehicles" &&
                   <ListItem
                     sx={{
-                      color: "white",
-                      bgcolor: text.isActive ? "#2B4C9" : "",
-                      borderRadius: "5px",
-                      mt: "10px",
+                      color: "#B2C1F0",
+                      bgcolor: text.isActive ? "#2B4C91" : "",
+                      // borderBottom:'1px solid gray',
+                      borderTop: '1px solid #B2C1F0',
+                      // mt: "10px",
                     }}
                     key={index}
                     disablePadding
@@ -261,26 +258,19 @@ const PermanentDrawerRight = () => {
                     <ListItemButton onClick={() => redirect(text.Routes)}>
                       <ListItemIcon
                         sx={{
-                          color: "white",
-                          maxWidth: "22px",
-                          minWidth: "18px",
-                          mr: "30px",
+                          color: "#B2C1F0",
+                          // width: "30px",
+                          // minWidth: "30px",
+                          // mr: "30px",
                         }}
                       >
-                        <img
-                          alt="Icon"
-                          src={text.src}
-                          style={{
-                            width: "100%",
-                            // filter: text.isActive ? "invert(100%)" : "",
-                          }}
-                        />
+                        {text.src}
                       </ListItemIcon>
                       <ListItemText
                         sx={{
                           fontWeight: "400",
-                          fontSize: "18px",
-                          display: { xs: "none", sm: "flex" },
+                          // fontSize: "16px",
+                          // display: { xs: "none", sm: "flex" },
                         }}
                         primary={text.val}
                       />
@@ -311,7 +301,7 @@ const PermanentDrawerRight = () => {
               borderRadius: 2,
             }}
           > */}
-            <Index />
+          <Index />
           {/* </Box> */}
         </Box>
       </Box>
