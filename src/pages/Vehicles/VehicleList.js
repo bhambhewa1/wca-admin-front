@@ -1,8 +1,14 @@
+import { Box } from '@mui/material'
 import React from 'react'
 import TopBox from '../../components/TableHeader/TopBox'
 
 const VehicleList = () => {
   return (
+    <Box 
+    sx={{
+      display: "flex",
+      p: 3
+    }}>
     <TopBox 
     headerText={"Vehicles"}
     button_one={"+ Add Vehicle"}
@@ -11,6 +17,7 @@ const VehicleList = () => {
     searchText={"Search vehicle"}
     sortingText={"Customer"}
     />
+    </Box>
   )
 }
 
