@@ -112,7 +112,7 @@ const Login = ({ getLogin }) => {
                 alt="logo"
                 // className="logoSize"
                 style={{ width: "130px", height: "82px" }}
-                src={require("../../assests/logo.png")}
+                src={require("../../assests/logo@2x.png")}
               />
               <Typography
                 sx={{

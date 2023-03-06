@@ -1,9 +1,22 @@
-import React from 'react'
+import { Box } from "@mui/material";
+import React from "react";
+import TopBox from "../../components/TableHeader/TopBox";
 
 const CustomersList = () => {
   return (
-    <div>CustomersList</div>
-  )
-}
+    <Box
+      sx={{
+        display: "flex",
+        p: 3,
+      }}
+    >
+      <TopBox
+        headerText={"Customer"}
+        button_one={"+ Add Customer"}
+        searchText={"Search customer"}
+      />
+    </Box>
+  );
+};
 
-export default CustomersList
+export default CustomersList;
