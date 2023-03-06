@@ -1,7 +1,89 @@
-import { Button, TextField, Typography, Select, MenuItem } from "@mui/material";
-import { Box } from "@mui/system";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Select,
+  MenuItem,
+  Tabs,
+  Tab,
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import React from "react";
+import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
+import StaffList from "../../pages/Staff/StaffList";
+import AppointmentsList from "../../pages/Appointments/AppointmentsList";
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+const useStyles = makeStyles(() => ({
+  tab: {
+    fontSize: "18px",
+    fontWeight: "400",
+    "&.Mui-selected": {
+      // background: "#F15F23",
+      color: "white",
+      borderRadius: "5px",
+      borderBottom: 0,
+    },
+    "& .MuiBox-root": {
+      padding: "0px",
+    },
+    borderRadius: "5px",
+    textTransform: "none",
+    "&.MuiTab-root.Mui-selected": {
+      color: "white",
+      textTransform: "none",
+    },
+    "&.MuiButtonBase-root": {
+      textTransform: "none",
+    },
+    "&.css-1jbwg7a-MuiButtonBase-root-MuiTab-root": {
+      background: "#DDDDDD",
+      color: "#000000",
+    },
+    "&.css-1jbwg7a-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+      background: "#F15F23",
+    },
+  },
+  TabPanel: {
+    "& .MuiBox-root": {
+      padding: "0px",
+      textTransform: "none",
+    },
+  },
+}));
 
 const TopBox = ({
   headerText,
@@ -21,9 +103,18 @@ const TopBox = ({
   numSelected,
   value,
 }) => {
+  const classes = useStyles();
+  const tabClasses = { root: classes.tab };
+  const tabPanelClasses = { root: classes.TabPanel };
+  const [tabValue, setTabValue] = React.useState(0);
   const navigate = useNavigate();
   const location = useLocation();
-  //   console.log("locaton", location.pathname)
+  console.log("locaton", tabValue);
+
+  const handleChangeTab = (event, newValue) => {
+    console.log("va", newValue);
+    setTabValue(newValue);
+  };
   const handleSearch = (e) => {
     setSearch_val(e.target.value);
   };
@@ -78,31 +169,26 @@ const TopBox = ({
           sx={{
             display: "flex",
             pb: 2,
+            borderColor: "divider",
           }}
         >
-          <Button
-            variant="contained"
-            sx={style.button_one}
-            // onClick={() => {
-            //   navigate(onClick);
-            // }}
-          >
-            {button_two}
-          </Button>
-          <Button
-            variant="contained"
-            sx={style.button_one}
-            style={{
-              backgroundColor: "#DDDDDD",
-              color: "#000000",
-              marginLeft: "20px",
+          <Tabs
+            value={tabValue}
+            onChange={handleChangeTab}
+            aria-label="basic tabs example"
+            sx={{
+              borderBottom: "none",
             }}
-            // onClick={() => {
-            //   navigate(onClick);
-            // }}
           >
-            {button_three}
-          </Button>
+            <Tab classes={tabClasses} label={button_two} {...a11yProps(0)} />
+            <Tab classes={tabClasses} label={button_three} {...a11yProps(1)} />
+          </Tabs>
+          <TabPanel value={tabValue} index={0} classes={tabPanelClasses}>
+            {/* <Typography>Hello</Typography> */}
+          </TabPanel>
+          <TabPanel value={tabValue} index={1}>
+            {/* <Typography>Hi</Typography> */}
+          </TabPanel>
         </Box>
       )}
 
