@@ -222,7 +222,8 @@ const PermanentDrawerRight = () => {
               color: "#B2C1F0",
               opacity: 1,
               fontSize: '24px',
-              fontWeight: 700
+              fontWeight: 700,
+              pb:3
             }}>Dashboard</Typography>
             {data.map((text, index) => (
               <>

@@ -153,7 +153,7 @@ const TopBox = ({
         }}
       >
         <Typography sx={style.headingText}>{headerText}</Typography>
-        <Button
+       { tabValue === 0 &&<Button
           variant="contained"
           //   onClick={() => {
           //     onSubmit(search_val);
@@ -161,7 +161,7 @@ const TopBox = ({
           sx={style.button_one}
         >
           {button_one}
-        </Button>
+        </Button>}
       </Box>
 
       {location.pathname === "/vehicles" && (
