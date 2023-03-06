@@ -61,6 +61,7 @@ const Style = {
     color: "#000000",
     display: "flex",
     pb: 3,
+    pl:{xs:0,md:3}
   },
   inputStyle: {
     width: {
@@ -76,7 +77,7 @@ const Style = {
     color: "red",
   },
   rowBoxStyle: {
-    width: "100%",
+    width: "95%",
     display: "flex",
     flexDirection: { xs: "column", md: "row" },
     justifyContent: "space-between",
@@ -183,7 +184,6 @@ useEffect(() => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
-        
       }}
     >
       <form name="RegisterForm" onSubmit={formik.handleSubmit}>
@@ -195,7 +195,14 @@ useEffect(() => {
             borderTop:"1px solid gray"
           }}
         >
-        <Typography sx={Style.typographyStyle}>Profile Information</Typography>
+        <Typography sx={Style.typographyStyle}>Profile information</Typography>
+        <Box sx={{
+          display:'flex',
+          flexDirection:'column',
+          justifyContent:'center',
+          alignItems:'center'
+
+        }}>
           <Box sx={Style.rowBoxStyle}>
             {loading && (
               <Skeleton
@@ -363,17 +370,25 @@ useEffect(() => {
               </Box>
             )}
           </Box>
-            <Box>
-              <Typography
+          </Box>
+          <Typography
                 sx={{
-                  fontSize: { xs: "24px", md: "24px" },
-                  fontWeight: { xs: "500", md: "400" },
-                  color: "#3D2E57",
+                  fontSize: { xs: "20px", md: "20px" },
+                  fontWeight: { xs: "500", md: "700" },
                   mb: 2,
+                  pl:{xs:0,md:3}
                 }}
               >
                 Set Password
               </Typography>
+          <Box sx={{
+          display:'flex',
+          flexDirection:'column',
+          justifyContent:'center',
+          alignItems:'center'
+
+        }}>
+              
 
               <Box sx={Style.rowBoxStyle}>
                 {loading && (
@@ -386,7 +401,7 @@ useEffect(() => {
                 {!loading && (
                   <Box sx={Style.inputStyle}>
                     <FormLabel sx={Style.label}>
-                      New Password
+                      Password
                       <span style={Style.star}>*</span>
                     </FormLabel>
                     <TextField
@@ -457,7 +472,7 @@ useEffect(() => {
                     </p>
                   </Box>
                 )}
-              </Box>
+            </Box>
             </Box>
         </Box>
         <Box
@@ -467,7 +482,9 @@ useEffect(() => {
             display: "flex",
             justifyContent: {xs: "space-between",md:"flex-end"},
             pt: 4,
-            pb:2
+            pb:3,
+            pr:3,
+            pl:{xs:2,md:0}
           }}
         >
           <Button
@@ -482,6 +499,7 @@ useEffect(() => {
               textTransform: "none",
               border: "1px solid #EB5757",
               bgcolor: "#EB5757",
+              width:{xs:'40%',md:'50%'},
               color: "white",
               "&.MuiButtonBase-root:hover": {
                 border: "1px solid #EB5757",
@@ -507,6 +525,7 @@ useEffect(() => {
               color: "white",
               bgcolor: "#27AE60",
               border: "1px solid #27AE60",
+              width:{xs:'40%',md:'50%'},
               "&.MuiButtonBase-root:hover": {
                 border: "1px solid #27AE60",
                 color: "white",
