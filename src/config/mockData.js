@@ -43,7 +43,7 @@ export const drawerData = [
     Routes: "/location",
   },
   { val: "Profile", 
-  // src: require("../assets/logout.png"), 
+  src: require("../assests/profile.png"),
   Routes: "/profile" },
 ];
 

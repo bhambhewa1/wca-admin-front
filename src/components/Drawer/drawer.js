@@ -13,10 +13,11 @@ import ListItemText from "@mui/material/ListItemText";
 import Index from "../../routes/index.js";
 import { drawerData } from "../../config/mockData";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Typography, useMediaQuery } from "@mui/material";
+import { Paper, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
+import { UserContext } from "../../App";
 import { storage as LocalStorage } from "../../config/storage";
-let drawerWidth = 240;
+let drawerWidth = 280;
 
 const PermanentDrawerRight = () => {
   const theme = useTheme();
@@ -25,25 +26,25 @@ const PermanentDrawerRight = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = React.useState(false);
-  // const adminInfo = React.useContext(UserContext);
+  const adminInfo = React.useContext(UserContext);
   const [first, setfirst] = React.useState();
   const [data, setData] = React.useState(drawerData);
 
   let URL = location.pathname;
 
   React.useEffect(() => {
-  //   const trimmedURL = URL.slice(0, 6);
-  //   data.map((item, index) => {
-  //     let trimmedRoute = item.Routes.slice(0, 6);
-  //     trimmedURL === trimmedRoute
-  //       ? (item.isActive = true)
-  //       : (item.isActive = false);
-  //   });
-  //   setData([...data]);
-  // }, [location.pathname]);
-  // React.useEffect(() => {
-  //   setfirst(adminInfo?.adminName);
-  }, []);
+    const trimmedURL = URL.slice(0, 6);
+    data.map((item, index) => {
+      let trimmedRoute = item.Routes.slice(0, 6);
+      trimmedURL === trimmedRoute
+        ? (item.isActive = true)
+        : (item.isActive = false);
+    });
+    setData([...data]);
+  }, [location.pathname]);
+  React.useEffect(() => {
+    setfirst(adminInfo?.adminName);
+  }, [adminInfo]);
   const redirect = (redirect) => {
     if (redirect) {
       navigate(redirect);
@@ -156,7 +157,8 @@ const PermanentDrawerRight = () => {
                   <img
                     alt="logo"
                     className="logoSize"
-                    style={{ width: "200px" }}
+                    src={require('../../assests/logo@2x.png')}
+                    style={{ width: "129px",height:"83px" }}
                   />
                 {/* )} */}
               </Box>
@@ -179,11 +181,17 @@ const PermanentDrawerRight = () => {
               p: "8px",
             }}
           >
+            <Typography sx={{
+              color:"#B2C1F0",
+              opacity: 1,
+              fontSize:'24px',
+              fontWeight:700
+            }}>Dashboard</Typography>
             {data.map((text, index) => (
               <ListItem
                 sx={{
-                  color: text.isActive ? "#0B2354" : "white",
-                  bgcolor: text.isActive ? "white" : "",
+                  color: "white",
+                  bgcolor: text.isActive ? "#2B4C9" : "",
                   borderRadius: "5px",
                   mt: "10px",
                 }}
@@ -204,7 +212,7 @@ const PermanentDrawerRight = () => {
                       src={text.src}
                       style={{
                         width: "100%",
-                        filter: text.isActive ? "invert(100%)" : "",
+                        // filter: text.isActive ? "invert(100%)" : "",
                       }}
                     />
                   </ListItemIcon>
