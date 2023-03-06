@@ -61,6 +61,7 @@ const Style = {
     color: "#000000",
     display: "flex",
     pb: 3,
+    pl:3
   },
   inputStyle: {
     width: {
@@ -76,7 +77,7 @@ const Style = {
     color: "red",
   },
   rowBoxStyle: {
-    width: "100%",
+    width: "95%",
     display: "flex",
     flexDirection: { xs: "column", md: "row" },
     justifyContent: "space-between",
@@ -183,7 +184,6 @@ useEffect(() => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
-        
       }}
     >
       <form name="RegisterForm" onSubmit={formik.handleSubmit}>
@@ -196,6 +196,13 @@ useEffect(() => {
           }}
         >
         <Typography sx={Style.typographyStyle}>Profile Information</Typography>
+        <Box sx={{
+          display:'flex',
+          flexDirection:'column',
+          justifyContent:'center',
+          alignItems:'center'
+
+        }}>
           <Box sx={Style.rowBoxStyle}>
             {loading && (
               <Skeleton
@@ -363,17 +370,25 @@ useEffect(() => {
               </Box>
             )}
           </Box>
-            <Box>
-              <Typography
+          </Box>
+          <Typography
                 sx={{
                   fontSize: { xs: "24px", md: "24px" },
                   fontWeight: { xs: "500", md: "400" },
-                  color: "#3D2E57",
                   mb: 2,
+                  pl:3
                 }}
               >
                 Set Password
               </Typography>
+          <Box sx={{
+          display:'flex',
+          flexDirection:'column',
+          justifyContent:'center',
+          alignItems:'center'
+
+        }}>
+              
 
               <Box sx={Style.rowBoxStyle}>
                 {loading && (
@@ -457,17 +472,18 @@ useEffect(() => {
                     </p>
                   </Box>
                 )}
-              </Box>
+            </Box>
             </Box>
         </Box>
         <Box
           sx={{
-            width: { xs: "100%", md: "35%", lg: "40%" },
+            // width: { xs: "100%", md: "35%", lg: "40%" },
             float: "right",
             display: "flex",
             justifyContent: {xs: "space-between",md:"flex-end"},
             pt: 4,
-            pb:2
+            pb:3,
+            pr:3
           }}
         >
           <Button
