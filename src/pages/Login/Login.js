@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import * as yup from "yup";
-import InputField from "../../components/Input/InputField"
+import InputField from "../../components/Input/InputField";
 import Toastify from "../../components/SnackBar/Toastify";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import "./Login.css";
 import { storage } from "../../config/storage";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   email: yup
@@ -83,7 +83,7 @@ const Login = ({ getLogin }) => {
     <>
       <Box sx={style.outBox}>
         <Box sx={style.mainBox}>
-        <Box sx={{ width: "50%",height:'100vh',objectFit:'cover' }}>
+          <Box sx={{ width: "50%", height: "100vh", objectFit: "cover" }}>
             <img
               alt="logo"
               // style={{ width: "100%",height:'82%' }}
@@ -111,12 +111,12 @@ const Login = ({ getLogin }) => {
               <img
                 alt="logo"
                 // className="logoSize"
-                style={{ width: "40%" }}
+                style={{ width: "130px", height: "82px" }}
                 src={require("../../assests/logo.png")}
               />
               <Typography
                 sx={{
-                  fontSize: { xs: "20px", sm: "20px", md: "24px", lg: "26px" },
+                  fontSize: { xs: "20px", sm: "20px", md: "24px", lg: "35px" },
                   lineHeight: {
                     xs: "29px",
                     sm: "29px",
@@ -124,16 +124,22 @@ const Login = ({ getLogin }) => {
                     lg: "31px",
                   },
                   fontWeight: "500",
-                  color: "#3D2E57",
-                  mt: 3,
-                  mb: 3,
+                  font: "normal normal medium 35px/43px Gilroy",
+                  letterSpacing: "0px",
+                  color: "#F15F23",
+                  mt: 6,
+                  mb: 2,
                 }}
               >
                 Welcome to WCA
               </Typography>
-              <Typography>
-              Sign in to access your WCA Account
-              </Typography>
+
+              <Typography
+              sx={{
+                fontSize: "24px",
+                mb:2
+              }}>
+               Sign in to access your WCA Account</Typography>
 
               <InputField
                 control={control}
@@ -164,25 +170,27 @@ const Login = ({ getLogin }) => {
                 required={"*"}
               />
 
-<Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "flex-end",
-              }}>
-              <Link
-                to="/ForgetPassword"
-                className="fontlink1"
-                style={{
-                  fontWeight: 400,
-                  color: "#3D2E57",
-                  textDecoration: "none",
-                  marginTop: "10px",
-                  marginBottom: "20px",
-                }}>
-                Forgot Password
-              </Link>
-            </Box>
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Link
+                  to="/ForgetPassword"
+                  className="fontlink1"
+                  style={{
+                    fontWeight: 400,
+                    color: "#4969B2",
+                    textDecoration: "none",
+                    marginTop: "20px",
+                    marginBottom: "30px",
+                  }}
+                >
+                  Forgot Password
+                </Link>
+              </Box>
 
               <Button
                 disableRipple
@@ -195,7 +203,6 @@ const Login = ({ getLogin }) => {
                   bgcolor: "#FF8D2A",
                   color: "#FFFFFF",
                   border: "1.5px solid #FF8D2A",
-                  mt: 4,
                   mb: 4,
                   borderRadius: "5px",
                   fontSize: { xs: "16px", md: "18px", lg: "20px" },
@@ -211,7 +218,6 @@ const Login = ({ getLogin }) => {
             </form>
             <Toastify />
           </Box>
-      
         </Box>
       </Box>
     </>
