@@ -13,11 +13,12 @@ import ListItemText from "@mui/material/ListItemText";
 import Index from "../../routes/index.js";
 import { drawerData } from "../../config/mockData";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Collapse, Paper, Typography, useMediaQuery } from "@mui/material";
+import { Collapse, IconButton, Paper, Toolbar, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import { UserContext } from "../../App";
 import { storage as LocalStorage } from "../../config/storage";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import MenuIcon from '@mui/icons-material/Menu';
 
 let drawerWidth = 260;
 
@@ -50,9 +51,16 @@ const PermanentDrawerRight = () => {
   const redirect = (redirect) => {
     if (redirect) {
       navigate(redirect);
-      
+
     } else {
     }
+  };
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
   };
   // const logOutAdmin = () => {
   //   LocalStorage.destroy.authToken();
@@ -66,8 +74,20 @@ const PermanentDrawerRight = () => {
         <CssBaseline />
         <AppBar
           position="fixed"
-          sx={{ bgcolor: "#ffffff", display: "flex", alignItems: "flex-end" }}
+          sx={{ bgcolor: "#ffffff", display: "flex"}}
         >
+          <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: 'none' }),color:'black' }}
+          >
+            <MenuIcon sx={{
+              fontSize:'35px'
+            }} />
+          </IconButton>
           <ListItemButton
             onClick={() => navigate('/profile')}
             sx={{
@@ -117,6 +137,8 @@ const PermanentDrawerRight = () => {
               </Typography>
             </Typography>
           </ListItemButton>
+          </Toolbar>
+
         </AppBar>
 
         <Drawer
@@ -131,13 +153,16 @@ const PermanentDrawerRight = () => {
             ml: "auto",
             mr: "auto",
           }}
-          variant="permanent"
+          variant="persistent"
           anchor="left"
+          open={open}
         >
           <Box
             sx={{
               pt: 5,
               p: 2,
+              display:'flex',
+              justifyContent:'space-between'
             }}
           >
             <Link
@@ -152,20 +177,29 @@ const PermanentDrawerRight = () => {
                   <img
                     alt="logo"
                     className="logoSize"
-                  src={require('../../assests/logo@2x.png')}
-                  style={{ width: "50px" }}
+                    src={require('../../assests/logo@2x.png')}
+                    style={{ width: "50px" }}
                   />
-                )} 
+                )}
                 {!isMobile && (
-                <img
-                  alt="logo"
-                  className="logoSize"
-                  src={require('../../assests/logo@2x.png')}
-                  style={{ width: "129px", height: "75px" }}
-                />
+                  <img
+                    alt="logo"
+                    className="logoSize"
+                    src={require('../../assests/logo@2x.png')}
+                    style={{ width: "129px", height: "75px" }}
+                  />
                 )}
               </Box>
             </Link>
+            <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerClose}
+            edge="start"
+            sx={{ color:"#B2C1F0" }}
+          >
+            <MenuIcon sx={{fontSize:'35px'}}/>
+          </IconButton>
           </Box>
 
           <List
@@ -194,8 +228,8 @@ const PermanentDrawerRight = () => {
               <>
                 {text.val === "Vehicles" &&
                   <List sx={{
-                    "&.MuiList-root":{
-                      p:0
+                    "&.MuiList-root": {
+                      p: 0
                     }
                   }}>
                     <ListItem
@@ -203,6 +237,7 @@ const PermanentDrawerRight = () => {
                         color: "#B2C1F0",
                         bgcolor: text.isActive ? "#2B4C91" : "",
                         borderTop: '0.5px solid #B2C1F0',
+                        borderRadius: text.isActive ? '5px' : '',
                         // mt: "10px",
                       }}
                       key={index}
@@ -248,6 +283,7 @@ const PermanentDrawerRight = () => {
                     sx={{
                       color: "#B2C1F0",
                       bgcolor: text.isActive ? "#2B4C91" : "",
+                      borderRadius: text.isActive ? '5px' : '',
                       // borderBottom:'1px solid gray',
                       borderTop: '1px solid #B2C1F0',
                       // mt: "10px",
@@ -281,28 +317,15 @@ const PermanentDrawerRight = () => {
             ))}
           </List>
         </Drawer>
-
         <Box
           sx={{
-            width: `calc(100% - ${drawerWidth}px)`,
+            width: open?`calc(100% - ${drawerWidth}px)`:"100%",
             pt: "80px",
-            // pb: "100px",
-            // pl: { xs: "8px", lg: "20px" },
-            // pr: { xs: "8px", lg: "20px" },
-            ml: "auto",
+            ml: open?"auto":"",
             bgcolor: "white",
           }}
         >
-          {/* <Box
-            sx={{
-              pt: 2,
-              // pl: { xs: 1, lg: 3 },
-              pr: { xs: 1, lg: 5 },
-              borderRadius: 2,
-            }}
-          > */}
           <Index />
-          {/* </Box> */}
         </Box>
       </Box>
     </Box>
