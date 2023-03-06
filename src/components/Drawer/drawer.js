@@ -15,6 +15,7 @@ import { drawerData } from "../../config/mockData";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Paper, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
+import { UserContext } from "../../App";
 import { storage as LocalStorage } from "../../config/storage";
 let drawerWidth = 280;
 
@@ -23,7 +24,6 @@ const PermanentDrawerRight = () => {
   // const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   // isMobile ? (drawerWidth = 80) : (drawerWidth = 240);
   const navigate = useNavigate();
-  const UserContext = React.createContext();
   const location = useLocation();
   const [open, setOpen] = React.useState(false);
   const adminInfo = React.useContext(UserContext);
@@ -44,7 +44,7 @@ const PermanentDrawerRight = () => {
   }, [location.pathname]);
   React.useEffect(() => {
     setfirst(adminInfo?.adminName);
-  }, []);
+  }, [adminInfo]);
   const redirect = (redirect) => {
     if (redirect) {
       navigate(redirect);

@@ -1,11 +1,12 @@
-import { Customerslist } from "./constURL";
-import { Vechicleslist } from "./constURL";
-import { Appointmentlist } from "./constURL";
-import { truckingCompanieslist } from "./constURL";
-import { Storelist } from "./constURL";
-import { Stafflist } from "./constURL";
-import { Locationlist } from "./constURL";
-import { Profile } from "./constURL";
+import { CUSTOMERLIST } from "./constURL";
+import { VEHICLESLIST } from "./constURL";
+import { APPOINTMENTLIST } from "./constURL";
+import { TRUCKINGCOMPANIESLIST } from "./constURL";
+import { STORELIST } from "./constURL";
+import { STAFFLIST } from "./constURL";
+import { LOCATIONLIST } from "./constURL";
+import { PROFILE } from "./constURL";
+import { LOGIN } from "./constURL";
 
 import TruckingCompaniesList from "../pages/TruckingCompanies/TruckingCompaniesList";
 import  VehicleList  from "../pages/Vehicles/VehicleList";
@@ -15,37 +16,43 @@ import  StoreList  from '../pages/Store/StoreList'
 import  LocationList  from '../pages/Location/LocationList'
 import  ProfilePage from '../pages/Profile/Profile'
 import CustomersList from '../pages/Customers/CustomersList'
+import Login from "../pages/Login/Login";
+
 export const globalRoutes = [
     {
-      path: Customerslist,
+      path: LOGIN,
+      element: Login
+    },
+    {
+      path: CUSTOMERLIST,
       element: CustomersList,
     },
     {
-      path: Vechicleslist,
+      path: VEHICLESLIST,
       element: VehicleList,
     },
     {
-      path: Appointmentlist,
+      path: APPOINTMENTLIST,
       element: AppointmentList,
     }, 
     {
-      path: Stafflist,
+      path: STAFFLIST,
       element: StaffList,
     },
     {
-      path: truckingCompanieslist,
+      path: TRUCKINGCOMPANIESLIST,
       element: TruckingCompaniesList,
     }, 
     {
-      path: Storelist,
+      path: STORELIST,
       element: StoreList,
     }, 
     {
-      path: Locationlist,
+      path: LOCATIONLIST,
       element: LocationList,
     },
     {
-      path: Profile,
+      path: PROFILE,
       element: ProfilePage,
     },
 ]
