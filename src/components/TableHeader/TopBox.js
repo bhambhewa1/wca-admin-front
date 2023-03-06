@@ -12,8 +12,6 @@ import makeStyles from "@mui/styles/makeStyles";
 import React from "react";
 import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
-import StaffList from "../../pages/Staff/StaffList";
-import AppointmentsList from "../../pages/Appointments/AppointmentsList";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -138,8 +136,7 @@ const TopBox = ({
         display: "flex",
         flexDirection: "column",
         // justifyContent: "space-between",
-        pb: "40px",
-        mb: "10px",
+        pb: "20px",
         // bgcolor: "red",
       }}
     >
@@ -149,7 +146,6 @@ const TopBox = ({
           justifyContent: { xs: "space-between" },
           width: "100%",
           pb: 2,
-          //   bgcolor: "yellow",
         }}
       >
         <Typography sx={style.headingText}>{headerText}</Typography>
@@ -255,7 +251,7 @@ const TopBox = ({
                 },
               }}
             >
-              <MenuItem value="">All</MenuItem>
+              <MenuItem value="">Select</MenuItem>
               <MenuItem value={0}>Pending</MenuItem>
               <MenuItem value={1}>Inprogress</MenuItem>
               <MenuItem value={2}>Completed</MenuItem>

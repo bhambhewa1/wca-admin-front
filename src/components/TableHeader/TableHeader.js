@@ -7,8 +7,27 @@ import {
   TableSortLabel,
   Checkbox,
 } from "@mui/material";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { visuallyHidden } from "@mui/utils";
 import { useLocation } from "react-router-dom";
+
+const Icon = () => {
+    return (
+      <span
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          marginLeft: "5px",
+        }}
+      >
+        <KeyboardArrowUpIcon />
+        <KeyboardArrowDownIcon />
+      </span>
+    );
+  };
 
 export const EnhancedTableHead = ({
   totalColumn,
@@ -33,7 +52,7 @@ export const EnhancedTableHead = ({
 
   return (
     <TableHead>
-      <TableRow>
+      <TableRow sx={{bgcolor:"#F6FAFD",border: "1px solid #ECECEC"}}>
         {/* {!checkbox && (
           <TableCell style={Style.tableHeaderCheckBox}>
             <Checkbox
@@ -52,23 +71,15 @@ export const EnhancedTableHead = ({
           <TableCell
             key={headCell.id}
             // align={headCell.numeric ? 'right' : 'left'}
-
-            style={
-              (location.pathname === "/e-giftcards" ||
-                location.pathname === "/giftcards") &&
-              headCell.id === "Title"
-                ? Style.tableHeaderTitle
-                : location.pathname === "/greeting/categories" && headCell.id === "Title"
-                ? Style.tableHeadertitle
-                : Style.tableHeader
-            }
-            padding={headCell.disablePadding ? "none" : "normal"}
+            style={Style.tableHeader}
+            // padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             {headCell.label}
             {headCell.id !== "none" && headCell.id !== "Action" && headCell.id !== "Image" && (
               <TableSortLabel
                 active={orderBy === headCell.id}
+                IconComponent={Icon}
                 direction={orderBy === headCell.id ? order : "asc"}
                 onClick={createSortHandler(
                   headCell.id === "Item" ? "none" : headCell.id
@@ -92,34 +103,11 @@ export const EnhancedTableHead = ({
 
 const Style = {
   tableHeader: {
-    lineHeight: "22px",
-    color: "#333333",
-    borderBottom: "2px solid #FF8D2A",
+    color: "#000000",
     borderRadius: "2px",
-    paddingTop: 0,
-    paddingBottom: 10,
+    letterSpacing: "0px",
     paddingLeft: "16px",
-    fontSize: "18px",
-    fontWeight: 400,
-  },
-  tableHeadertitle: {
-    lineHeight: "22px",
-    color: "#333333",
-    borderBottom: "2px solid #FF8D2A",
-    borderRadius: "2px",
-    paddingTop: 0,
-    fontSize: "18px",
-    fontWeight: 400,
-  },
-  tableHeaderTitle: {
-    lineHeight: "22px",
-    color: "#333333",
-    borderBottom: "2px solid #FF8D2A",
-    borderRadius: "2px",
-    paddingTop: 0,
-    width: "35%",
-    fontSize: "18px",
-    fontWeight: 400,
+    fontSize: "18px"
   },
 
   tableHeaderCheckBox: {
