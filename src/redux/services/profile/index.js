@@ -1,9 +1,10 @@
 import {Api} from '../../../config/request'
 export const requestuserdata = async (data) => {
-    return Api.PostRequest('/admin/profile', data);
+      return Api.PostRequest('/api/profile', data);
   };
   export const requestupdateuser = async (data) => {
-    return Api.PostRequest('/admin/update/profile', data);
+    console.log(data);
+    return Api.PostRequest('/api/update/profile', data);
   };
 const ProfileApi = {
     requestuserdata,

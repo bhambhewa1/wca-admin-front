@@ -272,7 +272,10 @@ const PermanentDrawerRight = () => {
                     </ListItem>
                     <Collapse in={text.isActive} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
-                        <ListItemButton sx={{ pl: 5, color: '#B2C1F0', fontSize: '16px' }}>
+                        <ListItemButton sx={{ pl: 5, color: '#B2C1F0', fontSize: '16px' }} 
+                        onClick={
+                          ()=>{navigate('/vehicles/soldandunsold')}
+                        }>
                           <ListItemText primary="Sold and Unsold vehicles" />
                         </ListItemButton>
                       </List>

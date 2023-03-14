@@ -13,7 +13,6 @@ export const apiRequest = async (
   contentTypeJson = false
 ) => {
   if(data)
-  Object.assign(data,{user_type:1})
   try {
     const res = await axios({
       url: API_URL + url,
@@ -42,17 +41,15 @@ export const apiRequest = async (
 };
 
 
-export const PostRequest = async (url, data,contentTypeJson=false) => {
-  if(data)
-  Object.assign(data,{user_type:1})
+export const PostRequest = async (url, data) => {
   try {
-    const res = await axios({
+  const res = await axios({
       url: API_URL + url,
       method: "POST",
       data,
       // body:JSON.stringify(data),
       headers: {
-        "Content-Type": `${contentTypeJson} === 'application/json': 'multipart/form-data'`,
+        "Content-Type": 'application/json',
         Accept: "application/json",
         Authorization: storage.fetch.authToken(),
       },
@@ -68,6 +65,7 @@ export const PostRequest = async (url, data,contentTypeJson=false) => {
     }
   } catch (err) {
     // toast.error("some error occured");
+
   }
 };
 

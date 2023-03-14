@@ -20,6 +20,7 @@ const VehicleList = () => {
         searchText={"Search vehicle"}
         sortingText={"Customer"}
         value={""}
+        onClick={onclick}
       />
 
       <Table

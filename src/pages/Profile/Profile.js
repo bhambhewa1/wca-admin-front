@@ -27,17 +27,17 @@ const schema = yup.object().shape({
     .required("Please enter your email")
     .email("Please enter valid email"),
   phone: yup.string().required("Please enter your phone number").matches(/^[0-9\s]*$/, "Please enter valid phone number"),
-  dob: yup.string().required("Please enter your Date of birth"),
+  // dob: yup.string().required("Please enter your Date of birth"),
   validate_Password: yup.boolean(),
   password: yup.string().when("validate_Password", {
-    is: true,
+    is: false,
     then: yup
       .string()
       .required("Please enter your password.")
       .min(8, "Password is too short - should be 8 chars minimum."),
   }),
   confirm_password: yup.string().when("validate_Password", {
-    is: true,
+    is: false,
     then: yup
       .string()
       .required("Confirm your password.")
@@ -90,9 +90,9 @@ const Style = {
 
 const ProfilePage = ({ getuserdata, updateUser }) => {
   const [userData, setUserData] = useState({
+    id:"",
     first_name: "",
     last_name: "",
-    dob: "",
     email: "",
     phone: "",
     password: "",
@@ -101,35 +101,34 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
   });
   // const adminInfo = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-useEffect(() => {
-  // adminInfo?.setAdminName({
-  //   n1: userData.first_name,
-  //   n2: userData.last_name,
-  // });
-}, [userData])
+// useEffect(() => {
+//   // adminInfo?.setAdminName({
+//   //   n1: userData.first_name,
+//   //   n2: userData.last_name,
+//   // });
+// }, [userData])
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // setLoading(true);
-    // getuserdata().then((res) => {
-    //   setLoading(false);
-    //   if (res.data.status) {
-    //     const result = res.data.data;
-    //     storage.set.adminfirstname(result.user_details.first_name);
-    //     storage.set.adminlastname(result.user_details.last_name);
-    //     setUserData({
-    //       first_name: result.user_details.first_name,
-    //       last_name: result.user_details.last_name,
-    //       dob: result.user_details.dob,
-    //       email: result.user_details.email,
-    //       phone: result.user_details.phone,
-    //     });
-    //   } else {
-    //     toast.error(res.data.message)
-    //   }
-    // });
+    setLoading(true);
+    getuserdata().then((res) => {
+      setLoading(false);
+      if (res.data.status) {
+        const result = res.data.data;
+        storage.set.adminfirstname(result.firstName);
+        storage.set.adminlastname(result.lastName);
+        setUserData({
+          id:result.id,
+          first_name: result.firstName,
+          last_name: result.lastName,
+          email: result.email,
+          phone: result.phone,
+        });
+      } else {
+        toast.error(res.data.message)
+      }
+    });
   }, []);
-
   const formik = useFormik({
     initialValues: userData,
     validationSchema: schema,
@@ -144,6 +143,7 @@ useEffect(() => {
     //   n1: userData.first_name,
     //   n2: userData.last_name,
     // });
+    console.log(value);
     if (!value.validate_Password) {
       delete value.password;
       delete value.confirm_password;
@@ -151,6 +151,7 @@ useEffect(() => {
     } else {
       delete value.validate_Password;
     }
+    Object.assign(value,{id:userData.id})
     setLoading(true);
     updateUser(value).then((res) => {
       if (res.data.status) {
@@ -158,11 +159,11 @@ useEffect(() => {
         getuserdata().then((res) => {
           setLoading(false);
           if (res.data.status) {
-            const result = res.data.data.user_details;
+            const result = res.data.data;
 
             setUserData(result);
-            storage.set.adminfirstname(res.data.data.user_details.first_name);
-            storage.set.adminlastname(res.data.data.user_details.last_name);
+            storage.set.adminfirstname(res.data.data.firstName);
+            storage.set.adminlastname(res.data.data.lastName);
           } else {
             res?.data?.errors?.map((item) => {
               toast.error(item);
@@ -177,6 +178,7 @@ useEffect(() => {
       }
     });
   };
+  
   return (
     <Box
       sx={{
@@ -371,6 +373,18 @@ useEffect(() => {
             )}
           </Box>
           </Box>
+          <Typography sx={{ mb: 2 ,ml:3}}>
+            <input
+              type="checkbox"
+              name="validate_Password"
+              id="validate_Password"
+              onChange={formik.handleChange}
+              value={formik.values.validate_Password}
+            />
+            Do you want to change the password?
+          </Typography>
+          {formik.values.validate_Password && (
+          <>
           <Typography
                 sx={{
                   fontSize: { xs: "20px", md: "20px" },
@@ -474,6 +488,8 @@ useEffect(() => {
                 )}
             </Box>
             </Box>
+            </>
+          )}
         </Box>
         <Box
           sx={{
@@ -547,7 +563,7 @@ useEffect(() => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getuserdata: () => dispatch(getuserdata()),
+    getuserdata: (data) => dispatch(getuserdata(data)),
     updateUser: (userData) => dispatch(updateUser(userData)),
   };
 };

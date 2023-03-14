@@ -8,7 +8,9 @@ import {
   Checkbox,
 } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { visuallyHidden } from "@mui/utils";
 import { useLocation } from "react-router-dom";
 
@@ -23,8 +25,8 @@ const Icon = () => {
           marginLeft: "5px",
         }}
       >
-        <KeyboardArrowUpIcon />
-        <KeyboardArrowDownIcon />
+        <ArrowDropUpIcon />
+        <ArrowDropDownIcon />
       </span>
     );
   };
@@ -46,9 +48,9 @@ export const EnhancedTableHead = ({
     label: item,
   }));
   const location = useLocation();
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
+  // const createSortHandler = (property) => (event) => {
+  //   onRequestSort(event, property);
+  // };
 
   return (
     <TableHead>
@@ -81,9 +83,9 @@ export const EnhancedTableHead = ({
                 active={orderBy === headCell.id}
                 IconComponent={Icon}
                 direction={orderBy === headCell.id ? order : "asc"}
-                onClick={createSortHandler(
-                  headCell.id === "Item" ? "none" : headCell.id
-                )}
+                // onClick={createSortHandler(
+                //   headCell.id === "Item" ? "none" : headCell.id
+                // )}
               >
                 {orderBy === headCell.id ? (
                   <Box component="span" sx={visuallyHidden}>
