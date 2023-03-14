@@ -7,3 +7,6 @@ export const TRUCKINGCOMPANIESLIST = "/truckingcompanies";
 export const STORELIST = "/store";
 export const LOCATIONLIST = "/location";
 export const PROFILE = "/profile";
+export const VEHICLEDETAIL = '/vehicles/details'
+export const SOLDANDUNSOLDVEHICLES = '/vehicles/soldandunsold'
+export const STAFFADD = '/staff/update'

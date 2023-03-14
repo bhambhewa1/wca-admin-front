@@ -1,8 +1,8 @@
 
 
 // Staging Url
-export const API_URL = "https://orientaloutsourcing.in/gopher/public/api";
+// export const API_URL = "http://wca-backend.orientaloutsourcing.in";
 
 // Live URL
-// export const API_URL = "http://18.142.23.88:8050"
+export const API_URL = "http://localhost:5000"
 

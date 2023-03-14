@@ -1,9 +1,10 @@
 /* eslint-disable no-useless-concat */
 const LS_KEY = {
-  auth_token: "jwt_access_token_Gopher",
+  auth_token: "jwt_access_token",
   admin_first_name:"admin_firstname",
   admin_last_name:"admin_lastname",
-  user:"User"
+  user:"User",
+  user_id:"User_id"
 };
 
 const set = {
@@ -19,6 +20,10 @@ const set = {
   user: (data) => {
     localStorage.setItem(LS_KEY.user, JSON.stringify(data));
   },
+  // userId:(data) => {
+  //   localStorage.setItem(LS_KEY.user_id, data);
+
+  // }
 };
 
 const fetch = {
@@ -62,6 +67,9 @@ const fetch = {
       }
     }
   },
+  // userId: () => {
+  //   return localStorage.getItem(LS_KEY.user_id);
+  // },
 };
 
 const destroy = {

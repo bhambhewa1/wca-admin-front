@@ -6,7 +6,10 @@ import { STORELIST } from "./constURL";
 import { STAFFLIST } from "./constURL";
 import { LOCATIONLIST } from "./constURL";
 import { PROFILE } from "./constURL";
+import { VEHICLEDETAIL } from "./constURL";
 import { LOGIN } from "./constURL";
+import { SOLDANDUNSOLDVEHICLES } from "./constURL";
+import { STAFFADD } from "./constURL";
 
 import TruckingCompaniesList from "../pages/TruckingCompanies/TruckingCompaniesList";
 import  VehicleList  from "../pages/Vehicles/VehicleList";
@@ -17,7 +20,9 @@ import  LocationList  from '../pages/Location/LocationList'
 import  ProfilePage from '../pages/Profile/Profile'
 import CustomersList from '../pages/Customers/CustomersList'
 import Login from "../pages/Login/Login";
-
+import VehicleDetail from "../pages/Vehicles/VehicleDetail";
+import SoldandUnsoldVehicles from "../pages/Vehicles/SoldandUnsoldVehicles";
+import StaffForm from "../pages/Staff/StaffForm"; 
 export const globalRoutes = [
     {
       path: LOGIN,
@@ -54,5 +59,17 @@ export const globalRoutes = [
     {
       path: PROFILE,
       element: ProfilePage,
+    },
+    {
+      path: VEHICLEDETAIL,
+      element: VehicleDetail,
+    },
+    {
+      path: SOLDANDUNSOLDVEHICLES,
+      element: SoldandUnsoldVehicles,
+    },
+    {
+      path: STAFFADD,
+      element: StaffForm,
     },
 ]

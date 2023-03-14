@@ -12,7 +12,7 @@ import Toastify from "../../components/SnackBar/Toastify";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-// import { getLogin } from "../../redux/action/login/index";
+import { getLogin } from "../../redux/action/login/index";
 import { connect } from "react-redux";
 import "./Login.css";
 import { storage } from "../../config/storage";
@@ -68,7 +68,7 @@ const Login = ({ getLogin }) => {
           return toast.error(item);
         });
         // toast.error(res?.data?.errors);
-        // storage.set.userId(res?.data?.user_id);
+        storage.set.userId(res?.data?.data?.id);
         setTimeout(() => {
           if (res?.data?.is_email_verified === 0) {
             navigate("/");
@@ -226,7 +226,7 @@ const Login = ({ getLogin }) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // getLogin: (item) => dispatch(getLogin(item)),
+    getLogin: (item) => dispatch(getLogin(item)),
   };
 }
 export default connect(null, mapDispatchToProps)(Login);

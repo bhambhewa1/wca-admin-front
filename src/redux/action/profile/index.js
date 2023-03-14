@@ -4,7 +4,6 @@ import ProfileApi from "../../services/profile";
 export const getuserdata = (data) => async (dispatch) => {
     try {
       let response = await ProfileApi.requestuserdata(data);
-  
       if (response.status) {
         // dispatch(userdata(response.data));
         return response;
