@@ -30,17 +30,17 @@ const schema = yup.object().shape({
   // dob: yup.string().required("Please enter your Date of birth"),
   validate_Password: yup.boolean(),
   password: yup.string().when("validate_Password", {
-    is: false,
+    is: true,
     then: yup
       .string()
       .required("Please enter your password.")
       .min(8, "Password is too short - should be 8 chars minimum."),
   }),
   confirm_password: yup.string().when("validate_Password", {
-    is: false,
+    is: true,
     then: yup
       .string()
-      .required("Confirm your password.")
+      // .required("Confirm your password.")
       .min(8, "Password is too short - should be 8 chars minimum.")
       .oneOf([yup.ref("password"), null], "Passwords must match"),
   }),
@@ -193,8 +193,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
         <Box
           sx={{
             width: "100%",
-            borderBottom:"1px solid gray",
-            borderTop:"1px solid gray"
+            borderBottom:"3px solid rgba(0, 0, 0, 0.06)",
+            borderTop:"3px solid rgba(0, 0, 0, 0.06)"
           }}
         >
         <Typography sx={Style.typographyStyle}>Profile information</Typography>

@@ -1,0 +1,27 @@
+@media (max-width:600px){
+    .drawerItemLinks{
+text-decoration: none;
+
+display: flex;
+padding: 12px;
+font-size: 14px;
+
+}}
+@media (min-width:1536px){
+    .drawerItemLinks{
+text-decoration: none;
+display: flex;
+padding: 12px;
+font-size: 16px;
+
+}}
+@media (max-width:1536px) {
+    .drawerItemLinks{
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        font-size: 16px;
+        }
+        
+}
