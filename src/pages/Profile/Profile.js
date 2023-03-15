@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
-import { getuserdata, updateUser } from "../../redux/action/profile/index";
+import { getuserdata, updateUser } from "../../redux/action/profile";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
@@ -26,42 +26,24 @@ const schema = yup.object().shape({
     .string()
     .required("Please enter your email")
     .email("Please enter valid email"),
-  phone: yup.string().required("Please enter your phone number").matches(/^[0-9\s]*$/, "Please enter valid phone number"),
-  // dob: yup.string().required("Please enter your Date of birth"),
-  validate_Password: yup.boolean(),
-  password: yup.string().when("validate_Password", {
-    is: true,
-    then: yup
-      .string()
-      .required("Please enter your password.")
-      .min(8, "Password is too short - should be 8 chars minimum."),
-  }),
-  confirm_password: yup.string().when("validate_Password", {
-    is: true,
-    then: yup
-      .string()
-      // .required("Confirm your password.")
-      .min(8, "Password is too short - should be 8 chars minimum.")
-      .oneOf([yup.ref("password"), null], "Passwords must match"),
-  }),
+  phone: yup.string().required("Please enter your phone number").matches(/^[0-9\s]*$/, "Please enter valid phone number")
 });
 const Style = {
   label: {
     fontStyle: "normal",
-    fontWeight: 400,
-    fontSize: "20px",
+    fontWeight: 600,
+    fontSize: "18px",
     color: "#333333",
   },
   typographyStyle: {
     fontSize: "20px",
-    fontWeight: "700",
+    fontWeight: "600",
     lineHeight: { xs: "29px", md: "42px" },
     letterSpacing: "0em",
     textAlign: "center",
-    color: "#000000",
+    color: "#3D2E57",
     display: "flex",
     pb: 3,
-    pl:{xs:0,md:3}
   },
   inputStyle: {
     width: {
@@ -77,8 +59,10 @@ const Style = {
     color: "red",
   },
   rowBoxStyle: {
-    width: "95%",
+    width: "100%",
     display: "flex",
+    fontSize: "18px",
+    fontWeight: "500",
     flexDirection: { xs: "column", md: "row" },
     justifyContent: "space-between",
   },
@@ -97,11 +81,12 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     phone: "",
     password: "",
     confirm_password: "",
-    validate_Password: false,
+    // validate_Password: false,
   });
   // const adminInfo = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-// useEffect(() => {
+  const [validate_Password, setValidate_Password] = useState(false);
+//   useEffect(() => {
 //   // adminInfo?.setAdminName({
 //   //   n1: userData.first_name,
 //   //   n2: userData.last_name,
@@ -129,6 +114,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
       }
     });
   }, []);
+
   const formik = useFormik({
     initialValues: userData,
     validationSchema: schema,
@@ -143,15 +129,17 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     //   n1: userData.first_name,
     //   n2: userData.last_name,
     // });
-    console.log(value);
-    if (!value.validate_Password) {
-      delete value.password;
-      delete value.confirm_password;
-      delete value.validate_Password;
-    } else {
-      delete value.validate_Password;
-    }
-    Object.assign(value,{id:userData.id})
+
+Object.assign(value,{id:userData.id})
+if(value.password===undefined||value.confirm_password===undefined){
+  delete value.password;
+  delete value.confirm_password;
+
+}
+    // if (!validate_Password) {
+    //   delete value.password;
+    //   delete value.confirm_password;
+    // }
     setLoading(true);
     updateUser(value).then((res) => {
       if (res.data.status) {
@@ -161,7 +149,12 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
           if (res.data.status) {
             const result = res.data.data;
 
-            setUserData(result);
+            setUserData({
+              first_name: result.firstName,
+              last_name: result.lastName,
+              email: result.email,
+              phone: result.phone,
+            });
             storage.set.adminfirstname(res.data.data.firstName);
             storage.set.adminlastname(res.data.data.lastName);
           } else {
@@ -178,7 +171,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
       }
     });
   };
-  
+
   return (
     <Box
       sx={{
@@ -202,7 +195,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
           display:'flex',
           flexDirection:'column',
           justifyContent:'center',
-          alignItems:'center'
+          // alignItems:'center'
 
         }}>
           <Box sx={Style.rowBoxStyle}>
@@ -372,37 +365,28 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               </Box>
             )}
           </Box>
-          </Box>
-          <Typography sx={{ mb: 2 ,ml:3}}>
+          {/* <Typography sx={{ mb: 2 }}>
             <input
               type="checkbox"
-              name="validate_Password"
-              id="validate_Password"
-              onChange={formik.handleChange}
-              value={formik.values.validate_Password}
+              // name="validate_Password"
+              // id="validate_Password"
+              onChange={()=>{setValidate_Password(!validate_Password)}}
+              value={validate_Password}
             />
             Do you want to change the password?
-          </Typography>
-          {formik.values.validate_Password && (
-          <>
-          <Typography
+          </Typography> */}
+          {/* {validate_Password && ( */}
+            <Box>
+              <Typography
                 sx={{
                   fontSize: { xs: "20px", md: "20px" },
                   fontWeight: { xs: "500", md: "700" },
+                  color: "#3D2E57",
                   mb: 2,
-                  pl:{xs:0,md:3}
                 }}
               >
                 Set Password
               </Typography>
-          <Box sx={{
-          display:'flex',
-          flexDirection:'column',
-          justifyContent:'center',
-          alignItems:'center'
-
-        }}>
-              
 
               <Box sx={Style.rowBoxStyle}>
                 {loading && (
@@ -415,7 +399,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                 {!loading && (
                   <Box sx={Style.inputStyle}>
                     <FormLabel sx={Style.label}>
-                      Password
+                      New Password
                       <span style={Style.star}>*</span>
                     </FormLabel>
                     <TextField
@@ -441,9 +425,6 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                         border: "none",
                       }}
                     />
-                    <p style={Style.validationStyle}>
-                      {formik.errors.password}
-                    </p>
                   </Box>
                 )}
                 {loading && (
@@ -481,15 +462,14 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                         border: "none",
                       }}
                     />
-                    <p style={Style.validationStyle}>
+                    {/* <p style={Style.validationStyle}>
                       {formik.errors.confirm_password}
-                    </p>
+                    </p> */}
                   </Box>
                 )}
+              </Box>
             </Box>
-            </Box>
-            </>
-          )}
+          {/* )} */}
         </Box>
         <Box
           sx={{
@@ -498,9 +478,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
             display: "flex",
             justifyContent: {xs: "space-between",md:"flex-end"},
             pt: 4,
-            pb:3,
-            pr:3,
-            pl:{xs:2,md:0}
+            pb:2
           }}
         >
           <Button
@@ -515,7 +493,6 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               textTransform: "none",
               border: "1px solid #EB5757",
               bgcolor: "#EB5757",
-              width:{xs:'40%',md:'50%'},
               color: "white",
               "&.MuiButtonBase-root:hover": {
                 border: "1px solid #EB5757",
@@ -541,7 +518,6 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               color: "white",
               bgcolor: "#27AE60",
               border: "1px solid #27AE60",
-              width:{xs:'40%',md:'50%'},
               "&.MuiButtonBase-root:hover": {
                 border: "1px solid #27AE60",
                 color: "white",
@@ -555,12 +531,12 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
             Save
           </Button>
         </Box>
+        </Box>
       </form>
       <Toastify/>
     </Box>
-  );
-};
-
+  )
+  }
 const mapDispatchToProps = (dispatch) => {
   return {
     getuserdata: (data) => dispatch(getuserdata(data)),

@@ -97,13 +97,13 @@ useEffect(() => {
                    marginRight: "40px",
                    cursor: "pointer",
                 }}
-                onClick={()=>{navigate('/staff/update',{state:row.id})}}
+                onClick={()=>{navigate('/staff/update',{state:row.staff_id})}}
                   src={require('../../assests/edit.png')}
                 />
                 <DeleteIcon color='error' sx={{
                   fontSize:'24px',
                 }}
-                onClick={()=>{handleDelete(row.id)}}
+                onClick={()=>{handleDelete(row.staff_id)}}
                 />
               </TableCell>
             </TableRow>
