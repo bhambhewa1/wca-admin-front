@@ -13,8 +13,8 @@ import { storage } from "../../config/storage";
 // import { UserContext } from "../home/main";
 
 const schema = yup.object().shape({
-  first_name: yup.string().required("Please enter your first name"),
-  last_name: yup.string().required("Please enter your last name"),
+  firstName: yup.string().required("Please enter your first name"),
+  lastName: yup.string().required("Please enter your last name"),
   email: yup.string().required("Please enter your email").email("Please enter valid email"),
   phone: yup
     .string()
@@ -69,8 +69,8 @@ const Style = {
 const ProfilePage = ({ getuserdata, updateUser }) => {
   const [userData, setUserData] = useState({
     id: "",
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     password: "",
@@ -98,8 +98,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
         storage.set.adminlastname(result.lastName);
         setUserData({
           id: result.id,
-          first_name: result.firstName,
-          last_name: result.lastName,
+          firstName: result.firstName,
+          lastName: result.lastName,
           email: result.email,
           phone: result.phone,
         });
@@ -123,10 +123,10 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     //   n1: userData.first_name,
     //   n2: userData.last_name,
     // });
-
+console.log(value.password);
     Object.assign(value, { id: userData.id });
     if (value.password === undefined || value.confirm_password === undefined) {
-      delete value.password;
+       value.password=null;
       delete value.confirm_password;
     }
     // if (!validate_Password) {
@@ -135,32 +135,33 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     // }
     setLoading(true);
     updateUser(value).then((res) => {
+      setLoading(false);
       if (res.data.status) {
         toast.success("Updated Successfully!!");
         getuserdata().then((res) => {
           setLoading(false);
           if (res.data.status) {
             const result = res.data.data;
-
             setUserData({
-              first_name: result.firstName,
-              last_name: result.lastName,
+              firstName: result.firstName,
+              lastName: result.lastName,
               email: result.email,
               phone: result.phone,
             });
             storage.set.adminfirstname(res.data.data.firstName);
             storage.set.adminlastname(res.data.data.lastName);
           } else {
-            res?.data?.errors?.map((item) => {
+          setLoading(false);
+          res?.data?.errors?.map((item) => {
               toast.error(item);
             });
           }
         });
       } else {
+
         res?.data?.errors?.map((item) => {
           // toast.error(item);
         });
-        setLoading(false);
       }
     });
   };
@@ -201,8 +202,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                   </FormLabel>
 
                   <TextField
-                    name="first_name"
-                    value={formik.values.first_name}
+                    name="firstName"
+                    value={formik.values.firstName}
                     onChange={formik.handleChange}
                     type="text"
                     variant="filled"
@@ -222,8 +223,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                     }}
                     autoComplete="false"
                   />
-                  {formik.errors.first_name && formik.touched.first_name ? (
-                    <p style={Style.validationStyle}>{formik.errors.first_name}</p>
+                  {formik.errors.firstName && formik.touched.firstName ? (
+                    <p style={Style.validationStyle}>{formik.errors.firstName}</p>
                   ) : null}
                 </Box>
               )}
@@ -236,9 +237,9 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                   </FormLabel>
 
                   <TextField
-                    name="last_name"
-                    value={formik.values.last_name}
-                    id="last_name"
+                    name="lastName"
+                    value={formik.values.lastName}
+                    id="lastName"
                     onChange={formik.handleChange}
                     type="text"
                     variant="filled"
@@ -258,8 +259,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                       mt: "10px",
                     }}
                   />
-                  {formik.errors.last_name && formik.touched.last_name ? (
-                    <p style={Style.validationStyle}>{formik.errors.last_name}</p>
+                  {formik.errors.lastName && formik.touched.lastName ? (
+                    <p style={Style.validationStyle}>{formik.errors.lastName}</p>
                   ) : null}
                 </Box>
               )}

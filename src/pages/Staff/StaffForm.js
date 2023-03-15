@@ -100,11 +100,11 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
     phone: "",
     password: "",
     confirm_password: "",
-    // validate_Password: true,
   });
-  // const adminInfo = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-// useEffect(() => {
+  const [password_error, setPassword_error] = useState("");
+  const [cpassword_error, setcPassword_error] = useState("");
+  // useEffect(() => {
 //   // adminInfo?.setAdminName({
 //   //   n1: userData.first_name,
 //   //   n2: userData.last_name,
@@ -165,11 +165,24 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
     //   delete value.validate_Password;
     // }
     Object.assign(value,{staff_id:userData.staff_id})
-if(value.password===undefined||value.confirm_password===undefined){
-  delete value.password;
-  delete value.confirm_password;
+    console.log(value);
+// if(value.password===undefined||value.confirm_password===undefined){
+//   delete value.password;
+//   delete value.confirm_password;
+// }
+// else{/
+  if(value.password<8){
+    setPassword_error("Password Must be of 8 characters!!")
+  }else if(value.confirm_password<8){
+    setPassword_error("Password Must be of 8 characters!!")
+  }else{
+    setPassword_error("")
+  }
 
-}
+  if(value.password===value.confirm_password){
+    setcPassword_error("Confirm_Password does not Match!!")
+  }
+// }
     if(location.id)
     // Object.assign(value,{staff_id:userData.staff_id})
     setLoading(true);
@@ -428,20 +441,20 @@ if(value.password===undefined||value.confirm_password===undefined){
             )}
           </Box>
           </Box>
-         {/* {location.state&&<> */}
-          {/* // <Typography sx={{ mb: 2 ,ml:3}}>
-          //   <input
-          //     type="checkbox"
-          //     name="validate_Password"
-          //     id="validate_Password"
-          //     onChange={formik.handleChange}
-          //     value={formik.values.validate_Password}
-          //   />
-          //   Do you want to change the password?
-          // </Typography>
-          // } */}
-          {/* // {formik.values.validate_Password && (
-          // <> */}
+         {location.state&&
+          <Typography sx={{ mb: 2 ,ml:3}}>
+            <input
+              type="checkbox"
+              name="validate_Password"
+              id="validate_Password"
+              onChange={formik.handleChange}
+              value={formik.values.validate_Password}
+            />
+            Do you want to change the password?
+          </Typography>
+          }
+           {formik.values.validate_Password && (
+           <>
           <Typography
                 sx={{
                   fontSize: { xs: "20px", md: "20px" },
@@ -507,7 +520,7 @@ if(value.password===undefined||value.confirm_password===undefined){
                         border: "none",
                       }}
                     />
-                   {formik.errors.password && formik.touched.password ? (
+                   {password_error ? (
                   <p style={Style.validationStyle}>{formik.errors.password}</p>
                 ) : null}
                   </Box>
@@ -561,8 +574,8 @@ if(value.password===undefined||value.confirm_password===undefined){
                 )}
             </Box>
             </Box>
-            {/* </> */}
-          {/* }  */}
+            </>
+          )}  
         </Box>
         <Box
           sx={{
