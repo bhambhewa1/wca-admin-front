@@ -17,8 +17,8 @@ const Icon = () => {
         alignItems: "center",
         marginLeft: "5px",
       }}>
-      <ArrowDropUpIcon />
-      <ArrowDropDownIcon />
+      <ArrowDropUpIcon sx={{ fontSize: "16px", marginTop: "-2px", marginBottom: "-6px" }} />
+      <ArrowDropDownIcon sx={{ fontSize: "16px", marginTop: "-3px" }} />
     </span>
   );
 };
