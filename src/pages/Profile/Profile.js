@@ -188,6 +188,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               flexDirection: "column",
               justifyContent: "center",
               pl: 3,
+              pr: 3,
               // alignItems:'center'
             }}>
             <Box sx={Style.rowBoxStyle}>
@@ -434,16 +435,17 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               justifyContent: { xs: "space-between", md: "flex-end" },
               pt: 4,
               pb: 2,
+              pr: 3,
             }}>
             <Button
               disableRipple
               sx={{
                 mr: { md: 3 },
-                pl: "25px",
-                pr: "25px",
+                pl: "35px",
+                pr: "35px",
                 pt: "10px",
                 pb: "10px",
-                fontSize: "18px",
+                fontSize: "16px",
                 lineHeight: "21px",
                 fontWeight: 400,
                 borderRadius: "5px",
@@ -465,11 +467,11 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
             <Button
               disableRipple
               sx={{
-                pl: "25px",
-                pr: "25px",
+                pl: "35px",
+                pr: "35px",
                 pt: "10px",
                 pb: "10px",
-                fontSize: "18px",
+                fontSize: "16px",
                 lineHeight: "21px",
                 fontWeight: 400,
                 borderRadius: "5px",
