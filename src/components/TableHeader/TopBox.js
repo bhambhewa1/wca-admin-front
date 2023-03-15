@@ -116,7 +116,7 @@ const TopBox = ({
     setTabValue(newValue);
   };
   const handleSearch = (e) => {
-    console.log(e.target.event);
+    console.log("event",e.target.event);
     setSearch_val(e.target.value);
     onSubmit(e.target.value);
   };

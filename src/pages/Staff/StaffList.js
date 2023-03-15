@@ -28,18 +28,22 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     sort: "",
     search: "",
   };
+  
   useEffect(() => {
     window.scrollTo(0, 0);
     getList();
-  }, [search_val]);
+  }, []);
 
   const getList = () => {
-    console.log("ji");
+    console.log(data);
     getStaffList(data).then((res) => {
-      if (res.data.status) {
-        console.log(res?.data?.staff_list);
+      if (res.data) {
         setRows(res?.data?.staff_list);
         setPages(res?.data?.pages)
+      }else{
+        setRows(res?.data?.staff_list);
+        setPages(res?.data?.pages)
+
       }
     });
   };
@@ -64,7 +68,6 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       data.search = search_val
     }
     getList();
-    setSelected([]);
   };
   const handlePageChange = (event, value) => {
     setLoading(true);
@@ -81,10 +84,8 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       data.sortColumn = orderBy
     }
     if (search_val) {
-      let searchVal = { search_val: search_val };
-      Object.assign(data, searchVal);
+      data.search = search_val
     }
-    setSelected([]);
     getList();
   };
   const handleDelete = (id) => {
@@ -96,13 +97,14 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     });
   };
 
-  const onSubmit = () => {
-    if ((search_val !== "" && search_val.trim().length !== 0) || perv_search_val !== "") {
-      setPerv_Search_val(search_val);
+  const onSubmit = (e) => {
+    console.log(e)
+    if ((e !== "" && e.trim().length !== 0) || perv_search_val !== "") {
+      setPerv_Search_val(e);
       setLoading(true);
       setStart(0);
       setPage(1);
-      data.search = search_val
+      data.search = e
       // if (order && orderBy) {
       //   let sort_column = { sort_column: orderBy };
       //   let sort = { sort_by: order };
@@ -152,8 +154,8 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         <TableBody>
           {rows?.map((row) => (
             <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell sx={{width:"120px"}} >{row.firstName}</TableCell>
-              <TableCell sx={{width:"120px"}}>{row.lastName}</TableCell>
+              <TableCell sx={{width:"130px"}} >{row.firstName}</TableCell>
+              <TableCell sx={{width:"130px"}}>{row.lastName}</TableCell>
               <TableCell sx={{width:"120px"}}>{row.type}</TableCell>
               <TableCell sx={{width:"120px"}}>{row.phone}</TableCell>
               <TableCell sx={{width:"120px"}}>{row.email}</TableCell>
