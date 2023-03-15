@@ -21,6 +21,7 @@ import { useLocation } from "react-router-dom";
 // import { UserContext } from "../home/main";
 
 const schema = yup.object().shape({
+  id:yup.string(),
   firstName: yup.string().required("Please enter your first name"),
   lastName: yup.string().required("Please enter your last name"),
   email: yup
@@ -28,7 +29,7 @@ const schema = yup.object().shape({
     .required("Please enter your email")
     .email("Please enter valid email"),
   phone: yup.string().required("Please enter your phone number").matches(/^[0-9\s]*$/, "Please enter valid phone number"),
-  validate_Password: yup.boolean(),
+  // validate_Password: yup.boolean(),
   password: yup.string().when("validate_Password", {
     is: true,
     then: yup
@@ -38,7 +39,8 @@ const schema = yup.object().shape({
   }),
   confirm_password: yup.string().when("validate_Password", {
     is: true,
-    then: yup
+    then: 
+    yup
       .string()
       .required("Confirm your password.")
       .min(8, "Password is too short - should be 8 chars minimum.")
@@ -91,14 +93,14 @@ const Style = {
 const StaffForm = ({ getstaffdata, updateStaff }) => {
   const location = useLocation()
   const [userData, setUserData] = useState({
-    id:"",
+    staff_id:"",
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
     password: "",
     confirm_password: "",
-    validate_Password: true,
+    // validate_Password: true,
   });
   // const adminInfo = useContext(UserContext);
   const [loading, setLoading] = useState(false);
@@ -111,16 +113,19 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    console.log(location.state);
     if(location.state)
     {
-      userData.validate_Password = false
+      // userData.validate_Password = false
       setLoading(true);
       getStaff()
+  }else{
+    // userData.validate_Password = true
   }
   }, []);
 
   const getStaff = ()=>{
-    let data = {id:location.state}
+    let data = {staff_id:location.state}
     getstaffdata(data).then((res) => {
       setLoading(false);
       if (res.data.status) {
@@ -128,7 +133,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
         storage.set.adminfirstname(result.firstName);
         storage.set.adminlastname(result.lastName);
         setUserData({
-          id:result.id,
+          staff_id:result.staff_id,
           firstName: result.firstName,
           lastName: result.lastName,
           email: result.email,
@@ -154,15 +159,21 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
     //   n1: userData.first_name,
     //   n2: userData.last_name,
     // });
-    if (!value.validate_Password) {
-      delete value.password;
-      delete value.confirm_password;
-      delete value.validate_Password;
-    } else {
-      delete value.validate_Password;
-    }
+    // if (!value.validate_Password) {
+    //   delete value.password;
+    //   delete value.confirm_password;
+    //   delete value.validate_Password;
+    // } else {
+    //   delete value.validate_Password;
+    // }
+    Object.assign(value,{staff_id:userData.staff_id})
+if(value.password===undefined||value.confirm_password===undefined){
+  delete value.password;
+  delete value.confirm_password;
+
+}
     if(location.id)
-    Object.assign(value,{id:userData.id})
+    // Object.assign(value,{staff_id:userData.staff_id})
     setLoading(true);
     console.log(value);
     updateStaff(value).then((res) => {
@@ -173,7 +184,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
       }
     });
   };
-  console.log(formik.errors.firstName);
+  console.log(formik.errors);
   return (
     <Box
       sx={{
@@ -419,20 +430,20 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
             )}
           </Box>
           </Box>
-         {location.state&&
-          <Typography sx={{ mb: 2 ,ml:3}}>
-            <input
-              type="checkbox"
-              name="validate_Password"
-              id="validate_Password"
-              onChange={formik.handleChange}
-              value={formik.values.validate_Password}
-            />
-            Do you want to change the password?
-          </Typography>
-          }
-          {formik.values.validate_Password && (
-          <>
+         {/* {location.state&&<> */}
+          {/* // <Typography sx={{ mb: 2 ,ml:3}}>
+          //   <input
+          //     type="checkbox"
+          //     name="validate_Password"
+          //     id="validate_Password"
+          //     onChange={formik.handleChange}
+          //     value={formik.values.validate_Password}
+          //   />
+          //   Do you want to change the password?
+          // </Typography>
+          // } */}
+          {/* // {formik.values.validate_Password && (
+          // <> */}
           <Typography
                 sx={{
                   fontSize: { xs: "20px", md: "20px" },
@@ -498,7 +509,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                         border: "none",
                       }}
                     />
-                    {formik.errors.password && formik.touched.password ? (
+                   {formik.errors.password && formik.touched.password ? (
                   <p style={Style.validationStyle}>{formik.errors.password}</p>
                 ) : null}
                   </Box>
@@ -552,8 +563,8 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                 )}
             </Box>
             </Box>
-            </>
-          )}
+            {/* </> */}
+          {/* }  */}
         </Box>
         <Box
           sx={{

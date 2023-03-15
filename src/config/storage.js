@@ -41,8 +41,7 @@ const fetch = {
     const data = localStorage.getItem(LS_KEY.admin_first_name);
     if (data) {
       try {
-        const decoded = data;
-        return decoded;
+        return data;
       } catch (err) {
       }
     }

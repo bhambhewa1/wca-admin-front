@@ -16,7 +16,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Collapse, IconButton, Paper, Toolbar, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import { UserContext } from "../../App";
-import { storage as LocalStorage } from "../../config/storage";
+import { storage as LocalStorage, storage } from "../../config/storage";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./drawer.css";
@@ -30,8 +30,8 @@ const PermanentDrawerRight = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
-  const adminInfo = React.useContext(UserContext);
-  const [first, setfirst] = React.useState();
+  // const adminInfo = React.useContext(UserContext);
+  // const [first, setfirst] = React.useState();
   const [data, setData] = React.useState(drawerData);
 
   let URL = location.pathname;
@@ -45,8 +45,8 @@ const PermanentDrawerRight = () => {
     setData([...data]);
   }, [location.pathname]);
   React.useEffect(() => {
-    setfirst(adminInfo?.adminName);
-  }, [adminInfo]);
+    // setfirst(storage.fetch.adminfirstname);
+  }, []);
   const redirect = (redirect) => {
     if (redirect) {
       navigate(redirect);
@@ -96,6 +96,7 @@ const PermanentDrawerRight = () => {
                 display: "flex",
                 justifyContent: "flex-end",
               }}>
+
               <Link to={"/profile"} style={{ display: "flex", textDecoration: "none" }}>
                 <Box
                   sx={{
@@ -120,7 +121,7 @@ const PermanentDrawerRight = () => {
                 </Box>
                 <Typography component={"div"} sx={{ ml: "10px", height: "40px" }}>
                   <Typography component={"div"} sx={{ color: "#3D2E57", lineHeight: "20px", fontSize: "18px" }}>
-                    {first?.n1} {first?.n2}
+                    {storage?.fetch.adminfirstname()} {storage?.fetch.adminlastname()}
                   </Typography>
                   <Typography component={"div"} sx={{ color: "#A8A8A8", fontSize: "16px", lineHeight: "15px" }}>
                     {"Admin"}

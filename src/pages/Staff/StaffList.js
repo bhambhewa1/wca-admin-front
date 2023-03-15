@@ -83,7 +83,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
               <TableCell>{row.createdOn}</TableCell>
               <TableCell>
                 <img
-                  alt="edit"
+                  alt="edit_png"
                   style={{
                     width: "19px",
                     height: "19px",
@@ -91,7 +91,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    navigate("/staff/update", { state: row.id });
+                    navigate("/staff/update", { state: row.staff_id });
                   }}
                   src={require("../../assests/edit.png")}
                 />
@@ -101,7 +101,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
                     fontSize: "24px",
                   }}
                   onClick={() => {
-                    handleDelete(row.id);
+                    handleDelete(row.staff_id);
                   }}
                 />
               </TableCell>
