@@ -6,22 +6,8 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { visuallyHidden } from "@mui/utils";
 import { useLocation } from "react-router-dom";
+import { fontFamily } from "@mui/system";
 
-const Icon = () => {
-  return (
-    <span
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        marginLeft: "5px",
-      }}>
-      <ArrowDropUpIcon sx={{ fontSize: "16px", marginTop: "-2px", marginBottom: "-6px" }} />
-      <ArrowDropDownIcon sx={{ fontSize: "16px", marginTop: "-3px" }} />
-    </span>
-  );
-};
 
 export const EnhancedTableHead = ({
   totalColumn,
@@ -31,6 +17,7 @@ export const EnhancedTableHead = ({
   onRequestSort,
   rowCount,
 }) => {
+  const [indexOfArrow, setIndexOfArrow] = React.useState()
   const headCells = totalColumn.map((item, index) => ({
     id: item === "" ? "none" : item,
     numeric: false,
@@ -38,10 +25,27 @@ export const EnhancedTableHead = ({
     label: item,
   }));
   const location = useLocation();
-  const createSortHandler = (property) => (event) => {
+  const createSortHandler = (property,index) => (event) => {
     onRequestSort(event, property);
+    setIndexOfArrow(index)
   };
 
+  const Icon = ({font}) => {
+    return (
+      <span
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          marginLeft: "5px",
+        }}>
+        <ArrowDropUpIcon sx={{ fontSize:font, marginTop: "-2px", marginBottom: "-6px" }} />
+        <ArrowDropDownIcon sx={{ fontSize:order==="desc"?"20px": "16px", marginTop: "-3px" }} />
+      </span>
+    );
+    // fontSize:order==="asc"?"20px":"16px",
+  };
   return (
     <TableHead>
       <TableRow sx={{ bgcolor: "#F6FAFD", border: "1px solid #ECECEC" }}>
@@ -59,7 +63,7 @@ export const EnhancedTableHead = ({
             />
           </TableCell>
         )} */}
-        {headCells.map((headCell) => (
+        {headCells.map((headCell,index) => (
           <TableCell
             key={headCell.id}
             // align={headCell.numeric ? 'right' : 'left'}
@@ -73,7 +77,7 @@ export const EnhancedTableHead = ({
                 IconComponent={Icon}
                 direction={orderBy === headCell.id ? order : "asc"}
                 onClick={createSortHandler(
-                  headCell.id === "Item" ? "none" : headCell.id
+                  headCell.id === "Item" ? "none" : headCell.id,index
                 )}
               >
               {/* //   {orderBy === headCell.id ? (
