@@ -81,7 +81,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
   });
   const adminInfo = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  // const [validate_Password, setValidate_Password] = useState(false);
+  const [validate_Password, setValidate_Password] = useState(false);
   useEffect(() => {
     adminInfo?.setAdminName({
       n1: userData.firstName,
@@ -125,10 +125,10 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     //   n1: userData.first_name,
     //   n2: userData.last_name,
     // });
-
+    console.log(value.password);
     Object.assign(value, { id: userData.id });
     if (value.password === undefined || value.confirm_password === undefined) {
-      delete value.password;
+      value.password = null;
       delete value.confirm_password;
     }
     // if (!validate_Password) {
@@ -137,13 +137,13 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     // }
     setLoading(true);
     updateUser(value).then((res) => {
+      setLoading(false);
       if (res.data.status) {
         toast.success("Updated Successfully!!");
         getuserdata().then((res) => {
           setLoading(false);
           if (res.data.status) {
             const result = res.data.data;
-
             setUserData({
               firstName: result.firstName,
               lastName: result.lastName,
@@ -153,6 +153,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
             storage.set.adminfirstname(res.data.data.firstName);
             storage.set.adminlastname(res.data.data.lastName);
           } else {
+            setLoading(false);
             res?.data?.errors?.map((item) => {
               toast.error(item);
             });
@@ -162,7 +163,6 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
         res?.data?.errors?.map((item) => {
           // toast.error(item);
         });
-        setLoading(false);
       }
     });
   };
@@ -337,102 +337,104 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                 </Box>
               )}
             </Box>
-            {/* <Typography sx={{ mb: 2 }}>
-            <input
-              type="checkbox"
-              // name="validate_Password"
-              // id="validate_Password"
-              onChange={()=>{setValidate_Password(!validate_Password)}}
-              value={validate_Password}
-            />
-            Do you want to change the password?
-          </Typography> */}
-            {/* {validate_Password && ( */}
-            <Box>
-              <Typography
-                sx={{
-                  fontSize: { xs: "20px", md: "20px" },
-                  fontWeight: { xs: "500", md: "700" },
-                  color: "#3D2E57",
-                  mb: 2,
-                }}>
-                Set Password
-              </Typography>
+            <Typography sx={{ mb: 2 }}>
+              <input
+                type="checkbox"
+                // name="validate_Password"
+                // id="validate_Password"
+                onChange={() => {
+                  setValidate_Password(!validate_Password);
+                }}
+                value={validate_Password}
+              />
+              Do you want to change the password?
+            </Typography>
+            {validate_Password && (
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "20px", md: "20px" },
+                    fontWeight: { xs: "500", md: "700" },
+                    color: "#3D2E57",
+                    mb: 2,
+                  }}>
+                  Set Password
+                </Typography>
 
-              <Box sx={Style.rowBoxStyle}>
-                {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
-                {!loading && (
-                  <Box sx={Style.inputStyle}>
-                    <FormLabel sx={Style.label}>
-                      New Password
-                      <span style={Style.star}>*</span>
-                    </FormLabel>
-                    <TextField
-                      name="password"
-                      value={formik.values.password}
-                      id="password"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      type="password"
-                      variant="filled"
-                      InputProps={{ disableUnderline: true, pt: "10px" }}
-                      inputProps={{
-                        style: {
-                          paddingTop: "16px",
-                          paddingBottom: "15px",
-                          fontSize: "14px",
-                        },
-                      }}
-                      autoComplete="off"
-                      color="primary"
-                      placeholder="Enter Password here"
-                      sx={{
-                        width: "100%",
-                        border: "none",
-                        mt: "10px",
-                      }}
-                    />
-                  </Box>
-                )}
-                {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
-                {!loading && (
-                  <Box sx={Style.inputStyle}>
-                    <FormLabel sx={Style.label}>
-                      Confirm Password
-                      <span style={Style.star}>*</span>
-                    </FormLabel>
-                    <TextField
-                      name="confirm_password"
-                      value={formik.values.confirm_password}
-                      id="confirm_password"
-                      onChange={formik.handleChange}
-                      type="password"
-                      variant="filled"
-                      autoComplete="false"
-                      InputProps={{ disableUnderline: true, pt: "10px" }}
-                      inputProps={{
-                        style: {
-                          paddingTop: "16px",
-                          paddingBottom: "15px",
-                          fontSize: "14px",
-                        },
-                      }}
-                      color="primary"
-                      placeholder="Enter confirm password here"
-                      sx={{
-                        width: "100%",
-                        border: "none",
-                        mt: "10px",
-                      }}
-                    />
-                    {/* <p style={Style.validationStyle}>
+                <Box sx={Style.rowBoxStyle}>
+                  {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
+                  {!loading && (
+                    <Box sx={Style.inputStyle}>
+                      <FormLabel sx={Style.label}>
+                        New Password
+                        <span style={Style.star}>*</span>
+                      </FormLabel>
+                      <TextField
+                        name="password"
+                        value={formik.values.password}
+                        id="password"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        type="password"
+                        variant="filled"
+                        InputProps={{ disableUnderline: true, pt: "10px" }}
+                        inputProps={{
+                          style: {
+                            paddingTop: "16px",
+                            paddingBottom: "15px",
+                            fontSize: "14px",
+                          },
+                        }}
+                        autoComplete="off"
+                        color="primary"
+                        placeholder="Enter Password here"
+                        sx={{
+                          width: "100%",
+                          border: "none",
+                          mt: "10px",
+                        }}
+                      />
+                    </Box>
+                  )}
+                  {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
+                  {!loading && (
+                    <Box sx={Style.inputStyle}>
+                      <FormLabel sx={Style.label}>
+                        Confirm Password
+                        <span style={Style.star}>*</span>
+                      </FormLabel>
+                      <TextField
+                        name="confirm_password"
+                        value={formik.values.confirm_password}
+                        id="confirm_password"
+                        onChange={formik.handleChange}
+                        type="password"
+                        variant="filled"
+                        autoComplete="false"
+                        InputProps={{ disableUnderline: true, pt: "10px" }}
+                        inputProps={{
+                          style: {
+                            paddingTop: "16px",
+                            paddingBottom: "15px",
+                            fontSize: "14px",
+                          },
+                        }}
+                        color="primary"
+                        placeholder="Enter confirm password here"
+                        sx={{
+                          width: "100%",
+                          border: "none",
+                          mt: "10px",
+                        }}
+                      />
+                      {/* <p style={Style.validationStyle}>
                       {formik.errors.confirm_password}
                     </p> */}
-                  </Box>
-                )}
+                    </Box>
+                  )}
+                </Box>
               </Box>
-            </Box>
-            {/* )} */}
+            )}
           </Box>
           <Box
             sx={{

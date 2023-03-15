@@ -23,16 +23,7 @@ const Icon = () => {
   );
 };
 
-export const EnhancedTableHead = ({
-  totalColumn,
-  numSelected,
-  order,
-  orderBy,
-  onSelectAllClick,
-  onRequestSort,
-  rowCount,
-  //   checkbox,
-}) => {
+export const EnhancedTableHead = ({ totalColumn, numSelected, order, orderBy, onRequestSort, rowCount }) => {
   const headCells = totalColumn.map((item, index) => ({
     id: item === "" ? "none" : item,
     numeric: false,
@@ -40,9 +31,9 @@ export const EnhancedTableHead = ({
     label: item,
   }));
   const location = useLocation();
-  // const createSortHandler = (property) => (event) => {
-  //   onRequestSort(event, property);
-  // };
+  const createSortHandler = (property) => (event) => {
+    onRequestSort(event, property);
+  };
 
   return (
     <TableHead>
@@ -77,20 +68,17 @@ export const EnhancedTableHead = ({
             // padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}>
             {headCell.label}
-            {headCell.id !== "none" && headCell.id !== "Action" && headCell.id !== "Image" && (
+            {headCell.id !== "Type" && headCell.id !== "Action" && headCell.id !== "Contact No" && (
               <TableSortLabel
                 active={orderBy === headCell.id}
                 IconComponent={Icon}
                 direction={orderBy === headCell.id ? order : "asc"}
-                // onClick={createSortHandler(
-                //   headCell.id === "Item" ? "none" : headCell.id
-                // )}
-              >
-                {orderBy === headCell.id ? (
-                  <Box component="span" sx={visuallyHidden}>
-                    {order === "desc" ? "sorted descending" : "sorted ascending"}
-                  </Box>
-                ) : null}
+                onClick={createSortHandler(headCell.id === "Item" ? "none" : headCell.id)}>
+                {/* //   {orderBy === headCell.id ? (
+              //     <Box component="span" sx={visuallyHidden}>
+              //       {order === "desc" ? "sorted descending" : "sorted ascending"}
+              //     </Box>
+              //   ) : null} */}
               </TableSortLabel>
             )}
           </TableCell>
@@ -107,6 +95,7 @@ const Style = {
     letterSpacing: "0px",
     paddingLeft: "16px",
     fontSize: "14px",
+    fontWeight: "800",
   },
 
   tableHeaderCheckBox: {

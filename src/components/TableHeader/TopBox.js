@@ -116,15 +116,21 @@ const TopBox = ({
     setTabValue(newValue);
   };
   const handleSearch = (e) => {
+    console.log(e.target.event);
     setSearch_val(e.target.value);
+    onSubmit(e.target.value);
   };
-  const handleEnter = (e) => {
-    if (e.key === "Enter") onSubmit(search_val);
-    if (e.key === "Backspace" && perv_search_val !== "" && search_val.length === 0) {
-      setSearch_val("");
-      onSubmit("");
-    }
-  };
+  // const handleEnter = (e) => {
+  //   if (e.key === "Enter") onSubmit(search_val);
+  //   if (
+  //     e.key === "Backspace" &&
+  //     perv_search_val !== "" &&
+  //     search_val.length === 0
+  //   ) {
+  //     setSearch_val("");
+  //     onSubmit("");
+  //   }
+  // };
   const handleOpen = () => {
     console.log("r");
     setOpen(true);
@@ -321,7 +327,7 @@ const TopBox = ({
               ),
             }}
             onChange={handleSearch}
-            onKeyDown={handleEnter}
+            // onKeyDown={handleEnter}
             placeholder="Search"
           />
         </Box>
