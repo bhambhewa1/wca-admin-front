@@ -1,35 +1,27 @@
 import React from "react";
-import {
-  Box,
-  TableCell,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Checkbox,
-} from "@mui/material";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { Box, TableCell, TableHead, TableRow, TableSortLabel, Checkbox } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { visuallyHidden } from "@mui/utils";
 import { useLocation } from "react-router-dom";
 
 const Icon = () => {
-    return (
-      <span
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          marginLeft: "5px",
-        }}
-      >
-        <ArrowDropUpIcon />
-        <ArrowDropDownIcon />
-      </span>
-    );
-  };
+  return (
+    <span
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        marginLeft: "5px",
+      }}>
+      <ArrowDropUpIcon />
+      <ArrowDropDownIcon />
+    </span>
+  );
+};
 
 export const EnhancedTableHead = ({
   totalColumn,
@@ -39,7 +31,7 @@ export const EnhancedTableHead = ({
   onSelectAllClick,
   onRequestSort,
   rowCount,
-//   checkbox,
+  //   checkbox,
 }) => {
   const headCells = totalColumn.map((item, index) => ({
     id: item === "" ? "none" : item,
@@ -54,7 +46,7 @@ export const EnhancedTableHead = ({
 
   return (
     <TableHead>
-      <TableRow sx={{bgcolor:"#F6FAFD",border: "1px solid #ECECEC"}}>
+      <TableRow sx={{ bgcolor: "#F6FAFD", border: "1px solid #ECECEC" }}>
         {/* {!checkbox && (
           <TableCell style={Style.tableHeaderCheckBox}>
             <Checkbox
@@ -75,8 +67,7 @@ export const EnhancedTableHead = ({
             // align={headCell.numeric ? 'right' : 'left'}
             style={Style.tableHeader}
             // padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
+            sortDirection={orderBy === headCell.id ? order : false}>
             {headCell.label}
             {headCell.id !== "none" && headCell.id !== "Action" && headCell.id !== "Image" && (
               <TableSortLabel
@@ -89,9 +80,7 @@ export const EnhancedTableHead = ({
               >
                 {orderBy === headCell.id ? (
                   <Box component="span" sx={visuallyHidden}>
-                    {order === "desc"
-                      ? "sorted descending"
-                      : "sorted ascending"}
+                    {order === "desc" ? "sorted descending" : "sorted ascending"}
                   </Box>
                 ) : null}
               </TableSortLabel>
@@ -109,7 +98,7 @@ const Style = {
     borderRadius: "2px",
     letterSpacing: "0px",
     paddingLeft: "16px",
-    fontSize: "18px"
+    fontSize: "14px",
   },
 
   tableHeaderCheckBox: {
