@@ -29,11 +29,9 @@ const PermanentDrawerRight = () => {
   isMobile ? (drawerWidth = 80) : (drawerWidth = 280);
   const navigate = useNavigate();
   const location = useLocation();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   // const adminInfo = React.useContext(UserContext);
   // const [first, setfirst] = React.useState();
-  // const [s, setfirst] = React.useState();
-
   const [data, setData] = React.useState(drawerData);
 
   let URL = location.pathname;
@@ -72,7 +70,9 @@ const PermanentDrawerRight = () => {
     <Box sx={{ width: "100%" }}>
       <Box sx={{ width: "100%" }}>
         <CssBaseline />
-        <AppBar position="fixed" sx={{ bgcolor: "#ffffff", display: "flex" }}>
+        <AppBar
+          position="fixed"
+          sx={{ bgcolor: "#ffffff", display: "flex", boxShadow: "none", borderBottom: "3px solid rgba(0, 0, 0, 0.06)", pt: 2.5, pb: 2.5 }}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -86,47 +86,49 @@ const PermanentDrawerRight = () => {
                 }}
               />
             </IconButton>
-            <ListItemButton
-              onClick={() => navigate("/profile")}
-              sx={{
+            <Box
+              style={{
                 // width: { xs: "42%", sm: "25%", md: "20%", lg: "15%" },
-                // minWidth: "15%",
-                mr: { xs: 2, sm: 2, md: 2, lg: 8 },
-                p: "15px",
-                pr: 0,
+                width: "100%",
+                // mr: { xs: 2, sm: 2, md: 2, lg: 8 },
+                // p: "15px",
+                // pr: 0,
                 display: "flex",
                 justifyContent: "flex-end",
               }}>
-              <Box
-                sx={{
-                  border: 1,
-                  borderRadius: "20px",
-                  borderColor: "black",
-                  width: "36px",
-                  height: "36px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}>
-                <img
-                  style={{
-                    height: "21px",
-                    width: "18px",
-                    filter: "invert(100%)",
-                  }}
-                  alt="profile"
-                  src={require("../../assests/profile.png")}
-                />
-              </Box>
-              <Typography component={"div"} sx={{ ml: "10px", height: "40px" }}>
-                <Typography component={"div"} sx={{ color: "#3D2E57", lineHeight: "20px", fontSize: "18px" }}>
-                  {storage?.fetch.adminfirstname()} {storage?.fetch.adminlastname()}
+
+              <Link to={"/profile"} style={{ display: "flex", textDecoration: "none" }}>
+                <Box
+                  sx={{
+                    border: 1,
+                    borderRadius: "20px",
+                    borderColor: "black",
+                    width: "36px",
+                    height: "36px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}>
+                  <img
+                    style={{
+                      height: "21px",
+                      width: "18px",
+                      filter: "invert(100%)",
+                    }}
+                    alt="profile"
+                    src={require("../../assests/profile.png")}
+                  />
+                </Box>
+                <Typography component={"div"} sx={{ ml: "10px", height: "40px" }}>
+                  <Typography component={"div"} sx={{ color: "#3D2E57", lineHeight: "20px", fontSize: "18px" }}>
+                    {storage?.fetch.adminfirstname()} {storage?.fetch.adminlastname()}
+                  </Typography>
+                  <Typography component={"div"} sx={{ color: "#A8A8A8", fontSize: "16px", lineHeight: "15px" }}>
+                    {"Admin"}
+                  </Typography>
                 </Typography>
-                <Typography component={"div"} sx={{ color: "#A8A8A8", fontSize: "16px", lineHeight: "15px" }}>
-                  {"Store:maryland"}
-                </Typography>
-              </Typography>
-            </ListItemButton>
+              </Link>
+            </Box>
           </Toolbar>
         </AppBar>
 
@@ -288,7 +290,7 @@ const PermanentDrawerRight = () => {
         <Box
           sx={{
             width: open ? `calc(100% - ${drawerWidth}px)` : "100%",
-            pt: "80px",
+            pt: "110px",
             ml: open ? "auto" : "",
             bgcolor: "white",
           }}>
