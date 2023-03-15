@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as yup from "yup";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getuserdata, updateUser } from "../../redux/action/profile";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
@@ -9,6 +10,7 @@ import Toastify from "../../components/SnackBar/Toastify";
 // import LoaderComponent from "../Loader/LoaderComponent";
 import { Button, Skeleton, Typography, TextField, FormLabel, Box } from "@mui/material";
 import { storage } from "../../config/storage";
+import { UserContext } from "../../App";
 // import { UserContext } from "../Main/Main";
 // import { UserContext } from "../home/main";
 
@@ -31,12 +33,12 @@ const Style = {
   typographyStyle: {
     fontSize: "20px",
     fontWeight: "600",
-    lineHeight: { xs: "29px", md: "72px" },
+    lineHeight: { xs: "30px", md: "60px" },
     letterSpacing: "0em",
     textAlign: "center",
     color: "#3D2E57",
     display: "flex",
-    pb: 2,
+    // pb: 2,
     pl: 3.5,
   },
   inputStyle: {
@@ -77,15 +79,15 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     confirm_password: "",
     // validate_Password: false,
   });
-  // const adminInfo = useContext(UserContext);
+  const adminInfo = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [validate_Password, setValidate_Password] = useState(false);
-  //   useEffect(() => {
-  //   // adminInfo?.setAdminName({
-  //   //   n1: userData.first_name,
-  //   //   n2: userData.last_name,
-  //   // });
-  // }, [userData])
+  useEffect(() => {
+    adminInfo?.setAdminName({
+      n1: userData.firstName,
+      n2: userData.lastName,
+    });
+  }, [userData]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -123,10 +125,10 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     //   n1: userData.first_name,
     //   n2: userData.last_name,
     // });
-console.log(value.password);
+    console.log(value.password);
     Object.assign(value, { id: userData.id });
     if (value.password === undefined || value.confirm_password === undefined) {
-       value.password=null;
+      value.password = null;
       delete value.confirm_password;
     }
     // if (!validate_Password) {
@@ -151,14 +153,13 @@ console.log(value.password);
             storage.set.adminfirstname(res.data.data.firstName);
             storage.set.adminlastname(res.data.data.lastName);
           } else {
-          setLoading(false);
-          res?.data?.errors?.map((item) => {
+            setLoading(false);
+            res?.data?.errors?.map((item) => {
               toast.error(item);
             });
           }
         });
       } else {
-
         res?.data?.errors?.map((item) => {
           // toast.error(item);
         });
@@ -181,6 +182,7 @@ console.log(value.password);
             width: "100%",
             borderBottom: "3px solid rgba(0, 0, 0, 0.06)",
             borderTop: "3px solid rgba(0, 0, 0, 0.06)",
+            pb: 1,
           }}>
           <Typography sx={Style.typographyStyle}>Profile information</Typography>
           <Box
@@ -212,6 +214,7 @@ console.log(value.password);
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
+                        fontSize: "14px",
                       },
                     }}
                     color="primary"
@@ -248,6 +251,7 @@ console.log(value.password);
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
+                        fontSize: "14px",
                       },
                     }}
                     autoComplete="false"
@@ -259,9 +263,7 @@ console.log(value.password);
                       mt: "10px",
                     }}
                   />
-                  {formik.errors.lastName && formik.touched.lastName ? (
-                    <p style={Style.validationStyle}>{formik.errors.lastName}</p>
-                  ) : null}
+                  {formik.errors.lastName && formik.touched.lastName ? <p style={Style.validationStyle}>{formik.errors.lastName}</p> : null}
                 </Box>
               )}
             </Box>
@@ -285,6 +287,7 @@ console.log(value.password);
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
+                        fontSize: "14px",
                       },
                     }}
                     autoComplete="false"
@@ -319,6 +322,7 @@ console.log(value.password);
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
+                        fontSize: "14px",
                       },
                     }}
                     color="primary"
@@ -334,99 +338,103 @@ console.log(value.password);
               )}
             </Box>
             <Typography sx={{ mb: 2 }}>
-            <input
-              type="checkbox"
-              // name="validate_Password"
-              // id="validate_Password"
-              onChange={()=>{setValidate_Password(!validate_Password)}}
-              value={validate_Password}
-            />
-            Do you want to change the password?
-          </Typography> 
-           {validate_Password && (
-            <Box>
-              <Typography
-                sx={{
-                  fontSize: { xs: "20px", md: "20px" },
-                  fontWeight: { xs: "500", md: "700" },
-                  color: "#3D2E57",
-                  mb: 2,
-                }}>
-                Set Password
-              </Typography>
+              <input
+                type="checkbox"
+                // name="validate_Password"
+                // id="validate_Password"
+                onChange={() => {
+                  setValidate_Password(!validate_Password);
+                }}
+                value={validate_Password}
+              />
+              Do you want to change the password?
+            </Typography>
+            {validate_Password && (
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "20px", md: "20px" },
+                    fontWeight: { xs: "500", md: "700" },
+                    color: "#3D2E57",
+                    mb: 2,
+                  }}>
+                  Set Password
+                </Typography>
 
-              <Box sx={Style.rowBoxStyle}>
-                {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
-                {!loading && (
-                  <Box sx={Style.inputStyle}>
-                    <FormLabel sx={Style.label}>
-                      New Password
-                      <span style={Style.star}>*</span>
-                    </FormLabel>
-                    <TextField
-                      name="password"
-                      value={formik.values.password}
-                      id="password"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      type="password"
-                      variant="filled"
-                      InputProps={{ disableUnderline: true, pt: "10px" }}
-                      inputProps={{
-                        style: {
-                          paddingTop: "16px",
-                          paddingBottom: "15px",
-                        },
-                      }}
-                      autoComplete="off"
-                      color="primary"
-                      placeholder="Enter Password here"
-                      sx={{
-                        width: "100%",
-                        border: "none",
-                        mt: "10px",
-                      }}
-                    />
-                  </Box>
-                )}
-                {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
-                {!loading && (
-                  <Box sx={Style.inputStyle}>
-                    <FormLabel sx={Style.label}>
-                      Confirm Password
-                      <span style={Style.star}>*</span>
-                    </FormLabel>
-                    <TextField
-                      name="confirm_password"
-                      value={formik.values.confirm_password}
-                      id="confirm_password"
-                      onChange={formik.handleChange}
-                      type="password"
-                      variant="filled"
-                      autoComplete="false"
-                      InputProps={{ disableUnderline: true, pt: "10px" }}
-                      inputProps={{
-                        style: {
-                          paddingTop: "16px",
-                          paddingBottom: "15px",
-                        },
-                      }}
-                      color="primary"
-                      placeholder="Enter confirm password here"
-                      sx={{
-                        width: "100%",
-                        border: "none",
-                        mt: "10px",
-                      }}
-                    />
-                    {/* <p style={Style.validationStyle}>
+                <Box sx={Style.rowBoxStyle}>
+                  {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
+                  {!loading && (
+                    <Box sx={Style.inputStyle}>
+                      <FormLabel sx={Style.label}>
+                        New Password
+                        <span style={Style.star}>*</span>
+                      </FormLabel>
+                      <TextField
+                        name="password"
+                        value={formik.values.password}
+                        id="password"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        type="password"
+                        variant="filled"
+                        InputProps={{ disableUnderline: true, pt: "10px" }}
+                        inputProps={{
+                          style: {
+                            paddingTop: "16px",
+                            paddingBottom: "15px",
+                            fontSize: "14px",
+                          },
+                        }}
+                        autoComplete="off"
+                        color="primary"
+                        placeholder="Enter Password here"
+                        sx={{
+                          width: "100%",
+                          border: "none",
+                          mt: "10px",
+                        }}
+                      />
+                    </Box>
+                  )}
+                  {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
+                  {!loading && (
+                    <Box sx={Style.inputStyle}>
+                      <FormLabel sx={Style.label}>
+                        Confirm Password
+                        <span style={Style.star}>*</span>
+                      </FormLabel>
+                      <TextField
+                        name="confirm_password"
+                        value={formik.values.confirm_password}
+                        id="confirm_password"
+                        onChange={formik.handleChange}
+                        type="password"
+                        variant="filled"
+                        autoComplete="false"
+                        InputProps={{ disableUnderline: true, pt: "10px" }}
+                        inputProps={{
+                          style: {
+                            paddingTop: "16px",
+                            paddingBottom: "15px",
+                            fontSize: "14px",
+                          },
+                        }}
+                        color="primary"
+                        placeholder="Enter confirm password here"
+                        sx={{
+                          width: "100%",
+                          border: "none",
+                          mt: "10px",
+                        }}
+                      />
+                      {/* <p style={Style.validationStyle}>
                       {formik.errors.confirm_password}
                     </p> */}
-                  </Box>
-                )}
+                    </Box>
+                  )}
+                </Box>
               </Box>
-            </Box>
-             )} 
+            )}
           </Box>
           <Box
             sx={{

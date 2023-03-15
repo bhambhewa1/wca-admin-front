@@ -13,14 +13,17 @@ import ListItemText from "@mui/material/ListItemText";
 import Index from "../../routes/index.js";
 import { drawerData } from "../../config/mockData";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Collapse, IconButton, Paper, Toolbar, Typography, useMediaQuery } from "@mui/material";
+import { Button, Collapse, IconButton, Menu, MenuItem, Paper, Toolbar, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
-import { UserContext } from "../../App";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
 import { storage as LocalStorage, storage } from "../../config/storage";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./drawer.css";
-
+import Fade from "@mui/material/Fade";
+import { UserContext } from "../../App.js";
 let drawerWidth = 280;
 
 const PermanentDrawerRight = () => {
@@ -30,8 +33,10 @@ const PermanentDrawerRight = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
-  // const adminInfo = React.useContext(UserContext);
-  // const [first, setfirst] = React.useState();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const adminInfo = React.useContext(UserContext);
+  const [first, setfirst] = React.useState();
   const [data, setData] = React.useState(drawerData);
 
   let URL = location.pathname;
@@ -45,14 +50,9 @@ const PermanentDrawerRight = () => {
     setData([...data]);
   }, [location.pathname]);
   React.useEffect(() => {
-    // setfirst(storage.fetch.adminfirstname);
-  }, []);
-  const redirect = (redirect) => {
-    if (redirect) {
-      navigate(redirect);
-    } else {
-    }
-  };
+    console.log(adminInfo?.adminName);
+    setfirst(adminInfo?.adminName);
+  }, [adminInfo]);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -66,6 +66,13 @@ const PermanentDrawerRight = () => {
   //   LocalStorage.destroy.adminlastname();
   //   navigate("/");
   // };
+  const openMenu = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ width: "100%" }}>
@@ -96,7 +103,6 @@ const PermanentDrawerRight = () => {
                 display: "flex",
                 justifyContent: "flex-end",
               }}>
-
               <Link to={"/profile"} style={{ display: "flex", textDecoration: "none" }}>
                 <Box
                   sx={{
@@ -119,15 +125,40 @@ const PermanentDrawerRight = () => {
                     src={require("../../assests/profile.png")}
                   />
                 </Box>
-                <Typography component={"div"} sx={{ ml: "10px", height: "40px" }}>
-                  <Typography component={"div"} sx={{ color: "#3D2E57", lineHeight: "20px", fontSize: "18px" }}>
-                    {storage?.fetch.adminfirstname()} {storage?.fetch.adminlastname()}
-                  </Typography>
-                  <Typography component={"div"} sx={{ color: "#A8A8A8", fontSize: "16px", lineHeight: "15px" }}>
-                    {"Admin"}
-                  </Typography>
-                </Typography>
               </Link>
+              <Typography component={"div"} sx={{ ml: "10px", height: "40px" }}>
+                <Link to={"/profile"} style={{ display: "flex", textDecoration: "none" }}>
+                  <Typography component={"div"} sx={{ color: "#3D2E57", lineHeight: "20px", fontSize: "18px" }}>
+                    {first?.n1} {first?.n2}
+                  </Typography>
+                </Link>
+                <Typography component={"div"} sx={{ color: "#A8A8A8", fontSize: "16px", lineHeight: "30px" }}>
+                  Store :
+                  <Button
+                    sx={{ textTransform: "none", color: "#A8A8A8", fontWeight: "600", mb: "2px" }}
+                    id="fade-button"
+                    aria-controls={open ? "fade-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                    onClick={handleClick}>
+                    maryland
+                    {openMenu ? <ArrowDropUpIcon sx={{ fontSize: "20px" }} /> : <ArrowDropDownIcon sx={{ fontSize: "20px" }} />}
+                  </Button>
+                  <Menu
+                    id="fade-menu"
+                    MenuListProps={{
+                      "aria-labelledby": "fade-button",
+                    }}
+                    anchorEl={anchorEl}
+                    open={openMenu}
+                    onClose={handleClose}
+                    TransitionComponent={Fade}>
+                    <MenuItem onClick={handleClose}>Null</MenuItem>
+                    {/* <MenuItem onClick={handleClose}>My account</MenuItem>
+                      <MenuItem onClick={handleClose}>Logout</MenuItem> */}
+                  </Menu>
+                </Typography>
+              </Typography>
             </Box>
           </Toolbar>
         </AppBar>

@@ -8,16 +8,8 @@ import { visuallyHidden } from "@mui/utils";
 import { useLocation } from "react-router-dom";
 import { fontFamily } from "@mui/system";
 
-
-export const EnhancedTableHead = ({
-  totalColumn,
-  numSelected,
-  order,
-  orderBy,
-  onRequestSort,
-  rowCount,
-}) => {
-  const [indexOfArrow, setIndexOfArrow] = React.useState()
+export const EnhancedTableHead = ({ totalColumn, numSelected, order, orderBy, onRequestSort, rowCount }) => {
+  const [indexOfArrow, setIndexOfArrow] = React.useState();
   const headCells = totalColumn.map((item, index) => ({
     id: item === "" ? "none" : item,
     numeric: false,
@@ -25,12 +17,12 @@ export const EnhancedTableHead = ({
     label: item,
   }));
   const location = useLocation();
-  const createSortHandler = (property,index) => (event) => {
+  const createSortHandler = (property, index) => (event) => {
     onRequestSort(event, property);
-    setIndexOfArrow(index)
+    setIndexOfArrow(index);
   };
 
-  const Icon = ({font}) => {
+  const Icon = ({ fontUp, fontDown }) => {
     return (
       <span
         style={{
@@ -40,15 +32,23 @@ export const EnhancedTableHead = ({
           alignItems: "center",
           marginLeft: "5px",
         }}>
-        <ArrowDropUpIcon sx={{ fontSize:font, marginTop: "-2px", marginBottom: "-6px" }} />
-        <ArrowDropDownIcon sx={{ fontSize:order==="desc"?"20px": "16px", marginTop: "-3px" }} />
+        <ArrowDropUpIcon sx={{ fontSize: order === "asc" ? fontUp : "", marginTop: "-2px", marginBottom: "-6px" }} />
+        <ArrowDropDownIcon sx={{ fontSize: order !== "asc" ? fontDown : "", marginTop: "-3px" }} />
       </span>
     );
     // fontSize:order==="asc"?"20px":"16px",
   };
   return (
     <TableHead>
-      <TableRow sx={{ bgcolor: "#F6FAFD", border: "1px solid #ECECEC" }}>
+      <TableRow
+        sx={{
+          bgcolor: "#F6FAFD",
+          border: "1px solid #ECECEC",
+          ".MuiTableRow-root": {
+            borderRadius: "10px",
+            // border-bottom-left-radius: 10px;
+          },
+        }}>
         {/* {!checkbox && (
           <TableCell style={Style.tableHeaderCheckBox}>
             <Checkbox
@@ -63,7 +63,7 @@ export const EnhancedTableHead = ({
             />
           </TableCell>
         )} */}
-        {headCells.map((headCell,index) => (
+        {headCells.map((headCell, index) => (
           <TableCell
             key={headCell.id}
             // align={headCell.numeric ? 'right' : 'left'}
@@ -74,13 +74,12 @@ export const EnhancedTableHead = ({
             {headCell.id !== "Type" && headCell.id !== "Action" && headCell.id !== "Contact No" && (
               <TableSortLabel
                 active={orderBy === headCell.id}
-                IconComponent={Icon}
-                direction={orderBy === headCell.id ? order : "asc"}
-                onClick={createSortHandler(
-                  headCell.id === "Item" ? "none" : headCell.id,index
+                IconComponent={() => (
+                  <Icon fontDown={index === indexOfArrow ? "24px" : "16px"} fontUp={index === indexOfArrow ? "24px" : "16px"} />
                 )}
-              >
-              {/* //   {orderBy === headCell.id ? (
+                direction={orderBy === headCell.id ? order : "asc"}
+                onClick={createSortHandler(headCell.id === "Item" ? "none" : headCell.id, index)}>
+                {/* //   {orderBy === headCell.id ? (
               //     <Box component="span" sx={visuallyHidden}>
               //       {order === "desc" ? "sorted descending" : "sorted ascending"}
               //     </Box>
@@ -101,6 +100,7 @@ const Style = {
     letterSpacing: "0px",
     paddingLeft: "16px",
     fontSize: "14px",
+    fontWeight: "800",
   },
 
   tableHeaderCheckBox: {
