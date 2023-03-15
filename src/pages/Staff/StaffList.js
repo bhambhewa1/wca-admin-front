@@ -97,14 +97,13 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     });
   };
 
-  const onSubmit = (e) => {
-    console.log(e)
-    if ((e !== "" && e.trim().length !== 0) || perv_search_val !== "") {
-      setPerv_Search_val(e);
+  const onSubmit = (value) => {
+    if ((value !== "" && value.trim().length !== 0) || perv_search_val !== "") {
+      setPerv_Search_val(value);
       setLoading(true);
-      setStart(0);
+      setSearch_val(value);
       setPage(1);
-      data.search = e
+      data.search = value
       // if (order && orderBy) {
       //   let sort_column = { sort_column: orderBy };
       //   let sort = { sort_by: order };
