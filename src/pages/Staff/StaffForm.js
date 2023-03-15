@@ -130,8 +130,6 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
       setLoading(false);
       if (res.data.status) {
         const result = res.data.data;
-        storage.set.adminfirstname(result.firstName);
-        storage.set.adminlastname(result.lastName);
         setUserData({
           staff_id:result.staff_id,
           firstName: result.firstName,

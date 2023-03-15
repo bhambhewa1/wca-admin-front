@@ -28,10 +28,8 @@ export const EnhancedTableHead = ({
   numSelected,
   order,
   orderBy,
-  onSelectAllClick,
   onRequestSort,
   rowCount,
-  //   checkbox,
 }) => {
   const headCells = totalColumn.map((item, index) => ({
     id: item === "" ? "none" : item,
@@ -40,9 +38,9 @@ export const EnhancedTableHead = ({
     label: item,
   }));
   const location = useLocation();
-  // const createSortHandler = (property) => (event) => {
-  //   onRequestSort(event, property);
-  // };
+  const createSortHandler = (property) => (event) => {
+    onRequestSort(event, property);
+  };
 
   return (
     <TableHead>
@@ -74,15 +72,15 @@ export const EnhancedTableHead = ({
                 active={orderBy === headCell.id}
                 IconComponent={Icon}
                 direction={orderBy === headCell.id ? order : "asc"}
-                // onClick={createSortHandler(
-                //   headCell.id === "Item" ? "none" : headCell.id
-                // )}
+                onClick={createSortHandler(
+                  headCell.id === "Item" ? "none" : headCell.id
+                )}
               >
-                {orderBy === headCell.id ? (
-                  <Box component="span" sx={visuallyHidden}>
-                    {order === "desc" ? "sorted descending" : "sorted ascending"}
-                  </Box>
-                ) : null}
+              {/* //   {orderBy === headCell.id ? (
+              //     <Box component="span" sx={visuallyHidden}>
+              //       {order === "desc" ? "sorted descending" : "sorted ascending"}
+              //     </Box>
+              //   ) : null} */}
               </TableSortLabel>
             )}
           </TableCell>

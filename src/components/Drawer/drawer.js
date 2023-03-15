@@ -292,7 +292,7 @@ const PermanentDrawerRight = () => {
             width: open ? `calc(100% - ${drawerWidth}px)` : "100%",
             pt: "110px",
             ml: open ? "auto" : "",
-            bgcolor: "white",
+            bgcolor: "#f9fafe",
           }}>
           <Box sx={{ ml: 2, mt: 2, border: "3px solid rgba(0, 0, 0, 0.06)" }}>
             <Index />
