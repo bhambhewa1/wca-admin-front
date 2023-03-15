@@ -332,7 +332,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                 </Box>
               )}
             </Box>
-            {/* <Typography sx={{ mb: 2 }}>
+            <Typography sx={{ mb: 2 }}>
             <input
               type="checkbox"
               // name="validate_Password"
@@ -341,8 +341,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               value={validate_Password}
             />
             Do you want to change the password?
-          </Typography> */}
-            {/* {validate_Password && ( */}
+          </Typography> 
+           {validate_Password && (
             <Box>
               <Typography
                 sx={{
@@ -425,7 +425,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                 )}
               </Box>
             </Box>
-            {/* )} */}
+             )} 
           </Box>
           <Box
             sx={{

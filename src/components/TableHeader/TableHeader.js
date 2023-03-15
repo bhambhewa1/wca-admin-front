@@ -67,7 +67,7 @@ export const EnhancedTableHead = ({
             // padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}>
             {headCell.label}
-            {headCell.id !== "none" && headCell.id !== "Action" && headCell.id !== "Image" && (
+            {headCell.id !== "Type" && headCell.id !== "Action" && headCell.id !== "Contact No" && (
               <TableSortLabel
                 active={orderBy === headCell.id}
                 IconComponent={Icon}

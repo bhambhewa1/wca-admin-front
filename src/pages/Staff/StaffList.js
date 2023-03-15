@@ -31,7 +31,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     getList();
-  }, []);
+  }, [search_val]);
 
   const getList = () => {
     console.log("ji");
@@ -45,23 +45,23 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   };
   const handleRequestSort = (event, property) => {
     setLoading(true);
-    let sort, sort_column;
     let isAsc = orderBy === property && order === "asc";
     if (orderBy !== property) {
       setOrder("desc");
-      sort = { sort_by: "asc" };
-      sort_column = { sort_column: property };
+      data.sort =  "asc" ;
+      data.sortColumn = property ;
       setOrderBy(property);
     } else {
       setOrder(isAsc ? "desc" : "asc");
       setOrderBy(property);
-      sort_column = { sort_column: property };
-      sort = { sort_by: order };
+      // sort_column = { sort_column: property };
+      // sort = { sort_by: order };
+      data.sort =  order ;
+      data.sortColumn = property ;
     }
-    Object.assign(data, sort_column, sort);
+    // Object.assign(data, sort_column, sort);
     if (search_val) {
-      let searchVal = { search_val: search_val };
-      Object.assign(data, searchVal);
+      data.search = search_val
     }
     getList();
     setSelected([]);
@@ -73,12 +73,12 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       page: value,
       limit: length,
       sort: "",
+      sortColumn:"",
       search: "",
     };
     if (order && orderBy) {
-      let sort_column = { sort_column: orderBy };
-      let sort = { sort_by: order };
-      Object.assign(data, sort_column, sort);
+      data.sort = order
+      data.sortColumn = orderBy
     }
     if (search_val) {
       let searchVal = { search_val: search_val };
@@ -88,13 +88,30 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     getList();
   };
   const handleDelete = (id) => {
-    let data = { id: id };
+    let data = { staff_id: id };
     deleteStaff(data).then((res) => {
       if (res.data.status) {
         getList();
       }
     });
   };
+
+  const onSubmit = () => {
+    if ((search_val !== "" && search_val.trim().length !== 0) || perv_search_val !== "") {
+      setPerv_Search_val(search_val);
+      setLoading(true);
+      setStart(0);
+      setPage(1);
+      data.search = search_val
+      // if (order && orderBy) {
+      //   let sort_column = { sort_column: orderBy };
+      //   let sort = { sort_by: order };
+      //   Object.assign(data, sort_column, sort);
+      // }
+      getList();
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -109,6 +126,9 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         sortingText={"Customer"}
         value={""}
         onClick={onclick}
+        onSubmit = {onSubmit}
+        search_val ={search_val}
+        setSearch_val = {setSearch_val}
         button_one_onClick={() => {
           navigate("/staff/update");
         }}
@@ -122,7 +142,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         }}
         aria-labelledby="tableTitle">
         <EnhancedTableHead
-          totalColumn={["Name", "Type", "Contact No", "Email", "Created on", "Action"]}
+          totalColumn={["firstName","LastName", "Type", "Contact No", "Email", "Created on", "Action"]}
         numSelected={selected.length}
         order={order}
         orderBy={orderBy}
@@ -132,12 +152,13 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         <TableBody>
           {rows?.map((row) => (
             <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell>{row.firstName + " " + row.lastName}</TableCell>
-              <TableCell>{row.type}</TableCell>
-              <TableCell>{row.phone}</TableCell>
-              <TableCell>{row.email}</TableCell>
-              <TableCell>{row.createdOn}</TableCell>
-              <TableCell>
+              <TableCell sx={{width:"120px"}} >{row.firstName}</TableCell>
+              <TableCell sx={{width:"120px"}}>{row.lastName}</TableCell>
+              <TableCell sx={{width:"120px"}}>{row.type}</TableCell>
+              <TableCell sx={{width:"120px"}}>{row.phone}</TableCell>
+              <TableCell sx={{width:"120px"}}>{row.email}</TableCell>
+              <TableCell sx={{width:"120px"}}>{row.createdOn}</TableCell>
+              <TableCell sx={{width:"120px"}}>
                 <img
                   alt="edit_png"
                   style={{
@@ -169,7 +190,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         sx={{
           display: "flex",
           justifyContent: "end",
-          p: 3,
+          p: 1,
         }}
       >
         {pages > 1 && (
