@@ -41,7 +41,7 @@ const VehicleList = () => {
           // onRequestSort={handleRequestSort}
           // rowCount={rows.length}
         />
-        <TableBody>
+        <TableBody sx={{ border: "1px solid #ECECEC" }}>
           {rows.map((row) => (
             <TableRow key={row.Name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
               <TableCell align="left">{row.VIN}</TableCell>

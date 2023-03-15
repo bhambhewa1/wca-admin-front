@@ -6,7 +6,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { visuallyHidden } from "@mui/utils";
 import { useLocation } from "react-router-dom";
-
+import "./table.css";
 const Icon = () => {
   return (
     <span
@@ -46,7 +46,15 @@ export const EnhancedTableHead = ({
 
   return (
     <TableHead>
-      <TableRow sx={{ bgcolor: "#F6FAFD", border: "1px solid #ECECEC" }}>
+      <TableRow
+        sx={{
+          bgcolor: "#F6FAFD",
+          border: "1px solid #ECECEC",
+          ".MuiTableRow-root": {
+            borderRadius: "10px",
+            // border-bottom-left-radius: 10px;
+          },
+        }}>
         {/* {!checkbox && (
           <TableCell style={Style.tableHeaderCheckBox}>
             <Checkbox

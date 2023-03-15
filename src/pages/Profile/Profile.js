@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as yup from "yup";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getuserdata, updateUser } from "../../redux/action/profile";
 import { connect } from "react-redux";
 import { useFormik } from "formik";
@@ -9,12 +10,13 @@ import Toastify from "../../components/SnackBar/Toastify";
 // import LoaderComponent from "../Loader/LoaderComponent";
 import { Button, Skeleton, Typography, TextField, FormLabel, Box } from "@mui/material";
 import { storage } from "../../config/storage";
+import { UserContext } from "../../App";
 // import { UserContext } from "../Main/Main";
 // import { UserContext } from "../home/main";
 
 const schema = yup.object().shape({
-  first_name: yup.string().required("Please enter your first name"),
-  last_name: yup.string().required("Please enter your last name"),
+  firstName: yup.string().required("Please enter your first name"),
+  lastName: yup.string().required("Please enter your last name"),
   email: yup.string().required("Please enter your email").email("Please enter valid email"),
   phone: yup
     .string()
@@ -31,12 +33,12 @@ const Style = {
   typographyStyle: {
     fontSize: "20px",
     fontWeight: "600",
-    lineHeight: { xs: "29px", md: "72px" },
+    lineHeight: { xs: "30px", md: "60px" },
     letterSpacing: "0em",
     textAlign: "center",
     color: "#3D2E57",
     display: "flex",
-    pb: 2,
+    // pb: 2,
     pl: 3.5,
   },
   inputStyle: {
@@ -69,23 +71,23 @@ const Style = {
 const ProfilePage = ({ getuserdata, updateUser }) => {
   const [userData, setUserData] = useState({
     id: "",
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     password: "",
     confirm_password: "",
     // validate_Password: false,
   });
-  // const adminInfo = useContext(UserContext);
+  const adminInfo = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const [validate_Password, setValidate_Password] = useState(false);
-  //   useEffect(() => {
-  //   // adminInfo?.setAdminName({
-  //   //   n1: userData.first_name,
-  //   //   n2: userData.last_name,
-  //   // });
-  // }, [userData])
+  // const [validate_Password, setValidate_Password] = useState(false);
+  useEffect(() => {
+    adminInfo?.setAdminName({
+      n1: userData.firstName,
+      n2: userData.lastName,
+    });
+  }, [userData]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -98,8 +100,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
         storage.set.adminlastname(result.lastName);
         setUserData({
           id: result.id,
-          first_name: result.firstName,
-          last_name: result.lastName,
+          firstName: result.firstName,
+          lastName: result.lastName,
           email: result.email,
           phone: result.phone,
         });
@@ -143,8 +145,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
             const result = res.data.data;
 
             setUserData({
-              first_name: result.firstName,
-              last_name: result.lastName,
+              firstName: result.firstName,
+              lastName: result.lastName,
               email: result.email,
               phone: result.phone,
             });
@@ -180,6 +182,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
             width: "100%",
             borderBottom: "3px solid rgba(0, 0, 0, 0.06)",
             borderTop: "3px solid rgba(0, 0, 0, 0.06)",
+            pb: 1,
           }}>
           <Typography sx={Style.typographyStyle}>Profile information</Typography>
           <Box
@@ -201,8 +204,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                   </FormLabel>
 
                   <TextField
-                    name="first_name"
-                    value={formik.values.first_name}
+                    name="firstName"
+                    value={formik.values.firstName}
                     onChange={formik.handleChange}
                     type="text"
                     variant="filled"
@@ -211,6 +214,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
+                        fontSize: "14px",
                       },
                     }}
                     color="primary"
@@ -222,8 +226,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                     }}
                     autoComplete="false"
                   />
-                  {formik.errors.first_name && formik.touched.first_name ? (
-                    <p style={Style.validationStyle}>{formik.errors.first_name}</p>
+                  {formik.errors.firstName && formik.touched.firstName ? (
+                    <p style={Style.validationStyle}>{formik.errors.firstName}</p>
                   ) : null}
                 </Box>
               )}
@@ -236,9 +240,9 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                   </FormLabel>
 
                   <TextField
-                    name="last_name"
-                    value={formik.values.last_name}
-                    id="last_name"
+                    name="lastName"
+                    value={formik.values.lastName}
+                    id="lastName"
                     onChange={formik.handleChange}
                     type="text"
                     variant="filled"
@@ -247,6 +251,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
+                        fontSize: "14px",
                       },
                     }}
                     autoComplete="false"
@@ -258,9 +263,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                       mt: "10px",
                     }}
                   />
-                  {formik.errors.last_name && formik.touched.last_name ? (
-                    <p style={Style.validationStyle}>{formik.errors.last_name}</p>
-                  ) : null}
+                  {formik.errors.lastName && formik.touched.lastName ? <p style={Style.validationStyle}>{formik.errors.lastName}</p> : null}
                 </Box>
               )}
             </Box>
@@ -284,6 +287,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
+                        fontSize: "14px",
                       },
                     }}
                     autoComplete="false"
@@ -318,6 +322,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
+                        fontSize: "14px",
                       },
                     }}
                     color="primary"
@@ -375,6 +380,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                         style: {
                           paddingTop: "16px",
                           paddingBottom: "15px",
+                          fontSize: "14px",
                         },
                       }}
                       autoComplete="off"
@@ -408,6 +414,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                         style: {
                           paddingTop: "16px",
                           paddingBottom: "15px",
+                          fontSize: "14px",
                         },
                       }}
                       color="primary"

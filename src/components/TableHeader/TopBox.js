@@ -17,17 +17,11 @@ import makeStyles from "@mui/styles/makeStyles";
 import React from "react";
 import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+    <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
       {value === index && (
         <Box>
           <Typography>{children}</Typography>
@@ -66,11 +60,11 @@ const useStyles = makeStyles(() => ({
     "&.MuiTab-root.Mui-selected": {
       color: "white",
       textTransform: "none",
-      border : "none"
+      border: "none",
     },
     "&.MuiButtonBase-root": {
       textTransform: "none",
-      marginRight:25
+      marginRight: 25,
     },
     "&.css-1jbwg7a-MuiButtonBase-root-MuiTab-root": {
       background: "#DDDDDD",
@@ -78,7 +72,7 @@ const useStyles = makeStyles(() => ({
     },
     "&.css-1jbwg7a-MuiButtonBase-root-MuiTab-root.Mui-selected": {
       background: "#F15F23",
-    }
+    },
   },
   TabPanel: {
     "& .MuiBox-root": {
@@ -105,7 +99,7 @@ const TopBox = ({
   handleChange,
   numSelected,
   value,
-  button_one_onClick
+  button_one_onClick,
 }) => {
   const classes = useStyles();
   const tabClasses = { root: classes.tab };
@@ -126,22 +120,18 @@ const TopBox = ({
   };
   const handleEnter = (e) => {
     if (e.key === "Enter") onSubmit(search_val);
-    if (
-      e.key === "Backspace" &&
-      perv_search_val !== "" &&
-      search_val.length === 0
-    ) {
+    if (e.key === "Backspace" && perv_search_val !== "" && search_val.length === 0) {
       setSearch_val("");
       onSubmit("");
     }
   };
-const handleOpen = () =>{
-  console.log('r');
- setOpen(true)
-}
-const Submit = () =>{
-  navigate('/vehicles/details')
-}
+  const handleOpen = () => {
+    console.log("r");
+    setOpen(true);
+  };
+  const Submit = () => {
+    navigate("/vehicles/details");
+  };
   return (
     <Box
       sx={{
@@ -152,95 +142,93 @@ const Submit = () =>{
         // justifyContent: "space-between",
         pb: "20px",
         // bgcolor: "red",
-      }}
-    >
+      }}>
       <Dialog open={open}>
-      <form handleSubmit={Submit}>  
-        <DialogTitle sx={{borderBottom:'1px solid #dddddd'}}>Add Vehicle</DialogTitle>
-        <DialogContent sx={{borderBottom:'1px solid #dddddd'}}>
-            <FormLabel>
-              Enter VIN number
-            </FormLabel>
+        <form handleSubmit={Submit}>
+          <DialogTitle sx={{ borderBottom: "1px solid #dddddd" }}>Add Vehicle</DialogTitle>
+          <DialogContent sx={{ borderBottom: "1px solid #dddddd" }}>
+            <FormLabel>Enter VIN number</FormLabel>
             <TextField
-            variant="filled"
-            sx={{width:"100%"}}
-            InputProps={{disableUnderline:true}}
-            inputProps={{
-              style: {
-                paddingTop: "8px",
-                paddingBottom: "8px",
-                color: "#A8A8A8",
-              },
-            }}
-            ></TextField>
-        </DialogContent>
-        <DialogActions>
-        <Box
-          sx={{
-            width: { xs: "100%", md: "35%", lg: "70%" },
-            float: "right",
-            display: "flex",
-            justifyContent: {xs: "space-between",md:"flex-end"},
-            pb:3,
-            pr:3,
-            pl:{xs:2,md:0}
-          }}
-        >
-          <Button
-            disableRipple
-            sx={{
-              mr: {md:3},
-              pl: "25px", pr: "25px", pt:"10px", pb: "10px",
-              fontSize: "16px",
-              lineHeight: "21px",
-              // fontWeight: 400,
-              borderRadius: "5px",
-              textTransform: "none",
-              border: "1px solid #EB5757",
-              bgcolor: "#EB5757",
-              width:{xs:'40%',md:'50%'},
-              color: "white",
-              "&.MuiButtonBase-root:hover": {
-                border: "1px solid #EB5757",
-                bgcolor: "#EB5757",
-                color: "white",
-              },
-            }}
-            variant="outlined"
-            className="btn"
-            onClick={()=>setOpen(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            disableRipple
-            sx={{
-              pl: "25px", pr: "25px", pt:"10px", pb: "10px",
-              fontSize: "16px",
-              lineHeight: "21px",
-              // fontWeight: 400,
-              borderRadius: "5px",
-              textTransform: "none",
-              color: "white",
-              bgcolor: "#27AE60",
-              border: "1px solid #27AE60",
-              width:{xs:'40%',md:'50%'},
-              "&.MuiButtonBase-root:hover": {
-                border: "1px solid #27AE60",
-                color: "white",
-                bgcolor: "#27AE60",
-              },
-            }}
-            variant="outlined"
-            className="btn"
-            // type="submit"
-            onClick={Submit}
-          >
-            Next
-          </Button>
-        </Box>
-
-        </DialogActions>
+              variant="filled"
+              sx={{ width: "100%" }}
+              InputProps={{ disableUnderline: true }}
+              inputProps={{
+                style: {
+                  paddingTop: "8px",
+                  paddingBottom: "8px",
+                  color: "#A8A8A8",
+                },
+              }}></TextField>
+          </DialogContent>
+          <DialogActions>
+            <Box
+              sx={{
+                width: { xs: "100%", md: "35%", lg: "70%" },
+                float: "right",
+                display: "flex",
+                justifyContent: { xs: "space-between", md: "flex-end" },
+                pb: 3,
+                pr: 3,
+                pl: { xs: 2, md: 0 },
+              }}>
+              <Button
+                disableRipple
+                sx={{
+                  mr: { md: 3 },
+                  pl: "25px",
+                  pr: "25px",
+                  pt: "10px",
+                  pb: "10px",
+                  fontSize: "16px",
+                  lineHeight: "21px",
+                  // fontWeight: 400,
+                  borderRadius: "5px",
+                  textTransform: "none",
+                  border: "1px solid #EB5757",
+                  bgcolor: "#EB5757",
+                  width: { xs: "40%", md: "50%" },
+                  color: "white",
+                  "&.MuiButtonBase-root:hover": {
+                    border: "1px solid #EB5757",
+                    bgcolor: "#EB5757",
+                    color: "white",
+                  },
+                }}
+                variant="outlined"
+                className="btn"
+                onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+              <Button
+                disableRipple
+                sx={{
+                  pl: "25px",
+                  pr: "25px",
+                  pt: "10px",
+                  pb: "10px",
+                  fontSize: "16px",
+                  lineHeight: "21px",
+                  // fontWeight: 400,
+                  borderRadius: "5px",
+                  textTransform: "none",
+                  color: "white",
+                  bgcolor: "#27AE60",
+                  border: "1px solid #27AE60",
+                  width: { xs: "40%", md: "50%" },
+                  "&.MuiButtonBase-root:hover": {
+                    border: "1px solid #27AE60",
+                    color: "white",
+                    bgcolor: "#27AE60",
+                  },
+                }}
+                variant="outlined"
+                className="btn"
+                // type="submit"
+                onClick={Submit}>
+                Next
+              </Button>
+            </Box>
+          </DialogActions>
         </form>
       </Dialog>
       <Box
@@ -249,16 +237,15 @@ const Submit = () =>{
           justifyContent: { xs: "space-between" },
           width: "100%",
           pb: 2,
-        }}
-      >
+          borderBottom: "3px solid rgba(0, 0, 0, 0.06)",
+          // borderTop: "3px solid rgba(0, 0, 0, 0.06)",
+        }}>
         <Typography sx={style.headingText}>{headerText}</Typography>
-       { tabValue === 0 && location.pathname!=="/vehicles/soldandunsold"&&<Button
-          variant="contained"
-            onClick={button_one_onClick}
-          sx={style.button_one}
-        >
-          {button_one}
-        </Button>}
+        {tabValue === 0 && location.pathname !== "/vehicles/soldandunsold" && (
+          <Button variant="contained" onClick={button_one_onClick} sx={style.button_one}>
+            {button_one}
+          </Button>
+        )}
       </Box>
 
       {location.pathname === "/vehicles" && (
@@ -267,16 +254,14 @@ const Submit = () =>{
             display: "flex",
             pb: 2,
             borderColor: "divider",
-          }}
-        >
+          }}>
           <Tabs
             value={tabValue}
             onChange={handleChangeTab}
             aria-label="basic tabs example"
             sx={{
               borderBottom: "none",
-            }}
-          >
+            }}>
             <Tab classes={tabClasses} label={button_two} {...a11yProps(0)} />
             <Tab classes={tabClasses} label={button_three} {...a11yProps(1)} />
           </Tabs>
@@ -294,15 +279,13 @@ const Submit = () =>{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           justifyContent: "space-between",
-        }}
-      >
+        }}>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
-          }}
-        >
-          <Typography>{searchText}</Typography>
+          }}>
+          <Typography sx={{ mb: "15px", mt: "15px" }}>{searchText}</Typography>
           <TextField
             variant="filled"
             inputProps={{
@@ -314,7 +297,7 @@ const Submit = () =>{
             }}
             InputProps={{
               disableUnderline: true,
-               sx: {
+              sx: {
                 borderRadius: "5px",
                 fontSize: "16px",
                 width: {
@@ -327,15 +310,15 @@ const Submit = () =>{
                 height: "40px",
                 mr: 2,
               },
-              
+
               startAdornment: (
-                  <Box
-                    sx={{
-                      display: { xs: "none", md: "flex",color:"#DDDDDD" },
-                    }}>
-                    <SearchIcon sx={{fontSize:'20px'}}/>
-                  </Box>
-                ),
+                <Box
+                  sx={{
+                    display: { xs: "none", md: "flex", color: "#DDDDDD" },
+                  }}>
+                  <SearchIcon sx={{ fontSize: "20px" }} />
+                </Box>
+              ),
             }}
             onChange={handleSearch}
             onKeyDown={handleEnter}
@@ -347,16 +330,15 @@ const Submit = () =>{
             sx={{
               display: "flex",
               flexDirection: "column",
-            }}
-          >
-            <Typography>{sortingText}</Typography>
+            }}>
+            <Typography sx={{ mb: "15px", mt: "15px" }}>{sortingText}</Typography>
             <Select
               variant="filled"
               value={value}
               onChange={handleChange}
               displayEmpty
               disableUnderline
-              SelectDisplayProps={{ style: { padding: 3, marginLeft: "1px" } }}
+              SelectDisplayProps={{ style: { padding: 3, marginLeft: "10px" } }}
               MenuProps={{ disableScrollLock: true }}
               inputProps={{
                 style: {
@@ -366,13 +348,12 @@ const Submit = () =>{
               }}
               sx={{
                 height: "41px",
-                minWidth:"200px",
+                minWidth: "200px",
                 fontSize: "18px",
                 fontWeight: "400",
-                borderBottom:'none',
+                borderBottom: "none",
                 color: "#dddddd",
-              }}
-            >
+              }}>
               <MenuItem value="">Select</MenuItem>
               <MenuItem value={0}>Pending</MenuItem>
               <MenuItem value={1}>Inprogress</MenuItem>
@@ -419,7 +400,6 @@ const style = {
     fontSize: "24px",
     lineHeight: "29px",
     color: "#000000",
-    // marginBottom: "25px",
   },
   typographyStyle1: {
     fontFamily: "Effra",
@@ -427,5 +407,8 @@ const style = {
     lineHeight: "26px",
     fontWeight: "400",
     marginRight: "10px",
+    // marginBottom: "10px",
+    // marginTop: "10px",
+    // bgcolor: "red",
   },
 };

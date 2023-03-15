@@ -24,7 +24,6 @@ const App = () => {
     n2: LocalStorage.fetch.adminlastname(),
   });
   const location = useLocation();
-
   return (
     <ThemeProvider theme={THEME}>
       <UserContext.Provider value={{ adminName, setAdminName }}>
