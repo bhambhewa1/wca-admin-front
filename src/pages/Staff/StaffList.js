@@ -1,4 +1,4 @@
-import { Box, Pagination, Table, TableBody, TableCell, TableRow } from "@mui/material";
+import { Box, Pagination, Skeleton, Table, TableBody, TableCell, TableRow } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -8,14 +8,11 @@ import { getStaffList, deleteStaff } from "../../redux/action/staff";
 import DeleteIcon from "@mui/icons-material/Delete";
 const StaffList = ({ getStaffList, deleteStaff }) => {
   const [loading, setLoading] = useState(true);
-  const [deleteData, setDeleteData] = useState();
   const [order, setOrder] = React.useState("asc");
   const [model, setModal] = React.useState(false);
   const [orderBy, setOrderBy] = React.useState("");
-  const [selected, setSelected] = React.useState([]);
   const [pages, setPages] = useState(0);
   const [page, setPage] = React.useState(1);
-  const [start, setStart] = React.useState(0);
   const [rows, setRows] = React.useState([]);
   const [perv_search_val, setPerv_Search_val] = React.useState("");
   const [search_val, setSearch_val] = React.useState("");
@@ -28,7 +25,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     sort: "",
     search: "",
   };
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
     getList();
@@ -36,11 +33,13 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
 
   const getList = () => {
     console.log(data);
+    setLoading(true)
     getStaffList(data).then((res) => {
-      if (res.data) {
+    setLoading(false)
+    if (res.data) {
         setRows(res?.data?.staff_list);
         setPages(res?.data?.pages)
-      }else{
+      } else {
         setRows(res?.data?.staff_list);
         setPages(res?.data?.pages)
 
@@ -52,16 +51,16 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     let isAsc = orderBy === property && order === "asc";
     if (orderBy !== property) {
       setOrder("desc");
-      data.sort =  "asc" ;
-      data.sortColumn = property ;
+      data.sort = "asc";
+      data.sortColumn = property;
       setOrderBy(property);
     } else {
       setOrder(isAsc ? "desc" : "asc");
       setOrderBy(property);
       // sort_column = { sort_column: property };
       // sort = { sort_by: order };
-      data.sort =  order ;
-      data.sortColumn = property ;
+      data.sort = order;
+      data.sortColumn = property;
     }
     // Object.assign(data, sort_column, sort);
     if (search_val) {
@@ -76,7 +75,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       page: value,
       limit: length,
       sort: "",
-      sortColumn:"",
+      sortColumn: "",
       search: "",
     };
     if (order && orderBy) {
@@ -127,9 +126,9 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         sortingText={"Customer"}
         value={""}
         onClick={onclick}
-        onSubmit = {onSubmit}
-        search_val ={search_val}
-        setSearch_val = {setSearch_val}
+        onSubmit={onSubmit}
+        search_val={search_val}
+        setSearch_val={setSearch_val}
         button_one_onClick={() => {
           navigate("/staff/update");
         }}
@@ -143,45 +142,57 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         }}
         aria-labelledby="tableTitle">
         <EnhancedTableHead
-          totalColumn={["firstName","LastName", "Type", "Contact No", "Email", "Created on", "Action"]}
-        numSelected={selected.length}
-        order={order}
-        orderBy={orderBy}
-        onRequestSort={handleRequestSort}
-        rowCount={rows.length}
+          totalColumn={["firstName", "LastName", "Type", "Contact No", "Email", "Created on", "Action"]}
+          order={order}
+          orderBy={orderBy}
+          onRequestSort={handleRequestSort}
+          rowCount={rows.length}
         />
         <TableBody>
           {rows?.map((row) => (
             <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell sx={{width:"130px"}} >{row.firstName}</TableCell>
-              <TableCell sx={{width:"130px"}}>{row.lastName}</TableCell>
-              <TableCell sx={{width:"120px"}}>{row.type}</TableCell>
-              <TableCell sx={{width:"120px"}}>{row.phone}</TableCell>
-              <TableCell sx={{width:"120px"}}>{row.email}</TableCell>
-              <TableCell sx={{width:"120px"}}>{row.createdOn}</TableCell>
-              <TableCell sx={{width:"120px"}}>
-                <img
-                  alt="edit_png"
-                  style={{
-                    width: "19px",
-                    height: "19px",
-                    marginRight: "40px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    navigate("/staff/update", { state: row.staff_id });
-                  }}
-                  src={require("../../assests/edit.png")}
-                />
-                <DeleteIcon
-                  color="error"
-                  sx={{
-                    fontSize: "24px",
-                  }}
-                  onClick={() => {
-                    handleDelete(row.staff_id);
-                  }}
-                />
+              <TableCell sx={{ width: "130px" }} >
+                {loading && <Skeleton sx={{ width: "100px" }} />}
+                {!loading && row.firstName}
+              </TableCell>
+              <TableCell sx={{ width: "130px" }}>
+                {loading && <Skeleton sx={{ width: "100px" }} />}
+                {!loading && row.lastName}
+              </TableCell>
+              <TableCell sx={{ width: "120px" }}>{loading && <Skeleton sx={{ width: "100px" }} />}
+                {!loading && row.type}</TableCell>
+              <TableCell sx={{ width: "120px" }}>{loading && <Skeleton sx={{ width: "100px" }} />}
+                {!loading && row.phone}</TableCell>
+              <TableCell sx={{ width: "120px" }}>{loading && <Skeleton sx={{ width: "100px" }} />}
+                {!loading && row.email}</TableCell>
+              <TableCell sx={{ width: "120px" }}>{loading && <Skeleton sx={{ width: "100px" }} />}
+                {!loading && row.createdOn}</TableCell>
+              <TableCell sx={{ width: "120px" }}>{loading && <Skeleton sx={{ width: "100px" }} />}
+                {!loading && <>
+                  <img
+                    alt="edit_png"
+                    style={{
+                      width: "19px",
+                      height: "19px",
+                      marginRight: "40px",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      navigate("/staff/update", { state: row.staff_id });
+                    }}
+                    src={require("../../assests/edit.png")}
+                  />
+                  <DeleteIcon
+                    color="error"
+                    sx={{
+                      fontSize: "24px",
+                    }}
+                    onClick={() => {
+                      handleDelete(row.staff_id);
+                    }}
+                  />
+                </>
+                }
               </TableCell>
             </TableRow>
           ))}

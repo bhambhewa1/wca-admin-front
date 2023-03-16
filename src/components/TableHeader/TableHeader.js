@@ -32,8 +32,8 @@ export const EnhancedTableHead = ({ totalColumn, numSelected, order, orderBy, on
           alignItems: "center",
           marginLeft: "5px",
         }}>
-        <ArrowDropUpIcon sx={{ fontSize: order === "asc" ? fontUp : "", marginTop: "-2px", marginBottom: "-6px" }} />
-        <ArrowDropDownIcon sx={{ fontSize: order !== "asc" ? fontDown : "", marginTop: "-3px" }} />
+        <ArrowDropUpIcon sx={{ fontSize: order !== "asc" ? fontUp : "", marginTop: "-2px", marginBottom: "-6px" }} />
+        <ArrowDropDownIcon sx={{ fontSize: order !== "desc" ? fontDown : "", marginTop: "-3px" }} />
       </span>
     );
     // fontSize:order==="asc"?"20px":"16px",
