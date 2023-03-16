@@ -90,6 +90,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     phone: "",
     password: "",
     confirm_password: "",
+    type: "",
     validate_Password: false,
   });
   const adminInfo = useContext(UserContext);
@@ -118,6 +119,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
           lastName: result.lastName,
           email: result.email,
           phone: result.phone,
+          type: result.type,
         });
       } else {
         toast.error(res?.data?.message);
@@ -159,6 +161,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               lastName: result.lastName,
               email: result.email,
               phone: result.phone,
+              type: result.type,
             });
             storage.set.adminfirstname(res.data.data.firstName);
             storage.set.adminlastname(res.data.data.lastName);

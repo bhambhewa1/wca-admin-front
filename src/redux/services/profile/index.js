@@ -4,7 +4,7 @@ export const requestuserdata = async (data) => {
   return Api.PostRequest("/api/staff/edit", data);
 };
 export const requestupdateuser = async (data) => {
-  return Api.PostRequest("/api/update/profile", data);
+  return Api.PostRequest("/api/staff/create", data);
 };
 const ProfileApi = {
   requestuserdata,
