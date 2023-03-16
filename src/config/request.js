@@ -12,6 +12,7 @@ export const apiRequest = async (
   data,
   contentTypeJson = false
 ) => {
+  Object.assign(data,{user_type:1})
   if(data)
   try {
     const res = await axios({
@@ -42,6 +43,7 @@ export const apiRequest = async (
 
 
 export const PostRequest = async (url, data) => {
+  // Object.assign(data,{user_type:1})
   try {
   const res = await axios({
       url: API_URL + url,
