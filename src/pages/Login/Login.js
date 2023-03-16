@@ -1,10 +1,4 @@
-import {
-  Box,
-  Typography,
-  Backdrop,
-  Button,
-  CircularProgress,
-} from "@mui/material";
+import { Box, Typography, Backdrop, Button, CircularProgress } from "@mui/material";
 import React, { useEffect } from "react";
 import * as yup from "yup";
 import InputField from "../../components/Input/InputField";
@@ -19,14 +13,8 @@ import { storage } from "../../config/storage";
 import { Link, useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
-  email: yup
-    .string()
-    .required("Please enter your email")
-    .email("Please enter valid email"),
-  password: yup
-    .string()
-    .required("Please enter your password.")
-    .min(8, "Password is too short - should be 8 chars minimum."),
+  email: yup.string().required("Please enter your email").email("Please enter valid email"),
+  password: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 chars minimum."),
 });
 
 const defaultValues = {
@@ -55,6 +43,8 @@ const Login = ({ getLogin }) => {
   const onSubmit = async (model) => {
     setloader(true);
     let item = model;
+    let user_type = { user_type: 1 };
+    Object.assign(item, user_type);
     getLogin(item).then((res) => {
       if (res.data.status) {
         toast.success(res?.data?.message);
@@ -93,10 +83,7 @@ const Login = ({ getLogin }) => {
           </Box>
 
           <Box sx={style.leftBox}>
-            <Backdrop
-              sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-              open={loader}
-            >
+            <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loader}>
               <CircularProgress color="inherit" />
             </Backdrop>
             <form
@@ -106,8 +93,7 @@ const Login = ({ getLogin }) => {
                 width: "70%",
                 display: "flex",
                 flexDirection: "column",
-              }}
-            >
+              }}>
               <img
                 alt="logo"
                 // className="logoSize"
@@ -129,17 +115,17 @@ const Login = ({ getLogin }) => {
                   color: "#F15F23",
                   mt: 6,
                   mb: 2,
-                }}
-              >
+                }}>
                 Welcome to WCA
               </Typography>
 
               <Typography
-              sx={{
-                fontSize: "24px",
-                mb:2
-              }}>
-               Sign in to access your WCA Account</Typography>
+                sx={{
+                  fontSize: "24px",
+                  mb: 2,
+                }}>
+                Sign in to access your WCA Account
+              </Typography>
 
               <InputField
                 control={control}
@@ -175,8 +161,7 @@ const Login = ({ getLogin }) => {
                   width: "100%",
                   display: "flex",
                   justifyContent: "flex-end",
-                }}
-              >
+                }}>
                 <Link
                   to="/ForgetPassword"
                   className="fontlink1"
@@ -186,8 +171,7 @@ const Login = ({ getLogin }) => {
                     textDecoration: "none",
                     marginTop: "20px",
                     marginBottom: "30px",
-                  }}
-                >
+                  }}>
                   Forgot Password
                 </Link>
               </Box>
@@ -211,8 +195,7 @@ const Login = ({ getLogin }) => {
                 }}
                 // color="warning"
                 variant="outlined"
-                type="submit"
-              >
+                type="submit">
                 Sign In
               </Button>
             </form>

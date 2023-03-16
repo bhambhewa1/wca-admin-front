@@ -22,22 +22,19 @@ const schema = yup.object().shape({
     .string()
     .required("Please enter your phone number")
     .matches(/^[0-9\s]*$/, "Please enter valid phone number"),
-    validate_Password: yup.boolean(),
-    password: yup.string().when("validate_Password", {
-      is: true,
-      then: yup
-        .string()
-        .required("Please enter your password.")
-        .min(8, "Password is too short - should be 8 chars minimum."),
-    }),
-    confirm_password: yup.string().when("validate_Password", {
-      is: true,
-      then: yup
-        .string()
-        .required("Confirm your password.")
-        .min(8, "Password is too short - should be 8 chars minimum.")
-        .oneOf([yup.ref("password"), null], "Passwords must match"),
-    })
+  validate_Password: yup.boolean(),
+  password: yup.string().when("validate_Password", {
+    is: true,
+    then: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 chars minimum."),
+  }),
+  confirm_password: yup.string().when("validate_Password", {
+    is: true,
+    then: yup
+      .string()
+      .required("Confirm your password.")
+      .min(8, "Password is too short - should be 8 chars minimum.")
+      .oneOf([yup.ref("password"), null], "Passwords must match"),
+  }),
 });
 const Style = {
   label: {
@@ -108,9 +105,10 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     setLoading(true);
-    getuserdata().then((res) => {
+    let staff_id = { staff_id: storage.fetch.staffId() };
+    getuserdata(staff_id).then((res) => {
       setLoading(false);
-      if (res.data.status) {
+      if (res?.data?.status) {
         const result = res.data.data;
         storage.set.adminfirstname(result.firstName);
         storage.set.adminlastname(result.lastName);
@@ -122,7 +120,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
           phone: result.phone,
         });
       } else {
-        toast.error(res.data.message);
+        toast.error(res?.data?.message);
       }
     });
   }, []);
@@ -141,13 +139,13 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     //   n1: userData.first_name,
     //   n2: userData.last_name,
     // });
-   
-    Object.assign(value, { staff_id: userData.staff_id })
+
+    Object.assign(value, { staff_id: userData.staff_id });
     if (value.password === undefined || value.confirm_password === undefined) {
-        value.password = null;
-        delete value.confirm_password;
-      }
-        setLoading(true);
+      value.password = null;
+      delete value.confirm_password;
+    }
+    setLoading(true);
     updateUser(value).then((res) => {
       setLoading(false);
       if (res.data.status) {
@@ -406,9 +404,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                           mt: "10px",
                         }}
                       />
-                       <p style={Style.validationStyle}>
-                      {formik.errors.password}
-                    </p>
+                      <p style={Style.validationStyle}>{formik.errors.password}</p>
                     </Box>
                   )}
                   {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
@@ -442,9 +438,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                           mt: "10px",
                         }}
                       />
-                      <p style={Style.validationStyle}>
-                      {formik.errors.confirm_password}
-                    </p>
+                      <p style={Style.validationStyle}>{formik.errors.confirm_password}</p>
                     </Box>
                   )}
                 </Box>
