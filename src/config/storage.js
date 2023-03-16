@@ -1,10 +1,11 @@
 /* eslint-disable no-useless-concat */
 const LS_KEY = {
   auth_token: "jwt_access_token",
-  admin_first_name:"admin_firstname",
-  admin_last_name:"admin_lastname",
-  user:"User",
-  user_id:"User_id"
+  admin_first_name: "admin_firstname",
+  admin_last_name: "admin_lastname",
+  user: "User",
+  user_id: "User_id",
+  staff_id: "staff_id",
 };
 
 const set = {
@@ -12,7 +13,7 @@ const set = {
     localStorage.setItem(LS_KEY.auth_token, "Bearer" + " " + data);
   },
   adminfirstname: (data) => {
-    localStorage.setItem(LS_KEY.admin_first_name,data);
+    localStorage.setItem(LS_KEY.admin_first_name, data);
   },
   adminlastname: (data) => {
     localStorage.setItem(LS_KEY.admin_last_name, data);
@@ -20,10 +21,9 @@ const set = {
   user: (data) => {
     localStorage.setItem(LS_KEY.user, JSON.stringify(data));
   },
-  // userId:(data) => {
-  //   localStorage.setItem(LS_KEY.user_id, data);
-
-  // }
+  staffId: (data) => {
+    localStorage.setItem(LS_KEY.staff_id, data);
+  },
 };
 
 const fetch = {
@@ -33,8 +33,16 @@ const fetch = {
       try {
         const decoded = data;
         return decoded;
-      } catch (err) {
-      }
+      } catch (err) {}
+    }
+  },
+  staffId: () => {
+    const data = localStorage.getItem(LS_KEY.staff_id);
+    if (data) {
+      try {
+        const decoded = data;
+        return decoded;
+      } catch (err) {}
     }
   },
   adminfirstname: () => {
@@ -42,8 +50,7 @@ const fetch = {
     if (data) {
       try {
         return data;
-      } catch (err) {
-      }
+      } catch (err) {}
     }
   },
   adminlastname: () => {
@@ -52,8 +59,7 @@ const fetch = {
       try {
         const decoded = data;
         return decoded;
-      } catch (err) {
-      }
+      } catch (err) {}
     }
   },
   user: () => {
@@ -62,8 +68,7 @@ const fetch = {
       try {
         const decoded = data;
         return decoded;
-      } catch (err) {
-      }
+      } catch (err) {}
     }
   },
   // userId: () => {

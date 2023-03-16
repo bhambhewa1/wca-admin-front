@@ -24,6 +24,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import "./drawer.css";
 import Fade from "@mui/material/Fade";
 import { UserContext } from "../../App.js";
+import AlertDialog from "../Dialog/Dialog.js";
 let drawerWidth = 280;
 
 const PermanentDrawerRight = () => {
@@ -33,6 +34,8 @@ const PermanentDrawerRight = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
+  const [openLogoutAlert, setOpenLogoutAlert] = React.useState(false);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const adminInfo = React.useContext(UserContext);
@@ -44,7 +47,7 @@ const PermanentDrawerRight = () => {
   React.useEffect(() => {
     const trimmedURL = URL.slice(0, 6);
     data.map((item, index) => {
-      let trimmedRoute = item.Routes.slice(0, 6);
+      let trimmedRoute = item?.Routes?.slice(0, 6);
       trimmedURL === trimmedRoute ? (item.isActive = true) : (item.isActive = false);
     });
     setData([...data]);
@@ -60,12 +63,14 @@ const PermanentDrawerRight = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  // const logOutAdmin = () => {
-  //   LocalStorage.destroy.authToken();
-  //   LocalStorage.destroy.adminfirstname();
-  //   LocalStorage.destroy.adminlastname();
-  //   navigate("/");
-  // };
+  const Logout = (index) => {
+    setOpenLogoutAlert(true);
+    console.log(index);
+  };
+  const logOutAdmin = () => {
+    localStorage.clear();
+    navigate("/");
+  };
   const openMenu = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -226,7 +231,7 @@ const PermanentDrawerRight = () => {
               sx={{
                 color: "#B2C1F0",
                 opacity: 1,
-                fontSize: "24px",
+                fontSize: { xs: "10px", sm: "24px" },
                 fontWeight: 700,
                 pb: 2,
               }}>
@@ -265,7 +270,7 @@ const PermanentDrawerRight = () => {
                           sx={{
                             fontWeight: "400",
                             fontSize: "16px",
-                            display: "flex",
+                            display: { xs: "none", sm: "flex" },
                           }}
                           primary={text.val}
                         />
@@ -275,7 +280,7 @@ const PermanentDrawerRight = () => {
                     <Collapse in={text.isActive} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
                         <ListItemButton sx={{ pl: 6, color: "#B2C1F0", fontSize: "14px", width: "100%" }}>
-                          <ListItemText primary="Sold and Unsold vehicles" />
+                          <ListItemText sx={{ display: { xs: "none", sm: "flex" } }} primary="Sold and Unsold vehicles" />
                         </ListItemButton>
                       </List>
                     </Collapse>
@@ -293,7 +298,11 @@ const PermanentDrawerRight = () => {
                     }}
                     key={index}
                     disablePadding>
-                    <Link className="drawerItemLinks" style={{ color: text.isActive ? "#fff" : "#B2C1F0" }} to={text.Routes}>
+                    <Link
+                      className="drawerItemLinks"
+                      style={{ color: text.isActive ? "#fff" : "#B2C1F0" }}
+                      to={text.Routes}
+                      onClick={() => (index === 8 ? Logout() : "")}>
                       <ListItemIcon
                         sx={{
                           color: text.isActive ? "#fff" : "#B2C1F0",
@@ -307,7 +316,7 @@ const PermanentDrawerRight = () => {
                         sx={{
                           fontWeight: "400",
                           fontSize: "16px",
-                          // display: { xs: "none", sm: "flex" },
+                          display: { xs: "none", sm: "flex" },
                         }}
                         primary={text.val}
                       />
@@ -329,6 +338,12 @@ const PermanentDrawerRight = () => {
             <Index />
           </Box>
         </Box>
+        <AlertDialog
+          title={"Are you sure you want to logout"}
+          open={openLogoutAlert}
+          onClickButtonCancel={() => setOpenLogoutAlert(false)}
+          onClickButton={() => logOutAdmin()}
+        />
       </Box>
     </Box>
   );

@@ -101,6 +101,7 @@ const Style = {
     paddingLeft: "16px",
     fontSize: "14px",
     fontWeight: "800",
+    // bgcolor: "red",
   },
 
   tableHeaderCheckBox: {
