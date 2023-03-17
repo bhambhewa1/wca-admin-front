@@ -1,4 +1,3 @@
-/* eslint-disable no-unreachable */
 
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -38,10 +37,6 @@ export const apiRequest = async (url, data, contentTypeJson = false) => {
 };
 
 export const PostRequest = async (url, data) => {
-  if (storage.fetch.staffId()) {
-    console.log("TypeStaffid");
-    Object.assign(data, { staff_id: storage.fetch.staffId() });
-  }
 
   try {
     const res = await axios({

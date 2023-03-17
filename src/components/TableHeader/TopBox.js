@@ -404,8 +404,9 @@ const style = {
     fontSize: "18px",
   },
   headingText: {
-    fontSize: "24px",
-    lineHeight: "29px",
+    fontSize: "20px",
+    fontWeight: "700",
+    lineHeight: "38px",
     color: "#000000",
   },
   typographyStyle1: {

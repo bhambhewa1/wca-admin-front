@@ -46,6 +46,7 @@ const Login = ({ getLogin }) => {
     let user_type = { user_type: 1 };
     Object.assign(item, user_type);
     getLogin(item).then((res) => {
+      setloader(false);
       if (res.data.status) {
         toast.success(res?.data?.message);
         storage.set.authToken(res?.data?.token);

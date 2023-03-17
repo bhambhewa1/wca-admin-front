@@ -6,12 +6,16 @@ import { EnhancedTableHead } from "../../components/TableHeader/TableHeader";
 import TopBox from "../../components/TableHeader/TopBox";
 import { getStaffList, deleteStaff } from "../../redux/action/staff";
 import DeleteIcon from "@mui/icons-material/Delete";
+import LoaderComponent from "../../components/Loader/LoaderComponent";
+import AlertDialog from "../../components/Dialog/Dialog";
 const StaffList = ({ getStaffList, deleteStaff }) => {
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = React.useState("asc");
   const [model, setModal] = React.useState(false);
   const [orderBy, setOrderBy] = React.useState("");
   const [pages, setPages] = useState(0);
+  const [dialog, setDialog] = useState(false);
+
   const [page, setPage] = React.useState(1);
   const [rows, setRows] = React.useState([]);
   const [perv_search_val, setPerv_Search_val] = React.useState("");
@@ -88,11 +92,14 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   };
   const handleDelete = (id) => {
     let data = { staff_id: id };
-    deleteStaff(data).then((res) => {
-      if (res.data.status) {
-        getList();
-      }
-    });
+    setDialog(true);
+    if (dialog === "Yes") {
+      deleteStaff(data).then((res) => {
+        if (res.data.status) {
+          getList();
+        }
+      });
+    }
   };
 
   const onSubmit = (value) => {
@@ -131,6 +138,14 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
           navigate("/staff/update");
         }}
       />
+      <AlertDialog
+        title={"Are you sure"}
+        text={"To delete this item"}
+        open={dialog}
+        onClickButton={() => setDialog("Yes")}
+        onClickButtonCancel={() => setDialog(false)}
+      />
+      <LoaderComponent open={loading} />
       <Box sx={{ overflow: "auto", p: 3 }}>
         <Table
           sx={{

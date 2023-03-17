@@ -5,6 +5,5 @@ import {Api} from '../../../config/request'
   };
 const LoginAPI = {
     requestLogin,
-    
   };
   export default LoginAPI
