@@ -6,6 +6,7 @@ import { EnhancedTableHead } from "../../components/TableHeader/TableHeader";
 import TopBox from "../../components/TableHeader/TopBox";
 import { getStaffList, deleteStaff } from "../../redux/action/staff";
 import DeleteIcon from "@mui/icons-material/Delete";
+import LoaderComponent from "../../components/Loader/LoaderComponent";
 const StaffList = ({ getStaffList, deleteStaff }) => {
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = React.useState("asc");
@@ -133,7 +134,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
           navigate("/staff/update");
         }}
       />
-
+      <LoaderComponent open={loading}/>
       <Table
         sx={{
           width: { lg: "100%", xs: "1000px" },

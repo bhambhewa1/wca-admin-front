@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { storage } from "../../config/storage";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom/dist";
 // import { UserContext } from "../Main/Main";
 // import { UserContext } from "../home/main";
 
@@ -33,7 +34,7 @@ const schema = yup.object().shape({
   password: yup.string().when("validate_Password", {
     is: true,
     then: yup
-      .string()
+      .string().nullable()
       .required("Please enter your password.")
       .min(8, "Password is too short - should be 8 chars minimum."),
   }),
@@ -91,6 +92,7 @@ const Style = {
 
 const StaffForm = ({ getstaffdata, updateStaff }) => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [userData, setUserData] = useState({
     staff_id: "",
     firstName: "",
@@ -164,7 +166,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
         setLoading(false);
         if (res.data.status) {
           toast.success("Updated Successfully!!");
-          getStaff()
+          navigate("/staff");
         }
       });
     // }
