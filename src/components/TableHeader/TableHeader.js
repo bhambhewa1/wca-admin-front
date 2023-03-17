@@ -67,7 +67,7 @@ export const EnhancedTableHead = ({ totalColumn, numSelected, order, orderBy, on
           <TableCell
             key={headCell.id}
             // align={headCell.numeric ? 'right' : 'left'}
-            style={Style.tableHeader}
+            sx={Style.tableHeader}
             // padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}>
             {headCell.label}
@@ -101,7 +101,7 @@ const Style = {
     paddingLeft: "16px",
     fontSize: "14px",
     fontWeight: "800",
-    // bgcolor: "red",
+    minWidth: "131px",
   },
 
   tableHeaderCheckBox: {

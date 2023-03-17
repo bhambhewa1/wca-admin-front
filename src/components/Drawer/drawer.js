@@ -86,12 +86,7 @@ const PermanentDrawerRight = () => {
           position="fixed"
           sx={{ bgcolor: "#ffffff", display: "flex", boxShadow: "none", borderBottom: "3px solid rgba(0, 0, 0, 0.06)", pt: 2.5, pb: 2.5 }}>
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{ mr: 2, ...(open && { display: "none" }), color: "black" }}>
+            <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" sx={{ mr: 2, color: "black" }}>
               <MenuIcon
                 sx={{
                   fontSize: "35px",
@@ -185,7 +180,7 @@ const PermanentDrawerRight = () => {
           open={open}>
           <Box
             sx={{
-              p: 3,
+              p: { xs: 1.8, sm: 3 },
               display: "flex",
               justifyContent: "space-between",
             }}>
@@ -207,7 +202,12 @@ const PermanentDrawerRight = () => {
                 )}
               </Box>
             </Link>
-            <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerClose} edge="start" sx={{ color: "#B2C1F0" }}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerClose}
+              edge="start"
+              sx={{ color: "#B2C1F0", display: { xs: "none", sm: "flex" } }}>
               <MenuIcon sx={{ fontSize: "35px" }} />
             </IconButton>
           </Box>
@@ -225,7 +225,7 @@ const PermanentDrawerRight = () => {
                   borderRadius: "5px",
                 },
               },
-              p: "0px 20px 8px 20px",
+              p: { xs: "0px 3px 0px 3px", sm: "0px 20px 8px 20px" },
             }}>
             <Typography
               sx={{
@@ -234,6 +234,7 @@ const PermanentDrawerRight = () => {
                 fontSize: { xs: "10px", sm: "24px" },
                 fontWeight: 700,
                 pb: 2,
+                ml: { xs: 1.2, sm: 0 },
               }}>
               Dashboard
             </Typography>
@@ -274,7 +275,7 @@ const PermanentDrawerRight = () => {
                           }}
                           primary={text.val}
                         />
-                        <ArrowForwardIosIcon color="white" sx={{ ml: "100px" }} />
+                        <ArrowForwardIosIcon color="white" sx={{ ml: { xs: "0px", sm: "100px" }, fontSize: { xs: "12px", sm: "14px" } }} />
                       </Link>
                     </ListItem>
                     <Collapse in={text.isActive} timeout="auto" unmountOnExit>

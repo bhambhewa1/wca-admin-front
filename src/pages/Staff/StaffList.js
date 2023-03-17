@@ -33,16 +33,15 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
 
   const getList = () => {
     console.log(data);
-    setLoading(true)
+    setLoading(true);
     getStaffList(data).then((res) => {
-    setLoading(false)
-    if (res.data) {
+      setLoading(false);
+      if (res.data) {
         setRows(res?.data?.staff_list);
-        setPages(res?.data?.pages)
+        setPages(res?.data?.pages);
       } else {
         setRows(res?.data?.staff_list);
-        setPages(res?.data?.pages)
-
+        setPages(res?.data?.pages);
       }
     });
   };
@@ -64,7 +63,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     }
     // Object.assign(data, sort_column, sort);
     if (search_val) {
-      data.search = search_val
+      data.search = search_val;
     }
     getList();
   };
@@ -79,11 +78,11 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       search: "",
     };
     if (order && orderBy) {
-      data.sort = order
-      data.sortColumn = orderBy
+      data.sort = order;
+      data.sortColumn = orderBy;
     }
     if (search_val) {
-      data.search = search_val
+      data.search = search_val;
     }
     getList();
   };
@@ -102,7 +101,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       setLoading(true);
       setSearch_val(value);
       setPage(1);
-      data.search = value
+      data.search = value;
       // if (order && orderBy) {
       //   let sort_column = { sort_column: orderBy };
       //   let sort = { sort_by: order };
@@ -117,7 +116,6 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        p: 3,
       }}>
       <TopBox
         headerText={"Staff"}
@@ -133,85 +131,94 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
           navigate("/staff/update");
         }}
       />
-
-      <Table
-        sx={{
-          width: { lg: "100%", xs: "1000px" },
-          border: "1px solid #dddddd",
-          borderRadius: "25px",
-        }}
-        aria-labelledby="tableTitle">
-        <EnhancedTableHead
-          totalColumn={["firstName", "LastName", "Type", "Contact No", "Email", "Created on", "Action"]}
-          order={order}
-          orderBy={orderBy}
-          onRequestSort={handleRequestSort}
-          rowCount={rows.length}
-        />
-        <TableBody>
-          {rows?.map((row) => (
-            <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell sx={{ width: "130px" }} >
-                {loading && <Skeleton sx={{ width: "100px" }} />}
-                {!loading && row.firstName}
-              </TableCell>
-              <TableCell sx={{ width: "130px" }}>
-                {loading && <Skeleton sx={{ width: "100px" }} />}
-                {!loading && row.lastName}
-              </TableCell>
-              <TableCell sx={{ width: "120px" }}>{loading && <Skeleton sx={{ width: "100px" }} />}
-                {!loading && row.type}</TableCell>
-              <TableCell sx={{ width: "120px" }}>{loading && <Skeleton sx={{ width: "100px" }} />}
-                {!loading && row.phone}</TableCell>
-              <TableCell sx={{ width: "120px" }}>{loading && <Skeleton sx={{ width: "100px" }} />}
-                {!loading && row.email}</TableCell>
-              <TableCell sx={{ width: "120px" }}>{loading && <Skeleton sx={{ width: "100px" }} />}
-                {!loading && row.createdOn}</TableCell>
-              <TableCell sx={{ width: "120px" }}>{loading && <Skeleton sx={{ width: "100px" }} />}
-                {!loading && <>
-                  <img
-                    alt="edit_png"
-                    style={{
-                      width: "19px",
-                      height: "19px",
-                      marginRight: "40px",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      navigate("/staff/update", { state: row.staff_id });
-                    }}
-                    src={require("../../assests/edit.png")}
-                  />
-                  <DeleteIcon
-                    color="error"
-                    sx={{
-                      fontSize: "24px",
-                    }}
-                    onClick={() => {
-                      handleDelete(row.staff_id);
-                    }}
-                  />
-                </>
-                }
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <Box sx={{ overflow: "auto", p: 3 }}>
+        <Table
+          sx={{
+            minWidth: { xs: "775px", md: "100%" },
+            border: "1px solid #dddddd",
+            borderRadius: "25px",
+          }}
+          aria-labelledby="tableTitle">
+          <EnhancedTableHead
+            totalColumn={["firstName", "LastName", "Type", "Contact No", "Email", "Created on", "Action"]}
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+            rowCount={rows.length}
+          />
+          <TableBody>
+            {rows?.map((row) => (
+              <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell sx={{ width: "130px" }}>
+                  {loading && <Skeleton sx={{ width: "100px" }} />}
+                  {!loading && row.firstName}
+                </TableCell>
+                <TableCell sx={{ width: "130px" }}>
+                  {loading && <Skeleton sx={{ width: "100px" }} />}
+                  {!loading && row.lastName}
+                </TableCell>
+                <TableCell sx={{ width: "120px" }}>
+                  {loading && <Skeleton sx={{ width: "100px" }} />}
+                  {!loading && row.type}
+                </TableCell>
+                <TableCell sx={{ width: "120px" }}>
+                  {loading && <Skeleton sx={{ width: "100px" }} />}
+                  {!loading && row.phone}
+                </TableCell>
+                <TableCell sx={{ width: "120px" }}>
+                  {loading && <Skeleton sx={{ width: "100px" }} />}
+                  {!loading && row.email}
+                </TableCell>
+                <TableCell sx={{ width: "120px" }}>
+                  {loading && <Skeleton sx={{ width: "100px" }} />}
+                  {!loading && row.createdOn}
+                </TableCell>
+                <TableCell sx={{ width: "120px" }}>
+                  {loading && <Skeleton sx={{ width: "100px" }} />}
+                  {!loading && (
+                    <>
+                      <img
+                        alt="edit_png"
+                        style={{
+                          width: "19px",
+                          height: "19px",
+                          marginRight: "40px",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => {
+                          navigate("/staff/update", { state: row.staff_id });
+                        }}
+                        src={require("../../assests/edit.png")}
+                      />
+                      <DeleteIcon
+                        color="error"
+                        sx={{
+                          fontSize: "24px",
+                        }}
+                        onClick={() => {
+                          handleDelete(row.staff_id);
+                        }}
+                      />
+                    </>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Box>
       <Box
         sx={{
           display: "flex",
           justifyContent: "end",
           p: 1,
-        }}
-      >
+        }}>
         {pages > 1 && (
           <Pagination
             count={pages}
             page={page}
             boundaryCount={1}
-            sx={{ button: { fontSize: '16px' } }}
-
+            sx={{ button: { fontSize: "16px" } }}
             onChange={handlePageChange}
             siblingCount={0}
           />

@@ -116,7 +116,7 @@ const TopBox = ({
     setTabValue(newValue);
   };
   const handleSearch = (e) => {
-    console.log("event",e.target.event);
+    console.log("event", e.target.event);
     setSearch_val(e.target.value);
     onSubmit(e.target.value);
   };
@@ -146,8 +146,6 @@ const TopBox = ({
         display: "flex",
         flexDirection: "column",
         // justifyContent: "space-between",
-        pb: "20px",
-        // bgcolor: "red",
       }}>
       <Dialog open={open}>
         <form handleSubmit={Submit}>
@@ -243,6 +241,7 @@ const TopBox = ({
           justifyContent: { xs: "space-between" },
           width: "100%",
           pb: 2,
+          p: 3,
           borderBottom: "3px solid rgba(0, 0, 0, 0.06)",
           // borderTop: "3px solid rgba(0, 0, 0, 0.06)",
         }}>
@@ -285,13 +284,15 @@ const TopBox = ({
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           justifyContent: "space-between",
+          p: 3,
+          pb: 0,
         }}>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
           }}>
-          <Typography sx={{ mb: "15px", mt: "15px" }}>{searchText}</Typography>
+          <Typography sx={{ mb: "15px" }}>{searchText}</Typography>
           <TextField
             variant="filled"
             inputProps={{
