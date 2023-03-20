@@ -1,12 +1,7 @@
 import React from "react";
-import { Box, TableCell, TableHead, TableRow, TableSortLabel, Checkbox } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { TableCell, TableHead, TableRow, TableSortLabel } from "@mui/material";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { visuallyHidden } from "@mui/utils";
-import { useLocation } from "react-router-dom";
-import { fontFamily } from "@mui/system";
 
 export const EnhancedTableHead = ({ totalColumn, numSelected, order, orderBy, onRequestSort, rowCount }) => {
   const [indexOfArrow, setIndexOfArrow] = React.useState();
@@ -16,7 +11,6 @@ export const EnhancedTableHead = ({ totalColumn, numSelected, order, orderBy, on
     disablePadding: true,
     label: item,
   }));
-  const location = useLocation();
   const createSortHandler = (property, index) => (event) => {
     onRequestSort(event, property);
     setIndexOfArrow(index);
@@ -45,9 +39,10 @@ export const EnhancedTableHead = ({ totalColumn, numSelected, order, orderBy, on
           bgcolor: "#F6FAFD",
           border: "1px solid #ECECEC",
           ".MuiTableRow-root": {
-            borderRadius: "10px",
+            // borderRadius: "20px",
             // border-bottom-left-radius: 10px;
           },
+          borderRadius: "10px",
         }}>
         {/* {!checkbox && (
           <TableCell style={Style.tableHeaderCheckBox}>
@@ -96,7 +91,6 @@ export const EnhancedTableHead = ({ totalColumn, numSelected, order, orderBy, on
 const Style = {
   tableHeader: {
     color: "#000000",
-    borderRadius: "2px",
     letterSpacing: "0px",
     paddingLeft: "16px",
     fontSize: "14px",

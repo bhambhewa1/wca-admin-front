@@ -144,7 +144,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
 
     Object.assign(value, { staff_id: userData.staff_id });
     if (value.password === undefined || value.confirm_password === undefined) {
-      value.password = null;
+      value.password = "";
       delete value.confirm_password;
     }
     setLoading(true);
