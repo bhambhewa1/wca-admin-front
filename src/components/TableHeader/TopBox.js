@@ -48,30 +48,38 @@ const useStyles = makeStyles(() => ({
   tab: {
     fontSize: "18px",
     fontWeight: "400",
+    textDecoration: "none",
+
     "&.Mui-selected": {
       // background: "#F15F23",
       color: "white",
       borderBottom: 0,
+      textDecoration: "none",
     },
     "& .MuiBox-root": {
       padding: "0px",
+      textDecoration: "none",
     },
     textTransform: "none",
     "&.MuiTab-root.Mui-selected": {
       color: "white",
       textTransform: "none",
-      border: "none",
+      border: "0px",
+      textDecoration: "none",
     },
     "&.MuiButtonBase-root": {
       textTransform: "none",
       marginRight: 25,
+      textDecoration: "none",
     },
     "&.css-1jbwg7a-MuiButtonBase-root-MuiTab-root": {
       background: "#DDDDDD",
       color: "#000000",
+      textDecoration: "none",
     },
     "&.css-1jbwg7a-MuiButtonBase-root-MuiTab-root.Mui-selected": {
       background: "#F15F23",
+      textDecoration: "none",
     },
   },
   TabPanel: {
@@ -264,6 +272,7 @@ const TopBox = ({
             value={tabValue}
             onChange={handleChangeTab}
             aria-label="basic tabs example"
+            indicatorColor="white"
             sx={{
               borderBottom: "none",
             }}>
