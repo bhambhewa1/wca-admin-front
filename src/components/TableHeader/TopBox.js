@@ -246,7 +246,7 @@ const TopBox = ({
           // borderTop: "3px solid rgba(0, 0, 0, 0.06)",
         }}>
         <Typography sx={style.headingText}>{headerText}</Typography>
-        {tabValue === 0 && location.pathname !== "/vehicles/soldandunsold" && (
+        {tabValue === 0 && location.pathname !== "/vehicles/soldandunsold" &&  location.pathname!=='/appointments'&&(
           <Button variant="contained" onClick={button_one_onClick} sx={style.button_one}>
             {button_one}
           </Button>
@@ -263,6 +263,7 @@ const TopBox = ({
           <Tabs
             value={tabValue}
             onChange={handleChangeTab}
+            indicatorColor="white"
             aria-label="basic tabs example"
             sx={{
               borderBottom: "none",

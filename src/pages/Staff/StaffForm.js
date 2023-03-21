@@ -54,7 +54,7 @@ const Style = {
     display: "flex",
     pb: 3,
     pt: 3,
-    pl: { xs: 0, md: 3 },
+    pl: { xs: 0, md: 4 },
   },
   inputStyle: {
     width: {
@@ -380,7 +380,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                   fontSize: { xs: "20px", md: "20px" },
                   fontWeight: { xs: "500", md: "700" },
                   mb: 2,
-                  pl: { xs: 0, md: 3 },
+                  pl: { xs: 0, md: 4 },
                 }}>
                 Set Password
               </Typography>
@@ -522,7 +522,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
             }}
             variant="outlined"
             className="btn"
-            onClick={formik.handleReset}>
+            onClick={()=>navigate('/staff')}>
             Cancel
           </Button>
           <Button
