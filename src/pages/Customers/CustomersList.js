@@ -4,6 +4,7 @@ import { EnhancedTableHead } from "../../components/TableHeader/TableHeader";
 import TopBox from "../../components/TableHeader/TopBox";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import AddIcon from "@mui/icons-material/Add";
+import { Style } from "../../const/Style";
 const CustomersList = () => {
   const rows = [
     { id: 1, Name: "Jon", email: "abc@gmail.com", Phone: "+35", createdOn: "1/1/2022 10:11 AM", vehicles: 1 },
@@ -24,11 +25,9 @@ const CustomersList = () => {
         p: 3,
       }}>
       <TopBox headerText={"Customer"} button_one={"+ Add Customer"} searchText={"Search customer"} />
-
+      <Box sx={Style.table.tableWrapBox}>
       <Table
-        sx={{
-          width: { lg: "100%", xs: "1000px" },
-        }}
+        sx={Style.table.tableBox}
         aria-labelledby="tableTitle">
         <EnhancedTableHead
           totalColumn={["Customer Name", "Email", "Phone", "Created On", "Vehicles", "Action"]}
@@ -42,16 +41,18 @@ const CustomersList = () => {
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.Name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell align="left">{row.Name}</TableCell>
-              <TableCell align="left">{row.email}</TableCell>
-              <TableCell align="left">{row.Phone}</TableCell>
-              <TableCell align="left">{row.createdOn}</TableCell>
+              <TableCell align="left"  sx={Style.table.tableCell}>{row.Name}</TableCell>
+              <TableCell align="left"  sx={Style.table.tableCell}>{row.email}</TableCell>
+              <TableCell align="left"  sx={Style.table.tableCell}>{row.Phone}</TableCell>
+              <TableCell align="left" sx={Style.table.tableCell}>{row.createdOn}</TableCell>
 
-              <TableCell align="left" sx={{ display: "flex" }}>
+              <TableCell align="left" sx={Style.table.tableCell}>
                 <Button sx={{ display: "flex", justifyContent: "space-between" }}>
                   {row.vehicles}
-                  <RemoveRedEyeIcon sx={{ color: "#4969B2", fontSize: "20px" }} />
                 </Button>
+              </TableCell>
+                <TableCell align="left" sx={Style.table.tableCell}>
+                   <RemoveRedEyeIcon sx={{ color: "#4969B2", fontSize: "20px" }} />
                 <Button sx={{ color: "#F15F23" }}>
                   <AddIcon />
                   Add
@@ -61,7 +62,7 @@ const CustomersList = () => {
           ))}
         </TableBody>
       </Table>
-    </Box>
+    </Box></Box>
   );
 };
 
