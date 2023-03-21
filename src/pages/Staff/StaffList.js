@@ -1,4 +1,4 @@
-import { Box, Pagination, Skeleton, Table, TableBody, TableCell, TableRow } from "@mui/material";
+import { Box, Pagination, Skeleton, Table, TableBody, TableCell, TableRow, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   const [perv_search_val, setPerv_Search_val] = React.useState("");
   const [search_val, setSearch_val] = React.useState("");
   const [Empty, setEmpty] = useState(false);
+  const [Id, setId] = useState("")
   const navigate = useNavigate();
   let length = 3;
   let data = {
@@ -92,14 +93,15 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   };
   const handleDelete = (id) => {
     let data = { staff_id: id };
-    setDialog(true);
-    if (dialog === "Yes") {
-      deleteStaff(data).then((res) => {
-        if (res.data.status) {
-          getList();
-        }
-      });
-    }
+    // setDialog(true);
+    // if (dialog === "Yes") {
+    deleteStaff(data).then((res) => {
+      if (res.data.status) {
+        setDialog(false);
+        getList();
+      }
+    });
+    // }
   };
 
   const onSubmit = (value) => {
@@ -139,15 +141,32 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         }}
       />
       <AlertDialog
-        title={"Are you sure"}
+        title={"Are you sure?"}
         text={"To delete this item"}
         open={dialog}
-        onClickButton={() => setDialog("Yes")}
+        onClickButton={() => handleDelete(Id)}
         onClickButtonCancel={() => setDialog(false)}
       />
       <LoaderComponent open={loading} />
       <Box sx={{ overflow: "auto", p: 3 }}>
-        <Table
+        
+      {rows.length==0 && (
+        <Typography
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            pt: 20,
+            pb: 20,
+            fontSize: "35px",
+            color: "#A8A8A8",
+            fontWeight: "700",
+          }}
+        >
+          No Staff Member Found
+        </Typography>
+      )}
+      {!rows.length==0 && (  
+      <Table
           sx={{
             minWidth: { xs: "775px", md: "100%" },
             border: "1px solid #dddddd",
@@ -211,7 +230,8 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
                           fontSize: "24px",
                         }}
                         onClick={() => {
-                          handleDelete(row.staff_id);
+                          setDialog(true)
+                          setId(row.staff_id);
                         }}
                       />
                     </>
@@ -221,6 +241,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
             ))}
           </TableBody>
         </Table>
+      )}
       </Box>
       <Box
         sx={{
