@@ -142,7 +142,10 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     //   n1: userData.first_name,
     //   n2: userData.last_name,
     // });
-
+    if (value.password === undefined || value.confirm_password === undefined) {
+      value.password = "";
+      delete value.confirm_password;
+    }
     Object.assign(value, { staff_id: userData.staff_id });
     setLoading(true);
     updateUser(value).then((res) => {
@@ -159,6 +162,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               email: result.email,
               phone: result.phone,
               type: result.type,
+              validate_Password:false
             });
             storage.set.adminfirstname(res.data.data.firstName);
             storage.set.adminlastname(res.data.data.lastName);
