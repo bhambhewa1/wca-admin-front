@@ -8,6 +8,7 @@ import { getStaffList, deleteStaff } from "../../redux/action/staff";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LoaderComponent from "../../components/Loader/LoaderComponent";
 import AlertDialog from "../../components/Dialog/Dialog";
+import { Style } from "../../const/Style";
 const StaffList = ({ getStaffList, deleteStaff }) => {
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = React.useState("asc");
@@ -21,7 +22,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   const [perv_search_val, setPerv_Search_val] = React.useState("");
   const [search_val, setSearch_val] = React.useState("");
   const [Empty, setEmpty] = useState(false);
-  const [Id, setId] = useState("")
+  const [Id, setId] = useState("");
   const navigate = useNavigate();
   let length = 3;
   let data = {
@@ -148,100 +149,92 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         onClickButtonCancel={() => setDialog(false)}
       />
       <LoaderComponent open={loading} />
-      <Box sx={{ overflow: "auto", p: 3 }}>
-        
-      {rows.length==0 && (
-        <Typography
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            pt: 20,
-            pb: 20,
-            fontSize: "35px",
-            color: "#A8A8A8",
-            fontWeight: "700",
-          }}
-        >
-          No Staff Member Found
-        </Typography>
-      )}
-      {!rows.length==0 && (  
-      <Table
-          sx={{
-            minWidth: { xs: "775px", md: "100%" },
-            border: "1px solid #dddddd",
-            borderRadius: "25px",
-          }}
-          aria-labelledby="tableTitle">
-          <EnhancedTableHead
-            totalColumn={["firstName", "LastName", "Type", "Contact No", "Email", "Created on", "Action"]}
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={handleRequestSort}
-            rowCount={rows.length}
-          />
-          <TableBody>
-            {rows?.map((row) => (
-              <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell sx={{ width: "130px" }}>
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && row.firstName}
-                </TableCell>
-                <TableCell sx={{ width: "130px" }}>
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && row.lastName}
-                </TableCell>
-                <TableCell sx={{ width: "120px" }}>
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && row.type}
-                </TableCell>
-                <TableCell sx={{ width: "120px" }}>
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && row.phone}
-                </TableCell>
-                <TableCell sx={{ width: "120px" }}>
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && row.email}
-                </TableCell>
-                <TableCell sx={{ width: "120px" }}>
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && row.createdOn}
-                </TableCell>
-                <TableCell sx={{ width: "120px" }}>
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && (
-                    <>
-                      <img
-                        alt="edit_png"
-                        style={{
-                          width: "19px",
-                          height: "19px",
-                          marginRight: "40px",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => {
-                          navigate("/staff/update", { state: row.staff_id });
-                        }}
-                        src={require("../../assests/edit.png")}
-                      />
-                      <DeleteIcon
-                        color="error"
-                        sx={{
-                          fontSize: "24px",
-                        }}
-                        onClick={() => {
-                          setDialog(true)
-                          setId(row.staff_id);
-                        }}
-                      />
-                    </>
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
+      <Box sx={Style.table.tableWrapBox}>
+        {rows.length == 0 && (
+          <Typography
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              pt: 20,
+              pb: 20,
+              fontSize: "35px",
+              color: "#A8A8A8",
+              fontWeight: "700",
+            }}>
+            No Staff Member Found
+          </Typography>
+        )}
+        {!rows.length == 0 && (
+          <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
+            <EnhancedTableHead
+              totalColumn={["Firstname", "Lastname", "Type", "Contact No", "Email", "Created on", "Action"]}
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort}
+              rowCount={rows.length}
+            />
+            <TableBody>
+              {rows?.map((row) => (
+                <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell sx={{ width: "130px" }}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && row.firstName}
+                  </TableCell>
+                  <TableCell sx={{ width: "130px" }}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && row.lastName}
+                  </TableCell>
+                  <TableCell sx={{ width: "120px" }}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && row.type}
+                  </TableCell>
+                  <TableCell sx={{ width: "120px" }}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && row.phone}
+                  </TableCell>
+                  <TableCell sx={{ width: "120px" }}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && row.email}
+                  </TableCell>
+                  <TableCell sx={{ width: "120px" }}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && row.createdOn}
+                  </TableCell>
+                  <TableCell sx={{ width: "120px" }}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && (
+                      <>
+                        <img
+                          alt="edit_png"
+                          style={{
+                            width: "19px",
+                            height: "19px",
+                            marginRight: "40px",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            navigate("/staff/update", { state: row.staff_id });
+                          }}
+                          src={require("../../assests/edit.png")}
+                        />
+                        <DeleteIcon
+                          color="error"
+                          sx={{
+                            fontSize: "24px",
+                          }}
+                          onClick={() => {
+                            setDialog(true);
+                            setId(row.staff_id);
+                          }}
+                        />
+                      </>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </Box>
       <Box
         sx={{
