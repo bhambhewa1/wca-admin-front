@@ -9,5 +9,6 @@ export const Style = {
       border: "1px solid #dddddd",
       borderRadius: "25px",
     },
+    tableCell: { width: "100px", fontSize: "13px", color: "#707070", fontWeight: "600" },
   },
 };

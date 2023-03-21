@@ -41,14 +41,26 @@ const VehicleList = () => {
           <TableBody sx={{ border: "1px solid #ECECEC" }}>
             {rows.map((row) => (
               <TableRow key={row.Name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell align="left">{row.VIN}</TableCell>
-                <TableCell align="left">{row.make}</TableCell>
-                <TableCell align="left">{row.year}</TableCell>
-                <TableCell align="left">{row.model}</TableCell>
-                <TableCell align="left">{row.price}</TableCell>
-                <TableCell align="left">{row.createdOn}</TableCell>
+                <TableCell sx={Style.table.tableCell} align="left">
+                  {row.VIN}
+                </TableCell>
+                <TableCell sx={Style.table.tableCell} align="left">
+                  {row.make}
+                </TableCell>
+                <TableCell sx={Style.table.tableCell} align="left">
+                  {row.year}
+                </TableCell>
+                <TableCell sx={Style.table.tableCell} align="left">
+                  {row.model}
+                </TableCell>
+                <TableCell sx={Style.table.tableCell} align="left">
+                  {row.price}
+                </TableCell>
+                <TableCell sx={Style.table.tableCell} align="left">
+                  {row.createdOn}
+                </TableCell>
 
-                <TableCell align="left" sx={{ display: "flex", justifyContent: "space-between" }}>
+                <TableCell align="left" sx={Style.table.tableCell}>
                   <IconLinkButton buttonName={"Edit"} />
                   <IconLinkButton />
                 </TableCell>

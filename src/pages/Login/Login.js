@@ -59,7 +59,7 @@ const Login = ({ getLogin }) => {
           return toast.error(item);
         });
         // toast.error(res?.data?.errors);
-        storage.set.userId(res?.data?.data?.id);
+        // storage.set.userId(res?.data?.data?.id);
         setTimeout(() => {
           if (res?.data?.is_email_verified === 0) {
             navigate("/");

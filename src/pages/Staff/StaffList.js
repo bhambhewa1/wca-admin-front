@@ -176,31 +176,31 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
             <TableBody>
               {rows?.map((row) => (
                 <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell sx={{ width: "130px" }}>
+                  <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && row.firstName}
                   </TableCell>
-                  <TableCell sx={{ width: "130px" }}>
+                  <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && row.lastName}
                   </TableCell>
-                  <TableCell sx={{ width: "120px" }}>
+                  <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && row.type}
                   </TableCell>
-                  <TableCell sx={{ width: "120px" }}>
+                  <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && row.phone}
                   </TableCell>
-                  <TableCell sx={{ width: "120px" }}>
+                  <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && row.email}
                   </TableCell>
-                  <TableCell sx={{ width: "120px" }}>
+                  <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && row.createdOn}
                   </TableCell>
-                  <TableCell sx={{ width: "120px" }}>
+                  <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && (
                       <>
