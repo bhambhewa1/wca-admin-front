@@ -74,11 +74,11 @@ const Login = ({ getLogin }) => {
     <>
       <Box sx={style.outBox}>
         <Box sx={style.mainBox}>
-          <Box sx={{ width: "50%", height: "100vh", objectFit: "cover" }}>
+          <Box sx={{ width: "50%", height: "100vh", display: { xs: "none", sm: "flex" } }}>
             <img
               alt="logo"
-              // style={{ width: "100%",height:'82%' }}
-              className="rightBox"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              // className="rightBox"
               src={require("../../assests/loginBigImg.png")}
             />
           </Box>
@@ -89,9 +89,9 @@ const Login = ({ getLogin }) => {
             </Backdrop>
             <form
               name="LoginForm"
+              className="loginForm"
               onSubmit={handleSubmit(onSubmit)}
               style={{
-                width: "70%",
                 display: "flex",
                 flexDirection: "column",
               }}>
@@ -122,7 +122,7 @@ const Login = ({ getLogin }) => {
 
               <Typography
                 sx={{
-                  fontSize: "24px",
+                  fontSize: { xs: "16px", sm: "24px" },
                   mb: 2,
                 }}>
                 Sign in to access your WCA Account
@@ -157,7 +157,7 @@ const Login = ({ getLogin }) => {
                 required={"*"}
               />
 
-              <Box
+              {/* <Box
                 sx={{
                   width: "100%",
                   display: "flex",
@@ -175,7 +175,7 @@ const Login = ({ getLogin }) => {
                   }}>
                   Forgot Password
                 </Link>
-              </Box>
+              </Box> */}
 
               <Button
                 disableRipple
@@ -188,7 +188,8 @@ const Login = ({ getLogin }) => {
                   bgcolor: "#FF8D2A",
                   color: "#FFFFFF",
                   border: "1.5px solid #FF8D2A",
-                  mb: 4,
+                  mb: 2,
+                  mt: 4,
                   borderRadius: "5px",
                   fontSize: { xs: "16px", md: "18px", lg: "20px" },
                   fontWeight: 400,
@@ -238,6 +239,6 @@ const style = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: { xs: "100%", md: "50%" },
+    width: { xs: "100%", sm: "50%" },
   },
 };

@@ -176,7 +176,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
             <TableBody>
               {rows?.map((row) => (
                 <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell sx={Style.table.tableCell}>
+                  <TableCell align="center" sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && row.firstName}
                   </TableCell>
@@ -211,6 +211,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
                             height: "19px",
                             marginRight: "40px",
                             cursor: "pointer",
+                            marginBottom: "3px",
                           }}
                           onClick={() => {
                             navigate("/staff/update", { state: row.staff_id });

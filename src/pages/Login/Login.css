@@ -23,6 +23,9 @@
   .rightBox {
     width: 0px;
   } 
+  .loginForm{
+    width:90%
+  }
 }
 @media (min-width:600px) {
   .fontsize { 
@@ -35,6 +38,9 @@
   }
   .logoSize {
     width: 170px;
+  }
+  .loginForm{
+    width:70%
   }
 }
 @media (min-width:900px) {
@@ -51,6 +57,9 @@
   }
   .rightBox {
     width: 100%;
+  }
+  .loginForm{
+    width:70%
   }
 }
 @media (min-width:1200px) {
@@ -71,12 +80,19 @@
     height:100%;
 
   }
+  .loginForm{
+    width:70%
+  }
 }
 @media (min-width:1536px) {
   .fontsize { font-size: 20px;}
   .rightBox {
     width: 100%;
     height:100%;
-    /* object-fit: cover; */
+    object-fit: cover;
+  }
+  .loginForm{
+    width:70%
+    
   }
 }
