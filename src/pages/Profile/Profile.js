@@ -83,7 +83,7 @@ const Style = {
 
 const ProfilePage = ({ getuserdata, updateUser }) => {
   const [userData, setUserData] = useState({
-    id: "",
+    staff_id: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -95,7 +95,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
   });
   const adminInfo = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const [validate_Password, setValidate_Password] = useState(false);
+  // const [validate_Password, setValidate_Password] = useState(false);
   useEffect(() => {
     adminInfo?.setAdminName({
       n1: userData.firstName,
@@ -120,6 +120,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
           email: result.email,
           phone: result.phone,
           type: result.type,
+          staff_id:result.staff_id
         });
       } else {
         toast.error(res?.data?.message);
@@ -143,16 +144,12 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     // });
 
     Object.assign(value, { staff_id: userData.staff_id });
-    if (value.password === undefined || value.confirm_password === undefined) {
-      value.password = "";
-      delete value.confirm_password;
-    }
     setLoading(true);
     updateUser(value).then((res) => {
       setLoading(false);
       if (res.data.status) {
         toast.success("Updated Successfully!!");
-        getuserdata().then((res) => {
+        getuserdata({staff_id: userData.staff_id}).then((res) => {
           setLoading(false);
           if (res.data.status) {
             const result = res.data.data;
@@ -353,16 +350,14 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
             <Typography sx={{ mb: 2 }}>
               <input
                 type="checkbox"
-                // name="validate_Password"
-                // id="validate_Password"
-                onChange={() => {
-                  setValidate_Password(!validate_Password);
-                }}
-                value={validate_Password}
+                name="validate_Password"
+                id="validate_Password"
+                onChange={formik.handleChange}
+                value={userData.validate_Password}
               />
               Do you want to change the password?
             </Typography>
-            {validate_Password && (
+            {formik.values.validate_Password && (
               <Box>
                 <Typography
                   sx={{
