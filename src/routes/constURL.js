@@ -14,3 +14,4 @@ export const CUSTOMERINFO = "/vehicles/details/customer/info";
 export const SOLDANDUNSOLDVEHICLES = "/vehicles/soldandunsold";
 export const STAFFADD = "/staff/update";
 export const VEHICLELOAN = "/vehicles/details/loan"
+export const DOCUMENTSUPLOAD = "/vehicles/details/documentsupload"

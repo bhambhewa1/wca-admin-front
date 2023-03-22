@@ -103,7 +103,7 @@ const Login = ({ getLogin }) => {
               />
               <Typography
                 sx={{
-                  fontSize: { xs: "20px", sm: "20px", md: "24px", lg: "35px" },
+                  fontSize: { xs: "20px", sm: "20px", md: "24px", lg: "24px" },
                   lineHeight: {
                     xs: "29px",
                     sm: "29px",
@@ -122,7 +122,7 @@ const Login = ({ getLogin }) => {
 
               <Typography
                 sx={{
-                  fontSize: { xs: "16px", sm: "24px" },
+                  fontSize: { xs: "16px", sm: "20px" },
                   mb: 2,
                 }}>
                 Sign in to access your WCA Account
@@ -135,7 +135,7 @@ const Login = ({ getLogin }) => {
                 type={"text"}
                 placeholder={"Please enter email address"}
                 formlabel="Email Address"
-                size={{ xs: "20px", md: "22px", lg: "24px" }}
+                size={{ xs: "18px", md: "18px", lg: "18px" }}
                 color={"#333333"}
                 name="email"
                 required={"*"}
@@ -150,7 +150,7 @@ const Login = ({ getLogin }) => {
                 variant="filled"
                 placeholder={"Enter your password"}
                 formlabel="Password"
-                size={{ xs: "20px", md: "22px", lg: "24px" }}
+                size={{ xs: "18px", md: "18px", lg: "18px" }}
                 color={"#333333"}
                 name="password"
                 type={"password"}
@@ -191,7 +191,7 @@ const Login = ({ getLogin }) => {
                   mb: 2,
                   mt: 4,
                   borderRadius: "5px",
-                  fontSize: { xs: "16px", md: "18px", lg: "20px" },
+                  fontSize: { xs: "16px", md: "16px", lg: "16px" },
                   fontWeight: 400,
                   textTransform: "none",
                 }}

@@ -1,5 +1,5 @@
 import { VEHICLESNEGOTIATING } from "./constURL";
-import { CUSTOMERINFO, CUSTOMERLIST, VEHICLEINFO } from "./constURL";
+import { CUSTOMERINFO, CUSTOMERLIST,DOCUMENTSUPLOAD, VEHICLEINFO } from "./constURL";
 import { APPOINTMENTLIST } from "./constURL";
 import { TRUCKINGCOMPANIESLIST } from "./constURL";
 import { STORELIST } from "./constURL";
@@ -29,7 +29,7 @@ import ProtectedRoute from "./protectedRoutes";
 import VehicleInformation from "../pages/Vehicles/VehicleInformation";
 import CustomerInfo from "../pages/Vehicles/CustomerInfo";
 import VehicleLoan from "../pages/Vehicles/VehicleLoan";
-
+import DocumentsUpload from "../pages/Vehicles/DocumentsUpload";
 
 export const globalRoutes = [
   {
@@ -98,6 +98,10 @@ export const globalRoutes = [
       {
         path: VEHICLELOAN,
         element: VehicleLoan,
+      },
+      {
+        path: DOCUMENTSUPLOAD,
+        element: DocumentsUpload,
       }
     ],
   },

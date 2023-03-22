@@ -17,7 +17,7 @@ import { Button, Collapse, IconButton, Menu, MenuItem, Paper, Toolbar, Typograph
 import { useTheme } from "@emotion/react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-
+import { styled } from '@mui/material/styles';
 import { storage as LocalStorage, storage } from "../../config/storage";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -26,7 +26,13 @@ import Fade from "@mui/material/Fade";
 import { UserContext } from "../../App.js";
 import AlertDialog from "../Dialog/Dialog.js";
 let drawerWidth = 280;
-
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'left',
+  color: theme.palette.text.secondary,
+}));
 const PermanentDrawerRight = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -335,9 +341,9 @@ const PermanentDrawerRight = () => {
             ml: open ? "auto" : "",
             bgcolor: "#f9fafe",
           }}>
-          <Box sx={{ ml: {xs:1,sm:2}, mt: {xs:1,sm:2},mr:{xs:1,sm:2}, border: "3px solid rgba(0, 0, 0, 0.06)" }}>
+          <Item sx={{ m: {xs:1,sm:2}}} >
             <Index />
-          </Box>
+          </Item>
         </Box>
         <AlertDialog
           title={"Are you sure you want to logout"}

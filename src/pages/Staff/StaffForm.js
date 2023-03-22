@@ -157,9 +157,12 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
     delete value.validate_Password;
     updateStaff(value).then((res) => {
       setLoading(false);
-      if (res.data.status) {
+      if (res?.data?.status) {
         toast.success("Updated Successfully!!");
         navigate("/staff");
+      }else{
+        console.log('hii');
+        userData.validate_Password=true
       }
     });
     // }
