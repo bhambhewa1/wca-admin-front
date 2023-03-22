@@ -95,12 +95,14 @@ const Login = ({ getLogin }) => {
                 display: "flex",
                 flexDirection: "column",
               }}>
-              <img
-                alt="logo"
-                // className="logoSize"
-                style={{ width: "130px", height: "82px" }}
-                src={require("../../assests/logo@2x.png")}
-              />
+              <Box sx={{ mt: { xs: "40px", sm: "0px" } }}>
+                <img
+                  alt="logo"
+                  // className="logoSize"
+                  style={{ width: "130px", height: "82px" }}
+                  src={require("../../assests/logo@2x.png")}
+                />
+              </Box>
               <Typography
                 sx={{
                   fontSize: { xs: "20px", sm: "20px", md: "24px", lg: "35px" },

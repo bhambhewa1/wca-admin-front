@@ -142,8 +142,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         }}
       />
       <AlertDialog
-        title={"Are you sure?"}
-        text={"To delete this item"}
+        title={"Are you sure you want to delete this item?"}
         open={dialog}
         onClickButton={() => handleDelete(Id)}
         onClickButtonCancel={() => setDialog(false)}
