@@ -220,6 +220,7 @@ const style = {
   outBox: {
     width: "100%",
     bgcolor: "#F3F0EE",
+    overFlow: "hidden",
     // pt: 5,
     // pb: 5,
   },

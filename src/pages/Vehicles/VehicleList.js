@@ -5,6 +5,7 @@ import { EnhancedTableHead } from "../../components/TableHeader/TableHeader";
 import TopBox from "../../components/TableHeader/TopBox";
 import EditIcon from "@mui/icons-material/Edit";
 import { Style } from "../../const/Style";
+import { VEHICLEINFO } from "../../routes/constURL";
 const rows = [
   { id: 1, VIN: "1FM5K8D8XFGA24638", make: "BMW", year: "35+", model: "V4", price: "$20,000", createdOn: "1/1/2022 10:11 AM" },
   { id: 2, VIN: "1FM5K8D8XFGA24638", make: "BMW", year: "35+", model: "V4", price: "$20,000", createdOn: "1/1/2022 10:11 AM" },
@@ -61,7 +62,7 @@ const VehicleList = () => {
                 </TableCell>
 
                 <TableCell align="left" sx={Style.table.tableCell}>
-                  <IconLinkButton buttonName={"Edit"} />
+                  <IconLinkButton buttonName={"Edit"} onClickLink={VEHICLEINFO} />
                   <IconLinkButton />
                 </TableCell>
               </TableRow>

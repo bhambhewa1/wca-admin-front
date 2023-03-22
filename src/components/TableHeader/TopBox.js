@@ -20,48 +20,35 @@ import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   tab: {
+    backgroundColor: "#3D2E57",
     fontSize: "18px",
     fontWeight: "400",
-    textDecoration: "none",
-
-    "&.Mui-selected": {
-      // background: "#F15F23",
-      color: "white",
-      borderBottom: 0,
-      textDecoration: "none",
-    },
-    "& .MuiBox-root": {
-      padding: "0px",
-      textDecoration: "none",
-    },
-    textTransform: "none",
     "&.MuiTab-root.Mui-selected": {
+      backgroundColor: "#F15F23",
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "1.125rem",
+      },
+      [theme.breakpoints.down("xs")]: {
+        fontSize: "0.65rem",
+        width:"50%"
+      },
       color: "white",
       textTransform: "none",
-      border: "0px",
-      textDecoration: "none",
     },
     "&.MuiButtonBase-root": {
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "1.125rem",
+      },
+      [theme.breakpoints.down("xs")]: {
+        fontSize: "0.65rem",
+        width:"50%"
+      },
+      backgroundColor: "rgba(42, 34, 70, 0.1)",
+      color: "#3D2E57",
       textTransform: "none",
-      marginRight: 25,
-      textDecoration: "none",
-    },
-    "&.css-1jbwg7a-MuiButtonBase-root-MuiTab-root": {
-      background: "#DDDDDD",
-      color: "#000000",
-      textDecoration: "none",
-    },
-    "&.css-1jbwg7a-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-      background: "#F15F23",
-      textDecoration: "none",
-    },
-  },
-  TabPanel: {
-    "& .MuiBox-root": {
-      padding: "0px",
-      textTransform: "none",
+      marginRight: "40px",
     },
   },
 }));
@@ -223,7 +210,7 @@ const TopBox = ({
           justifyContent: { xs: "space-between" },
           width: "100%",
           pb: 2,
-          p: 3,
+          // p: 3,
           borderBottom: "3px solid rgba(0, 0, 0, 0.06)",
           // borderTop: "3px solid rgba(0, 0, 0, 0.06)",
         }}>
@@ -240,6 +227,7 @@ const TopBox = ({
           sx={{
             display: "flex",
             pb: 2,
+            pt:2,
             borderColor: "divider",
           }}>
           <Tabs
