@@ -209,7 +209,7 @@ const TopBox = ({
           display: "flex",
           justifyContent: { xs: "space-between" },
           width: "100%",
-          pb: 2,
+          // pb: 2,
           // p: 3,
           borderBottom: "3px solid rgba(0, 0, 0, 0.06)",
           // borderTop: "3px solid rgba(0, 0, 0, 0.06)",
@@ -357,6 +357,7 @@ const style = {
       bgcolor: "#F15F23",
       boxShadow: "none",
     },
+    m:2,
     boxShadow: "none",
     color: "white",
     // width: "120px",
@@ -381,8 +382,9 @@ const style = {
   headingText: {
     fontSize: "20px",
     fontWeight: "700",
-    lineHeight: "38px",
+    // lineHeight: "38px",
     color: "#000000",
+    p:2
   },
   typographyStyle1: {
     fontFamily: "Effra",

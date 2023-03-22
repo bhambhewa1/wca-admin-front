@@ -54,9 +54,9 @@ const Style = {
     textAlign: "center",
     color: "#000000",
     display: "flex",
-    pb: 3,
-    pt: 3,
-    pl: { xs: 0, md: 4 },
+    pb: 1,
+    pt: 1,
+    pl: { xs: 0, md: 3 },
   },
   inputStyle: {
     width: {
@@ -158,11 +158,17 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
     updateStaff(value).then((res) => {
       setLoading(false);
       if (res?.data?.status) {
-        toast.success("Updated Successfully!!");
-        navigate("/staff");
+        toast.success(res?.data?.message);
+        setTimeout(() => {
+          navigate("/staff");
+        }, 2000);
       }else{
-        console.log('hii');
-        userData.validate_Password=true
+        value.validate_Password=true
+        console.log(res);
+        res.errors.map((error)=>{
+          console.log(error);
+        toast.error(error);
+        })
       }
     });
     // }
@@ -175,6 +181,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
+        
       }}>
       <form name="RegisterForm" onSubmit={formik.handleSubmit}>
         <Typography sx={Style.typographyStyle}>Staff</Typography>
@@ -183,7 +190,10 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
             width: "100%",
             borderBottom: "3px solid rgba(0, 0, 0, 0.06)",
             borderTop: "3px solid rgba(0, 0, 0, 0.06)",
-            pb: 1,
+            // pb: 1,
+            "&.css-drk5z1-MuiPaper-root":{
+              padding:0
+            }
           }}>
           <Typography sx={Style.typographyStyle}>Staff information</Typography>
           <Box
@@ -386,9 +396,10 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                   fontSize: { xs: "20px", md: "20px" },
                   fontWeight: { xs: "500", md: "700" },
                   mb: 2,
-                  pl: { xs: 0, md: 4 },
+                  pl: { xs: 0, md: 3 },
+                  color:"#000000"
                 }}>
-                Set Password
+                 Password
               </Typography>
               <Box
                 sx={{

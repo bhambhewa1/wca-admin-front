@@ -19,14 +19,18 @@ export const getstaffdata = (data) => async (dispatch) => {
   export const updateStaff = (data) => async (dispatch) => {
     try {
       let response = await StaffApi.requestupdateStaff(data);
-  
-      if (response.status) {
+  console.log(response);
+      if (response.data.status) {
         // dispatch(updateuser(response.data.user_details));
         return response;
       } else {
+        response?.data?.errors?.map((item) => {
+          return toast.error(item);
+        });
         return response;
       }
     } catch (err) {
+      return err;
     }
   };
   export const getStaffList = (data) => async (dispatch) => {

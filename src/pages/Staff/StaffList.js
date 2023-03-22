@@ -9,6 +9,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import LoaderComponent from "../../components/Loader/LoaderComponent";
 import AlertDialog from "../../components/Dialog/Dialog";
 import { Style } from "../../const/Style";
+import { toast } from "react-toastify";
+import Toastify from "../../components/SnackBar/Toastify";
 const StaffList = ({ getStaffList, deleteStaff }) => {
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = React.useState("asc");
@@ -99,6 +101,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     deleteStaff(data).then((res) => {
       if (res.data.status) {
         setDialog(false);
+        toast.success(res?.data?.message)
         getList();
       }
     });
@@ -127,6 +130,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         display: "flex",
         flexDirection: "column",
       }}>
+        <Toastify/>
       <TopBox
         headerText={"Staff"}
         button_one={"+ Add Staff"}
