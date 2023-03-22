@@ -1,4 +1,4 @@
-import { CUSTOMERLIST } from "./constURL";
+import { CUSTOMERINFO, CUSTOMERLIST, VEHICLEINFO } from "./constURL";
 import { VEHICLESLIST } from "./constURL";
 import { APPOINTMENTLIST } from "./constURL";
 import { TRUCKINGCOMPANIESLIST } from "./constURL";
@@ -24,6 +24,8 @@ import VehicleDetail from "../pages/Vehicles/VehicleDetail";
 import SoldandUnsoldVehicles from "../pages/Vehicles/SoldandUnsoldVehicles";
 import StaffForm from "../pages/Staff/StaffForm";
 import ProtectedRoute from "./protectedRoutes";
+import VehicleInformation from "../pages/Vehicles/VehicleInformation";
+import CustomerInfo from "../pages/Vehicles/CustomerInfo";
 export const globalRoutes = [
   {
     path: LOGIN,
@@ -73,6 +75,16 @@ export const globalRoutes = [
     path: VEHICLEDETAIL,
     element: VehicleDetail,
     routeType: ProtectedRoute,
+    child: [
+      {
+        path: VEHICLEINFO,
+        element: VehicleInformation,
+      },
+      {
+        path: CUSTOMERINFO,
+        element: CustomerInfo,
+      },
+    ],
   },
   {
     path: SOLDANDUNSOLDVEHICLES,
