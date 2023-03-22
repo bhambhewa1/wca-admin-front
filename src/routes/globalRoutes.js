@@ -1,5 +1,5 @@
 import { CUSTOMERLIST } from "./constURL";
-import { VEHICLESLIST } from "./constURL";
+import { VEHICLESNEGOTIATING } from "./constURL";
 import { APPOINTMENTLIST } from "./constURL";
 import { TRUCKINGCOMPANIESLIST } from "./constURL";
 import { STORELIST } from "./constURL";
@@ -10,6 +10,7 @@ import { VEHICLEDETAIL } from "./constURL";
 import { LOGIN } from "./constURL";
 import { SOLDANDUNSOLDVEHICLES } from "./constURL";
 import { STAFFADD } from "./constURL";
+import { VEHICLESPURCHASED } from "./constURL";
 
 import TruckingCompaniesList from "../pages/TruckingCompanies/TruckingCompaniesList";
 import VehicleList from "../pages/Vehicles/VehicleList";
@@ -35,7 +36,12 @@ export const globalRoutes = [
     routeType: ProtectedRoute,
   },
   {
-    path: VEHICLESLIST,
+    path: VEHICLESNEGOTIATING,
+    element: VehicleList,
+    routeType: ProtectedRoute,
+  },
+  {
+    path: VEHICLESPURCHASED,
     element: VehicleList,
     routeType: ProtectedRoute,
   },

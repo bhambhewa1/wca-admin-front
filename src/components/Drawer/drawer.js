@@ -335,7 +335,7 @@ const PermanentDrawerRight = () => {
             ml: open ? "auto" : "",
             bgcolor: "#f9fafe",
           }}>
-          <Box sx={{ ml: 2, mt: 2,mr:2, border: "3px solid rgba(0, 0, 0, 0.06)" }}>
+          <Box sx={{ ml: {xs:1,sm:2}, mt: {xs:1,sm:2},mr:{xs:1,sm:2}, border: "3px solid rgba(0, 0, 0, 0.06)" }}>
             <Index />
           </Box>
         </Box>

@@ -1,6 +1,7 @@
 export const LOGIN = "/";
 export const CUSTOMERLIST = "/customers";
-export const VEHICLESLIST = "/vehicles";
+export const VEHICLESNEGOTIATING = "/vehicles/negotiating";
+export const VEHICLESPURCHASED = "/vehicles/purchased";
 export const APPOINTMENTLIST = "/appointments";
 export const STAFFLIST = "/staff";
 export const TRUCKINGCOMPANIESLIST = "/truckingcompanies";

@@ -22,7 +22,9 @@ const schema = yup.object().shape({
   phone: yup
     .string()
     .required("Please enter your phone number")
-    .matches(/^[0-9\s]*$/, "Please enter valid phone number"),
+    .matches(/^[0-9]*$/, "Please enter valid phone number")
+    .min(10, `Enter minimum 10 numbers `)
+    .max(10, `Enter maximum 10 numbers`),
   validate_Password: yup.boolean(),
   password: yup.string().when("validate_Password", {
     is: true,
@@ -302,6 +304,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                     value={formik.values.phone}
                     id="phone"
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     type="phone"
                     variant="filled"
                     InputProps={{ disableUnderline: true, pt: "10px" }}

@@ -30,7 +30,7 @@ export const drawerData = [
         }}
       />
     ),
-    Routes: "/vehicles",
+    Routes: "/vehicles/negotiating",
   },
   {
     val: "Appointments",

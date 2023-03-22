@@ -14,35 +14,11 @@ import {
   DialogActions,
 } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
+import { Link, Outlet } from "react-router-dom";
 import React from "react";
 import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
-      {value === index && (
-        <Box>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
 
 const useStyles = makeStyles(() => ({
   tab: {
@@ -114,15 +90,13 @@ const TopBox = ({
   const tabPanelClasses = { root: classes.TabPanel };
   const [tabValue, setTabValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const route = ["/vehicles/negotiating", "/vehicles/purchased"];
 
   const navigate = useNavigate();
   const location = useLocation();
   console.log("location", tabValue);
+  const handleTabChange = (event, newValue) => {};
 
-  const handleChangeTab = (event, newValue) => {
-    console.log("va", newValue);
-    setTabValue(newValue);
-  };
   const handleSearch = (e) => {
     console.log("event", e.target.event);
     setSearch_val(e.target.value);
@@ -254,14 +228,14 @@ const TopBox = ({
           // borderTop: "3px solid rgba(0, 0, 0, 0.06)",
         }}>
         <Typography sx={style.headingText}>{headerText}</Typography>
-        {tabValue === 0 && location.pathname !== "/vehicles/soldandunsold" && location.pathname !== "/appointments" && (
+        {location.pathname !== "/vehicles/purchased"&&location.pathname !== "/vehicles/soldandunsold" && location.pathname !== "/appointments" && (
           <Button variant="contained" onClick={button_one_onClick} sx={style.button_one}>
             {button_one}
           </Button>
         )}
       </Box>
 
-      {location.pathname === "/vehicles" && (
+      {(location.pathname === "/vehicles/negotiating" ||location.pathname === "/vehicles/purchased") && (
         <Box
           sx={{
             display: "flex",
@@ -269,22 +243,26 @@ const TopBox = ({
             borderColor: "divider",
           }}>
           <Tabs
-            value={tabValue}
-            onChange={handleChangeTab}
+            value={location.pathname}
+            onChange={handleTabChange}
             indicatorColor="white"
             aria-label="basic tabs example"
             sx={{
               borderBottom: "none",
             }}>
-            <Tab classes={tabClasses} label={button_two} {...a11yProps(0)} />
-            <Tab classes={tabClasses} label={button_three} {...a11yProps(1)} />
+            <Tab classes={tabClasses}
+            label={button_two}
+            value={route[0]}
+            LinkComponent={Link}
+            to={route[0]}
+            />
+            <Tab classes={tabClasses}
+            label={button_three}
+            value={route[1]}
+            LinkComponent={Link}
+            to={route[1]}
+            />
           </Tabs>
-          <TabPanel value={tabValue} index={0} classes={tabPanelClasses}>
-            {/* <Typography>Hello</Typography> */}
-          </TabPanel>
-          <TabPanel value={tabValue} index={1}>
-            {/* <Typography>Hi</Typography> */}
-          </TabPanel>
         </Box>
       )}
 
