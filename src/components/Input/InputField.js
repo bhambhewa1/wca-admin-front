@@ -59,7 +59,7 @@ const InputField = ({
               max: max,
               min:min,
               style: { paddingTop: "16px", paddingBottom: "15px",
-              height:{height},fontSize:"18px",textTransform:textTransform,
+              height:{height},fontSize:"16px",textTransform:textTransform,
               color:"#A8A8A8",backgroundColor:"#F6F6F6",},
             }}
             value={value}

@@ -24,7 +24,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   const [Empty, setEmpty] = useState(false);
   const [Id, setId] = useState("");
   const navigate = useNavigate();
-  let length = 3;
+  let length = 5;
   let data = {
     page: page,
     limit: length,
@@ -175,7 +175,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
             <TableBody>
               {rows?.map((row) => (
                 <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell align="center" sx={Style.table.tableCell}>
+                  <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && row.firstName}
                   </TableCell>

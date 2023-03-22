@@ -1,6 +1,7 @@
 export const LOGIN = "/";
 export const CUSTOMERLIST = "/customers";
-export const VEHICLESLIST = "/vehicles";
+export const VEHICLESNEGOTIATING = "/vehicles/negotiating";
+export const VEHICLESPURCHASED = "/vehicles/purchased";
 export const APPOINTMENTLIST = "/appointments";
 export const STAFFLIST = "/staff";
 export const TRUCKINGCOMPANIESLIST = "/truckingcompanies";
@@ -12,4 +13,5 @@ export const VEHICLEINFO = "/vehicles/details/info";
 export const CUSTOMERINFO = "/vehicles/details/customer/info";
 export const SOLDANDUNSOLDVEHICLES = "/vehicles/soldandunsold";
 export const STAFFADD = "/staff/update";
+export const VEHICLELOAN = "/vehicles/details/loan"
 export const DOCUMENTSUPLOAD = "/vehicles/details/documentsupload"

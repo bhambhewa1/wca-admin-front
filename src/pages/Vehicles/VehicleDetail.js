@@ -2,13 +2,12 @@ import { Box, Button, Grid, Menu, MenuItem, Paper, Typography } from "@mui/mater
 import React from "react";
 import { styled } from "@mui/styles";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { CUSTOMERINFO, DOCUMENTSUPLOAD, VEHICLEINFO } from "../../routes/constURL";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import "./vehicles.css";
+import { CUSTOMERINFO, VEHICLEINFO, VEHICLELOAN, DOCUMENTSUPLOAD } from "../../routes/constURL";
 
 const Item = styled(Paper)(({ theme }) => ({
-  // backgroundColor: theme.palette.mode === "dark" ? "#F5F9FA" : "#F5F9FA",
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "center",
@@ -27,7 +26,7 @@ const VehicleDetail = () => {
     { text: "Vehicle Information", route: VEHICLEINFO },
     { text: "Customer information", route: CUSTOMERINFO },
     { text: "Documents upload", route: DOCUMENTSUPLOAD },
-    { text: "Loan Payoff" },
+    { text: "Loan Payoff", route: VEHICLELOAN },
     { text: "E-sign Document" },
     { text: "Checks" },
     { text: "Notes" },
