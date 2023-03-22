@@ -1,73 +1,98 @@
-import { Box, Grid, Typography,Paper  } from "@mui/material";
+import { Box, Grid, Typography, Paper, Button } from "@mui/material";
 import React from "react";
 import { Style } from "../../const/Style";
 import { styled } from '@mui/material/styles';
-
+import EditIcon from '@mui/icons-material/Edit';
+import { Link } from "react-router-dom";
 const Item = styled(Paper)(({ theme }) => ({
   // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   // ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'left',
   // color: theme.palette.text.secondary,
-  boxShadow:'none'
+  boxShadow: 'none'
 }));
 const CustomerInfo = () => {
   return (
     <Box sx={{ m: { xs: 1, sm: 2 }, border: "3px solid rgba(0, 0, 0, 0.06)" }}>
-      <Box sx={Style.table.tableWrapBox}>
         <Typography sx={style.headingText}>Customer Info</Typography>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={2.5}>
+        <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{pl:2,pr:2}}>
+        <Grid item xs={6}>
+          <Grid item xs={12} sx={{
+            display: 'flex'
+          }}>
             <Item sx={{
-              fontSize:"14px",
-              bgcolor:"inherit"
+              fontSize: "14px",
+              fontWeight: 700,
+              bgcolor: "inherit"
             }}>Customer Name:</Item>
-          </Grid>
-          <Grid item xs={8}>
             <Item sx={{
-              fontSize:"14px",
-              bgcolor:"inherit"
+              fontSize: "14px",
+              bgcolor: "inherit"
             }}>John Smith</Item>
           </Grid>
-          <Grid item xs={2.5}>
+          <Grid item xs={12} sx={{
+            display: 'flex'
+          }}>
             <Item sx={{
-              fontSize:"14px",
-              bgcolor:"inherit"
+              fontSize: "14px",
+              fontWeight: 700,
+              bgcolor: "inherit"
             }}>Email:</Item>
-          </Grid>
-          <Grid item xs={8}>
             <Item sx={{
-              fontSize:"14px",
-              bgcolor:"inherit"
+              fontSize: "14px",
+              bgcolor: "inherit"
             }}>JohnSmith@wca.com</Item>
           </Grid>
-          <Grid item xs={2.5}>
+          <Grid item xs={12} sx={{
+            display: 'flex'
+          }}>
             <Item sx={{
-              fontSize:"14px",
-              bgcolor:"inherit"
+              fontSize: "14px",
+              fontWeight: 700,
+              bgcolor: "inherit"
             }}>Contact no:</Item>
-          </Grid>
-          <Grid item xs={8}>
             <Item sx={{
-              fontSize:"14px",
-              bgcolor:"inherit"
+              fontSize: "14px",
+              bgcolor: "inherit"
             }}>+1 452 2653</Item>
           </Grid>
-          <Grid item xs={2.5}>
+          <Grid item xs={12} sx={{
+            display: 'flex'
+          }}>
             <Item sx={{
-              fontSize:"14px",
-              bgcolor:"inherit"
+              fontSize: "14px",
+              fontWeight: 700,
+              bgcolor: "inherit"
             }}>Address:</Item>
-          </Grid>
-          <Grid item xs={8}>
             <Item sx={{
-              fontSize:"14px",
-              bgcolor:"inherit"
+              fontSize: "14px",
+              bgcolor: "inherit"
             }}> 22 , baker Strat</Item>
           </Grid>
         </Grid>
+        <Grid item xs={6}>
+          <Grid item xs={12} sx={{
+            display: 'flex',
+            justifyContent:"flex-end",
+          }}>
+            <Item sx={{
+              fontWeight: 700,
+              bgcolor: "#4969B2",
+              width:'100px',
+              mt:2
+            }}><Link style={{
+              display:'flex',
+              textDecoration:"none",
+              justifyContent:'space-around'
+            }}>
+                <EditIcon sx={{color:"white",fontSize:"20px"}}/>
+                <Typography sx={{color:'white',fontSize:"16px"}}>Edit</Typography>
+              </Link></Item>
+          </Grid>
+        </Grid>
+        </Grid>
       </Box>
-    </Box>
   );
 };
 
@@ -78,6 +103,7 @@ const style = {
     fontWeight: "700",
     lineHeight: "38px",
     color: "#000000",
+    pl:3,
     borderBottom: '1px solid gray'
   },
 };
