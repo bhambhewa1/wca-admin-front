@@ -12,3 +12,4 @@ export const VEHICLEINFO = "/vehicles/details/info";
 export const CUSTOMERINFO = "/vehicles/details/customer/info";
 export const SOLDANDUNSOLDVEHICLES = "/vehicles/soldandunsold";
 export const STAFFADD = "/staff/update";
+export const DOCUMENTSUPLOAD = "/vehicles/details/documentsupload"
