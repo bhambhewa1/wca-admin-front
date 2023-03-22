@@ -2,7 +2,7 @@ import { Box, Button, Grid, Paper, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
 import { makeStyles, styled } from "@mui/styles";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { CUSTOMERINFO, VEHICLEINFO } from "../../routes/constURL";
+import { CUSTOMERINFO, DOCUMENTSUPLOAD, VEHICLEINFO } from "../../routes/constURL";
 // function TabPanel(props) {
 //   const { children, value, index, ...other } = props;
 //   return (
@@ -69,12 +69,11 @@ const useStyles = makeStyles((theme) => ({
 const VehicleDetail = () => {
   const classes = useStyles();
   const tabClasses = { root: classes.tab };
-  const route = [VEHICLEINFO, CUSTOMERINFO];
   const location = useLocation();
   const vehicleData = [
     { text: "Vehicle Information", route: VEHICLEINFO },
     { text: "Customer information", route: CUSTOMERINFO },
-    { text: "Documents upload" },
+    { text: "Documents upload", route: DOCUMENTSUPLOAD },
     { text: "Loan Payoff" },
     { text: "E-sign Document" },
     { text: "Checks" },
