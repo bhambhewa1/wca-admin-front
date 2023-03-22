@@ -1,4 +1,4 @@
-import { CUSTOMERINFO, CUSTOMERLIST, VEHICLEINFO } from "./constURL";
+import { CUSTOMERINFO, CUSTOMERLIST, DOCUMENTSUPLOAD, VEHICLEINFO } from "./constURL";
 import { VEHICLESLIST } from "./constURL";
 import { APPOINTMENTLIST } from "./constURL";
 import { TRUCKINGCOMPANIESLIST } from "./constURL";
@@ -26,6 +26,7 @@ import StaffForm from "../pages/Staff/StaffForm";
 import ProtectedRoute from "./protectedRoutes";
 import VehicleInformation from "../pages/Vehicles/VehicleInformation";
 import CustomerInfo from "../pages/Vehicles/CustomerInfo";
+import DocumentsUpload from "../pages/Vehicles/DocumentsUpload";
 export const globalRoutes = [
   {
     path: LOGIN,
@@ -83,6 +84,10 @@ export const globalRoutes = [
       {
         path: CUSTOMERINFO,
         element: CustomerInfo,
+      },
+      {
+        path: DOCUMENTSUPLOAD,
+        element: DocumentsUpload,
       },
     ],
   },
