@@ -71,7 +71,15 @@ const VehicleDetail = () => {
   const tabClasses = { root: classes.tab };
   const route = [VEHICLEINFO, CUSTOMERINFO];
   const location = useLocation();
-
+  const vehicleData = [
+    { text: "Vehicle Information", route: VEHICLEINFO },
+    { text: "Customer information", route: CUSTOMERINFO },
+    { text: "Documents upload" },
+    { text: "Loan Payoff" },
+    { text: "E-sign Document" },
+    { text: "Checks" },
+    { text: "Notes" },
+  ];
   return (
     <>
       <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600", borderBottom: "3px solid rgba(0, 0, 0, 0.06)" }}>
@@ -121,7 +129,7 @@ const VehicleDetail = () => {
         </Grid>
       </Grid>
       <Box sx={{ borderColor: "divider", p: 1 }}>
-        <Tabs
+        {/* <Tabs
           value={location.pathname}
           indicatorColor="white"
           aria-label="basic tabs example"
@@ -135,7 +143,25 @@ const VehicleDetail = () => {
           <Tab classes={tabClasses} label="E-sign Document" value={route[4]} LinkComponent={Link} to={route[4]} />
           <Tab classes={tabClasses} label="Checks" value={route[5]} LinkComponent={Link} to={route[5]} />
           <Tab classes={tabClasses} label="Notes" value={route[6]} LinkComponent={Link} to={route[6]} />
-        </Tabs>
+        </Tabs> */}
+        <Grid sx={{}} container spacing={4}>
+          {vehicleData.map((item, index) => (
+            <Grid item md={1.7}>
+              <Link style={{ textDecoration: "none" }} to={item.route}>
+                <Item
+                  sx={{
+                    fontSize: { lg: "8px", xl: "12px" },
+                    fontWeight: "600",
+                    color: item.route === location.pathname ? "white" : "#000",
+                    bgcolor: item.route === location.pathname ? "#F15F23" : "#DDDDDD",
+                    boxShadow: "none",
+                  }}>
+                  {item.text}
+                </Item>
+              </Link>
+            </Grid>
+          ))}
+        </Grid>
       </Box>
       <Box>
         <Outlet />
