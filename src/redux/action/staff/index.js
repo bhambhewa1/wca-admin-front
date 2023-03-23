@@ -19,7 +19,6 @@ export const getstaffdata = (data) => async (dispatch) => {
   export const updateStaff = (data) => async (dispatch) => {
     try {
       let response = await StaffApi.requestupdateStaff(data);
-  console.log(response);
       if (response.data.status) {
         // dispatch(updateuser(response.data.user_details));
         return response;

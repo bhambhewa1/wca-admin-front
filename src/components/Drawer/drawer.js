@@ -59,7 +59,6 @@ const PermanentDrawerRight = () => {
     setData([...data]);
   }, [location.pathname]);
   React.useEffect(() => {
-    console.log(adminInfo?.adminName);
     setfirst(adminInfo?.adminName);
   }, [adminInfo]);
   const handleDrawerOpen = () => {
@@ -71,7 +70,6 @@ const PermanentDrawerRight = () => {
   };
   const Logout = (index) => {
     setOpenLogoutAlert(true);
-    console.log(index);
   };
   const logOutAdmin = () => {
     localStorage.clear();

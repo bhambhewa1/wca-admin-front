@@ -10,7 +10,6 @@ const ProtectedRoute = ({ children }) => {
   const acc_Token = LocalStorage.fetch.authToken();
   if (acc_Token) {
   } else {
-    console.log("actoken");
     setTimeout(() => {
       toast.error("Please Log in first ");
       localStorage.clear();

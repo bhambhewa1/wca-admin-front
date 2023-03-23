@@ -1,4 +1,4 @@
-import { Box, Pagination, Skeleton, Table, TableBody, TableCell, TableRow, Typography } from "@mui/material";
+import { Box, MenuItem, Pagination, Select, Skeleton, Table, TableBody, TableCell, TableRow, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,15 +18,14 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   const [orderBy, setOrderBy] = React.useState("");
   const [pages, setPages] = useState(0);
   const [dialog, setDialog] = useState(false);
-
+  const [total, setTotal] = useState(0)
   const [page, setPage] = React.useState(1);
   const [rows, setRows] = React.useState([]);
   const [perv_search_val, setPerv_Search_val] = React.useState("");
   const [search_val, setSearch_val] = React.useState("");
-  const [Empty, setEmpty] = useState(false);
+  const [length, setLength] = useState(5);
   const [Id, setId] = useState("");
   const navigate = useNavigate();
-  let length = 5;
   let data = {
     page: page,
     limit: length,
@@ -37,19 +36,23 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     getList();
-  }, []);
+  }, [length]);
 
   const getList = () => {
-    console.log(data);
     setLoading(true);
     getStaffList(data).then((res) => {
       setLoading(false);
-      if (res.data) {
+      if (res?.data?.status) {
         setRows(res?.data?.staff_list);
         setPages(res?.data?.pages);
+        setTotal(res?.data?.total_records)
       } else {
         setRows(res?.data?.staff_list);
         setPages(res?.data?.pages);
+        setTotal(res?.data?.total_records)
+        res?.data?.errors.map((error) => {
+          toast.error(error);
+        })
       }
     });
   };
@@ -103,11 +106,15 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         setDialog(false);
         toast.success(res?.data?.message)
         getList();
+      } else {
+        res?.data?.errors.map((error) => {
+          toast.error(error);
+        })
       }
     });
     // }
   };
-
+  
   const onSubmit = (value) => {
     if ((value !== "" && value.trim().length !== 0) || perv_search_val !== "") {
       setPerv_Search_val(value);
@@ -123,14 +130,17 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       getList();
     }
   };
-
+ const handleChange = (e) =>{
+    setLength(e.target.value)
+    getList()
+ }
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
       }}>
-        <Toastify/>
+      <Toastify />
       <TopBox
         headerText={"Staff"}
         button_one={"+ Add Staff"}
@@ -244,9 +254,19 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "end",
+          justifyContent: "space-between",
           p: 1,
         }}>
+        <Typography sx={{ pl: 2, fontWeight: 400 }}>Number of Rows per Page 
+          <Select
+            value={length}
+            onChange = {handleChange}
+          >
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={10}>10</MenuItem>
+            <MenuItem value={20}>20</MenuItem>
+          </Select> 
+          out of {total} </Typography>
         {pages > 1 && (
           <Pagination
             count={pages}

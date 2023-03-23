@@ -27,14 +27,14 @@ const schema = yup.object().shape({
   validate_Password: yup.boolean(),
   password: yup.string().when("validate_Password", {
     is: true,
-    then: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 chars minimum."),
+    then: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
   }),
   confirm_password: yup.string().when("validate_Password", {
     is: true,
     then: yup
       .string()
       .required("Confirm your password.")
-      .min(8, "Password is too short - should be 8 chars minimum.")
+      .min(8, "Password is too short - should be 8 char minimum.")
       .oneOf([yup.ref("password"), null], "Passwords must match"),
   }),
 });
@@ -126,7 +126,10 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
           staff_id: result.staff_id,
         });
       } else {
-        toast.error(res?.data?.message);
+        res?.data?.errors.map((error)=>{
+        toast.error(error);
+      })
+      
       }
     });
   }, []);
@@ -151,7 +154,6 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     }
     // Object.assign(value, { staff_id: userData.staff_id });
     value.staff_id =  userData.staff_id
-    console.log(value);
     setLoading(true);
     delete value.validate_Password;
     updateUser(value).then((res) => {

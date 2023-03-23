@@ -81,11 +81,9 @@ const TopBox = ({
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("location", tabValue);
   const handleTabChange = (event, newValue) => {};
 
   const handleSearch = (e) => {
-    console.log("event", e.target.event);
     setSearch_val(e.target.value);
     onSubmit(e.target.value);
   };
@@ -101,7 +99,6 @@ const TopBox = ({
   //   }
   // };
   const handleOpen = () => {
-    console.log("r");
     setOpen(true);
   };
   const Submit = () => {
@@ -384,7 +381,8 @@ const style = {
     fontWeight: "700",
     // lineHeight: "38px",
     color: "#000000",
-    p:2
+    p:3,
+    pt:2.5
   },
   typographyStyle1: {
     fontFamily: "Effra",
