@@ -5,16 +5,16 @@ export const requeststaffdata = async (data) => {
   export const requestupdateStaff = async (data) => {
     return Api.PostRequest('/api/staff/create', data);
   };
-  export const requestStaffList = async (data) => {
-    return Api.PostRequest('/api/staff/list', data);
+  export const requestCustomerList = async (data) => {
+    return Api.PostRequest('/api/user/list', data);
   };
   export const requestdeleteStaff = async (data) => {
     return Api.PostRequest('/api/staff/delete', data);
   };
-const StaffApi = {
+const CustomerApi = {
     requeststaffdata,
     requestupdateStaff,
-    requestStaffList,
+    requestCustomerList,
     requestdeleteStaff
   };
-  export default StaffApi;
+  export default CustomerApi;

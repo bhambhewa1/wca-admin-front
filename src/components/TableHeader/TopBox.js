@@ -23,8 +23,9 @@ import SearchIcon from "@mui/icons-material/Search";
 const useStyles = makeStyles((theme) => ({
   tab: {
     backgroundColor: "#3D2E57",
-    fontSize: "18px",
+    fontSize: { xs: "14px", sm: "18px" },
     fontWeight: "400",
+    width: "45%",
     "&.MuiTab-root.Mui-selected": {
       backgroundColor: "#F15F23",
       [theme.breakpoints.up("sm")]: {
@@ -32,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
       },
       [theme.breakpoints.down("xs")]: {
         fontSize: "0.65rem",
-        width:"50%"
       },
       color: "white",
       textTransform: "none",
@@ -43,12 +43,12 @@ const useStyles = makeStyles((theme) => ({
       },
       [theme.breakpoints.down("xs")]: {
         fontSize: "0.65rem",
-        width:"50%"
+        width: "50%"
       },
       backgroundColor: "rgba(42, 34, 70, 0.1)",
       color: "#3D2E57",
       textTransform: "none",
-      marginRight: "40px",
+      marginRight: '7%',
     },
   },
 }));
@@ -81,7 +81,7 @@ const TopBox = ({
 
   const navigate = useNavigate();
   const location = useLocation();
-  const handleTabChange = (event, newValue) => {};
+  const handleTabChange = (event, newValue) => { };
 
   const handleSearch = (e) => {
     setSearch_val(e.target.value);
@@ -212,19 +212,19 @@ const TopBox = ({
           // borderTop: "3px solid rgba(0, 0, 0, 0.06)",
         }}>
         <Typography sx={style.headingText}>{headerText}</Typography>
-        {location.pathname !== "/vehicles/purchased"&&location.pathname !== "/vehicles/soldandunsold" && location.pathname !== "/appointments" && (
+        {location.pathname !== "/vehicles/purchased" && location.pathname !== "/vehicles/soldandunsold" && location.pathname !== "/appointments" && (
           <Button variant="contained" onClick={button_one_onClick} sx={style.button_one}>
             {button_one}
           </Button>
         )}
       </Box>
 
-      {(location.pathname === "/vehicles/negotiating" ||location.pathname === "/vehicles/purchased") && (
+      {(location.pathname === "/vehicles/negotiating" || location.pathname === "/vehicles/purchased") && (
         <Box
           sx={{
             display: "flex",
             pb: 2,
-            pt:2,
+            pt: 2,
             borderColor: "divider",
           }}>
           <Tabs
@@ -234,18 +234,19 @@ const TopBox = ({
             aria-label="basic tabs example"
             sx={{
               borderBottom: "none",
+              width: {xs:"100%",sm:"50%"},
             }}>
             <Tab classes={tabClasses}
-            label={button_two}
-            value={route[0]}
-            LinkComponent={Link}
-            to={route[0]}
+              label={button_two}
+              value={route[0]}
+              LinkComponent={Link}
+              to={route[0]}
             />
             <Tab classes={tabClasses}
-            label={button_three}
-            value={route[1]}
-            LinkComponent={Link}
-            to={route[1]}
+              label={button_three}
+              value={route[1]}
+              LinkComponent={Link}
+              to={route[1]}
             />
           </Tabs>
         </Box>
@@ -354,7 +355,7 @@ const style = {
       bgcolor: "#F15F23",
       boxShadow: "none",
     },
-    m:2,
+    m: { xs: 1, sm: 2 },
     boxShadow: "none",
     color: "white",
     // width: "120px",
@@ -379,10 +380,9 @@ const style = {
   headingText: {
     fontSize: "20px",
     fontWeight: "700",
-    // lineHeight: "38px",
     color: "#000000",
-    p:3,
-    pt:2.5
+    p: { xs: 1, sm: 3 },
+    pt: 2.5
   },
   typographyStyle1: {
     fontFamily: "Effra",

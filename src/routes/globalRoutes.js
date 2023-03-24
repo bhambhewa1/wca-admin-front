@@ -12,6 +12,7 @@ import { SOLDANDUNSOLDVEHICLES } from "./constURL";
 import { STAFFADD } from "./constURL";
 import { VEHICLESPURCHASED } from "./constURL";
 import { VEHICLELOAN } from "./constURL";
+import { CUSTOMERUPDATE } from "./constURL";
 
 import TruckingCompaniesList from "../pages/TruckingCompanies/TruckingCompaniesList";
 import VehicleList from "../pages/Vehicles/VehicleList";
@@ -30,6 +31,7 @@ import VehicleInformation from "../pages/Vehicles/VehicleInformation";
 import CustomerInfo from "../pages/Vehicles/CustomerInfo";
 import VehicleLoan from "../pages/Vehicles/VehicleLoan";
 import DocumentsUpload from "../pages/Vehicles/DocumentsUpload";
+import CustomerForm from "../pages/Customers/CustomerForm";
 
 export const globalRoutes = [
   {
@@ -39,6 +41,11 @@ export const globalRoutes = [
   {
     path: CUSTOMERLIST,
     element: CustomersList,
+    routeType: ProtectedRoute,
+  },
+  {
+    path: CUSTOMERUPDATE,
+    element: CustomerForm,
     routeType: ProtectedRoute,
   },
   {

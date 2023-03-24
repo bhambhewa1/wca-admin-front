@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   email: yup.string().required("Please enter your email").email("Please enter valid email"),
-  password: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 chars minimum."),
+  password: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
 });
 
 const defaultValues = {
@@ -95,12 +95,14 @@ const Login = ({ getLogin }) => {
                 display: "flex",
                 flexDirection: "column",
               }}>
-              <img
-                alt="logo"
-                // className="logoSize"
-                style={{ width: "130px", height: "82px" }}
-                src={require("../../assests/logo@2x.png")}
-              />
+              <Box sx={{ mt: { xs: "40px", sm: "0px" } }}>
+                <img
+                  alt="logo"
+                  // className="logoSize"
+                  style={{ width: "130px", height: "82px" }}
+                  src={require("../../assests/logo@2x.png")}
+                />
+              </Box>
               <Typography
                 sx={{
                   fontSize: { xs: "20px", sm: "20px", md: "24px", lg: "24px" },

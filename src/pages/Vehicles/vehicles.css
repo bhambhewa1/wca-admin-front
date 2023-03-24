@@ -1,0 +1,100 @@
+@media (min-width:0px) {
+.carImage{
+    
+        width: 75px;
+        height: 75px;
+        border-radius: 100%;
+   
+}
+.copyButton{
+    color: #000;
+    font-size: 12px;
+    font-weight: 500;
+    border: 2px solid rgba(0, 0, 0, 0.16);
+    width: 60%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align:center;
+    border-radius: 5px;
+}
+}
+@media (min-width:600px) {
+    .carImage{
+        
+            width: 130px;
+            height: 130px;
+            border-radius: 100%;
+       
+    }
+    .copyButton{
+        color: #000;
+        font-size: 12px;
+        font-weight: 500;
+        border: 2px solid rgba(0, 0, 0, 0.16);
+        width: 40%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align:center;
+        border-radius: 5px;
+    }
+}
+    @media (min-width:900px) {
+        .carImage{
+            
+                width: 130px;
+                height: 130px;
+                border-radius: 100%;
+           
+        }
+        .copyButton{
+            color: #000;
+            font-size: 12px;
+            font-weight: 500;
+            border: 2px solid rgba(0, 0, 0, 0.16);
+            width: 25%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            text-align:center;
+            border-radius: 5px;
+        }
+    }
+@media (min-width:1200px) {
+            .carImage{
+                
+                    width: 130px;
+                    height: 130px;
+                    border-radius: 100%;
+               
+            }
+            .copyButton{
+                color: #000;
+                font-size: 12px;
+                font-weight: 500;
+                border: 2px solid rgba(0, 0, 0, 0.16);
+                width: 12%;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                text-align:center;
+                border-radius: 5px;
+            }
+        }
+@media (min-width:1536px) {
+                .carImage{
+                    
+                        width: 130px;
+                        height: 130px;
+                        border-radius: 100%;
+                   
+                }
+                .copyButton{
+                    color: #000;
+                    font-size: 12px;
+                    font-weight: 500;
+                    border: 2px solid rgba(0, 0, 0, 0.16);
+                    width: 10%;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    text-align:center;
+                    border-radius: 5px;
+                }
+            }

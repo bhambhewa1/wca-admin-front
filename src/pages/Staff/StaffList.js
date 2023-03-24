@@ -11,6 +11,7 @@ import AlertDialog from "../../components/Dialog/Dialog";
 import { Style } from "../../const/Style";
 import { toast } from "react-toastify";
 import Toastify from "../../components/SnackBar/Toastify";
+import { storage } from "../../config/storage";
 const StaffList = ({ getStaffList, deleteStaff }) => {
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = React.useState("asc");
@@ -26,11 +27,13 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   const [length, setLength] = useState(5);
   const [Id, setId] = useState("");
   const navigate = useNavigate();
+  const staff = storage.fetch.staffId();
   let data = {
     page: page,
     limit: length,
-    sort: "",
+    sort: "desc",
     search: "",
+    staff_id: staff,
   };
 
   useEffect(() => {
@@ -42,18 +45,21 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     setLoading(true);
     getStaffList(data).then((res) => {
       setLoading(false);
-      if (res?.data?.status) {
-        setRows(res?.data?.staff_list);
-        setPages(res?.data?.pages);
+      if (res?.data?.total_records === 0) {
         setTotal(res?.data?.total_records)
-      } else {
-        setRows(res?.data?.staff_list);
         setPages(res?.data?.pages);
-        setTotal(res?.data?.total_records)
-        res?.data?.errors.map((error) => {
-          toast.error(error);
-        })
-      }
+        setRows(res?.data?.staff_list);
+      } else if (res?.data?.status) {
+          setRows(res?.data?.staff_list);
+          setPages(res?.data?.pages);
+          setTotal(res?.data?.total_records)
+        } else {
+          setRows(res?.data?.staff_list);
+          setPages(res?.data?.pages);
+          res?.data?.errors.map((error) => {
+            toast.error(error);
+          })
+        }
     });
   };
   const handleRequestSort = (event, property) => {
@@ -81,15 +87,10 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   const handlePageChange = (event, value) => {
     setLoading(true);
     setPage(value);
-    data = {
-      page: value,
-      limit: length,
-      sort: "",
-      sortColumn: "",
-      search: "",
-    };
+    data.page = value
+    data.staff_id = staff
     if (order && orderBy) {
-      data.sort = order;
+      data.sort = order === "asc" ? "desc" : "asc";
       data.sortColumn = orderBy;
     }
     if (search_val) {
@@ -104,7 +105,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     deleteStaff(data).then((res) => {
       if (res.data.status) {
         setDialog(false);
-        toast.success(res?.data?.message)
+        toast.success(res?.data?.message);
         getList();
       } else {
         res?.data?.errors.map((error) => {
@@ -114,7 +115,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     });
     // }
   };
-  
+
   const onSubmit = (value) => {
     if ((value !== "" && value.trim().length !== 0) || perv_search_val !== "") {
       setPerv_Search_val(value);
@@ -122,6 +123,8 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       setSearch_val(value);
       setPage(1);
       data.search = value;
+      Object.assign(data, { staff_id: staff })
+
       // if (order && orderBy) {
       //   let sort_column = { sort_column: orderBy };
       //   let sort = { sort_by: order };
@@ -130,10 +133,10 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       getList();
     }
   };
- const handleChange = (e) =>{
+  const handleChange = (e) => {
     setLength(e.target.value)
     getList()
- }
+  }
   return (
     <Box
       sx={{
@@ -156,8 +159,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         }}
       />
       <AlertDialog
-        title={"Are you sure?"}
-        text={"To delete this item"}
+        title={"Are you sure you want to delete this item?"}
         open={dialog}
         onClickButton={() => handleDelete(Id)}
         onClickButtonCancel={() => setDialog(false)}
@@ -181,7 +183,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         {!rows.length == 0 && (
           <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
             <EnhancedTableHead
-              totalColumn={["Firstname", "Lastname", "Type", "Contact No", "Email", "Created on", "Action"]}
+              totalColumn={["Firstname", "Lastname", "Type", "Contact No", "Email", "CreatedOn", "Action"]}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
@@ -189,7 +191,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
             />
             <TableBody>
               {rows?.map((row) => (
-                <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableRow key={row.staff_id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && row.firstName}
@@ -212,7 +214,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
                   </TableCell>
                   <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
-                    {!loading && row.createdOn}
+                    {!loading && row.created_on}
                   </TableCell>
                   <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
@@ -251,33 +253,40 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
           </Table>
         )}
       </Box>
-      <Box
+      {total!==0&&<Box
         sx={{
           display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
           justifyContent: "space-between",
           p: 1,
         }}>
-        <Typography sx={{ pl: 2, fontWeight: 400 }}>Number of Rows per Page 
+        <Typography sx={{ pl: 3, fontWeight: 400, fontSize: { xs: '14px', sm: '16px' } }}>Number of Rows per Page
           <Select
             value={length}
-            onChange = {handleChange}
+            onChange={handleChange}
+            sx={{
+              ml: { xs: 1, sm: 2 },
+              mr: { xs: 1, sm: 2 },
+              fontSize: "16px"
+            }}
           >
             <MenuItem value={5}>5</MenuItem>
             <MenuItem value={10}>10</MenuItem>
             <MenuItem value={20}>20</MenuItem>
-          </Select> 
+          </Select>
           out of {total} </Typography>
         {pages > 1 && (
           <Pagination
             count={pages}
             page={page}
             boundaryCount={1}
-            sx={{ button: { fontSize: "16px" } }}
+            sx={{ button: { fontSize: "16px", mt: 2, mr: 2 } }}
             onChange={handlePageChange}
             siblingCount={0}
           />
         )}
       </Box>
+     }
     </Box>
   );
 };
