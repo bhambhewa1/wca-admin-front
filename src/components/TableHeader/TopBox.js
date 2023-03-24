@@ -14,78 +14,41 @@ import {
   DialogActions,
 } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
+import { Link, Outlet } from "react-router-dom";
 import React from "react";
 import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
-      {value === index && (
-        <Box>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   tab: {
+    backgroundColor: "#3D2E57",
     fontSize: "18px",
     fontWeight: "400",
-    textDecoration: "none",
-
-    "&.Mui-selected": {
-      // background: "#F15F23",
-      color: "white",
-      borderBottom: 0,
-      textDecoration: "none",
-    },
-    "& .MuiBox-root": {
-      padding: "0px",
-      textDecoration: "none",
-    },
-    textTransform: "none",
     "&.MuiTab-root.Mui-selected": {
+      backgroundColor: "#F15F23",
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "1.125rem",
+      },
+      [theme.breakpoints.down("xs")]: {
+        fontSize: "0.65rem",
+        width:"50%"
+      },
       color: "white",
       textTransform: "none",
-      border: "0px",
-      textDecoration: "none",
     },
     "&.MuiButtonBase-root": {
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "1.125rem",
+      },
+      [theme.breakpoints.down("xs")]: {
+        fontSize: "0.65rem",
+        width:"50%"
+      },
+      backgroundColor: "rgba(42, 34, 70, 0.1)",
+      color: "#3D2E57",
       textTransform: "none",
-      marginRight: 25,
-      textDecoration: "none",
-    },
-    "&.css-1jbwg7a-MuiButtonBase-root-MuiTab-root": {
-      background: "#DDDDDD",
-      color: "#000000",
-      textDecoration: "none",
-    },
-    "&.css-1jbwg7a-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-      background: "#F15F23",
-      textDecoration: "none",
-    },
-  },
-  TabPanel: {
-    "& .MuiBox-root": {
-      padding: "0px",
-      textTransform: "none",
+      marginRight: "40px",
     },
   },
 }));
@@ -114,15 +77,13 @@ const TopBox = ({
   const tabPanelClasses = { root: classes.TabPanel };
   const [tabValue, setTabValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const route = ["/vehicles/negotiating", "/vehicles/purchased"];
 
   const navigate = useNavigate();
   const location = useLocation();
   console.log("location", tabValue);
+  const handleTabChange = (event, newValue) => {};
 
-  const handleChangeTab = (event, newValue) => {
-    console.log("va", newValue);
-    setTabValue(newValue);
-  };
   const handleSearch = (e) => {
     console.log("event", e.target.event);
     setSearch_val(e.target.value);
@@ -248,43 +209,48 @@ const TopBox = ({
           display: "flex",
           justifyContent: { xs: "space-between" },
           width: "100%",
-          pb: 2,
-          p: 3,
+          // pb: 2,
+          // p: 3,
           borderBottom: "3px solid rgba(0, 0, 0, 0.06)",
           // borderTop: "3px solid rgba(0, 0, 0, 0.06)",
         }}>
         <Typography sx={style.headingText}>{headerText}</Typography>
-        {tabValue === 0 && location.pathname !== "/vehicles/soldandunsold" && location.pathname !== "/appointments" && (
+        {location.pathname !== "/vehicles/purchased"&&location.pathname !== "/vehicles/soldandunsold" && location.pathname !== "/appointments" && (
           <Button variant="contained" onClick={button_one_onClick} sx={style.button_one}>
             {button_one}
           </Button>
         )}
       </Box>
 
-      {location.pathname === "/vehicles" && (
+      {(location.pathname === "/vehicles/negotiating" ||location.pathname === "/vehicles/purchased") && (
         <Box
           sx={{
             display: "flex",
             pb: 2,
+            pt:2,
             borderColor: "divider",
           }}>
           <Tabs
-            value={tabValue}
-            onChange={handleChangeTab}
+            value={location.pathname}
+            onChange={handleTabChange}
             indicatorColor="white"
             aria-label="basic tabs example"
             sx={{
               borderBottom: "none",
             }}>
-            <Tab classes={tabClasses} label={button_two} {...a11yProps(0)} />
-            <Tab classes={tabClasses} label={button_three} {...a11yProps(1)} />
+            <Tab classes={tabClasses}
+            label={button_two}
+            value={route[0]}
+            LinkComponent={Link}
+            to={route[0]}
+            />
+            <Tab classes={tabClasses}
+            label={button_three}
+            value={route[1]}
+            LinkComponent={Link}
+            to={route[1]}
+            />
           </Tabs>
-          <TabPanel value={tabValue} index={0} classes={tabPanelClasses}>
-            {/* <Typography>Hello</Typography> */}
-          </TabPanel>
-          <TabPanel value={tabValue} index={1}>
-            {/* <Typography>Hi</Typography> */}
-          </TabPanel>
         </Box>
       )}
 
@@ -391,6 +357,7 @@ const style = {
       bgcolor: "#F15F23",
       boxShadow: "none",
     },
+    m:2,
     boxShadow: "none",
     color: "white",
     // width: "120px",
@@ -415,8 +382,9 @@ const style = {
   headingText: {
     fontSize: "20px",
     fontWeight: "700",
-    lineHeight: "38px",
+    // lineHeight: "38px",
     color: "#000000",
+    p:2
   },
   typographyStyle1: {
     fontFamily: "Effra",

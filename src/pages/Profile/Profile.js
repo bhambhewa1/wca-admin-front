@@ -21,7 +21,9 @@ const schema = yup.object().shape({
   phone: yup
     .string()
     .required("Please enter your phone number")
-    .matches(/^[0-9\s]*$/, "Please enter valid phone number"),
+    .matches(/^[0-9]*$/, "Please enter valid phone number")
+    .min(10, `Enter minimum 10 numbers `)
+    .max(10, `Enter maximum 10 numbers`),
   validate_Password: yup.boolean(),
   password: yup.string().when("validate_Password", {
     is: true,
@@ -52,7 +54,9 @@ const Style = {
     color: "#3D2E57",
     display: "flex",
     // pb: 2,
-    pl: 3.5,
+    pl: {xs:1,sm:3.5},
+    pt:{xs:2,sm:0},
+    pb:{xs:2,sm:0}
   },
   inputStyle: {
     width: {
@@ -114,13 +118,12 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
         storage.set.adminfirstname(result.firstName);
         storage.set.adminlastname(result.lastName);
         setUserData({
-          id: result.id,
           firstName: result.firstName,
           lastName: result.lastName,
           email: result.email,
           phone: result.phone,
           type: result.type,
-          staff_id:result.staff_id
+          staff_id: result.staff_id,
         });
       } else {
         toast.error(res?.data?.message);
@@ -142,9 +145,15 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
     //   n1: userData.first_name,
     //   n2: userData.last_name,
     // });
-
-    Object.assign(value, { staff_id: userData.staff_id });
+    if (value.password === undefined || value.confirm_password === undefined) {
+      value.password = "";
+      delete value.confirm_password;
+    }
+    // Object.assign(value, { staff_id: userData.staff_id });
+    value.staff_id =  userData.staff_id
+    console.log(value);
     setLoading(true);
+    delete value.validate_Password;
     updateUser(value).then((res) => {
       setLoading(false);
       if (res.data.status) {
@@ -159,6 +168,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               email: result.email,
               phone: result.phone,
               type: result.type,
+              validate_Password:false
             });
             storage.set.adminfirstname(res.data.data.firstName);
             storage.set.adminlastname(res.data.data.lastName);
@@ -186,7 +196,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
         justifyContent: "flex-end",
       }}>
       <form name="RegisterForm" onSubmit={formik.handleSubmit}>
-        <Typography sx={Style.typographyStyle}>Profile</Typography>
+        <Typography sx={Style.typographyStyle} >Profile</Typography>
         <Box
           sx={{
             width: "100%",
@@ -200,8 +210,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              pl: 3,
-              pr: 3,
+              pl: {xs:1,sm:3},
+              pr: {xs:1,sm:3},
               // alignItems:'center'
             }}>
             <Box sx={Style.rowBoxStyle}>
@@ -353,6 +363,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                 name="validate_Password"
                 id="validate_Password"
                 onChange={formik.handleChange}
+                checked={formik.values.validate_Password}
                 value={userData.validate_Password}
               />
               Do you want to change the password?

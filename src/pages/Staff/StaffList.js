@@ -9,6 +9,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import LoaderComponent from "../../components/Loader/LoaderComponent";
 import AlertDialog from "../../components/Dialog/Dialog";
 import { Style } from "../../const/Style";
+import { toast } from "react-toastify";
+import Toastify from "../../components/SnackBar/Toastify";
+import { storage } from "../../config/storage";
 const StaffList = ({ getStaffList, deleteStaff }) => {
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = React.useState("asc");
@@ -24,12 +27,14 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   const [Empty, setEmpty] = useState(false);
   const [Id, setId] = useState("");
   const navigate = useNavigate();
-  let length = 3;
+  const staff = storage.fetch.staffId();
+  let length = 5;
   let data = {
     page: page,
     limit: length,
     sort: "",
     search: "",
+    staff_id: staff,
   };
 
   useEffect(() => {
@@ -99,6 +104,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     deleteStaff(data).then((res) => {
       if (res.data.status) {
         setDialog(false);
+        toast.success(res?.data?.message);
         getList();
       }
     });
@@ -127,6 +133,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         display: "flex",
         flexDirection: "column",
       }}>
+      <Toastify />
       <TopBox
         headerText={"Staff"}
         button_one={"+ Add Staff"}
@@ -142,8 +149,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         }}
       />
       <AlertDialog
-        title={"Are you sure?"}
-        text={"To delete this item"}
+        title={"Are you sure you want to delete this item?"}
         open={dialog}
         onClickButton={() => handleDelete(Id)}
         onClickButtonCancel={() => setDialog(false)}
@@ -175,8 +181,8 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
             />
             <TableBody>
               {rows?.map((row) => (
-                <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell align="center" sx={Style.table.tableCell}>
+                <TableRow key={row.staff_id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && row.firstName}
                   </TableCell>

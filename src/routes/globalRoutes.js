@@ -1,5 +1,5 @@
-import { CUSTOMERINFO, CUSTOMERLIST, DOCUMENTSUPLOAD, VEHICLEINFO } from "./constURL";
-import { VEHICLESLIST } from "./constURL";
+import { VEHICLESNEGOTIATING } from "./constURL";
+import { CUSTOMERINFO, CUSTOMERLIST,DOCUMENTSUPLOAD, VEHICLEINFO } from "./constURL";
 import { APPOINTMENTLIST } from "./constURL";
 import { TRUCKINGCOMPANIESLIST } from "./constURL";
 import { STORELIST } from "./constURL";
@@ -10,6 +10,8 @@ import { VEHICLEDETAIL } from "./constURL";
 import { LOGIN } from "./constURL";
 import { SOLDANDUNSOLDVEHICLES } from "./constURL";
 import { STAFFADD } from "./constURL";
+import { VEHICLESPURCHASED } from "./constURL";
+import { VEHICLELOAN } from "./constURL";
 
 import TruckingCompaniesList from "../pages/TruckingCompanies/TruckingCompaniesList";
 import VehicleList from "../pages/Vehicles/VehicleList";
@@ -26,7 +28,9 @@ import StaffForm from "../pages/Staff/StaffForm";
 import ProtectedRoute from "./protectedRoutes";
 import VehicleInformation from "../pages/Vehicles/VehicleInformation";
 import CustomerInfo from "../pages/Vehicles/CustomerInfo";
+import VehicleLoan from "../pages/Vehicles/VehicleLoan";
 import DocumentsUpload from "../pages/Vehicles/DocumentsUpload";
+
 export const globalRoutes = [
   {
     path: LOGIN,
@@ -38,10 +42,16 @@ export const globalRoutes = [
     routeType: ProtectedRoute,
   },
   {
-    path: VEHICLESLIST,
+    path: VEHICLESNEGOTIATING,
     element: VehicleList,
     routeType: ProtectedRoute,
   },
+  {
+    path: VEHICLESPURCHASED,
+    element: VehicleList,
+    routeType: ProtectedRoute,
+  },
+  
   {
     path: APPOINTMENTLIST,
     element: AppointmentList,
@@ -86,9 +96,13 @@ export const globalRoutes = [
         element: CustomerInfo,
       },
       {
+        path: VEHICLELOAN,
+        element: VehicleLoan,
+      },
+      {
         path: DOCUMENTSUPLOAD,
         element: DocumentsUpload,
-      },
+      }
     ],
   },
   {
@@ -101,4 +115,5 @@ export const globalRoutes = [
     element: StaffForm,
     routeType: ProtectedRoute,
   },
+
 ];
