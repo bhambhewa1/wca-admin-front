@@ -166,7 +166,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       />
       <LoaderComponent open={loading} />
       <Box sx={Style.table.tableWrapBox}>
-        {rows.length == 0 && (
+        {rows?.length == 0 && (
           <Typography
             sx={{
               display: "flex",
@@ -180,7 +180,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
             No Staff Member Found
           </Typography>
         )}
-        {!rows.length == 0 && (
+        {!rows?.length == 0 && (
           <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
             <EnhancedTableHead
               totalColumn={["Firstname", "Lastname", "Type", "Contact No", "Email", "CreatedOn", "Action"]}

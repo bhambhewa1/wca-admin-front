@@ -13,6 +13,7 @@ import { STAFFADD } from "./constURL";
 import { VEHICLESPURCHASED } from "./constURL";
 import { VEHICLELOAN } from "./constURL";
 import { CUSTOMERUPDATE } from "./constURL";
+import { VEHICLEESINGDOCUMENT } from "./constURL";
 
 import TruckingCompaniesList from "../pages/TruckingCompanies/TruckingCompaniesList";
 import VehicleList from "../pages/Vehicles/VehicleList";
@@ -32,6 +33,7 @@ import CustomerInfo from "../pages/Vehicles/CustomerInfo";
 import VehicleLoan from "../pages/Vehicles/VehicleLoan";
 import DocumentsUpload from "../pages/Vehicles/DocumentsUpload";
 import CustomerForm from "../pages/Customers/CustomerForm";
+import EsignDocument from "../pages/Vehicles/EsignDocument";
 
 export const globalRoutes = [
   {
@@ -58,7 +60,7 @@ export const globalRoutes = [
     element: VehicleList,
     routeType: ProtectedRoute,
   },
-  
+ 
   {
     path: APPOINTMENTLIST,
     element: AppointmentList,
@@ -109,6 +111,11 @@ export const globalRoutes = [
       {
         path: DOCUMENTSUPLOAD,
         element: DocumentsUpload,
+      },
+      {
+        path: VEHICLEESINGDOCUMENT,
+        element: EsignDocument,
+        routeType: ProtectedRoute,
       }
     ],
   },

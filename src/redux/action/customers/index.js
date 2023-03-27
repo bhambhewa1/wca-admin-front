@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import CustomerApi from "../../services/staff";
+import CustomerApi from "../../services/customers";
 
 export const getCustomerdata = (data) => async (dispatch) => {
     try {

@@ -5,7 +5,7 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import "./vehicles.css";
-import { CUSTOMERINFO, VEHICLEINFO, VEHICLELOAN, DOCUMENTSUPLOAD } from "../../routes/constURL";
+import { CUSTOMERINFO, VEHICLEINFO, VEHICLELOAN, DOCUMENTSUPLOAD,VEHICLEESINGDOCUMENT } from "../../routes/constURL";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -27,7 +27,7 @@ const VehicleDetail = () => {
     { text: "Customer information", route: CUSTOMERINFO },
     { text: "Documents upload", route: DOCUMENTSUPLOAD },
     { text: "Loan Payoff", route: VEHICLELOAN },
-    { text: "E-sign Document" },
+    { text: "E-sign Document",route: VEHICLEESINGDOCUMENT },
     { text: "Checks" },
     { text: "Notes" },
   ];
