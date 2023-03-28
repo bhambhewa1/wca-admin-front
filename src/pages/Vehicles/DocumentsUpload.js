@@ -49,13 +49,13 @@ const DocumentsUpload = () => {
           sx={{
             border: "2px solid rgba(0, 0, 0, 0.06)",
             borderRadius: "5px",
-            mr: "50px",
+            mr: "50px",pb: 8
           }}
           container
           rowGap={"0px"}
           columnGap={"0px"}
         >
-          <Grid item xl={12}>
+          <Grid item xl={12} sx={{mb:4}}>
             <Typography sx={style.typography1}>Pictures of vehicles</Typography>
             <Typography
               sx={style.typography2}
@@ -72,22 +72,29 @@ const DocumentsUpload = () => {
               item
               xl={3}
               key={index}
-              sx={
+              sx={ 
                 index === 1
                   ? style.innerGrid_1
+                  : index === 3
+                  ? style.innerGrid_3
                   : index === 5
                   ? style.innerGrid_5
-                  : index === 0 || index === 2 || index === 3
-                  ? style.innerGrid_023
-                  : ""
+                  : style.innerGrid_padd
               }
             >
+              <Box sx={index===0 || index===1 || index===2
+              ? style.box_borderBottom
+              : index===3
+              ? style.box_borderBottom_3
+              : style.box_borderBottom_padd
+              }>
               <Typography sx={style.typography3}>Front</Typography>
               <UploadFile
                 id={driverLicense.id}
                 path={driverLicense.path}
                 src={driverLicense.src}
               />
+              </Box>
             </Grid>
           ))}
         </Grid>
@@ -136,22 +143,33 @@ const style = {
   },
   typography2: {
     p: 2,
-    fontSize: "16px",
+    fontSize: "13px",
     fontWeight: "400",
     color: "#000000",
   },
   innerGrid_1: {
     borderRight: "2px solid rgba(0, 0, 0, 0.06)",
-    borderBottom: "2px solid rgba(0, 0, 0, 0.06)",
-    pb: 4,
+    pr: 4
+  },
+  innerGrid_3: {
+    pr:4
   },
   innerGrid_5: {
     borderRight: "2px solid rgba(0, 0, 0, 0.06)",
-    pb: 4,
   },
-  innerGrid_023: {
+  innerGrid_padd: {
+    pl:4,
+  },
+  box_borderBottom: {
     borderBottom: "2px solid rgba(0, 0, 0, 0.06)",
-    pb: 4,
+    pb:4
+  },
+  box_borderBottom_3: {
+    borderBottom: "2px solid rgba(0, 0, 0, 0.06)",
+    pb:4,pl:4
+  },
+  box_borderBottom_padd: {
+    pb:3
   },
   typography3: {
     p: 2,

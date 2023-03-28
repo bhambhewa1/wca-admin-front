@@ -32,7 +32,7 @@ const UploadFile = ({id,path,src}) => {
                   pl: 2,
                   pr: 2,
                   mr:5,
-                  fontSize: "16px",
+                  fontSize: "12px",
                 }}>
                 <CloudUploadIcon sx={{ mr: 1 }} /> Upload
               </Button>

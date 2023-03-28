@@ -17,5 +17,8 @@ export const Style = {
     pl:4,pr:4,
     bgcolor: "#F15F23",
     color: "white",
+    "&.MuiButtonBase-root:hover": {
+      bgcolor: "#F15F23",
+    },
   }
 };
