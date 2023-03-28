@@ -14,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 const CustomerInfo = () => {
   return (
-    <Box sx={{ m: { xs: 1, sm: 2 }, border: "3px solid rgba(0, 0, 0, 0.06)" }}>
+    <Box sx={{ m: { xs: 1, sm: 2 ,boxShadow:'1px solid #dddddd'}}}>
         <Typography sx={style.headingText}>Customer Info</Typography>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{pl:2,pr:2}}>
         <Grid item xs={6}>

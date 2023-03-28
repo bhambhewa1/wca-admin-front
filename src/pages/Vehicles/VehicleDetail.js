@@ -5,7 +5,7 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import "./vehicles.css";
-import { CUSTOMERINFO, VEHICLEINFO, VEHICLELOAN, DOCUMENTSUPLOAD,VEHICLEESINGDOCUMENT } from "../../routes/constURL";
+import { CUSTOMERINFO, VEHICLEINFO, VEHICLELOAN, DOCUMENTSUPLOAD,VEHICLEESINGDOCUMENT,VEHICLECHECKS,VEHICLENOTE } from "../../routes/constURL";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -28,8 +28,8 @@ const VehicleDetail = () => {
     { text: "Documents upload", route: DOCUMENTSUPLOAD },
     { text: "Loan Payoff", route: VEHICLELOAN },
     { text: "E-sign Document",route: VEHICLEESINGDOCUMENT },
-    { text: "Checks" },
-    { text: "Notes" },
+    { text: "Checks", route: VEHICLECHECKS },
+    { text: "Notes" ,route:VEHICLENOTE},
   ];
   const openMenu = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -58,6 +58,9 @@ const VehicleDetail = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-evenly",
+              "&.MuiPaper-root":{
+                textAlign:'left'
+              }
             }}>
             <Typography sx={{ fontSize: { xs: "14px", sm: "20px", md: "30px" }, fontWeight: "800" }}>2014 BMW 520</Typography>
             <Typography sx={{ color: "rgba(0, 0, 0, 0.36)", fontSize: { xs: "12px", sm: "14px" } }}>{VINNUMBER}</Typography>
