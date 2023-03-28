@@ -29,14 +29,14 @@ const InputField = ({
       <FormLabel
         sx={{
           fontStyle: "normal",
-          fontWeight: 400,
+          fontWeight: 600,
           fontSize: size,
           lineHeight: lineHeight,
-          color:{color},
-        }}
-      >
+          color: { color },
+          mt: "10px",
+        }}>
         {formlabel}
-        <span style={{color:'red'}}>{required}</span>
+        <span style={{ color: "red" }}>{required}</span>
       </FormLabel>
       <Controller
         name={name}
@@ -50,17 +50,23 @@ const InputField = ({
             {...field}
             disabled={disabled}
             variant="filled"
-            InputProps={{ disableUnderline: true,}}
+            InputProps={{ disableUnderline: true }}
             type={type}
             error={errors}
             helperText={helperText}
             color="primary"
             inputProps={{
               max: max,
-              min:min,
-              style: { paddingTop: "16px", paddingBottom: "15px",
-              height:{height},fontSize:"16px",textTransform:textTransform,
-              color:"#A8A8A8",backgroundColor:"#F6F6F6",},
+              min: min,
+              style: {
+                paddingTop: "16px",
+                paddingBottom: "15px",
+                height: { height },
+                fontSize: "16px",
+                textTransform: textTransform,
+                color: "#A8A8A8",
+                backgroundColor: "#F6F6F6",
+              },
             }}
             value={value}
             placeholder={placeholder}
@@ -70,6 +76,7 @@ const InputField = ({
             sx={{
               width: "100%",
               pb: 0,
+              mt: "10px",
             }}
           />
         )}
