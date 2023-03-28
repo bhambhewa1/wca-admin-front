@@ -1,7 +1,8 @@
-import { Box, Button, Chip, Fab, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { makeStyles, styled } from "@mui/styles";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import UploadFile from "../../components/UploadFiles/UploadFile";
+import { Style } from "../../const/Style";
 
 const DocumentsUpload = () => {
   const [driverLicense, setDriverLicense] = useState({
@@ -11,7 +12,7 @@ const DocumentsUpload = () => {
   });
 
   const handleDriverLicense = (e) => {
-    console.log("ram",driverLicense);
+    console.log("ram", driverLicense);
     setDriverLicense({
       id: driverLicense.id,
       path: e.target.files[0],
@@ -22,77 +23,103 @@ const DocumentsUpload = () => {
   return (
     <>
       {/* <Box sx={{display:'flex', justifyContent: "center"}}> */}
-      <Grid sx={{ ml: "10px" }} container rowGap={"10px"} columnGap={"60px"}>
-        <Grid item xl={5.6} sx={{ border: "1px solid black", pb: 4 }}>
-          <Typography sx={{ p: 2, borderBottom: "1px solid black" }}>
-            Driver License
-          </Typography>
-          <Typography sx={{ p: 2 }}>
-            Contrary to popular belief, Lorem Ipsum is not simply random text.
-            It has roots in a piece of classical Latin literature from 45 BC,
-            making it over 2000 years old.
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              pl: 2,
-            }}>
-            <input
-              style={{ padding: "17px 12px", display: "none" }}
-              type="file"
-              id="drLicense"
-              name="main_image"
-              accept="image/png, image/gif, image/jpeg"
-              onChange={handleDriverLicense}
+      <Grid
+        sx={{ ml: "10px", mt: "20px" }}
+        container
+        rowGap={"30px"}
+        columnGap={"30px"}
+      >
+        {[0, 1, 2, 3].map((grid, index) => (
+          <Grid item xl={5.6} sx={style.innerGrid} key={index}>
+            <Typography sx={style.typography1}>Driver license</Typography>
+            <Typography sx={style.typography2}>
+              Contrary to popular belief, Lorem Ipsum is not simply random text.
+              It has roots in a piece of classical Latin literature from 45 BC,
+              making it over 2000 years old.
+            </Typography>
+            <UploadFile
+              id={driverLicense.id}
+              path={driverLicense.path}
+              src={driverLicense.src}
             />
-            <label htmlFor="drLicense">
-              <Button
-                component="span"
-                sx={{
-                  bgcolor: "#F15F23",
-                  "&.MuiButtonBase-root:hover": {
-                    bgcolor: "#F15F23",
-                  },
-                  color: "white",
-                  textTransform: "none",
-                  borderRadius: "130px",
-                  pl: 2,
-                  pr: 2,
-                  mr:5,
-                  fontSize: "16px",
-                }}>
-                <CloudUploadIcon sx={{ mr: 1 }} /> Upload
-              </Button>
-            </label>
+          </Grid>
+        ))}
 
-            {driverLicense.src && (
-              <Chip
-                // href={mainImg}
-                // clickable
-                label={driverLicense.path.name || driverLicense.path.name1}
-                component="a"
-                variant="outlined"
-                name="driver_license"
-                onDelete={() => {
-                  console.log("ram...1.",driverLicense);
-                  setDriverLicense({ id: driverLicense.id, path: "", src:"" });
-                  // setImgerr(true)
-                }}
+        <Grid
+          sx={{
+            border: "2px solid rgba(0, 0, 0, 0.06)",
+            borderRadius: "5px",
+            mr: "50px",pb: 8
+          }}
+          container
+          rowGap={"0px"}
+          columnGap={"0px"}
+        >
+          <Grid item xl={12} sx={{mb:4}}>
+            <Typography sx={style.typography1}>Pictures of vehicles</Typography>
+            <Typography
+              sx={style.typography2}
+              style={{ paddingRight: "100px" }}
+            >
+              Contrary to popular belief, Lorem Ipsum is not simply random text.
+              It has roots in a piece of classical Latin literature from 45 BC,
+              making it over 2000 years old.
+            </Typography>
+          </Grid>
+
+          {[0, 1, 2, 3, 4, 5, 6, 7].map((grid, index) => (
+            <Grid
+              item
+              xl={3}
+              key={index}
+              sx={ 
+                index === 1
+                  ? style.innerGrid_1
+                  : index === 3
+                  ? style.innerGrid_3
+                  : index === 5
+                  ? style.innerGrid_5
+                  : style.innerGrid_padd
+              }
+            >
+              <Box sx={index===0 || index===1 || index===2
+              ? style.box_borderBottom
+              : index===3
+              ? style.box_borderBottom_3
+              : style.box_borderBottom_padd
+              }>
+              <Typography sx={style.typography3}>Front</Typography>
+              <UploadFile
+                id={driverLicense.id}
+                path={driverLicense.path}
+                src={driverLicense.src}
               />
-            )}
-          </Box>
+              </Box>
+            </Grid>
+          ))}
         </Grid>
-        <Grid item xl={5.6} sx={{ border: "1px solid black" }}>
-          <Typography sx={{ p: 2, borderBottom: "1px solid black" }}>
-            Vehicle Registeration
-          </Typography>
-          <Typography sx={{ p: 2 }}>
-            Contrary to popular belief, Lorem Ipsum is not simply random text.
-            It has roots in a piece of classical Latin literature from 45 BC,
-            making it over 2000 years old.
-          </Typography>
-        </Grid>
+
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            mb: 7,
+          }}
+        >
+          <Button sx={Style.button}>Add note</Button>
+          <Button
+            sx={Style.button}
+            style={{
+              marginLeft: "30px",
+              marginRight: "50px",
+              backgroundColor: "#28A745",
+            }}
+          >
+            Save
+          </Button>
+        </Box>
       </Grid>
       {/* </Box> */}
     </>
@@ -100,3 +127,54 @@ const DocumentsUpload = () => {
 };
 
 export default DocumentsUpload;
+
+const style = {
+  innerGrid: {
+    border: "2px solid rgba(0, 0, 0, 0.06)",
+    borderRadius: "5px",
+    pb: 4,
+  },
+  typography1: {
+    p: 2,
+    fontSize: "16px",
+    fontWeight: "900",
+    borderBottom: "2px solid rgba(0, 0, 0, 0.06)",
+    color: "#000000",
+  },
+  typography2: {
+    p: 2,
+    fontSize: "13px",
+    fontWeight: "400",
+    color: "#000000",
+  },
+  innerGrid_1: {
+    borderRight: "2px solid rgba(0, 0, 0, 0.06)",
+    pr: 4
+  },
+  innerGrid_3: {
+    pr:4
+  },
+  innerGrid_5: {
+    borderRight: "2px solid rgba(0, 0, 0, 0.06)",
+  },
+  innerGrid_padd: {
+    pl:4,
+  },
+  box_borderBottom: {
+    borderBottom: "2px solid rgba(0, 0, 0, 0.06)",
+    pb:4
+  },
+  box_borderBottom_3: {
+    borderBottom: "2px solid rgba(0, 0, 0, 0.06)",
+    pb:4,pl:4
+  },
+  box_borderBottom_padd: {
+    pb:3
+  },
+  typography3: {
+    p: 2,
+    fontSize: "16px",
+    fontWeight: "900",
+    color: "#000000",
+  },
+};
