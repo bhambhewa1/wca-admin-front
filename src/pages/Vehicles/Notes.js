@@ -18,7 +18,7 @@ const Notes = () => {
         placeholder='Enter a note here'
         rows={10}
         sx={{
-            width:'40%',
+            width:{xs:'100%',sm:'40%'},
             marginBottom:2,
             backgroundColor:'#F5F6FA'
         }}/>

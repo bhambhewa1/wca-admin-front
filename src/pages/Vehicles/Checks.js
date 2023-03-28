@@ -61,7 +61,7 @@ const Checks = () => {
             padding: 4,
             borderRadius: '5px',
             marginRight: 3,
-            width: '150px',
+            // width: '150px',
           }}>
               <Typography sx={{ color: 'white', fontSize: "14px" }}>Add Notes</Typography>
 
@@ -74,7 +74,7 @@ const Checks = () => {
               backgroundColor: "#F15F23",
               padding: 4,
               borderRadius: '5px',
-              width: '150px',
+              // width: '150px',
             }}>
               <Typography sx={{ color: 'white', fontSize: "14px" }}>Generate Check</Typography>
             </Link></Item>

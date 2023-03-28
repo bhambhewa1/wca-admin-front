@@ -1,4 +1,4 @@
-import { Grid, Typography, Paper } from '@mui/material'
+import { Grid, Typography, Paper, StepContent, Button } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DirectionsCarFilledIcon from "@mui/icons-material/DirectionsCarFilled";
@@ -336,7 +336,7 @@ const VehicleLoan = () => {
                             fontSize: { xs: "16px", sm: "20px" },
                             fontWeight: 500,
                             color: 'black',
-                            pl:{xs:0,sm:2}
+                            pl:{xs:1,sm:2}
                         }}>Loan Payoff Status</Typography>
                     </Grid>
                     <Grid xs={6} sx={{
@@ -366,7 +366,7 @@ const VehicleLoan = () => {
                     <Grid xs={12} sx={{ borderTop: '1px solid #dddddd ', pt: 2 ,
                 
                 }}>
-                        <Stack sx={{ width: '100%',pt:5 }} spacing={4}>
+                       {!isMobile&& <Stack sx={{ width: '100%',pt:5 }} spacing={4}>
 
                             <Stepper alternativeLabel activeStep={active} connector={<ColorlibConnector /> }>
                                 {steps.map((label, index) => (
@@ -494,8 +494,136 @@ const VehicleLoan = () => {
                                     </Grid>
                                 </>
                             ))}
-                        </Stack>
-
+                        </Stack>}
+                        {isMobile&&
+                          <Stepper activeStep={active} orientation="vertical" sx={{p:2}}>
+                          {steps.map((step, index) => (
+                            <Step key={step.label} onClick={handleStep(index)}>
+                              <StepLabel
+                                optional={
+                                  index === 2 ? (
+                                    <Typography variant="caption">Last step</Typography>
+                                  ) : null
+                                }
+                              >
+                                {step.label}
+                              </StepLabel>
+                              <StepContent>
+                              {status.map((data, index) => (
+                                index === active && <>
+                                    <Typography sx={{
+                                        // width: '100%',
+                                        backgroundColor: '#f15f23',
+                                        p: 2,
+                                        color: 'white'
+                                    }}>{data.heading}</Typography>
+                                    <Grid sx={{
+                                        pl: 2,
+                                        "&.MuiGrid-root": {
+                                            marginTop: 0
+                                        }
+                                    }}>
+                                        {data.d6 && <Box sx={{ pt: 2 }}>
+                                            <Typography>{data.d6?.name}</Typography>
+                                            <Box sx={{
+                                                display: 'flex', width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                "&.MuiBox-root": {
+                                                    marginTop: 0
+                                                }
+                                            }}>
+                                                <Typography>{data.d6?.date}</Typography>
+                                                <Box sx={{ display: 'flex' }}>
+                                                    <Typography style={{ fontWeight: 700 }}>Status:</Typography>
+                                                    <Typography style={{ color: data.d6.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d6?.Status}</Typography>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                        }
+                                        {data.d5 && <Box sx={{ pt: 2 }}>
+                                            <Typography>{data.d5?.name}</Typography>
+                                            <Box sx={{
+                                                display: 'flex', width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                "&.MuiBox-root": {
+                                                    marginTop: 0
+                                                }
+                                            }}>
+                                                <Typography>{data.d5?.date}</Typography>
+                                                <Box sx={{ display: 'flex' }}>
+                                                    <Typography style={{ fontWeight: 700 }}>Status:</Typography>
+                                                    <Typography style={{ color: data.d5.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d5?.Status}</Typography>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                        }
+                                        {data.d4 && <Box sx={{ pt: 2 }}>
+                                            <Typography>{data.d4?.name}</Typography>
+                                            <Box sx={{
+                                                display: 'flex', width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                "&.MuiBox-root": {
+                                                    marginTop: 0
+                                                }
+                                            }}>
+                                                <Typography>{data.d4?.date}</Typography>
+                                                <Box sx={{ display: 'flex' }}>
+                                                    <Typography style={{ fontWeight: 800 }}>Status:</Typography>
+                                                    <Typography style={{ color: data.d4.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d4?.Status}</Typography>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                        }
+                                        <Box sx={{ pt: 2 }}>
+                                            <Typography>{data.d3?.name}</Typography>
+                                            <Box sx={{
+                                                display: 'flex',width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                "&.MuiBox-root": {
+                                                    marginTop: 0
+                                                }
+                                            }}>
+                                                <Typography>{data.d3?.date}</Typography>
+                                                <Box sx={{ display: 'flex' }}>
+                                                    <Typography style={{ fontWeight: 800 }}>Status:</Typography>
+                                                    <Typography style={{ color: data.d3.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d3?.Status}</Typography>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                        <Box sx={{ pt: 2 }}>
+                                            <Typography>{data.d2?.name}</Typography>
+                                            <Box sx={{
+                                                display: 'flex',width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                "&.MuiBox-root": {
+                                                    marginTop: 0
+                                                }
+                                            }}>
+                                                <Typography>{data.d2?.date}</Typography>
+                                                <Box sx={{ display: 'flex' }}>
+                                                    <Typography style={{ fontWeight: 900 }}>Status:</Typography>
+                                                    <Typography style={{ color: data.d2.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d2?.Status}</Typography>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                        <Box sx={{ pt: 2 }}>
+                                            <Typography>{data.d1?.name}</Typography>
+                                            <Box sx={{
+                                                display: 'flex', width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                "&.MuiBox-root": {
+                                                    marginTop: 0
+                                                }
+                                            }}>
+                                                <Typography>{data.d1?.date}</Typography>
+                                                <Box sx={{ display: 'flex' }}>
+                                                    <Typography style={{ fontWeight: 900 }}>Status:</Typography>
+                                                    <Typography style={{ color: data.d1.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d1?.Status}</Typography>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+                                </>
+                            ))}
+                              </StepContent>
+                            </Step>
+                          ))}
+                        </Stepper>
+                        }
                     </Grid>
                 </Grid>
             </Item>
