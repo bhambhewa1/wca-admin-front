@@ -59,7 +59,6 @@ const AppointmentsList = ({ getAppointmentList, deleteAppointment }) => {
   }, []);
 
   const getAppointments = () => {
-    console.log(data);
     setLoading(true);
     getAppointmentList(data).then((res) => {
       setLoading(false);

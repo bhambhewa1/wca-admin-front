@@ -115,7 +115,55 @@ export const drawerData = [
     Routes: null,
   },
 ];
-
+export const EsignDocumentData = [
+  {
+    val: "Title Back",
+    isActive: true,
+    // Routes: "/customers",
+  },
+  {
+    val: "Purchase Agreement",
+    isActive: false,
+    // Routes: "/vehicles/negotiating",
+  },
+  {
+    val: "Odometer Disclosure",
+    isActive: false,
+    // Routes: "/appointments",
+  },
+  {
+    val: "Power of Attorney",
+    isActive: false,
+    // Routes: "/staff",
+  },
+  {
+    val: "Affidavit of Fact",
+    isActive: false,
+    // Routes: "/truckingcompanies",
+  },
+  {
+    val: "Dealer payoff",
+    isActive: false,
+    // Routes: "/store",
+  },
+  {
+    val: "Privacy Policy",
+    isActive: false,
+    // Routes: "/location",
+  },
+  {
+    val: "Tag return receipt",
+    // Routes: "/profile",
+  },
+  {
+    val: "Plate refund",
+    Routes: null,
+  },
+  {
+    val: "Key Picture",
+    Routes: null,
+  },
+];
 export const FILE_TYPE = {
   IMAGE: 1,
   GIF: 2,

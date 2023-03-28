@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   email: yup.string().required("Please enter your email").email("Please enter valid email"),
-  password: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 chars minimum."),
+  password: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
 });
 
 const defaultValues = {

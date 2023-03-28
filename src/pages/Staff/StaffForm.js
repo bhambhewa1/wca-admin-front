@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import Toastify from "../../components/SnackBar/Toastify";
 // import LoaderComponent from "../Loader/LoaderComponent";
-import { Button, Skeleton, Typography, TextField, FormLabel, Box } from "@mui/material";
+import { Button, Skeleton, Typography, TextField, FormLabel, Box, Select, MenuItem } from "@mui/material";
 import { storage } from "../../config/storage";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom/dist";
@@ -25,17 +25,18 @@ const schema = yup.object().shape({
     .matches(/^[0-9]*$/, "Please enter valid phone number")
     .min(10, `Enter minimum 10 numbers `)
     .max(10, `Enter maximum 10 numbers`),
+  type: yup.string().required("Please select type"),
   validate_Password: yup.boolean(),
   password: yup.string().when("validate_Password", {
     is: true,
-    then: yup.string().nullable().required("Please enter your password.").min(8, "Password is too short - should be 8 chars minimum."),
+    then: yup.string().nullable().required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
   }),
   confirm_password: yup.string().when("validate_Password", {
     is: true,
     then: yup
       .string()
       .required("Confirm your password.")
-      .min(8, "Password is too short - should be 8 chars minimum.")
+      .min(8, "Password is too short - should be 8 char minimum.")
       .oneOf([yup.ref("password"), null], "Passwords must match"),
   }),
 });
@@ -91,6 +92,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
     firstName: "",
     lastName: "",
     email: "",
+    type:"",
     phone: "",
     password: "",
     confirm_password: "",
@@ -120,7 +122,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
     userData.validate_Password = false;
     getstaffdata(data).then((res) => {
       setLoading(false);
-      if (res.data.status) {
+      if (res?.data?.status) {
         const result = res.data.data;
         setUserData({
           staff_id: result.staff_id,
@@ -131,7 +133,9 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
           type: result.type,
         });
       } else {
-        toast.error(res.data.message);
+        res?.data?.errors.map((error) => {
+          toast.error(error);
+        })
       }
     });
   };
@@ -162,18 +166,15 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
         setTimeout(() => {
           navigate("/staff");
         }, 2000);
-      }else{
-        value.validate_Password=true
-        console.log(res);
-        res.errors.map((error)=>{
-          console.log(error);
-        toast.error(error);
+      } else {
+        value.validate_Password = true
+        res.errors.map((error) => {
+          toast.error(error);
         })
       }
     });
     // }
   };
-  console.log(formik.errors);
   return (
     <Box
       sx={{
@@ -181,7 +182,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
-        
+
       }}>
       <form name="RegisterForm" onSubmit={formik.handleSubmit}>
         <Typography sx={Style.typographyStyle}>Staff</Typography>
@@ -191,8 +192,8 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
             borderBottom: "3px solid rgba(0, 0, 0, 0.06)",
             borderTop: "3px solid rgba(0, 0, 0, 0.06)",
             // pb: 1,
-            "&.css-drk5z1-MuiPaper-root":{
-              padding:0
+            "&.css-drk5z1-MuiPaper-root": {
+              padding: 0
             }
           }}>
           <Typography sx={Style.typographyStyle}>Staff information</Typography>
@@ -345,31 +346,37 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                     Type
                     <span style={Style.star}>*</span>
                   </FormLabel>
-                  <TextField
+                  <Select
+                    variant="filled"
                     name="type"
                     value={formik.values.type}
-                    id="type"
                     onChange={formik.handleChange}
-                    type="text"
-                    variant="filled"
-                    InputProps={{ disableUnderline: true, pt: "10px" }}
+                    onBlur = {formik.handleBlur}
+                    displayEmpty
+                    disableUnderline
+                    SelectDisplayProps={{ style: { padding: 3, marginLeft: "10px" ,color:'#000000'} }}
+                    MenuProps={{ disableScrollLock: true }}
                     inputProps={{
                       style: {
-                        paddingTop: "16px",
-                        paddingBottom: "15px",
+                        paddingTop: "8px",
+                        paddingBottom: "8px",
                       },
                     }}
-                    autoComplete="false"
-                    color="primary"
-                    placeholder="Enter Phone Number here"
                     sx={{
-                      width: "100%",
-                      border: "none",
-                    }}
-                  />
-                  {/* {formik.errors.phone && formik.touched.phone ? (
-                  <p style={Style.validationStyle}>{formik.errors.phone}</p>
-                ) : null} */}
+                      height: "53px",
+                      minWidth: "200px",
+                      fontSize: "14px",
+                      fontWeight: "400",
+                      width:'100%',
+                      borderBottom: "none",
+                    }}>
+                    <MenuItem value="">Select</MenuItem>
+                    <MenuItem value="level 1 supervisor"> level 1 supervisor</MenuItem>
+                    <MenuItem value="level 2 supervisor"> level 2 supervisor</MenuItem>
+                  </Select>
+                  {formik.errors.type && formik.touched.type ? (
+                  <p style={Style.validationStyle}>{formik.errors.type}</p>
+                ) : null}
                 </Box>
               )}
               {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
@@ -397,9 +404,9 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                   fontWeight: { xs: "500", md: "700" },
                   mb: 2,
                   pl: { xs: 0, md: 3 },
-                  color:"#000000"
+                  color: "#000000"
                 }}>
-                 Password
+                Password
               </Typography>
               <Box
                 sx={{
@@ -539,7 +546,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
             }}
             variant="outlined"
             className="btn"
-            onClick={()=>navigate('/staff')}>
+            onClick={() => navigate('/staff')}>
             Cancel
           </Button>
           <Button

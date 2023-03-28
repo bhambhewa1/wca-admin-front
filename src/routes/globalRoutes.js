@@ -1,5 +1,13 @@
-import { VEHICLESNEGOTIATING } from "./constURL";
-import { CUSTOMERINFO, CUSTOMERLIST,DOCUMENTSUPLOAD, VEHICLEINFO } from "./constURL";
+import {
+  VEHICLENOTE,
+  VEHICLESNEGOTIATING,
+  VEHICLECHECKS,
+  VEHICLEESINGDOCUMENT,
+  VEHICLELOAN,
+  VEHICLESPURCHASED,
+  CUSTOMERUPDATE
+} from "./constURL";
+import { CUSTOMERINFO, CUSTOMERLIST, DOCUMENTSUPLOAD, VEHICLEINFO } from "./constURL";
 import { APPOINTMENTLIST } from "./constURL";
 import { TRUCKINGCOMPANIESLIST } from "./constURL";
 import { STORELIST } from "./constURL";
@@ -10,8 +18,6 @@ import { VEHICLEDETAIL } from "./constURL";
 import { LOGIN } from "./constURL";
 import { SOLDANDUNSOLDVEHICLES } from "./constURL";
 import { STAFFADD } from "./constURL";
-import { VEHICLESPURCHASED } from "./constURL";
-import { VEHICLELOAN } from "./constURL";
 
 import TruckingCompaniesList from "../pages/TruckingCompanies/TruckingCompaniesList";
 import VehicleList from "../pages/Vehicles/VehicleList";
@@ -30,6 +36,10 @@ import VehicleInformation from "../pages/Vehicles/VehicleInformation";
 import CustomerInfo from "../pages/Vehicles/CustomerInfo";
 import VehicleLoan from "../pages/Vehicles/VehicleLoan";
 import DocumentsUpload from "../pages/Vehicles/DocumentsUpload";
+import CustomerForm from "../pages/Customers/CustomerForm";
+import EsignDocument from "../pages/Vehicles/EsignDocument";
+import Checks from "../pages/Vehicles/Checks";
+import Notes from "../pages/Vehicles/Notes";
 
 export const globalRoutes = [
   {
@@ -42,6 +52,11 @@ export const globalRoutes = [
     routeType: ProtectedRoute,
   },
   {
+    path: CUSTOMERUPDATE,
+    element: CustomerForm,
+    routeType: ProtectedRoute,
+  },
+  {
     path: VEHICLESNEGOTIATING,
     element: VehicleList,
     routeType: ProtectedRoute,
@@ -51,7 +66,7 @@ export const globalRoutes = [
     element: VehicleList,
     routeType: ProtectedRoute,
   },
-  
+
   {
     path: APPOINTMENTLIST,
     element: AppointmentList,
@@ -102,6 +117,21 @@ export const globalRoutes = [
       {
         path: DOCUMENTSUPLOAD,
         element: DocumentsUpload,
+      },
+      {
+        path: VEHICLEESINGDOCUMENT,
+        element: EsignDocument,
+        routeType: ProtectedRoute,
+      },
+      {
+        path: VEHICLECHECKS,
+        element: Checks,
+        routeType: ProtectedRoute,
+      },
+      {
+        path: VEHICLENOTE,
+        element: Notes,
+        routeType: ProtectedRoute,
       }
     ],
   },
