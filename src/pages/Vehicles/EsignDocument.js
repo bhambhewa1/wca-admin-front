@@ -1,14 +1,10 @@
 import { Box, Grid, Typography, Paper, Button, AppBar, Toolbar, Drawer, Divider, ListItem, ListItemButton, ListItemIcon, List, ListItemText, CssBaseline, Menu, MenuItem, useMediaQuery, Dialog, DialogTitle, DialogContent, FormLabel, TextField, DialogActions } from "@mui/material";
 import React from "react";
-import { Style } from "../../const/Style";
 import { styled } from '@mui/material/styles';
-import EditIcon from '@mui/icons-material/Edit';
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { EsignDocumentData } from "../../config/mockData";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { CheckBox } from "@mui/icons-material";
 import { useTheme } from "@emotion/react";
 const Item = styled(Paper)(({ theme }) => ({
     // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -72,20 +68,23 @@ const EsignDocument = () => {
             >
                 <Dialog open={open}>
                     <form handleSubmit={Submit}>
-                        <DialogTitle sx={{ borderBottom: "1px solid #dddddd" }}>Send Documents</DialogTitle>
+                        <DialogTitle sx={{ borderBottom: "1px solid #dddddd",fontSize:'16px' }}>Send Documents</DialogTitle>
                         <DialogContent sx={{ borderBottom: "1px solid #dddddd" }}>
                             <Box sx={{
-                                display:'flex',
-                                pt:2
+                                display: 'flex',
+                                pt: 2,
+                                fontSize:'14px'
                             }}>
-                            <FormLabel>Document send Email:</FormLabel>
-                            <Typography>Johndoe@Wca.com</Typography>
+                                <FormLabel >Document send Email:</FormLabel>
+                                <Typography>Johndoe@Wca.com</Typography>
                             </Box>
                             <Box sx={{
-                                display:'flex',
+                                display: 'flex',
+                                pt: 1,
+                                fontSize:'14px'
                             }}>
-                            <FormLabel>Contact number for Otp:</FormLabel>
-                            <Typography>+1 256 2354</Typography>
+                                <FormLabel>Contact number for Otp:</FormLabel>
+                                <Typography>+1 256 2354</Typography>
                             </Box>
                         </DialogContent>
                         <DialogActions>
@@ -96,7 +95,7 @@ const EsignDocument = () => {
                                     display: "flex",
                                     justifyContent: { xs: "space-between", md: "flex-end" },
                                     pb: 3,
-                                    pr: 3,
+                                    // pr: 3,
                                     pl: { xs: 2, md: 0 },
                                 }}>
                                 <Button
@@ -166,7 +165,9 @@ const EsignDocument = () => {
                 <Grid item xs={6} sx={{
                     display: 'flex',
                     justifyContent: "flex-end",
-                    p: 2
+                    p: 2,
+                    pr:{xs:0,sm:1},
+                    mt:0.5
                 }}>
                     <Item sx={{
                         fontWeight: 700,
@@ -178,12 +179,14 @@ const EsignDocument = () => {
                         justifyContent: 'space-around'
                     }}
                         onClick={handleOpen}>
-                            <Typography sx={{ color: 'white', fontSize: "16px" }}>Send Documents</Typography>
+                            <Typography sx={{ color: 'white', fontSize: { xs: "10px", sm: "16px" } }}>Send Documents</Typography>
                         </Link></Item>
                 </Grid>
             </Grid>
 
-            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ pl: 2, pr: 2, pt: 2, borderBottom: '1px solid "#dddddd' }}>
+            <Grid container flex="1 1 auto" sx={{pt: 2, borderBottom: '1px solid "#dddddd',
+            }}>
+                <Grid xs={12} sx={{display:'flex',justifyContent:'flex-end'}}>
                 <Button
                     onClick={handleClick}
                     disableTouchRipple
@@ -193,17 +196,15 @@ const EsignDocument = () => {
                         bgcolor: "#F15F23",
                         color: "white",
                         textTransform: "none",
-                        fontSize: "14px",
+                        fontSize: { xs: "10px", sm: "14px" },
                         "&.MuiButtonBase-root:hover": {
                             bgcolor: "#F15F23",
                         },
-                        width: '130px',
-                        height: '50px',
-                        float: 'right'
-
+                        // width: { xs: '70px', sm: '130px' },
+                        // height: { xs: '20px', sm: '50px' },
                     }}>
                     {menuButton}
-                    {/* <ArrowDropDownIcon sx={{ fontSize: "20px" }} /> */}
+                    <ArrowDropDownIcon sx={{ fontSize: "20px" }} />
                 </Button>
                 <Menu
                     id="fade-menu"
@@ -226,11 +227,13 @@ const EsignDocument = () => {
                         </MenuItem>
                     ))}
                 </Menu>
-                {!isMobile && <Grid sx={{ display: 'flex', border: '1px solid "#dddddd' }} xs={4}>
+                </Grid>
+                {!isMobile && <Grid sx={{ border: '1px solid "#dddddd' }} xs={12} md={4}>
                     <List sx={{
                         ml: 3,
+                        mr:3,
                         border: '1px solid gray',
-                        width: '240px',
+                        // width: '240px',
                         mt: 2,
                         p: 0
                     }}>
@@ -275,12 +278,12 @@ const EsignDocument = () => {
                         ))}
                     </List>
                 </Grid>}
-                <Grid xs={12} sm={8}>
+                <Grid xs={12} md={8}>
                     <Item sx={{ m: { xs: 1, sm: 2 } }} >
                         <Typography sx={{ textAlign: 'center', fontSize: '18px', fontWeight: 700, p: 2 }}>Title Back</Typography>
-                        <Typography>it is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</Typography>
-                        <Typography>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</Typography>
-                        <Typography sx={{ mb: 2, mt: 2, color: '#F15F23' }}>
+                        <Typography sx={{fontSize:'14px'}}>it is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</Typography>
+                        <Typography sx={{fontSize:'14px'}} >Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</Typography>
+                        <Typography sx={{ mb: 2, mt: 2, color: '#F15F23' ,fontSize:'14px'}}>
                             <input
                                 type="checkbox"
                                 color="#F15F23"
@@ -290,8 +293,8 @@ const EsignDocument = () => {
                             />
                             I accept all the terms and condition
                         </Typography>
-                        <Grid xs={12} sx={{ display: 'flex', flexDirection: 'Column', alignItems: 'flex-end' }}>
-                            <Typography sx={{ pr: { xs: 17, sm: 8 } }}>Signature</Typography>
+                        <Grid xs={12} sx={{ display: 'flex', flexDirection: 'Column', alignItems: {xs:"",md:'flex-end'} }}>
+                            <Typography sx={{ pr:4}}>Signature</Typography>
                             {sign.src &&
                                 <Grid xs={12}>
                                     <img
@@ -323,7 +326,7 @@ const EsignDocument = () => {
                                         borderRadius: "130px",
                                         pl: 2,
                                         pr: 2,
-                                        fontSize: "16px",
+                                        fontSize: {xs:"14px",sm:"16px"},
                                     }}>
                                     <CloudUploadIcon sx={{ mr: 1 }} /> Upload
                                 </Button>
@@ -337,7 +340,7 @@ const EsignDocument = () => {
                 sx={{
                     // width: { xs: "100%", md: "35%", lg: "40%" },
                     display: "flex",
-                    justifyContent: { xs: "space-between", sm: "flex-end" },
+                    justifyContent: { xs: "space-between", md: "flex-end" },
                     pt: 4,
                     pb: 3,
                     pr: 3,
@@ -351,7 +354,7 @@ const EsignDocument = () => {
                         pr: "25px",
                         pt: "10px",
                         pb: "10px",
-                        fontSize: "18px",
+                        fontSize: {xs:'14px',sm:"18px"},
                         lineHeight: "21px",
                         fontWeight: 400,
                         borderRadius: "5px",
@@ -379,7 +382,7 @@ const EsignDocument = () => {
                         pr: "25px",
                         pt: "10px",
                         pb: "10px",
-                        fontSize: "18px",
+                        fontSize: {xs:'14px',sm:"18px"},
                         lineHeight: "21px",
                         fontWeight: 400,
                         borderRadius: "5px",
@@ -407,11 +410,11 @@ const EsignDocument = () => {
 export default EsignDocument;
 const style = {
     headingText: {
-        fontSize: "18px",
+        fontSize: { xs: "14px", sm: "16px" },
         fontWeight: "700",
         lineHeight: "38px",
         color: "#000000",
-        pl: 3,
-        pt: 2
+        pl: {xs:1,sm:2},
+        pt:2
     },
 };
