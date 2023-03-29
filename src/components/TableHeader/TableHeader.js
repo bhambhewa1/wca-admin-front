@@ -66,7 +66,7 @@ export const EnhancedTableHead = ({ totalColumn, numSelected, order, orderBy, on
             // padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}>
             {headCell.label}
-            {headCell.id !== "Type" && headCell.id !== "Action" && headCell.id !== "Contact No" && (
+            {headCell.id !== "Type" && headCell.id !== "Action" && headCell.id !== "Contact No" && headCell.id!=='Template format name'&& (
               <TableSortLabel
                 active={orderBy === headCell.id}
                 IconComponent={() => (

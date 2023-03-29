@@ -354,7 +354,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                     onBlur = {formik.handleBlur}
                     displayEmpty
                     disableUnderline
-                    SelectDisplayProps={{ style: { padding: 3, marginLeft: "10px" ,color:'#000000'} }}
+                    SelectDisplayProps={{ style: { padding: 3, marginLeft: "10px" ,color:'#000000',backgroundColor:'transparent'} }}
                     MenuProps={{ disableScrollLock: true }}
                     inputProps={{
                       style: {
