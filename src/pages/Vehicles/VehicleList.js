@@ -1,4 +1,17 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormLabel, Table, TableBody, TableCell, TableRow, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormLabel,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  TextField,
+} from "@mui/material";
 import React from "react";
 import IconLinkButton from "../../components/Buttons/IconLinkButton";
 import { EnhancedTableHead } from "../../components/TableHeader/TableHeader";
@@ -15,6 +28,10 @@ const rows = [
 const VehicleList = () => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  React.useEffect(() => {
+    document.title = "WCA - Vehicle";
+  }, []);
+
   const handleOpen = () => {
     setOpen(true);
   };
