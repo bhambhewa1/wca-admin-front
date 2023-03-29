@@ -17,7 +17,7 @@ import { Button, Collapse, IconButton, Menu, MenuItem, Paper, Toolbar, Typograph
 import { useTheme } from "@emotion/react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import { storage as LocalStorage, storage } from "../../config/storage";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -27,10 +27,10 @@ import { UserContext } from "../../App.js";
 import AlertDialog from "../Dialog/Dialog.js";
 let drawerWidth = 280;
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   // padding: theme.spacing(1),
-  textAlign: 'left',
+  textAlign: "left",
   color: theme.palette.text.secondary,
 }));
 const PermanentDrawerRight = () => {
@@ -113,8 +113,8 @@ const PermanentDrawerRight = () => {
                     border: 1,
                     borderRadius: "20px",
                     borderColor: "black",
-                    width: "36px",
-                    height: "36px",
+                    width: "42px",
+                    height: "42px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -130,16 +130,16 @@ const PermanentDrawerRight = () => {
                   />
                 </Box>
               </Link>
-              <Typography component={"div"} sx={{ ml: "10px", height: "40px" }}>
+              <Typography component={"div"} sx={{ ml: "10px" }}>
                 <Link to={"/profile"} style={{ display: "flex", textDecoration: "none" }}>
-                  <Typography component={"div"} sx={{ color: "#3D2E57", lineHeight: "20px", fontSize: "18px" }}>
+                  <Typography component={"div"} sx={{ color: "#3D2E57", lineHeight: "20px", fontSize: "14px", fontWeight: "700" }}>
                     {first?.n1} {first?.n2}
                   </Typography>
                 </Link>
-                <Typography component={"div"} sx={{ color: "#A8A8A8", fontSize: "16px", lineHeight: "30px" }}>
+                <Typography component={"div"} sx={{ color: "#A8A8A8", fontSize: "12px", lineHeight: "15px" }}>
                   Store :
                   <Button
-                    sx={{ textTransform: "none", color: "#A8A8A8", fontWeight: "600", mb: "2px" }}
+                    sx={{ textTransform: "none", color: "#A8A8A8", fontWeight: "600", mb: "2px", p: "0px", ml: "3px" }}
                     id="fade-button"
                     aria-controls={open ? "fade-menu" : undefined}
                     aria-haspopup="true"
@@ -339,7 +339,7 @@ const PermanentDrawerRight = () => {
             ml: open ? "auto" : "",
             bgcolor: "#f9fafe",
           }}>
-          <Item sx={{ m: {xs:1,sm:2}}} >
+          <Item sx={{ m: { xs: 1, sm: 2 } }}>
             <Index />
           </Item>
         </Box>
