@@ -1,4 +1,4 @@
-import { Grid, Typography, Paper } from '@mui/material'
+import { Grid, Typography, Paper, StepContent, Button } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DirectionsCarFilledIcon from "@mui/icons-material/DirectionsCarFilled";
@@ -29,7 +29,7 @@ const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    textAlign: 'left',
+    textAlign: 'center',
     color: theme.palette.text.secondary,
 }));
 
@@ -69,17 +69,20 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
 }));
 const Style = {
     grid: {
-        mr: 2,
+        mr: '10px',
+        ml:'10px',
         mt: { xs: 2, sm: 0 },
         borderRadius: '5px',
     },
     item: {
-        height: "100px",
-        width:'100%',
+        // height: "100px",
+        // width:'100%',
+        // pb:'20px',
+        mt:'20px',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: "center",
-        alignItems: "center"
+        // justifyContent: "center",
+        // alignItems: "center"
     }
 }
 
@@ -254,56 +257,61 @@ const gridData = [{
 const VehicleLoan = () => {
     const theme = useTheme();
     const [active, setActive] = React.useState(2)
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
     let direction = ""
     isMobile ? (direction = "vertical") : (direction = 'horizontal');
     console.log(gridData);
     const handleStep = (step) => () => {
         setActive(step);
-      };
+    };
     return (
         <>
-            <Grid container xs={12} sx={{ p: 3, borderTop: "1px solid #ECECEC", borderBottom: "1px solid #ECECEC", display: 'flex' }}>
-                <Grid sm={9} xs={12} sx={{
+            <Grid container rowGap={"20px"} flex={"1 1 auto"} columnGap={"20px"} sx={{ borderTop: "1px solid #ECECEC", borderBottom: "1px solid #ECECEC" }}>
+                {/* <Grid flex="1 1 auto" sx={{
                     display: 'flex', flexDirection: { xs: 'column', sm: 'row' },
-                    "&.MuiGrid-root": {
-                        pl: { xs: 2, sm: 0 },
-                    }
-                }} >
+                    // "&.MuiGrid-root": {
+                    //     pl: { xs: 2, sm: 0 },
+                    // }
+                }} > */}
                     {gridData.map((data, index) => (
-                        <Grid sm={2.5} xs={12} sx={Style.grid} >
+                        <Grid sx={Style.grid} md={2.5} flex="1 1 auto" >
                             <Item sx={Style.item} style={{
-                            border: index === 2 ? '2px solid #F15F23' : ""
-                        }} >
+                                border: index === 2 ? '2px solid #F15F23' : "",
+                                paddingTop:index===2?'20px':'30px',
+                                paddingBottom:index === 2 ? '30px' : "40px",
+                            }} >
                                 <Typography sx={{ fontSize: '12px' }}>{data.name}</Typography>
                                 <Typography sx={{ fontWeight: 700, fontSize: '18px', color: 'black' }}>{data.price}</Typography>
                                 {index == 2 &&
                                     <Box sx={{
                                         display: 'flex',
-                                        color: '#4969B2'
+                                        color: '#4969B2',
+                                        justifyContent:'center'
                                     }}>
                                         <CheckIcon />
-                                        <Typography sx={{fontSize:'12px'}}>Mark as Paid</Typography>
+                                        <Typography sx={{ fontSize: '12px' }}>Mark as Paid</Typography>
                                     </Box>
                                 }
                             </Item>
                         </Grid>
                     ))}
 
-                </Grid>
-                <Grid sm={3} xs={12} sx={{
+                {/* </Grid> */}
+                <Grid  sx={{
                     display: 'flex',
                     flexDirection: "column",
                     alignItems: 'flex-end',
-                    pt: { xs: 2, sm: 0 }
-                }}>
+                    pt: { xs: 2, sm: '20px' },
+                    // mr:'10px'
+                }} md={2.9} flex={"1 1 auto"}>
+                    {/* <Item sx={{pt:'20px',pb:'20px'}}> */}
                     <Link style={{
                         display: 'flex',
                         fontWeight: 500,
                         backgroundColor: "#28A745",
                         textDecoration: "none",
                         justifyContent: 'space-around',
-                        width:isMobile? "100%":"80%",
+                        width: isMobile ? "100%" : "100%",
                         borderRadius: "5px"
                     }}>
                         <Typography sx={{ color: 'white', fontSize: "14px", p: 1 }}>Loan payoff documents</Typography>
@@ -315,28 +323,29 @@ const VehicleLoan = () => {
                         textDecoration: "none",
                         justifyContent: 'space-around',
                         borderRadius: "5px",
-                        width:isMobile? "100%":"50%",
+                        width: isMobile ? "100%" : "50%",
                         float: 'right',
                         marginTop: 10
                     }}>
                         <Typography sx={{ color: 'white', fontSize: "14px", p: 1 }}>Add Note</Typography>
                     </Link>
+                    {/* </Item> */}
                 </Grid>
             </Grid>
             {/* </Grid> */}
             <Item sx={{
-                '&.MuiPaper-root':{
-                    p:0
+                '&.MuiPaper-root': {
+                    p: 0
                 }
             }}>
-                <Grid container sx={{ order: { xs: 1, sm: 2 }, pb: 3 }}>
-                    <Grid xs={6} sx={{ pb: 2 }}>
+                <Grid container sx={{ pb: 3,mt:2 }}>
+                    <Grid xs={6} sx={{ pb: 2,textAlign:'left' }}>
                         <Typography sx={{
                             mt: 3,
-                            fontSize: { xs: "16px", sm: "20px" },
+                            fontSize: { xs: "14px", sm: "20px" },
                             fontWeight: 500,
                             color: 'black',
-                            pl:{xs:0,sm:2}
+                            pl: { xs: 1, sm:2 }
                         }}>Loan Payoff Status</Typography>
                     </Grid>
                     <Grid xs={6} sx={{
@@ -348,10 +357,10 @@ const VehicleLoan = () => {
                             fontWeight: 700,
                             bgcolor: "#4969B2",
                             width: '100px',
-                            mt: { xs: 4.3, sm: 2 },
+                            mt: { xs:2, sm: 2 },
                             mb: 2,
-                            mr:2,
-                            height: { xs: '40%' ,sm:'55%'}
+                            mr: 2,
+                            // height: { xs: '40%', sm: '55%' }
                         }}>
                             <Link style={{
                                 display: 'flex',
@@ -363,14 +372,15 @@ const VehicleLoan = () => {
                             </Link>
                         </Item>
                     </Grid>
-                    <Grid xs={12} sx={{ borderTop: '1px solid #dddddd ', pt: 2 ,
-                
-                }}>
-                        <Stack sx={{ width: '100%',pt:5 }} spacing={4}>
+                    <Grid xs={12} sx={{
+                        borderTop: '1px solid #dddddd ', pt: 2,
 
-                            <Stepper alternativeLabel activeStep={active} connector={<ColorlibConnector /> }>
+                    }}>
+                        {!isMobile && <Stack sx={{ width: '100%', pt: 5 }} spacing={4}>
+
+                            <Stepper alternativeLabel activeStep={active} connector={<ColorlibConnector />}>
                                 {steps.map((label, index) => (
-                                    <Step key={label}  onClick={handleStep(index)} sx={{cursor:'pointer'}} >
+                                    <Step key={label} onClick={handleStep(index)} sx={{ cursor: 'pointer' }} >
                                         <StepLabel StepIconComponent={ColorlibStepIcon} >{label}</StepLabel>
                                         {index === active && <Grid sx={{
                                             color: active === 4 ? '#4BB543' : '#f15f23',
@@ -390,7 +400,8 @@ const VehicleLoan = () => {
                                         width: '100%',
                                         backgroundColor: '#f15f23',
                                         p: 2,
-                                        color: 'white'
+                                        color: 'white',
+                                        textAlign:'left'
                                     }}>{data.heading}</Typography>
                                     <Grid sx={{
                                         pl: 2,
@@ -398,10 +409,10 @@ const VehicleLoan = () => {
                                             marginTop: 0
                                         }
                                     }}>
-                                        {data.d6 && <Box sx={{ pt: 2 }}>
+                                        {data.d6 && <Box sx={{ pt: 2,textAlign:'left' }}>
                                             <Typography>{data.d6?.name}</Typography>
                                             <Box sx={{
-                                                display: 'flex', width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
                                                 "&.MuiBox-root": {
                                                     marginTop: 0
                                                 }
@@ -414,10 +425,10 @@ const VehicleLoan = () => {
                                             </Box>
                                         </Box>
                                         }
-                                        {data.d5 && <Box sx={{ pt: 2 }}>
+                                        {data.d5 && <Box sx={{ pt: 2,textAlign:'left' }}>
                                             <Typography>{data.d5?.name}</Typography>
                                             <Box sx={{
-                                                display: 'flex', width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
                                                 "&.MuiBox-root": {
                                                     marginTop: 0
                                                 }
@@ -430,10 +441,10 @@ const VehicleLoan = () => {
                                             </Box>
                                         </Box>
                                         }
-                                        {data.d4 && <Box sx={{ pt: 2 }}>
+                                        {data.d4 && <Box sx={{ pt: 2,textAlign:'left' }}>
                                             <Typography>{data.d4?.name}</Typography>
                                             <Box sx={{
-                                                display: 'flex', width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
                                                 "&.MuiBox-root": {
                                                     marginTop: 0
                                                 }
@@ -446,10 +457,10 @@ const VehicleLoan = () => {
                                             </Box>
                                         </Box>
                                         }
-                                        <Box sx={{ pt: 2 }}>
+                                        <Box sx={{ pt: 2 ,textAlign:'left'}}>
                                             <Typography>{data.d3?.name}</Typography>
                                             <Box sx={{
-                                                display: 'flex',width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
                                                 "&.MuiBox-root": {
                                                     marginTop: 0
                                                 }
@@ -461,10 +472,10 @@ const VehicleLoan = () => {
                                                 </Box>
                                             </Box>
                                         </Box>
-                                        <Box sx={{ pt: 2 }}>
+                                        <Box sx={{ pt: 2,textAlign:'left' }}>
                                             <Typography>{data.d2?.name}</Typography>
                                             <Box sx={{
-                                                display: 'flex',width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
                                                 "&.MuiBox-root": {
                                                     marginTop: 0
                                                 }
@@ -476,10 +487,10 @@ const VehicleLoan = () => {
                                                 </Box>
                                             </Box>
                                         </Box>
-                                        <Box sx={{ pt: 2 }}>
+                                        <Box sx={{ pt: 2 ,textAlign:'left'}}>
                                             <Typography>{data.d1?.name}</Typography>
                                             <Box sx={{
-                                                display: 'flex', width:{lg:'15%',sm:'18%'}, justifyContent: 'space-between', fontSize: '12px',
+                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
                                                 "&.MuiBox-root": {
                                                     marginTop: 0
                                                 }
@@ -494,8 +505,136 @@ const VehicleLoan = () => {
                                     </Grid>
                                 </>
                             ))}
-                        </Stack>
-
+                        </Stack>}
+                        {isMobile &&
+                            <Stepper activeStep={active} orientation="vertical" sx={{ p: 2 }}>
+                                {steps.map((step, index) => (
+                                    <Step key={step.label} onClick={handleStep(index)}>
+                                        <StepLabel
+                                            optional={
+                                                index === 2 ? (
+                                                    <Typography variant="caption">Last step</Typography>
+                                                ) : null
+                                            }
+                                        >
+                                            {step.label}
+                                        </StepLabel>
+                                        <StepContent>
+                                            {status.map((data, index) => (
+                                                index === active && <>
+                                                    <Typography sx={{
+                                                        // width: '100%',
+                                                        backgroundColor: '#f15f23',
+                                                        p: 2,
+                                                        color: 'white'
+                                                    }}>{data.heading}</Typography>
+                                                    <Grid sx={{
+                                                        pl: 2,
+                                                        "&.MuiGrid-root": {
+                                                            marginTop: 0
+                                                        }
+                                                    }}>
+                                                        {data.d6 && <Box sx={{ pt: 2 }}>
+                                                            <Typography>{data.d6?.name}</Typography>
+                                                            <Box sx={{
+                                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
+                                                                "&.MuiBox-root": {
+                                                                    marginTop: 0
+                                                                }
+                                                            }}>
+                                                                <Typography>{data.d6?.date}</Typography>
+                                                                <Box sx={{ display: 'flex' }}>
+                                                                    <Typography style={{ fontWeight: 700 }}>Status:</Typography>
+                                                                    <Typography style={{ color: data.d6.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d6?.Status}</Typography>
+                                                                </Box>
+                                                            </Box>
+                                                        </Box>
+                                                        }
+                                                        {data.d5 && <Box sx={{ pt: 2 }}>
+                                                            <Typography>{data.d5?.name}</Typography>
+                                                            <Box sx={{
+                                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
+                                                                "&.MuiBox-root": {
+                                                                    marginTop: 0
+                                                                }
+                                                            }}>
+                                                                <Typography>{data.d5?.date}</Typography>
+                                                                <Box sx={{ display: 'flex' }}>
+                                                                    <Typography style={{ fontWeight: 700 }}>Status:</Typography>
+                                                                    <Typography style={{ color: data.d5.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d5?.Status}</Typography>
+                                                                </Box>
+                                                            </Box>
+                                                        </Box>
+                                                        }
+                                                        {data.d4 && <Box sx={{ pt: 2 }}>
+                                                            <Typography>{data.d4?.name}</Typography>
+                                                            <Box sx={{
+                                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
+                                                                "&.MuiBox-root": {
+                                                                    marginTop: 0
+                                                                }
+                                                            }}>
+                                                                <Typography>{data.d4?.date}</Typography>
+                                                                <Box sx={{ display: 'flex' }}>
+                                                                    <Typography style={{ fontWeight: 800 }}>Status:</Typography>
+                                                                    <Typography style={{ color: data.d4.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d4?.Status}</Typography>
+                                                                </Box>
+                                                            </Box>
+                                                        </Box>
+                                                        }
+                                                        <Box sx={{ pt: 2 }}>
+                                                            <Typography>{data.d3?.name}</Typography>
+                                                            <Box sx={{
+                                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
+                                                                "&.MuiBox-root": {
+                                                                    marginTop: 0
+                                                                }
+                                                            }}>
+                                                                <Typography>{data.d3?.date}</Typography>
+                                                                <Box sx={{ display: 'flex' }}>
+                                                                    <Typography style={{ fontWeight: 800 }}>Status:</Typography>
+                                                                    <Typography style={{ color: data.d3.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d3?.Status}</Typography>
+                                                                </Box>
+                                                            </Box>
+                                                        </Box>
+                                                        <Box sx={{ pt: 2 }}>
+                                                            <Typography>{data.d2?.name}</Typography>
+                                                            <Box sx={{
+                                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
+                                                                "&.MuiBox-root": {
+                                                                    marginTop: 0
+                                                                }
+                                                            }}>
+                                                                <Typography>{data.d2?.date}</Typography>
+                                                                <Box sx={{ display: 'flex' }}>
+                                                                    <Typography style={{ fontWeight: 900 }}>Status:</Typography>
+                                                                    <Typography style={{ color: data.d2.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d2?.Status}</Typography>
+                                                                </Box>
+                                                            </Box>
+                                                        </Box>
+                                                        <Box sx={{ pt: 2 }}>
+                                                            <Typography>{data.d1?.name}</Typography>
+                                                            <Box sx={{
+                                                                display: 'flex', width: { lg: '15%', sm: '18%' }, justifyContent: 'space-between', fontSize: '12px',
+                                                                "&.MuiBox-root": {
+                                                                    marginTop: 0
+                                                                }
+                                                            }}>
+                                                                <Typography>{data.d1?.date}</Typography>
+                                                                <Box sx={{ display: 'flex' }}>
+                                                                    <Typography style={{ fontWeight: 900 }}>Status:</Typography>
+                                                                    <Typography style={{ color: data.d1.Status === 'Pending' ? "#f15f23" : '#4BB543' }}>{data.d1?.Status}</Typography>
+                                                                </Box>
+                                                            </Box>
+                                                        </Box>
+                                                    </Grid>
+                                                </>
+                                            ))}
+                                        </StepContent>
+                                    </Step>
+                                ))}
+                            </Stepper>
+                        }
                     </Grid>
                 </Grid>
             </Item>
