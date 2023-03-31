@@ -1,7 +1,23 @@
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import AddIcon from "@mui/icons-material/Add";
-import { getCustomerList, deleteCustomer } from '../../redux/action/customers'
-import { Box, MenuItem, Pagination, Select, Skeleton, Table, TableBody, TableCell, TableRow, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import { getCustomerList, deleteCustomer } from "../../redux/action/customers";
+import {
+  Box,
+  MenuItem,
+  Pagination,
+  Select,
+  Skeleton,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +50,7 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
   const [pages, setPages] = useState(0);
   const [dialog, setDialog] = useState(false);
   const [dialog1, setDialog1] = useState(false);
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
   const [page, setPage] = React.useState(1);
   const [rows, setRows] = React.useState([]);
   const [perv_search_val, setPerv_Search_val] = React.useState("");
@@ -59,19 +75,19 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
     getCustomerList(data).then((res) => {
       setLoading(false);
       if (res?.data?.total_records === 0) {
-        setTotal(res?.data?.total_records)
+        setTotal(res?.data?.total_records);
         setPages(res?.data?.pages);
         setRows(res?.data?.customer_list);
       } else if (res?.data?.status) {
         setRows(res?.data?.customer_list);
         setPages(res?.data?.pages);
-        setTotal(res?.data?.total_records)
+        setTotal(res?.data?.total_records);
       } else {
         setRows(res?.data?.customer_list);
         setPages(res?.data?.pages);
         res?.data?.errors.map((error) => {
           toast.error(error);
-        })
+        });
       }
     });
   };
@@ -100,7 +116,7 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
   const handlePageChange = (event, value) => {
     setLoading(true);
     setPage(value);
-    data.page = value
+    data.page = value;
     if (order && orderBy) {
       data.sort = order === "asc" ? "desc" : "asc";
       data.sortColumn = orderBy;
@@ -122,7 +138,7 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
       } else {
         res?.data?.errors.map((error) => {
           toast.error(error);
-        })
+        });
       }
     });
     // }
@@ -146,9 +162,9 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
     }
   };
   const handleChange = (e) => {
-    setLength(e.target.value)
-    getList()
-  }
+    setLength(e.target.value);
+    getList();
+  };
   return (
     <Box
       sx={{
@@ -165,39 +181,38 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
         button_one_onClick={() => {
           // navigate("/customers/update");
           setDialog1(true);
-
-        }} />
-         <AlertDialog
+        }}
+      />
+      <AlertDialog
         title={"Are you sure you want to delete this Customer?"}
         open={dialog}
         onClickButton={() => handleDelete(Id)}
         onClickButtonCancel={() => setDialog(false)}
       />
       <Dialog
-            open={dialog1}
-            // onClose={onClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description">
-            <DialogTitle sx={{ fontSize: "18px", color: "#3D2E57" }} id="alert-dialog-title">
-              This is under progress
-            </DialogTitle>
-            <DialogContent>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                variant="contained"
-                sx={{
-                  bgcolor: "#27AE60",
-                  textTransform: "none",
-                  "&.MuiButtonBase-root:hover": {
-                    bgcolor: "#27AE60",
-                  },
-                }}
-                onClick={() => setDialog1(false)}>
-                OK
-              </Button>
-            </DialogActions>
-          </Dialog>
+        open={dialog1}
+        // onClose={onClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description">
+        <DialogTitle sx={{ fontSize: "18px", color: "#3D2E57" }} id="alert-dialog-title">
+          This is under progress
+        </DialogTitle>
+        <DialogContent></DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: "#27AE60",
+              textTransform: "none",
+              "&.MuiButtonBase-root:hover": {
+                bgcolor: "#27AE60",
+              },
+            }}
+            onClick={() => setDialog1(false)}>
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Box sx={Style.table.tableWrapBox}>
         {rows?.length == 0 && (
           <Typography
@@ -213,10 +228,8 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
             No Customer Found
           </Typography>
         )}
-        {!rows?.length == 0 &&
-          <Table
-            sx={Style.table.tableBox}
-            aria-labelledby="tableTitle">
+        {!rows?.length == 0 && (
+          <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
             <EnhancedTableHead
               totalColumn={["FirstName", "LastName", "Email", "Phone", "CreatedOn", "Vehicles", "Action"]}
               // numSelected={selected.length}
@@ -231,30 +244,40 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
                 <TableRow key={row.Name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   {loading && <Skeleton sx={{ width: "100px" }} />}
                   {!loading && (
-                    <TableCell align="left" sx={Style.table.tableCell}>{row.firstName}</TableCell>
-                  )}
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && (
-                    <TableCell align="left" sx={Style.table.tableCell}>{row.lastName}</TableCell>
-                  )}
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && (
-                    <TableCell align="left" sx={Style.table.tableCell}>{row.email}</TableCell>
-                  )}
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && (
-                    <TableCell align="left" sx={Style.table.tableCell}>{row.phone}</TableCell>
-                  )}
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && (
-                    <TableCell align="left" sx={Style.table.tableCell}>{row.created_on}</TableCell>
+                    <TableCell align="left" sx={Style.table.tableCell}>
+                      {row.firstName}
+                    </TableCell>
                   )}
                   {loading && <Skeleton sx={{ width: "100px" }} />}
                   {!loading && (
                     <TableCell align="left" sx={Style.table.tableCell}>
-                      <Button sx={{ display: "flex", justifyContent: "space-between" }} onClick={()=>setDialog1(true)}>
+                      {row.lastName}
+                    </TableCell>
+                  )}
+                  {loading && <Skeleton sx={{ width: "100px" }} />}
+                  {!loading && (
+                    <TableCell align="left" sx={Style.table.tableCell}>
+                      {row.email}
+                    </TableCell>
+                  )}
+                  {loading && <Skeleton sx={{ width: "100px" }} />}
+                  {!loading && (
+                    <TableCell align="left" sx={Style.table.tableCell}>
+                      {row.phone}
+                    </TableCell>
+                  )}
+                  {loading && <Skeleton sx={{ width: "100px" }} />}
+                  {!loading && (
+                    <TableCell align="left" sx={Style.table.tableCell}>
+                      {row.created_on}
+                    </TableCell>
+                  )}
+                  {loading && <Skeleton sx={{ width: "100px" }} />}
+                  {!loading && (
+                    <TableCell align="left" sx={Style.table.tableCell}>
+                      <Button sx={{ display: "flex", justifyContent: "space-between" }} onClick={() => setDialog1(true)}>
                         {row.vehicles}
-                        <RemoveRedEyeIcon sx={{ color: "#4969B2", fontSize: "20px" }} />
+                        <RemoveRedEyeIcon sx={{ color: "#4969B2", fontSize: "20px", ml: "10px" }} />
                         <Button sx={{ color: "#F15F23" }}>
                           <AddIcon />
                           Add
@@ -290,7 +313,6 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
                             // setDialog(true);
                             // setId(row.customer_id);
                             setDialog1(true);
-
                           }}
                         />
                       </>
@@ -300,42 +322,44 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
               ))}
             </TableBody>
           </Table>
-        }
-      </Box>
-      {total !== 0 && <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          justifyContent: "space-between",
-          p: 1,
-        }}>
-        <Typography sx={{ pl: 3, fontWeight: 400, fontSize: { xs: '14px', sm: '16px' } }}>Number of Rows per Page
-          <Select
-            value={length}
-            onChange={handleChange}
-            sx={{
-              ml: { xs: 1, sm: 2 },
-              mr: { xs: 1, sm: 2 },
-              fontSize: "16px"
-            }}
-          >
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={10}>10</MenuItem>
-            <MenuItem value={20}>20</MenuItem>
-          </Select>
-          out of {total} </Typography>
-        {pages > 1 && (
-          <Pagination
-            count={pages}
-            page={page}
-            boundaryCount={1}
-            sx={{ button: { fontSize: "16px", mt: 2, mr: 2 } }}
-            onChange={handlePageChange}
-            siblingCount={0}
-          />
         )}
       </Box>
-      }
+      {total !== 0 && (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            justifyContent: "space-between",
+            p: 1,
+          }}>
+          <Typography sx={{ pl: 3, fontWeight: 400, fontSize: { xs: "14px", sm: "16px" } }}>
+            Number of Rows per Page
+            <Select
+              value={length}
+              onChange={handleChange}
+              sx={{
+                ml: { xs: 1, sm: 2 },
+                mr: { xs: 1, sm: 2 },
+                fontSize: "16px",
+              }}>
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={20}>20</MenuItem>
+            </Select>
+            out of {total}{" "}
+          </Typography>
+          {pages > 1 && (
+            <Pagination
+              count={pages}
+              page={page}
+              boundaryCount={1}
+              sx={{ button: { fontSize: "16px", mt: 2, mr: 2 } }}
+              onChange={handlePageChange}
+              siblingCount={0}
+            />
+          )}
+        </Box>
+      )}
     </Box>
   );
 };
