@@ -20,26 +20,32 @@ const schema = yup.object().shape({
     lastName: yup.string().required("Please enter your last name"),
     emailValidation:yup.boolean(),
     phoneValidation:yup.boolean(),
-    email:yup.string().when("emailValidation", {
-        is: true,
-        then: yup.string().required("Please enter your email").email("Please enter valid email")
-    }),
-    phone: yup.string().when("phoneValidation", {
-        is: true,
-        then: yup
-        .string()
+    email:yup.string()
+    // .when("emailValidation", {
+    //     is: true,
+    //     then: yup.string()
+        .required("Please enter your email").email("Please enter valid email"),
+    // }),
+    phone: yup.string()
+    // .when("phoneValidation", {
+    //     is: true,
+    //     then: yup
+    //     .string()
         .required("Please enter your phone number")
         .matches(/^[0-9]*$/, "Please enter valid phone number")
         .min(10, `Enter minimum 10 numbers `)
-        .max(10, `Enter maximum 10 numbers`)
-    }),
+        .max(10, `Enter maximum 10 numbers`),
+    // }),
     address: yup.string().required("Please Enter address"),
     validate_Password: yup.boolean(),
-    password: yup.string().when("validate_Password", {
+    password: yup.string()
+    .when("validate_Password", {
         is: true,
-        then: yup.string().nullable().required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
+        then: yup.string()
+        .required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
     }),
-    confirm_password: yup.string().when("validate_Password", {
+    confirm_password: yup.string()
+    .when("validate_Password", {
         is: true,
         then: yup
             .string()
@@ -99,10 +105,10 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
         customer_id: "",
         firstName: "",
         lastName: "",
-        emailValidation:false,
+        // emailValidation:false,
         email: "",
         address: "",
-        phoneValidation:false,
+        // phoneValidation:false,
         phone: "",
         password: "",
         confirm_password: "",
@@ -413,10 +419,10 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                                         }}
                                     />
                                     {formik.errors.email && formik.touched.email ? <p style={Style.validationStyle}>{formik.errors.email}</p> : null}
-                                    <FormControlLabel
+                                    {/* <FormControlLabel
                                 control={<IOSSwitch sx={{ m: 1 }}  />}
                                 label="Required Valiidation?"
-                            />
+                            /> */}
                                 </Box>
                             )}
                             
@@ -459,10 +465,10 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                                         }}
                                     />
                                     {formik.errors.phone && formik.touched.phone ? <p style={Style.validationStyle}>{formik.errors.phone}</p> : null}
-                                    <FormControlLabel
+                                    {/* <FormControlLabel
                                 control={<IOSSwitch1 sx={{ m: 1 }}  />}
                                 label="Required Valiidation?"
-                            />
+                            /> */}
                                 </Box>
                             )}
                             {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}

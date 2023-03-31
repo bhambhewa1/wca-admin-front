@@ -348,6 +348,7 @@ const PermanentDrawerRight = () => {
         location.pathname === '/staff/update'||
          location.pathname==='/vehicles/negotiating'||
          location.pathname==='/customers'||
+         location.pathname==='/customers/update'||
          location.pathname!=='/profile' &&
           <Dialog
             open={true}
