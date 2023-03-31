@@ -44,7 +44,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
   const [dialog, setDialog] = useState(false);
   const [total, setTotal] = useState(0);
   const [page, setPage] = React.useState(1);
-  const [rows, setRows] = React.useState(rows1);
+  const [rows, setRows] = React.useState([]);
   const [perv_search_val, setPerv_Search_val] = React.useState("");
   const [search_val, setSearch_val] = React.useState("");
   const [length, setLength] = useState(5);
@@ -66,21 +66,21 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
     setLoading(true);
     getVehiclesList(data).then((res) => {
       setLoading(false);
-      // if (res?.data?.total_records === 0) {
-      //   setTotal(res?.data?.total_records);
-      //   setPages(res?.data?.pages);
-      //   setRows(res?.data?.staff_list);
-      // } else if (res?.data?.status) {
-      //   setRows(res?.data?.staff_list);
-      //   setPages(res?.data?.pages);
-      //   setTotal(res?.data?.total_records);
-      // } else {
-      //   setRows(res?.data?.staff_list);
-      //   setPages(res?.data?.pages);
-      //   res?.data?.errors.map((error) => {
-      //     toast.error(error);
-      //   });
-      // }
+      if (res?.data?.total_records === 0) {
+        setTotal(res?.data?.total_records);
+        setPages(res?.data?.pages);
+        setRows(res?.data?.vehicles_list);
+      } else if (res?.data?.status) {
+        setRows(res?.data?.vehicles_list);
+        setPages(res?.data?.pages);
+        setTotal(res?.data?.total_records);
+      } else {
+        setRows(res?.data?.vehicles_list);
+        setPages(res?.data?.pages);
+        res?.data?.errors.map((error) => {
+          toast.error(error);
+        });
+      }
     });
   };
   const handleChange = (e) => {
@@ -165,7 +165,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
 
   const formik = useFormik({
     initialValues: {
-      VIN:''
+      vin:''
     },
     onSubmit: (value) => {
       onSubmit(value);
@@ -173,10 +173,11 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
     enableReinitialize: true,
   });
   const onSubmit = (val) => {
+    console.log(val);
     addVIN(val).then((res)=>{
       if(res?.data?.status){
-        console.log(res);
         setOpen(false)
+        getList()
       }
     })
   };
@@ -207,9 +208,9 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
             }}>Enter VIN number</FormLabel>
             <TextField
               variant="filled"
-              name="VIN"
+              name="vin"
               onChange={formik.handleChange}
-              value={formik.values.VIN}
+              value={formik.values.vin}
               sx={{ width: "100%" }}
               InputProps={{ disableUnderline: true }}
               inputProps={{
@@ -330,7 +331,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
             {rows.map((row) => (
               <TableRow key={row.Name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                 <TableCell sx={Style.table.tableCell} align="left">
-                  {row.VIN}
+                  {row.vin}
                 </TableCell>
                 <TableCell sx={Style.table.tableCell} align="left">
                   {row.make}
@@ -345,7 +346,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
                   {row.price}
                 </TableCell>
                 <TableCell sx={Style.table.tableCell} align="left">
-                  {row.createdOn}
+                  {row.created_on}
                 </TableCell>
 
                 <TableCell align="left" sx={Style.table.tableCell}>
