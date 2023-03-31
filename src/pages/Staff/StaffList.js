@@ -117,6 +117,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
             setRows(res?.data?.staff_list);
             setLength(res?.data?.total_records <= 10 ? 10 : 20)
             setPages(res?.data?.pages);
+            setPage(1)
             setTotal(res?.data?.total_records);
           } else {
             setRows(res?.data?.staff_list);

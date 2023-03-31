@@ -141,7 +141,7 @@ const TopBox = ({
             aria-label="basic tabs example"
             sx={{
               borderBottom: "none",
-              width: {xs:"100%",sm:"50%"},
+              width: {xs:"100%",sm:"50%"},pl:3
             }}>
             <Tab classes={tabClasses}
               label={button_two}
