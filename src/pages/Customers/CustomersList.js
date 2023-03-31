@@ -154,7 +154,7 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        p: 3,
+        // p: 3,
       }}>
       <TopBox
         headerText={"Customer"}
@@ -254,7 +254,7 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
                     <TableCell align="left" sx={Style.table.tableCell}>
                       <Button sx={{ display: "flex", justifyContent: "space-between" }} onClick={()=>setDialog1(true)}>
                         {row.vehicles}
-                        <RemoveRedEyeIcon sx={{ color: "#4969B2", fontSize: "20px" }} />
+                        <RemoveRedEyeIcon sx={{ color: "#4969B2", fontSize: "20px",ml:1}} />
                         <Button sx={{ color: "#F15F23" }}>
                           <AddIcon />
                           Add

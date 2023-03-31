@@ -185,7 +185,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        p: 3,
+        // p: 3,
       }}>
       <TopBox
         headerText={"Vehicles"}
