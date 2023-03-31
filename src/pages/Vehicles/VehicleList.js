@@ -29,6 +29,8 @@ import { connect } from "react-redux";
 import { getVehiclesList } from "../../redux/action/vehicle/vehicle"
 import { useFormik } from "formik";
 import { addVIN } from '../../redux/action/vehicle/vehicle'
+import LoaderComponent from "../../components/Loader/LoaderComponent";
+import Toastify from "../../components/SnackBar/Toastify";
 const rows1 = [
   { id: 1, VIN: "1FM5K8D8XFGA24638",createdOn: "1/1/2022 10:11 AM" },
   { id: 2, VIN: "1FM5K8D8XFGA24638", createdOn: "1/1/2022 10:11 AM" },
@@ -162,7 +164,23 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
   const handleOpen = () => {
     setOpen(true);
   };
+  const Submit = (value) => {
+    if ((value !== "" && value.trim().length !== 0) || perv_search_val !== "") {
+      setPerv_Search_val(value);
+      setLoading(true);
+      setSearch_val(value);
+      setPage(1);
+      data.search = value;
+      // Object.assign(data, { staff_id: staff })
 
+      // if (order && orderBy) {
+      //   let sort_column = { sort_column: orderBy };
+      //   let sort = { sort_by: order };
+      //   Object.assign(data, sort_column, sort);
+      // }
+      getList();
+    }
+  };
   const formik = useFormik({
     initialValues: {
       vin:''
@@ -176,8 +194,13 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
     console.log(val);
     addVIN(val).then((res)=>{
       if(res?.data?.status){
-        setOpen(false)
+          toast.success(res.data.message);
+          setOpen(false)
         getList()
+      }else{
+        res?.data?.errors.map((error) => {
+          toast.error(error);
+        });
       }
     })
   };
@@ -188,6 +211,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
         flexDirection: "column",
         // p: 3,
       }}>
+        <Toastify/>
       <TopBox
         headerText={"Vehicles"}
         button_one={"+ Add Vehicle"}
@@ -196,9 +220,12 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
         searchText={"Search vehicle"}
         sortingText={"Customer"}
         value={""}
+        setSearch_val={setSearch_val}
+        onSubmit={Submit}
         onClick={onclick}
         button_one_onClick={()=>setOpen(true)}
       />
+      <LoaderComponent open={loading}/>
       <Dialog open={open}>
         <DialogTitle sx={{ borderBottom: "1px solid #dddddd" }}>Add Vehicle</DialogTitle>
         <DialogContent sx={{ borderBottom: "1px solid #dddddd" }}>
@@ -318,15 +345,32 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
             </DialogActions>
           </Dialog>
       <Box sx={Style.table.tableWrapBox}>
+      {rows?.length == 0 && (
+          <Typography
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              pt: 20,
+              pb: 20,
+              fontSize: "35px",
+              color: "#A8A8A8",
+              fontWeight: "700",
+            }}>
+            No Vehicle Found
+          </Typography>
+        )}
+        {!rows?.length == 0 && (
         <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
           <EnhancedTableHead
-            totalColumn={["VIN", "Make", "Year", "Model", "Price", "Created On", "Action"]}
+            totalColumn={["VIN", "Make", "Year", "Model", "Price", "CreatedOn", "Action"]}
           // order={order}
           // orderBy={orderBy}
           // onSelectAllClick={handleSelectAllClick}
-          // onRequestSort={handleRequestSort}
+          onRequestSort={handleRequestSort}
           // rowCount={rows.length}
           />
+          
+        
           <TableBody sx={{ border: "1px solid #ECECEC" }}>
             {rows.map((row) => (
               <TableRow key={row.Name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
@@ -357,7 +401,8 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
             ))}
           </TableBody>
         </Table>
-      </Box>
+          )}
+          </Box>
       {total !== 0 && (
         <Box
           sx={{

@@ -213,6 +213,7 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
           </Button>
         </DialogActions>
       </Dialog>
+      <LoaderComponent open={loading} />
       <Box sx={Style.table.tableWrapBox}>
         {rows?.length == 0 && (
           <Typography
@@ -242,39 +243,35 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
             <TableBody>
               {rows?.map((row) => (
                 <TableRow key={row.Name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && (
-                    <TableCell align="left" sx={Style.table.tableCell}>
-                      {row.firstName}
+
+                  <TableCell align="left" sx={Style.table.tableCell}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && row.firstName}
+                  </TableCell>
+
+                  <TableCell align="left" sx={Style.table.tableCell}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && row.lastName}
+                  </TableCell>
+
+                  <TableCell align="left" sx={Style.table.tableCell}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && row.email}
                     </TableCell>
-                  )}
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && (
+
                     <TableCell align="left" sx={Style.table.tableCell}>
-                      {row.lastName}
-                    </TableCell>
-                  )}
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && (
-                    <TableCell align="left" sx={Style.table.tableCell}>
-                      {row.email}
-                    </TableCell>
-                  )}
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && (
-                    <TableCell align="left" sx={Style.table.tableCell}>
-                      {row.phone}
-                    </TableCell>
-                  )}
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && (
-                    <TableCell align="left" sx={Style.table.tableCell}>
-                      {row.created_on}
-                    </TableCell>
-                  )}
-                  {loading && <Skeleton sx={{ width: "100px" }} />}
-                  {!loading && (
-                    <TableCell align="left" sx={Style.table.tableCell}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && row.phone}
+                  </TableCell>
+
+                  <TableCell align="left" sx={Style.table.tableCell}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && row.created_on}
+                  </TableCell>
+
+                  <TableCell align="left" sx={Style.table.tableCell}>
+                    {loading && <Skeleton sx={{ width: "100px" }} />}
+                    {!loading && (
                       <Button sx={{ display: "flex", justifyContent: "space-between" }} onClick={() => setDialog1(true)}>
                         {row.vehicles}
                         <RemoveRedEyeIcon sx={{ color: "#4969B2", fontSize: "20px", ml: 1 }} />
@@ -283,8 +280,8 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
                           Add
                         </Button>
                       </Button>
-                    </TableCell>
-                  )}
+                    )}
+                  </TableCell>
                   <TableCell align="left" sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && (
@@ -321,6 +318,7 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
                 </TableRow>
               ))}
             </TableBody>
+            <Toastify />
           </Table>
         )}
       </Box>
@@ -349,15 +347,17 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
               value={length}
               disableUnderline
               SelectDisplayProps={{
-                style: { padding: "0px 10px", color: 'rgba(0, 0, 0, 0.6)', backgroundColor: 'transparent' ,display: 'flex',
-                justifyContent: 'space-between',marginRight:'4px'}
+                style: {
+                  padding: "0px 10px", color: 'rgba(0, 0, 0, 0.6)', backgroundColor: 'transparent', display: 'flex',
+                  justifyContent: 'space-between', marginRight: '4px'
+                }
               }}
               onChange={handleChange}
               sx={{
                 ml: { xs: 0, sm: 1 },
                 mr: { xs: 0, sm: 1 },
                 // width: {xs:'20%',sm:'5%'},
-                fontSize: {xs:"14px",sm:"16px"},
+                fontSize: { xs: "14px", sm: "16px" },
                 display: 'flex',
                 justifyContent: 'space-between',
               }}>
