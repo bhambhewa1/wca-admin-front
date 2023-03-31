@@ -185,7 +185,6 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
         });
         // }
     };
-    console.log(formik.errors.emailValidation,formik.values.emailValidation);
 
     const IOSSwitch = styled((props) => (
         <Switch focusVisibleClassName=".Mui-focusVisible" name="emailValidation" disableRipple {...props} checked={formik.values.emailValidation} onChange={formik.handleChange}/>

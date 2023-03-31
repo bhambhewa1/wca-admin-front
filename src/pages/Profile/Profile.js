@@ -54,7 +54,7 @@ const Style = {
     color: "#3D2E57",
     display: "flex",
     // pb: 2,
-    pl: { xs: 1, sm: 3.5 },
+    pl: { xs: 1, sm: 3 },
     pt: { xs: 2, sm: 0 },
     pb: { xs: 2, sm: 0 },
   },
@@ -466,7 +466,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               justifyContent: { xs: "space-between", md: "flex-end" },
               pt: 4,
               pb: 2,
-              pr: 3,
+              pr: {xs:1,sm:3},
+              pl:{xs:1,sm:0}
             }}>
             <Button
               disableRipple

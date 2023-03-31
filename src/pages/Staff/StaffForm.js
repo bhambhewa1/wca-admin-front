@@ -57,7 +57,7 @@ const Style = {
     display: "flex",
     pb: 1,
     pt: 1,
-    pl: { xs: 0, md: 3 },
+    pl: { xs: 1, md: 3 },
   },
   inputStyle: {
     width: {
@@ -384,7 +384,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
             </Box>
           </Box>
           {location.state && (
-            <Typography sx={{ mb: 2, ml: 3 }}>
+            <Typography sx={{ mb: 2, ml: {xs:1,sm:3} }}>
               <input
                 type="checkbox"
                 name="validate_Password"
@@ -403,7 +403,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                   fontSize: { xs: "20px", md: "20px" },
                   fontWeight: { xs: "500", md: "700" },
                   mb: 2,
-                  pl: { xs: 0, md: 3 },
+                  pl: { xs: 1, md: 3 },
                   color: "#000000"
                 }}>
                 Password

@@ -12,7 +12,6 @@ const DocumentsUpload = () => {
   });
 
   const handleDriverLicense = (e) => {
-    console.log("ram", driverLicense);
     setDriverLicense({
       id: driverLicense.id,
       path: e.target.files[0],

@@ -37,7 +37,6 @@ const EsignDocument = () => {
         setAnchorEl(null);
     };
     const handleSign = (e) => {
-        console.log(e.target);
         setSign({
             id: sign.id,
             path: e.target.files[0],

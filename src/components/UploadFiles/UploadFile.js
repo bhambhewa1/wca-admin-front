@@ -47,7 +47,6 @@ const UploadFile = ({id,path,src}) => {
                 variant="outlined"
                 name="driver_license"
                 onDelete={() => {
-                //   console.log("ram...1.",driverLicense);
                 //   setDriverLicense({ id: driverLicense.id, path: "", src:"" });
                   // setImgerr(true)
                 }}

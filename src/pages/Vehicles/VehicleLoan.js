@@ -260,7 +260,6 @@ const VehicleLoan = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
     let direction = ""
     isMobile ? (direction = "vertical") : (direction = 'horizontal');
-    console.log(gridData);
     const handleStep = (step) => () => {
         setActive(step);
     };

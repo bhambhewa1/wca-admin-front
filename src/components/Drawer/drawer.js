@@ -13,7 +13,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Index from "../../routes/index.js";
 import { drawerData } from "../../config/mockData";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Button, Collapse, IconButton, Menu, MenuItem, Paper, Toolbar, Typography, useMediaQuery } from "@mui/material";
+import { Button, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Menu, MenuItem, Paper, Toolbar, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -41,9 +41,8 @@ const PermanentDrawerRight = () => {
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
   const [openLogoutAlert, setOpenLogoutAlert] = React.useState(false);
-
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [underProgress, setUnderProgress] = React.useState(false)
   const adminInfo = React.useContext(UserContext);
   const [first, setfirst] = React.useState();
   const [data, setData] = React.useState(drawerData);
@@ -51,13 +50,14 @@ const PermanentDrawerRight = () => {
   let URL = location.pathname;
 
   React.useEffect(() => {
+
     const trimmedURL = URL.slice(0, 6);
     data.map((item, index) => {
       let trimmedRoute = item?.Routes?.slice(0, 6);
       trimmedURL === trimmedRoute ? (item.isActive = true) : (item.isActive = false);
     });
     setData([...data]);
-  }, [location.pathname]);
+  }, [location.pathname, underProgress]);
   React.useEffect(() => {
     setfirst(adminInfo?.adminName);
   }, [adminInfo]);
@@ -71,6 +71,7 @@ const PermanentDrawerRight = () => {
   const Logout = (index) => {
     setOpenLogoutAlert(true);
   };
+
   const logOutAdmin = () => {
     localStorage.clear();
     navigate("/");
@@ -307,7 +308,7 @@ const PermanentDrawerRight = () => {
                       className="drawerItemLinks"
                       style={{ color: text.isActive ? "#fff" : "#B2C1F0" }}
                       to={text.Routes}
-                      onClick={() => (index === 8 ? Logout() : "")}>
+                      onClick={() => (index === 4 ? Logout() :'')}>
                       <ListItemIcon
                         sx={{
                           color: text.isActive ? "#fff" : "#B2C1F0",
@@ -343,6 +344,37 @@ const PermanentDrawerRight = () => {
             <Index />
           </Item>
         </Box>
+        {location.pathname === '/staff'||
+        location.pathname === '/staff/update'||
+         location.pathname==='/vehicles/negotiating'||
+         location.pathname==='/customers'||
+         location.pathname!=='/profile' &&
+          <Dialog
+            open={true}
+            // onClose={onClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description">
+            <DialogTitle sx={{ fontSize: "18px", color: "#3D2E57" }} id="alert-dialog-title">
+              This page is under progress
+            </DialogTitle>
+            <DialogContent>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: "#27AE60",
+                  textTransform: "none",
+                  "&.MuiButtonBase-root:hover": {
+                    bgcolor: "#27AE60",
+                  },
+                }}
+                onClick={() => navigate(-1)}>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
+        }
         <AlertDialog
           title={"Are you sure you want to logout"}
           open={openLogoutAlert}

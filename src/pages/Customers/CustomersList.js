@@ -1,7 +1,7 @@
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import AddIcon from "@mui/icons-material/Add";
 import { getCustomerList, deleteCustomer } from '../../redux/action/customers'
-import { Box, MenuItem, Pagination, Select, Skeleton, Table, TableBody, TableCell, TableRow, Typography, Button } from "@mui/material";
+import { Box, MenuItem, Pagination, Select, Skeleton, Table, TableBody, TableCell, TableRow, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +33,7 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
   const [orderBy, setOrderBy] = React.useState("");
   const [pages, setPages] = useState(0);
   const [dialog, setDialog] = useState(false);
+  const [dialog1, setDialog1] = useState(false);
   const [total, setTotal] = useState(0)
   const [page, setPage] = React.useState(1);
   const [rows, setRows] = React.useState([]);
@@ -56,7 +57,6 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
   const getList = () => {
     setLoading(true);
     getCustomerList(data).then((res) => {
-      console.log('kjs');
       setLoading(false);
       if (res?.data?.total_records === 0) {
         setTotal(res?.data?.total_records)
@@ -163,7 +163,9 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
         setSearch_val={setSearch_val}
         onSubmit={onSubmit}
         button_one_onClick={() => {
-          navigate("/customers/update");
+          // navigate("/customers/update");
+          setDialog1(true);
+
         }} />
          <AlertDialog
         title={"Are you sure you want to delete this Customer?"}
@@ -171,6 +173,31 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
         onClickButton={() => handleDelete(Id)}
         onClickButtonCancel={() => setDialog(false)}
       />
+      <Dialog
+            open={dialog1}
+            // onClose={onClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description">
+            <DialogTitle sx={{ fontSize: "18px", color: "#3D2E57" }} id="alert-dialog-title">
+              This is under progress
+            </DialogTitle>
+            <DialogContent>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: "#27AE60",
+                  textTransform: "none",
+                  "&.MuiButtonBase-root:hover": {
+                    bgcolor: "#27AE60",
+                  },
+                }}
+                onClick={() => setDialog1(false)}>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
       <Box sx={Style.table.tableWrapBox}>
         {rows?.length == 0 && (
           <Typography
@@ -225,7 +252,7 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
                   {loading && <Skeleton sx={{ width: "100px" }} />}
                   {!loading && (
                     <TableCell align="left" sx={Style.table.tableCell}>
-                      <Button sx={{ display: "flex", justifyContent: "space-between" }}>
+                      <Button sx={{ display: "flex", justifyContent: "space-between" }} onClick={()=>setDialog1(true)}>
                         {row.vehicles}
                         <RemoveRedEyeIcon sx={{ color: "#4969B2", fontSize: "20px" }} />
                         <Button sx={{ color: "#F15F23" }}>
@@ -249,7 +276,8 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
                             marginBottom: "3px",
                           }}
                           onClick={() => {
-                            navigate("/customers/update", { state: row.customer_id });
+                            // navigate("/customers/update", { state: row.customer_id });
+                            setDialog1(true);
                           }}
                           src={require("../../assests/edit.png")}
                         />
@@ -259,8 +287,10 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
                             fontSize: "24px",
                           }}
                           onClick={() => {
-                            setDialog(true);
-                            setId(row.customer_id);
+                            // setDialog(true);
+                            // setId(row.customer_id);
+                            setDialog1(true);
+
                           }}
                         />
                       </>
