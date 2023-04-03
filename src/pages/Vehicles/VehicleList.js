@@ -322,7 +322,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
           </form>
         </DialogContent>
       </Dialog>
-      <Dialog
+      {/* <Dialog
             open={dialog}
             // onClose={onClose}
             aria-labelledby="alert-dialog-title"
@@ -346,7 +346,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
                 OK
               </Button>
             </DialogActions>
-          </Dialog>
+          </Dialog> */}
       <Box sx={Style.table.tableWrapBox}>
       {rows?.length == 0 && (
           <Typography
