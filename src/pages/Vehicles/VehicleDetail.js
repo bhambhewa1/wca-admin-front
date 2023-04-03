@@ -55,13 +55,22 @@ const VehicleDetail = ({ getVehicleData }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  // const Item1 = styled(Paper)(({ theme }) => ({
+  //   // backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  //   ...theme.typography.body2,
+  //   // padding: theme.spacing(1),
+  //   textAlign: "left",
+  //   color: theme.palette.text.secondary,
+   
+  // }));
   return (
     <>
-      <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600", boxShadow: "3px" }}>
+    <Item sx={{textAlign:'left'}}>
+      <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600"}}>
         Vehicle Details
       </Typography>
-      <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }}>
+      </Item>
+      <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none" ,mt:2}}>
         <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }} item xs={5} sm={6} lg={2} md={3} xl={1.5}>
           <Item sx={{ boxShadow: "none" ,bgcolor: "#F5F9FA"}}>
             <img alt="carimage" className="carImage" src={require("../../assests/BMW2.jfif")} />

@@ -145,12 +145,15 @@ const VehicleInfoData = () => {
                     width: "100%",
                     mt: "20px",
                     borderTop: "2px solid #ECECEC",
-                    borderBottom: "2px solid #ECECEC",
+                    // borderBottom: "2px solid #ECECEC",
 
                     pt: "10px",
                     pb: "10px",
                 }}>
-                <Grid container>
+                <Grid container sx={{
+                    borderBottom: "2px solid #ECECEC",
+
+                }}>
                     <Grid
                         flex={"1 1 auto"}
                         xs={12}
@@ -249,6 +252,7 @@ const VehicleInfoData = () => {
                             ml: "10px",
                             mr: "10px",
                             // borderRight: "2px solid #ECECEC",
+
                             // maxWidth: "50%",
                         }}
                         item>
@@ -266,17 +270,17 @@ const VehicleInfoData = () => {
                             <OptionAndServiceStatus />
                         </Item>
                     </Grid>
-                    <Box
-                        sx={{
-                            width: "100%",
-                            //   borderBottom: "2px solid #ECECEC",
-                            bgcolor: 'white',
-                            pt: "10px",
-                            // pb: "10px",
-                        }}>
-                        <ConditionDisclosure />
-                    </Box>
                 </Grid>
+                <Box
+                    sx={{
+                        width: "100%",
+                        //   borderBottom: "2px solid #ECECEC",
+                        bgcolor: 'white',
+                        pt: "10px",
+                        // pb: "10px",
+                    }}>
+                    <ConditionDisclosure />
+                </Box>
             </Box>
         </>
     )

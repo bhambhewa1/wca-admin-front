@@ -20,7 +20,7 @@ const VehicleInformation = () => {
       <Box sx={{
         bgcolor: '#F9FAFE',
       }}>
-        <Item sx={{ marginTop:2}}>
+        <Item>
           <VehicleInfoData />
         </Item>
         <Item sx={{ marginTop:2}}>

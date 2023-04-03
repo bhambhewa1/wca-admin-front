@@ -340,16 +340,16 @@ const PermanentDrawerRight = () => {
             ml: open ? "auto" : "",
             bgcolor: "#f9fafe",
           }}>
-          {/* {location.pathname === '/vehicles/details/info' &&
+          {location.pathname === '/vehicles/details/info' &&
             <Box sx={{ m: { xs: 1, sm: 2 } }}>
               <Index />
             </Box>
           }
-          {location.pathname !== '/vehicles/details/info' && */}
+          {location.pathname !== '/vehicles/details/info' &&
             <Item sx={{ m: { xs: 1, sm: 2 } }}>
               <Index />
             </Item>
-          {/* } */}
+           } 
         </Box>
         {/* {location.pathname === '/staff'||
         location.pathname === '/staff/update'||
