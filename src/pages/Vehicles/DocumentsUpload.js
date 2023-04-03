@@ -5,20 +5,12 @@ import UploadFile from "../../components/UploadFiles/UploadFile";
 import { Style } from "../../const/Style";
 
 const DocumentsUpload = () => {
-  const [driverLicense, setDriverLicense] = useState({
-    id: "",
-    path: "",
-    src: "",
-  });
+  const arr = [];
+  for(let i=0; i<12;i++){
+    arr[i] = {id: "", path: "", src:""}
+  }
+  const [uploadArray, setUploadArray] = useState(arr);
 
-  const handleDriverLicense = (e) => {
-    console.log("ram", driverLicense);
-    setDriverLicense({
-      id: driverLicense.id,
-      path: e.target.files[0],
-      src: URL.createObjectURL(e.target.files[0]),
-    });
-  };
 
   return (
     <>
@@ -37,14 +29,10 @@ const DocumentsUpload = () => {
               It has roots in a piece of classical Latin literature from 45 BC,
               making it over 2000 years old.
             </Typography>
-            <UploadFile
-              id={driverLicense.id}
-              path={driverLicense.path}
-              src={driverLicense.src}
-            />
+            <UploadFile setUploadArray={setUploadArray} arr={uploadArray} index={index}  />
           </Grid>
         ))}
-
+ 
         <Grid
           sx={{
             border: "2px solid rgba(0, 0, 0, 0.06)",
@@ -89,11 +77,7 @@ const DocumentsUpload = () => {
               : style.box_borderBottom_padd
               }>
               <Typography sx={style.typography3}>Front</Typography>
-              <UploadFile
-                id={driverLicense.id}
-                path={driverLicense.path}
-                src={driverLicense.src}
-              />
+              <UploadFile setUploadArray arr={uploadArray} index={index+4} />
               </Box>
             </Grid>
           ))}

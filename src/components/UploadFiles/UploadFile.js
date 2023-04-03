@@ -1,8 +1,28 @@
 import React from 'react';
 import { Box, Button, Chip, Fab, Grid, Paper, Typography } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import AlertDialog from '../Dialog/Dialog';
 
-const UploadFile = ({id,path,src}) => {
+const UploadFile = ({setUploadArray, arr, index}) => {
+
+  const [myarray,setMyarray] = React.useState(arr);
+  const [open,setOpen] = React.useState(false);
+
+  const handleUploadArray = (e) => {  
+    myarray[index].path = e.target.files[0];
+    myarray[index].src = URL.createObjectURL(e.target.files[0]);
+    setMyarray([...myarray])
+    setUploadArray([...myarray])
+  };
+   
+  const handleDelete = (id) => {
+   myarray[index].id = id
+   myarray[index].path = ""
+   myarray[index].src = ""
+   setMyarray([...myarray])
+   setUploadArray([...myarray])
+  }
+
   return (
     <Box
             sx={{
@@ -10,15 +30,16 @@ const UploadFile = ({id,path,src}) => {
               alignItems: "center",
               pl: 2,
             }}>
+              <AlertDialog image={require("../../assests/loginBigImg.png")} open={open} onClickButtonCancel={() => setOpen(false)} />
             <input
               style={{ padding: "17px 12px", display: "none" }}
               type="file"
-              id="drLicense"
-              name="main_image"
+              id={index}
+              name={index}
               accept="image/png, image/gif, image/jpeg"
-            //   onChange={handleDriverLicense}
+              onChange={handleUploadArray}
             />
-            <label htmlFor="drLicense">
+            <label htmlFor={index} >
               <Button
                 component="span"
                 sx={{
@@ -38,17 +59,16 @@ const UploadFile = ({id,path,src}) => {
               </Button>
             </label>
 
-            {src && (
+            { myarray[index].src && (
               <Chip
-                href={src}
-                clickable
-                label={path.name || path.name1}
+                // href={myarray[index].src}
+                label={myarray[index].path.name}
                 component="a"
                 variant="outlined"
                 name="driver_license"
+                onClick={() => setOpen(true)}
                 onDelete={() => {
-                //   console.log("ram...1.",driverLicense);
-                //   setDriverLicense({ id: driverLicense.id, path: "", src:"" });
+                  handleDelete(myarray[index].id);
                   // setImgerr(true)
                 }}
               />
