@@ -191,7 +191,6 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
     enableReinitialize: true,
   });
   const onSubmit = (val) => {
-    console.log(val);
     addVIN(val).then((res)=>{
       if(res?.data?.status){
           toast.success(res.data.message);
@@ -228,11 +227,11 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
       <LoaderComponent open={loading}/>
       <Dialog open={open}>
         <DialogTitle sx={{ borderBottom: "1px solid #dddddd" }}>Add Vehicle</DialogTitle>
-        <DialogContent sx={{ borderBottom: "1px solid #dddddd" }}>
+        <DialogContent sx={{ borderBottom: "1px solid #dddddd",mt:2,'&.MuiDialogContent-root':{
+          pb:0
+        } }}>
           <form onSubmit={formik.handleSubmit}>
-            <FormLabel sx={{
-              pt:2
-            }}>Enter VIN number</FormLabel>
+            <FormLabel>Enter VIN number</FormLabel>
             <TextField
               variant="filled"
               name="vin"
@@ -247,7 +246,11 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
                   color: "#A8A8A8",
                 },
               }} />
-            <DialogActions>
+            <DialogActions sx={{
+              '&.MuiDialogActions-root':{
+                pr:0
+              }
+            }}>
               <Box
                 sx={{
                   width: { xs: "100%", md: "35%", lg: "70%" },

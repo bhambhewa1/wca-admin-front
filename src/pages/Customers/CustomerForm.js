@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import Toastify from "../../components/SnackBar/Toastify";
 // import LoaderComponent from "../Loader/LoaderComponent";
 import { styled } from '@mui/material/styles';
-import { Button, Skeleton, Typography, TextField, FormLabel, Box, Select, Switch, FormControlLabel  } from "@mui/material";
+import { Button, Skeleton, Typography, TextField, FormLabel, Box, Select, Switch, FormControlLabel } from "@mui/material";
 import { storage } from "../../config/storage";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom/dist";
@@ -18,19 +18,19 @@ import { useNavigate } from "react-router-dom/dist";
 const schema = yup.object().shape({
     firstName: yup.string().required("Please enter your first name"),
     lastName: yup.string().required("Please enter your last name"),
-    emailValidation:yup.boolean(),
-    phoneValidation:yup.boolean(),
-    email:yup.string()
-    // .when("emailValidation", {
-    //     is: true,
-    //     then: yup.string()
+    emailValidation: yup.boolean(),
+    phoneValidation: yup.boolean(),
+    email: yup.string()
+        // .when("emailValidation", {
+        //     is: true,
+        //     then: yup.string()
         .required("Please enter your email").email("Please enter valid email"),
     // }),
     phone: yup.string()
-    // .when("phoneValidation", {
-    //     is: true,
-    //     then: yup
-    //     .string()
+        // .when("phoneValidation", {
+        //     is: true,
+        //     then: yup
+        //     .string()
         .required("Please enter your phone number")
         .matches(/^[0-9]*$/, "Please enter valid phone number")
         .min(10, `Enter minimum 10 numbers `)
@@ -39,26 +39,26 @@ const schema = yup.object().shape({
     address: yup.string().required("Please Enter address"),
     validate_Password: yup.boolean(),
     password: yup.string()
-    .when("validate_Password", {
-        is: true,
-        then: yup.string()
-        .required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
-    }),
+        .when("validate_Password", {
+            is: true,
+            then: yup.string()
+                .required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
+        }),
     confirm_password: yup.string()
-    .when("validate_Password", {
-        is: true,
-        then: yup
-            .string()
-            .required("Confirm your password.")
-            .min(8, "Password is too short - should be 8 char minimum.")
-            .oneOf([yup.ref("password"), null], "Passwords must match"),
-    }),
+        .when("validate_Password", {
+            is: true,
+            then: yup
+                .string()
+                .required("Confirm your password.")
+                .min(8, "Password is too short - should be 8 char minimum.")
+                .oneOf([yup.ref("password"), null], "Passwords must match"),
+        }),
 });
 const Style = {
     label: {
         fontStyle: "normal",
         fontWeight: 400,
-        fontSize: "20px",
+        fontSize: "16px",
         color: "#333333",
     },
     typographyStyle: {
@@ -71,7 +71,7 @@ const Style = {
         display: "flex",
         pb: 1,
         pt: 1,
-        pl: { xs: 0, md: 3 },
+        pl: { xs: 0, md: 3.5 },
     },
     inputStyle: {
         width: {
@@ -168,7 +168,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
             userData.validate_Password = true;
         }
         Object.assign(value, { customer_id: userData.customer_id });
-        Object.assign(value, { user_type: 2});
+        Object.assign(value, { user_type: 2 });
         if (value.password === undefined || value.confirm_password === undefined) {
             value.password = "";
             delete value.confirm_password;
@@ -193,7 +193,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
     };
 
     const IOSSwitch = styled((props) => (
-        <Switch focusVisibleClassName=".Mui-focusVisible" name="emailValidation" disableRipple {...props} checked={formik.values.emailValidation} onChange={formik.handleChange}/>
+        <Switch focusVisibleClassName=".Mui-focusVisible" name="emailValidation" disableRipple {...props} checked={formik.values.emailValidation} onChange={formik.handleChange} />
     ))(({ theme }) => ({
         width: 32,
         height: 20,
@@ -243,7 +243,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
         },
     }));
     const IOSSwitch1 = styled((props) => (
-        <Switch focusVisibleClassName=".Mui-focusVisible" name="phoneValidation" disableRipple {...props} checked={formik.values.phoneValidation} onChange={formik.handleChange}/>
+        <Switch focusVisibleClassName=".Mui-focusVisible" name="phoneValidation" disableRipple {...props} checked={formik.values.phoneValidation} onChange={formik.handleChange} />
     ))(({ theme }) => ({
         width: 32,
         height: 20,
@@ -341,6 +341,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                                             style: {
                                                 paddingTop: "16px",
                                                 paddingBottom: "15px",
+                                                fontSize: '14px'
                                             },
                                         }}
                                         color="primary"
@@ -376,6 +377,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                                             style: {
                                                 paddingTop: "16px",
                                                 paddingBottom: "15px",
+                                                fontSize: '14px'
                                             },
                                         }}
                                         autoComplete="false"
@@ -409,6 +411,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                                             style: {
                                                 paddingTop: "16px",
                                                 paddingBottom: "15px",
+                                                fontSize: '14px'
                                             },
                                         }}
                                         color="primary"
@@ -425,7 +428,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                             /> */}
                                 </Box>
                             )}
-                            
+
                         </Box>
                         <Box sx={{
                             display: 'flex',
@@ -462,6 +465,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                                         sx={{
                                             width: "100%",
                                             border: "none",
+                                            fontSize: '14px'
                                         }}
                                     />
                                     {formik.errors.phone && formik.touched.phone ? <p style={Style.validationStyle}>{formik.errors.phone}</p> : null}
@@ -499,6 +503,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                                         sx={{
                                             width: "100%",
                                             border: "none",
+                                            fontSize: '14px'
                                         }}
                                     />
                                     {formik.errors.address && formik.touched.address ? (
@@ -509,7 +514,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                         </Box>
                     </Box>
                     {location.state && (
-                        <Typography sx={{ mb: 2, ml: 3 }}>
+                        <Typography sx={{ mb: 2, ml: 3,mt:1 }}>
                             <input
                                 type="checkbox"
                                 name="validate_Password"
@@ -518,7 +523,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                                 checked={formik.values.validate_Password}
                                 value={formik.values.validate_Password}
                             />
-                            Do you want to change the password?
+                            <label for="validate_Password" > Do you want to change the password?</label>
                         </Typography>
                     )}
                     {formik.values.validate_Password && (
@@ -528,7 +533,8 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                                     fontSize: { xs: "20px", md: "20px" },
                                     fontWeight: { xs: "500", md: "700" },
                                     mb: 2,
-                                    pl: { xs: 0, md: 3 },
+                                    mt: 1,
+                                    pl: { xs: 0, md: 3.5 },
                                     color: "#000000"
                                 }}>
                                 Password
@@ -579,6 +585,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                                                 sx={{
                                                     width: "100%",
                                                     border: "none",
+                                                    fontSize: '14px'
                                                 }}
                                             />
                                             {/* {formik.errors.password && formik.touched.password ?  ( */}
@@ -616,6 +623,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                                                     style: {
                                                         paddingTop: "16px",
                                                         paddingBottom: "15px",
+                                                        fontSize: '14px'
                                                     },
                                                 }}
                                                 color="primary"

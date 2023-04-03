@@ -40,11 +40,13 @@ import CustomerForm from "../pages/Customers/CustomerForm";
 import EsignDocument from "../pages/Vehicles/EsignDocument";
 import Checks from "../pages/Vehicles/Checks";
 import Notes from "../pages/Vehicles/Notes";
+import OpenRoutes from "./openRoutes";
 
 export const globalRoutes = [
   {
     path: LOGIN,
     element: Login,
+    routeType:OpenRoutes
   },
   {
     path: CUSTOMERLIST,
