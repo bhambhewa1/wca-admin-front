@@ -147,14 +147,16 @@ const VehicleInformation = () => {
           pt: "10px",
           pb: "10px",
         }}>
-        <Grid columnGap={"12px"} rowGap={"12px"} flexDirection={"row"} display={"flex"}>
+        <Grid container>
           <Grid
             flex={"1 1 auto"}
+            xs={12}
+            sm={5.8}
             sx={{
               ml: "10px",
               mr: "10px",
               borderRight: "2px solid #ECECEC",
-              maxWidth: "50%",
+              // maxWidth: "50%",
             }}
             item>
             <Item
@@ -236,11 +238,13 @@ const VehicleInformation = () => {
           </Grid>
           <Grid
             flex={"1 1 auto"}
+            xs={12}
+            sm={5.7}
             sx={{
               ml: "10px",
               mr: "10px",
-              borderRight: "2px solid #ECECEC",
-              maxWidth: "50%",
+              // borderRight: "2px solid #ECECEC",
+              // maxWidth: "50%",
             }}
             item>
             <Item
