@@ -27,7 +27,7 @@ const Item = styled(Paper)(({ theme }) => ({
   fontWeight: "600",
 }));
 
-const VehicleDetail = ({getVehicleData}) => {
+const VehicleDetail = ({ getVehicleData }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -44,9 +44,9 @@ const VehicleDetail = ({getVehicleData}) => {
   ];
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    getVehicleData(data).then((res) => {
-      console.log(res.data);
-    })
+    // getVehicleData(data).then((res) => {
+    //   console.log(res.data);
+    // })
   }, []);
   const openMenu = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -55,7 +55,7 @@ const VehicleDetail = ({getVehicleData}) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   return (
     <>
       <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600", borderBottom: "3px solid rgba(0, 0, 0, 0.06)" }}>
@@ -157,9 +157,9 @@ const VehicleDetail = ({getVehicleData}) => {
   );
 };
 const mapDispatchToProps = (dispatch) => {
-    return {
-      getVehicleData: (data) => dispatch(getVehicleData(data)),
-    };
+  return {
+    // getVehicleData: (data) => dispatch(getVehicleData(data)),
   };
-  
-  export default connect(null, mapDispatchToProps)(VehicleDetail);
+};
+
+export default connect(null, mapDispatchToProps)(VehicleDetail);
