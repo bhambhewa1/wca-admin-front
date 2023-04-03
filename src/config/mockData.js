@@ -32,18 +32,18 @@ export const drawerData = [
     ),
     Routes: "/vehicles/negotiating",
   },
-  {
-    val: "Appointments",
-    isActive: false,
-    src: (
-      <EventAvailableIcon
-        sx={{
-          fontSize: "20px",
-        }}
-      />
-    ),
-    Routes: "/appointments",
-  },
+  // {
+  //   val: "Appointments",
+  //   isActive: false,
+  //   src: (
+  //     <EventAvailableIcon
+  //       sx={{
+  //         fontSize: "20px",
+  //       }}
+  //     />
+  //   ),
+  //   Routes: "/appointments",
+  // },
   {
     val: "Staff",
     isActive: false,
@@ -56,42 +56,42 @@ export const drawerData = [
     ),
     Routes: "/staff",
   },
-  {
-    val: "Trucking companies",
-    isActive: false,
-    src: (
-      <LocalShippingIcon
-        sx={{
-          fontSize: "20px",
-        }}
-      />
-    ),
-    Routes: "/truckingcompanies",
-  },
-  {
-    val: "Stores",
-    isActive: false,
-    src: (
-      <StorefrontIcon
-        sx={{
-          fontSize: "20px",
-        }}
-      />
-    ),
-    Routes: "/store",
-  },
-  {
-    val: "Locations",
-    isActive: false,
-    src: (
-      <LocationOnIcon
-        sx={{
-          fontSize: "20px",
-        }}
-      />
-    ),
-    Routes: "/location",
-  },
+  // {
+  //   val: "Trucking companies",
+  //   isActive: false,
+  //   src: (
+  //     <LocalShippingIcon
+  //       sx={{
+  //         fontSize: "20px",
+  //       }}
+  //     />
+  //   ),
+  //   Routes: "/truckingcompanies",
+  // },
+  // {
+  //   val: "Stores",
+  //   isActive: false,
+  //   src: (
+  //     <StorefrontIcon
+  //       sx={{
+  //         fontSize: "20px",
+  //       }}
+  //     />
+  //   ),
+  //   Routes: "/store",
+  // },
+  // {
+  //   val: "Locations",
+  //   isActive: false,
+  //   src: (
+  //     <LocationOnIcon
+  //       sx={{
+  //         fontSize: "20px",
+  //       }}
+  //     />
+  //   ),
+  //   Routes: "/location",
+  // },
   {
     val: "Profile",
     src: (

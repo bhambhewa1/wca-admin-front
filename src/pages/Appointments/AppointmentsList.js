@@ -238,7 +238,7 @@ const AppointmentsList = ({ getAppointmentList, deleteAppointment }) => {
                           cursor: "pointer",
                         }}
                         onClick={() => {
-                          navigate("/staff/update", { state: row.staff_id });
+                          // navigate("/staff/update", { state: row.staff_id });
                         }}
                         src={require("../../assests/edit.png")}
                       />
@@ -249,7 +249,7 @@ const AppointmentsList = ({ getAppointmentList, deleteAppointment }) => {
                         }}
                         onClick={() => {
                           setDialog(true)
-                          setId(row.staff_id);
+                          // setId(row.staff_id);
                         }}
                       />
                     </>

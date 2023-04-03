@@ -44,7 +44,7 @@ const Style = {
   label: {
     fontStyle: "normal",
     fontWeight: 400,
-    fontSize: "20px",
+    fontSize: "16px",
     color: "#333333",
   },
   typographyStyle: {
@@ -57,7 +57,7 @@ const Style = {
     display: "flex",
     pb: 1,
     pt: 1,
-    pl: { xs: 0, md: 3 },
+    pl: { xs: 1, md: 3 },
   },
   inputStyle: {
     width: {
@@ -92,7 +92,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
     firstName: "",
     lastName: "",
     email: "",
-    type:"",
+    type: "",
     phone: "",
     password: "",
     confirm_password: "",
@@ -231,6 +231,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                     sx={{
                       width: "100%",
                       border: "none",
+                      fontSize: '14px'
                     }}
                     autoComplete="false"
                   />
@@ -259,6 +260,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
+                        fontSize: '14px'
                       },
                     }}
                     autoComplete="false"
@@ -292,6 +294,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
+                        fontSize: '14px'
                       },
                     }}
                     color="primary"
@@ -326,6 +329,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
+                        fontSize: '14px'
                       },
                     }}
                     autoComplete="false"
@@ -351,15 +355,16 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                     name="type"
                     value={formik.values.type}
                     onChange={formik.handleChange}
-                    onBlur = {formik.handleBlur}
+                    onBlur={formik.handleBlur}
                     displayEmpty
                     disableUnderline
-                    SelectDisplayProps={{ style: { padding: 3, marginLeft: "10px" ,color:'#000000'} }}
+                    SelectDisplayProps={{ style: { padding: 3, marginLeft: "10px", color: '#000000', backgroundColor: 'transparent' } }}
                     MenuProps={{ disableScrollLock: true }}
                     inputProps={{
                       style: {
                         paddingTop: "8px",
                         paddingBottom: "8px",
+                        fontSize: '14px'
                       },
                     }}
                     sx={{
@@ -367,7 +372,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                       minWidth: "200px",
                       fontSize: "14px",
                       fontWeight: "400",
-                      width:'100%',
+                      width: '100%',
                       borderBottom: "none",
                     }}>
                     <MenuItem value="">Select</MenuItem>
@@ -375,8 +380,8 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                     <MenuItem value="level 2 supervisor"> level 2 supervisor</MenuItem>
                   </Select>
                   {formik.errors.type && formik.touched.type ? (
-                  <p style={Style.validationStyle}>{formik.errors.type}</p>
-                ) : null}
+                    <p style={Style.validationStyle}>{formik.errors.type}</p>
+                  ) : null}
                 </Box>
               )}
               {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
@@ -384,7 +389,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
             </Box>
           </Box>
           {location.state && (
-            <Typography sx={{ mb: 2, ml: 3 }}>
+            <Typography sx={{ mb: 2, ml: { xs: 1, sm: 3 } }}>
               <input
                 type="checkbox"
                 name="validate_Password"
@@ -393,7 +398,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                 checked={formik.values.validate_Password}
                 value={formik.values.validate_Password}
               />
-              Do you want to change the password?
+             <label for="validate_Password" > Do you want to change the password?</label>
             </Typography>
           )}
           {formik.values.validate_Password && (
@@ -403,7 +408,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                   fontSize: { xs: "20px", md: "20px" },
                   fontWeight: { xs: "500", md: "700" },
                   mb: 2,
-                  pl: { xs: 0, md: 3 },
+                  pl: { xs: 1, md: 3 },
                   color: "#000000"
                 }}>
                 Password
@@ -446,6 +451,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                           style: {
                             paddingTop: "16px",
                             paddingBottom: "15px",
+                            fontSize: '14px'
                           },
                         }}
                         autoComplete="off"
@@ -491,6 +497,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                           style: {
                             paddingTop: "16px",
                             paddingBottom: "15px",
+                            fontSize: '14px'
                           },
                         }}
                         color="primary"

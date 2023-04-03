@@ -13,11 +13,11 @@ import ListItemText from "@mui/material/ListItemText";
 import Index from "../../routes/index.js";
 import { drawerData } from "../../config/mockData";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Button, Collapse, IconButton, Menu, MenuItem, Paper, Toolbar, Typography, useMediaQuery } from "@mui/material";
+import { Button, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Menu, MenuItem, Paper, Toolbar, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import { storage as LocalStorage, storage } from "../../config/storage";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -27,10 +27,10 @@ import { UserContext } from "../../App.js";
 import AlertDialog from "../Dialog/Dialog.js";
 let drawerWidth = 280;
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   // padding: theme.spacing(1),
-  textAlign: 'left',
+  textAlign: "left",
   color: theme.palette.text.secondary,
 }));
 const PermanentDrawerRight = () => {
@@ -41,9 +41,8 @@ const PermanentDrawerRight = () => {
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
   const [openLogoutAlert, setOpenLogoutAlert] = React.useState(false);
-
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [underProgress, setUnderProgress] = React.useState(false)
   const adminInfo = React.useContext(UserContext);
   const [first, setfirst] = React.useState();
   const [data, setData] = React.useState(drawerData);
@@ -51,13 +50,14 @@ const PermanentDrawerRight = () => {
   let URL = location.pathname;
 
   React.useEffect(() => {
+
     const trimmedURL = URL.slice(0, 6);
     data.map((item, index) => {
       let trimmedRoute = item?.Routes?.slice(0, 6);
       trimmedURL === trimmedRoute ? (item.isActive = true) : (item.isActive = false);
     });
     setData([...data]);
-  }, [location.pathname]);
+  }, [location.pathname, underProgress]);
   React.useEffect(() => {
     setfirst(adminInfo?.adminName);
   }, [adminInfo]);
@@ -71,6 +71,7 @@ const PermanentDrawerRight = () => {
   const Logout = (index) => {
     setOpenLogoutAlert(true);
   };
+
   const logOutAdmin = () => {
     localStorage.clear();
     navigate("/");
@@ -113,8 +114,8 @@ const PermanentDrawerRight = () => {
                     border: 1,
                     borderRadius: "20px",
                     borderColor: "black",
-                    width: "36px",
-                    height: "36px",
+                    width: "42px",
+                    height: "42px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -130,16 +131,16 @@ const PermanentDrawerRight = () => {
                   />
                 </Box>
               </Link>
-              <Typography component={"div"} sx={{ ml: "10px", height: "40px" }}>
+              <Typography component={"div"} sx={{ ml: "10px" }}>
                 <Link to={"/profile"} style={{ display: "flex", textDecoration: "none" }}>
-                  <Typography component={"div"} sx={{ color: "#3D2E57", lineHeight: "20px", fontSize: "18px" }}>
+                  <Typography component={"div"} sx={{ color: "#3D2E57", lineHeight: "20px", fontSize: "14px", fontWeight: "700" }}>
                     {first?.n1} {first?.n2}
                   </Typography>
                 </Link>
-                <Typography component={"div"} sx={{ color: "#A8A8A8", fontSize: "16px", lineHeight: "30px" }}>
+                <Typography component={"div"} sx={{ color: "#A8A8A8", fontSize: "12px", lineHeight: "15px" }}>
                   Store :
                   <Button
-                    sx={{ textTransform: "none", color: "#A8A8A8", fontWeight: "600", mb: "2px" }}
+                    sx={{ textTransform: "none", color: "#A8A8A8", fontWeight: "600", mb: "2px", p: "0px", ml: "3px" }}
                     id="fade-button"
                     aria-controls={open ? "fade-menu" : undefined}
                     aria-haspopup="true"
@@ -307,7 +308,7 @@ const PermanentDrawerRight = () => {
                       className="drawerItemLinks"
                       style={{ color: text.isActive ? "#fff" : "#B2C1F0" }}
                       to={text.Routes}
-                      onClick={() => (index === 8 ? Logout() : "")}>
+                      onClick={() => (index === 4 ? Logout() : '')}>
                       <ListItemIcon
                         sx={{
                           color: text.isActive ? "#fff" : "#B2C1F0",
@@ -339,10 +340,49 @@ const PermanentDrawerRight = () => {
             ml: open ? "auto" : "",
             bgcolor: "#f9fafe",
           }}>
-          <Item sx={{ m: {xs:1,sm:2}}} >
-            <Index />
-          </Item>
+          {location.pathname === '/vehicles/details/info' &&
+            <Box sx={{ m: { xs: 1, sm: 2 } }}>
+              <Index />
+            </Box>
+          }
+          {location.pathname !== '/vehicles/details/info' &&
+            <Item sx={{ m: { xs: 1, sm: 2 } }}>
+              <Index />
+            </Item>
+           } 
         </Box>
+        {/* {location.pathname === '/staff'||
+        location.pathname === '/staff/update'||
+         location.pathname==='/vehicles/negotiating'||
+         location.pathname==='/customers'||
+         location.pathname==='/customers/update'||
+         location.pathname!=='/profile' &&
+          <Dialog
+            open={true}
+            // onClose={onClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description">
+            <DialogTitle sx={{ fontSize: "18px", color: "#3D2E57" }} id="alert-dialog-title">
+              This page is under progress
+            </DialogTitle>
+            <DialogContent>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: "#27AE60",
+                  textTransform: "none",
+                  "&.MuiButtonBase-root:hover": {
+                    bgcolor: "#27AE60",
+                  },
+                }}
+                onClick={() => navigate(-1)}>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
+        } */}
         <AlertDialog
           title={"Are you sure you want to logout"}
           open={openLogoutAlert}

@@ -3,6 +3,7 @@ export const Style = {
     tableWrapBox: {
       overflow: "auto",
       p: 3,
+      
     },
     tableBox: {
       minWidth: { xs: "775px", md: "100%" },

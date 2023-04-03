@@ -54,9 +54,9 @@ const Style = {
     color: "#3D2E57",
     display: "flex",
     // pb: 2,
-    pl: {xs:1,sm:3.5},
-    pt:{xs:2,sm:0},
-    pb:{xs:2,sm:0}
+    pl: { xs: 1, sm: 3 },
+    pt: { xs: 2, sm: 0 },
+    pb: { xs: 2, sm: 0 },
   },
   inputStyle: {
     width: {
@@ -101,6 +101,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
   const [loading, setLoading] = useState(false);
   // const [validate_Password, setValidate_Password] = useState(false);
   useEffect(() => {
+    document.title = "WCA - Profile";
+
     adminInfo?.setAdminName({
       n1: userData.firstName,
       n2: userData.lastName,
@@ -126,10 +128,9 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
           staff_id: result.staff_id,
         });
       } else {
-        res?.data?.errors.map((error)=>{
-        toast.error(error);
-      })
-      
+        res?.data?.errors.map((error) => {
+          toast.error(error);
+        });
       }
     });
   }, []);
@@ -160,7 +161,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
       setLoading(false);
       if (res.data.status) {
         toast.success("Updated Successfully!!");
-        getuserdata({staff_id: userData.staff_id}).then((res) => {
+        getuserdata({ staff_id: userData.staff_id }).then((res) => {
           setLoading(false);
           if (res.data.status) {
             const result = res.data.data;
@@ -170,8 +171,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               email: result.email,
               phone: result.phone,
               type: result.type,
-              staff_id:result.staff_id,
-              validate_Password:false
+              staff_id: result.staff_id,
+              validate_Password: false,
             });
             storage.set.adminfirstname(res.data.data.firstName);
             storage.set.adminlastname(res.data.data.lastName);
@@ -199,7 +200,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
         justifyContent: "flex-end",
       }}>
       <form name="RegisterForm" onSubmit={formik.handleSubmit}>
-        <Typography sx={Style.typographyStyle} >Profile</Typography>
+        <Typography sx={Style.typographyStyle}>Profile</Typography>
         <Box
           sx={{
             width: "100%",
@@ -213,8 +214,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              pl: {xs:1,sm:3},
-              pr: {xs:1,sm:3},
+              pl: { xs: 1, sm: 3 },
+              pr: { xs: 1, sm: 3 },
               // alignItems:'center'
             }}>
             <Box sx={Style.rowBoxStyle}>
@@ -369,7 +370,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                 checked={formik.values.validate_Password}
                 value={userData.validate_Password}
               />
-              Do you want to change the password?
+             <label for="validate_Password" > Do you want to change the password?</label>
             </Typography>
             {formik.values.validate_Password && (
               <Box>
@@ -465,7 +466,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               justifyContent: { xs: "space-between", md: "flex-end" },
               pt: 4,
               pb: 2,
-              pr: 3,
+              pr: {xs:1,sm:3},
+              pl:{xs:1,sm:0}
             }}>
             <Button
               disableRipple

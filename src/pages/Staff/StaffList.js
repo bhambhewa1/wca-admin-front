@@ -19,7 +19,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   const [orderBy, setOrderBy] = React.useState("");
   const [pages, setPages] = useState(0);
   const [dialog, setDialog] = useState(false);
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
   const [page, setPage] = React.useState(1);
   const [rows, setRows] = React.useState([]);
   const [perv_search_val, setPerv_Search_val] = React.useState("");
@@ -37,29 +37,29 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   };
 
   useEffect(() => {
+    document.title = "WCA - Staff";
     window.scrollTo(0, 0);
     getList();
   }, [length]);
-
   const getList = () => {
     setLoading(true);
     getStaffList(data).then((res) => {
       setLoading(false);
       if (res?.data?.total_records === 0) {
-        setTotal(res?.data?.total_records)
+        setTotal(res?.data?.total_records);
         setPages(res?.data?.pages);
         setRows(res?.data?.staff_list);
       } else if (res?.data?.status) {
-          setRows(res?.data?.staff_list);
-          setPages(res?.data?.pages);
-          setTotal(res?.data?.total_records)
-        } else {
-          setRows(res?.data?.staff_list);
-          setPages(res?.data?.pages);
-          res?.data?.errors.map((error) => {
-            toast.error(error);
-          })
-        }
+        setRows(res?.data?.staff_list);
+        setPages(res?.data?.pages);
+        setTotal(res?.data?.total_records);
+      } else {
+        setRows(res?.data?.staff_list);
+        setPages(res?.data?.pages);
+        res?.data?.errors.map((error) => {
+          toast.error(error);
+        });
+      }
     });
   };
   const handleRequestSort = (event, property) => {
@@ -87,8 +87,8 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   const handlePageChange = (event, value) => {
     setLoading(true);
     setPage(value);
-    data.page = value
-    data.staff_id = staff
+    data.page = value;
+    data.staff_id = staff;
     if (order && orderBy) {
       data.sort = order === "asc" ? "desc" : "asc";
       data.sortColumn = orderBy;
@@ -99,21 +99,41 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     getList();
   };
   const handleDelete = (id) => {
-    let data = { staff_id: id };
+    let delete_data = { staff_id: id };
     // setDialog(true);
     // if (dialog === "Yes") {
-    deleteStaff(data).then((res) => {
+    deleteStaff(delete_data).then((res) => {
       if (res.data.status) {
         setDialog(false);
+
         toast.success(res?.data?.message);
-        getList();
+        getStaffList(data).then((res) => {
+          setLoading(false);
+          if (res?.data?.total_records === 0) {
+            setTotal(res?.data?.total_records);
+            setPages(res?.data?.pages);
+            setRows(res?.data?.staff_list);
+          } else if (res?.data?.status) {
+            setRows(res?.data?.staff_list);
+            setLength(res?.data?.total_records <= 10 ? 10 : 20)
+            setPages(res?.data?.pages);
+            setPage(1)
+            setTotal(res?.data?.total_records);
+          } else {
+            setRows(res?.data?.staff_list);
+            setPages(res?.data?.pages);
+            res?.data?.errors.map((error) => {
+              toast.error(error);
+            });
+          }
+        }
+        )
       } else {
         res?.data?.errors.map((error) => {
           toast.error(error);
-        })
+        });
       }
     });
-    // }
   };
 
   const onSubmit = (value) => {
@@ -123,7 +143,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       setSearch_val(value);
       setPage(1);
       data.search = value;
-      Object.assign(data, { staff_id: staff })
+      Object.assign(data, { staff_id: staff });
 
       // if (order && orderBy) {
       //   let sort_column = { sort_column: orderBy };
@@ -134,9 +154,9 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     }
   };
   const handleChange = (e) => {
-    setLength(e.target.value)
-    getList()
-  }
+    setLength(e.target.value);
+    // getList();
+  };
   return (
     <Box
       sx={{
@@ -253,40 +273,61 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
           </Table>
         )}
       </Box>
-      {total!==0&&<Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          justifyContent: "space-between",
-          p: 1,
-        }}>
-        <Typography sx={{ pl: 3, fontWeight: 400, fontSize: { xs: '14px', sm: '16px' } }}>Number of Rows per Page
-          <Select
-            value={length}
-            onChange={handleChange}
-            sx={{
-              ml: { xs: 1, sm: 2 },
-              mr: { xs: 1, sm: 2 },
-              fontSize: "16px"
-            }}
-          >
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={10}>10</MenuItem>
-            <MenuItem value={20}>20</MenuItem>
-          </Select>
-          out of {total} </Typography>
-        {pages > 1 && (
-          <Pagination
-            count={pages}
-            page={page}
-            boundaryCount={1}
-            sx={{ button: { fontSize: "16px", mt: 2, mr: 2 } }}
-            onChange={handlePageChange}
-            siblingCount={0}
-          />
-        )}
-      </Box>
-     }
+      {total !== 0 && (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: "space-between",
+            p: 1,
+          }}>
+          <Typography sx={{
+            pl: { xs: 0, sm: 3 }, fontWeight: 400, fontSize: { xs: "12px", sm: "16px" },
+            '&.MuiTypography-root': {
+              width: '100%',
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: { xs: "center", md: "flex-start" },
+
+              mb: 1
+            }
+          }}>
+            Number of Rows per Page
+            <Select
+              variant="standard"
+              value={length}
+              disableUnderline
+              SelectDisplayProps={{
+                style: { padding: "0px 10px", color: 'rgba(0, 0, 0, 0.6)', backgroundColor: 'transparent' ,display: 'flex',
+                justifyContent: 'space-between',marginRight:'4px'}
+              }}
+              onChange={handleChange}
+              sx={{
+                ml: { xs: 0, sm: 1 },
+                mr: { xs: 0, sm: 1 },
+                // width: {xs:'20%',sm:'5%'},
+                fontSize: {xs:"14px",sm:"16px"},
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}>
+              <MenuItem value={5}>5</MenuItem>
+              {total > 5 && <MenuItem value={10}>10</MenuItem>}
+              {total > 10 && <MenuItem value={20}>20</MenuItem>}
+            </Select>
+            out of {total}{" "}
+          </Typography>
+          {pages > 1 && (
+            <Pagination
+              count={pages}
+              page={page}
+              boundaryCount={1}
+              sx={{ button: { fontSize: "16px", mr: 1 }, width: '100%', display: 'flex', justifyContent: { xs: 'center', md: 'flex-end' } }}
+              onChange={handlePageChange}
+              siblingCount={0}
+            />
+          )}
+        </Box>
+      )}
     </Box>
   );
 };

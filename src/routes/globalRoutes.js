@@ -5,7 +5,7 @@ import {
   VEHICLEESINGDOCUMENT,
   VEHICLELOAN,
   VEHICLESPURCHASED,
-  CUSTOMERUPDATE
+  CUSTOMERUPDATE,
 } from "./constURL";
 import { CUSTOMERINFO, CUSTOMERLIST, DOCUMENTSUPLOAD, VEHICLEINFO } from "./constURL";
 import { APPOINTMENTLIST } from "./constURL";
@@ -32,7 +32,7 @@ import VehicleDetail from "../pages/Vehicles/VehicleDetail";
 import SoldandUnsoldVehicles from "../pages/Vehicles/SoldandUnsoldVehicles";
 import StaffForm from "../pages/Staff/StaffForm";
 import ProtectedRoute from "./protectedRoutes";
-import VehicleInformation from "../pages/Vehicles/VehicleInformation";
+import VehicleInformation from "../pages/Vehicles/VehicleInformation/VehicleInformation";
 import CustomerInfo from "../pages/Vehicles/CustomerInfo";
 import VehicleLoan from "../pages/Vehicles/VehicleLoan";
 import DocumentsUpload from "../pages/Vehicles/DocumentsUpload";
@@ -40,11 +40,13 @@ import CustomerForm from "../pages/Customers/CustomerForm";
 import EsignDocument from "../pages/Vehicles/EsignDocument";
 import Checks from "../pages/Vehicles/Checks";
 import Notes from "../pages/Vehicles/Notes";
+import OpenRoutes from "./openRoutes";
 
 export const globalRoutes = [
   {
     path: LOGIN,
     element: Login,
+    routeType: OpenRoutes,
   },
   {
     path: CUSTOMERLIST,
@@ -132,7 +134,7 @@ export const globalRoutes = [
         path: VEHICLENOTE,
         element: Notes,
         routeType: ProtectedRoute,
-      }
+      },
     ],
   },
   {
@@ -145,5 +147,4 @@ export const globalRoutes = [
     element: StaffForm,
     routeType: ProtectedRoute,
   },
-
 ];
