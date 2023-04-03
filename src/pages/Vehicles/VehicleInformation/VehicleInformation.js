@@ -11,6 +11,8 @@ import * as yup from "yup";
 import Odometer from "./customs/Odometer";
 import Colors from "./customs/Colors";
 import OptionAndServiceStatus from "./customs/OptionAndServiceStatus";
+import ConditionDisclosure from "./customs/ConditionDisclosure";
+import ScoreCard from "./customs/ScoreCard";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -144,6 +146,8 @@ const VehicleInformation = () => {
           width: "100%",
           mt: "20px",
           borderTop: "2px solid #ECECEC",
+          borderBottom: "2px solid #ECECEC",
+
           pt: "10px",
           pb: "10px",
         }}>
@@ -259,6 +263,17 @@ const VehicleInformation = () => {
           </Grid>
         </Grid>
       </Box>
+      <Box
+        sx={{
+          width: "100%",
+          borderBottom: "2px solid #ECECEC",
+
+          pt: "10px",
+          // pb: "10px",
+        }}>
+        <ConditionDisclosure />
+      </Box>
+      <ScoreCard />
     </>
   );
 };
