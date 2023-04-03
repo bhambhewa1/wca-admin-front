@@ -1,7 +1,9 @@
-import { Button, Fade, Grid, Menu, MenuItem, Paper, Typography, styled } from "@mui/material";
+import { Box, Button, Fade, Grid, Menu, MenuItem, Paper, Typography, styled } from "@mui/material";
 import React from "react";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import PrintIcon from "@mui/icons-material/Print";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -33,9 +35,45 @@ const ManheimReport = () => {
   };
   return (
     <>
-      <Typography sx={{ fontSize: "18px", ml: "10px", color: "#000", fontWeight: "700", borderBottom: "2px solid #ECECEC" }}>
-        Manheim
-      </Typography>
+      <Box
+        sx={{
+          borderBottom: "2px solid #ECECEC",
+          display: "flex",
+          justifyContent: "space-between",
+          ml: "10px",
+          mr: "10px",
+          alignItems: "center",
+        }}>
+        <Typography sx={{ fontSize: "18px", ml: "10px", color: "#000", fontWeight: "700" }}>Manheim</Typography>
+
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Button
+            sx={{ textTransform: "none", color: "#1569CA", fontWeight: "600", mb: "2px", p: "8px 0px 8px 0px", ml: "20px" }}
+            id="fade-button"
+            aria-controls={open ? "fade-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}>
+            National
+            {openMenu ? <KeyboardArrowUpIcon sx={{ fontSize: "30px" }} /> : <KeyboardArrowDownIcon sx={{ fontSize: "30px" }} />}
+          </Button>
+          <PrintIcon sx={{ fontSize: "20px", color: "#000", mr: "10px" }} />
+          <OpenInNewIcon sx={{ fontSize: "20px", color: "#000" }} />
+        </Box>
+        <Menu
+          id="fade-menu"
+          MenuListProps={{
+            "aria-labelledby": "fade-button",
+          }}
+          anchorEl={anchorEl}
+          open={openMenu}
+          onClose={handleClose}
+          TransitionComponent={Fade}>
+          <MenuItem onClick={handleClose}>Null</MenuItem>
+          {/* <MenuItem onClick={handleClose}>My account</MenuItem>
+                      <MenuItem onClick={handleClose}>Logout</MenuItem> */}
+        </Menu>
+      </Box>
       <Button
         sx={{ textTransform: "none", color: "#1569CA", fontWeight: "600", mb: "2px", p: "8px 0px 8px 0px", ml: "20px" }}
         id="fade-button"
@@ -44,7 +82,7 @@ const ManheimReport = () => {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}>
         4D SUV R/T
-        {openMenu ? <ArrowDropUpIcon sx={{ fontSize: "20px" }} /> : <ArrowDropDownIcon sx={{ fontSize: "20px" }} />}
+        {openMenu ? <KeyboardArrowUpIcon sx={{ fontSize: "30px" }} /> : <KeyboardArrowDownIcon sx={{ fontSize: "30px" }} />}
       </Button>
       <Menu
         id="fade-menu"
@@ -76,6 +114,7 @@ const ManheimReport = () => {
                 color: "#000",
                 p: "5px",
                 boxShadow: "none",
+                mr: "10px",
               }}>
               {item.text}
               <Typography sx={{ color: index === 0 ? "#000" : "#4BB543", fontSize: "24px" }}>{item.price}</Typography>
@@ -116,6 +155,10 @@ const ManheimReport = () => {
           </Grid>
         ))}
       </Grid>
+      <Typography sx={{ color: "#000", textAlign: "center", bgcolor: "#E9ECF0", ml: "20px", mr: "20px", p: "10px 0px 10px 0px" }}>
+        Estimated retail value $18,000
+      </Typography>
+      <Typography sx={{ textAlign: "center", color: "#000", mt: "10px", mb: "10px" }}>Typical range $14,000 - $22,000</Typography>
     </>
   );
 };
