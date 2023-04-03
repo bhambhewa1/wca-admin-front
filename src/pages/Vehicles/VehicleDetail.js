@@ -22,7 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
   border: "none",
-  boxShadow: "none",
+  boxShadow: "2px",
   fontSize: "12px",
   fontWeight: "600",
 }));
@@ -58,12 +58,12 @@ const VehicleDetail = ({ getVehicleData }) => {
 
   return (
     <>
-      <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600", borderBottom: "3px solid rgba(0, 0, 0, 0.06)" }}>
+      <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600", boxShadow: "3px" }}>
         Vehicle Details
       </Typography>
-      <Grid container spacing={0}>
+      <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }}>
         <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }} item xs={5} sm={6} lg={2} md={3} xl={1.5}>
-          <Item sx={{ boxShadow: "none" }}>
+          <Item sx={{ boxShadow: "none" ,bgcolor: "#F5F9FA"}}>
             <img alt="carimage" className="carImage" src={require("../../assests/BMW2.jfif")} />
           </Item>
         </Grid>
@@ -79,6 +79,7 @@ const VehicleDetail = ({ getVehicleData }) => {
               "&.MuiPaper-root": {
                 textAlign: "left",
               },
+              bgcolor: "#F5F9FA"
             }}>
             <Typography sx={{ fontSize: { xs: "14px", sm: "20px", md: "30px" }, fontWeight: "800" }}>2014 BMW 520</Typography>
             <Typography sx={{ color: "rgba(0, 0, 0, 0.36)", fontSize: { xs: "12px", sm: "14px" } }}>{VINNUMBER}</Typography>
@@ -92,7 +93,7 @@ const VehicleDetail = ({ getVehicleData }) => {
           </Item>
         </Grid>
       </Grid>
-      <Box sx={{ borderColor: "divider", p: 1, justifyContent: "flex-end", display: "flex" }}>
+      <Box sx={{ borderColor: "divider", p: 1, justifyContent: "flex-end", display: "flex",bgcolor: "white" }}>
         <Grid sx={{ display: { xs: "none", sm: "flex" } }} container rowGap={"6px"} columnGap={"6px"}>
           {vehicleData.map((item, index) => (
             <Grid item flex={"1 1 auto"}>
@@ -110,6 +111,7 @@ const VehicleDetail = ({ getVehicleData }) => {
               </Link>
             </Grid>
           ))}
+          
         </Grid>
         <Button
           onClick={handleClick}

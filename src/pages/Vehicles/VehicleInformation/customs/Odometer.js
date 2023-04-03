@@ -20,7 +20,10 @@ const Odometer = () => {
     { price: "Base: 77,000 /", text: "Odometer" },
   ];
   return (
-    <Grid sx={{ mr: "10px" }}>
+    <Grid sx={{
+      mr: "10px",
+      bgcolor: 'white'
+    }}>
       {price1.map((item, index) => (
         <Grid key={index} flex={"1 1 auto"} item>
           <Item

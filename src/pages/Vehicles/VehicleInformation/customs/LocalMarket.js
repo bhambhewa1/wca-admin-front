@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const data = [
   {
-    img:require( '../../../../assests/download.jpg'),
+    img: require('../../../../assests/download.jpg'),
     name: 'Durango',
     price: '$25,499',
     rt: 'R/T 5.7L V8',
@@ -22,11 +22,11 @@ const data = [
     rt: 'R/T 5.7L V8',
     vin: '1C4SDHCT2EC405171',
     mi: '154,217 Mi',
-    type: 'Holly, /mi',
+    type: 'Holly, Mi',
     dom: 115
   },
   {
-    img:  require('../../../../assests/0x0.jpg'),
+    img: require('../../../../assests/0x0.jpg'),
     name: 'Durango',
     price: '$24,999',
     rt: 'R/T 5.7L V8',
@@ -45,7 +45,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 const LocalMarket = () => {
   return (
-    <Box sx={{ p: 1, borderTop: '2px solid #ECECEC' }}>
+    <Box sx={{ p: 1 }}>
       <Grid container sx={{ borderBottom: '2px solid #ECECEC' }} >
         <Grid xs={6}>
           <Typography sx={{ p: 2 }}>Local Market</Typography>
@@ -59,51 +59,51 @@ const LocalMarket = () => {
       </Grid>
       <Grid>
         {data.map((item) => (
-          <Item sx={{bgcolor:'green',mt:2}}>
-          <Grid container  xs={11.9} sx={{bgcolor:'white',ml:1}} >
-            <Grid xs={6} container >
-              <Grid xs={3}>
-                <img
-                style={{
-                  width:'90%',
-                  padding:7
-                }}
-                  src={item.img}
-                />
+          <Item sx={{ bgcolor: 'green', mt: 2 }}>
+            <Grid container xs={11.9}  xl={12} sx={{ bgcolor: 'white', ml: 1 }} >
+              <Grid xs={6} container >
+                <Grid xs={3}>
+                  <img
+                    style={{
+                      width: '90%',
+                      padding: 7
+                    }}
+                    src={item.img}
+                  />
+                </Grid>
+                <Grid xs={9} sx={{ fontSize: '14px' }}>
+                  <Typography sx={{ fontWeight: 800, color: '#000000', fontSize: '16px' }}>{item.name}</Typography>
+                  <Typography>{item.rt}</Typography>
+                  <Grid container>
+                    <Typography sx={{ borderRight: '1px solid black', pr: 1 }}>{item.vin}</Typography>
+                    <Typography sx={{ pl: 1 }}>{item.mi}</Typography>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid xs={9} sx={{fontSize:'14px'}}>
-                <Typography sx={{fontWeight:800,color:'#000000',fontSize:'16px'}}>{item.name}</Typography>
-                <Typography>{item.rt}</Typography>
-                <Grid container>
-                <Typography sx={{borderRight:'1px solid black',pr:1}}>{item.vin}</Typography>
-                <Typography sx={{pl:1}}>{item.mi}</Typography>
-              </Grid>
+              <Grid xs={5.5} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Typography sx={{ fontSize: '14px', fontWeight: '800', color: '#000000' }}>{item.price}</Typography>
               </Grid>
             </Grid>
-            <Grid xs={5.5} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Typography sx={{fontSize:'14px',fontWeight:'800',color:'#000000'}}>{item.price}</Typography>
-            </Grid>
-          </Grid>
-          <Grid container xs={11.9} sx={{bgcolor:'#ECECEC',ml:1}}>
-            <Grid  xs={6} sx={{
-              p:1
-            }}>
-              <Link style={{
-                textDecoration:'none',
-                color:'white',
-                backgroundColor:'#000000',
-                padding:'5px 30px 5px 30px',
-                fontSize:'14px',
-                borderRadius:'5px',
-              }}>Used</Link>
+            <Grid container xs={11.9}  xl={12}  sx={{ bgcolor: '#ECECEC', ml: 1 }}>
+              <Grid xs={6} sx={{
+                p: 1
+              }}>
+                <Link style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                  backgroundColor: '#000000',
+                  padding: '5px 30px 5px 30px',
+                  fontSize: '14px',
+                  borderRadius: '5px',
+                }}>Used</Link>
               </Grid>
-              <Grid xs={5.5}sx={{display:'flex',justifyContent:'flex-end'}}>
-              <Typography sx={{ fontSize:'14px'}}>DOM:</Typography>
-              <Typography sx={{ fontSize:'14px',fontWeight:'700',color:'#000000'}}>{item.dom}</Typography>
-          </Grid>
-          <Grid>
-            <Typography sx={{fontSize:'14px',pl:1}}>{item.type}</Typography>
-            </Grid></Grid>
+              <Grid xs={5.5} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Typography sx={{ fontSize: '14px' }}>DOM:</Typography>
+                <Typography sx={{ fontSize: '14px', fontWeight: '700', color: '#000000' }}>{item.dom}</Typography>
+              </Grid>
+              <Grid>
+                <Typography sx={{ fontSize: '14px', pl: 1 }}>{item.type}</Typography>
+              </Grid></Grid>
           </Item>
         ))}
       </Grid>

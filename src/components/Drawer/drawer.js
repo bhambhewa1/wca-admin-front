@@ -308,7 +308,7 @@ const PermanentDrawerRight = () => {
                       className="drawerItemLinks"
                       style={{ color: text.isActive ? "#fff" : "#B2C1F0" }}
                       to={text.Routes}
-                      onClick={() => (index === 4 ? Logout() :'')}>
+                      onClick={() => (index === 4 ? Logout() : '')}>
                       <ListItemIcon
                         sx={{
                           color: text.isActive ? "#fff" : "#B2C1F0",
@@ -340,9 +340,16 @@ const PermanentDrawerRight = () => {
             ml: open ? "auto" : "",
             bgcolor: "#f9fafe",
           }}>
-          <Item sx={{ m: { xs: 1, sm: 2 } }}>
-            <Index />
-          </Item>
+          {/* {location.pathname === '/vehicles/details/info' &&
+            <Box sx={{ m: { xs: 1, sm: 2 } }}>
+              <Index />
+            </Box>
+          }
+          {location.pathname !== '/vehicles/details/info' && */}
+            <Item sx={{ m: { xs: 1, sm: 2 } }}>
+              <Index />
+            </Item>
+          {/* } */}
         </Box>
         {/* {location.pathname === '/staff'||
         location.pathname === '/staff/update'||

@@ -54,7 +54,7 @@ const data1 = [
 ]
 const ScoreCard = () => {
   return (
-    <Box sx={{boxShadow:'2px solid #ECECEC'}}>
+    <Box >
         <Typography sx={style.headingText}>Scorecard</Typography>
         <Grid container >
         <Grid item xs={6} flex="1 1 auto" sx={{borderRight:'2px solid #ECECEC',mt:'15px',mb:'15px'}}>
