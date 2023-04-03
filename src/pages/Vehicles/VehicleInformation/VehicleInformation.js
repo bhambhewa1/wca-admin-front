@@ -3,11 +3,14 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { Box, Button, Typography } from "@mui/material";
-import CustomGrid from "../../components/Grids/CustomGrid";
-import InputField from "../../components/Input/InputField";
+import CustomGrid from "../../../components/Grids/CustomGrid";
+import InputField from "../../../components/Input/InputField";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Odometer from "./customs/Odometer";
+import Colors from "./customs/Colors";
+import OptionAndServiceStatus from "./customs/OptionAndServiceStatus";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -37,14 +40,7 @@ const VehicleInformation = () => {
     { price: "$10,000", text: "Manhiem" },
     { price: "$10,000", text: "Trade in fair" },
   ];
-  const price1 = [
-    {
-      price:
-        "TRANSMISSION: Noise, Slip, Shudder, Module, Hard Engagement and/or Shift|Timing Component: Failure/Noise/Chain Stretch/Guide Failure|Gasket Leak: Timing Cover|Rust: Rocker Panels/Body Panels/Undercarriage / Recalls",
-      text: "Common Problems",
-    },
-    { price: "Base: 77,000 /", text: "Odometer" },
-  ];
+
   const purchasePrice = [{ price: "", text: "Enter Purchase price" }, ""];
   return (
     <>
@@ -151,7 +147,7 @@ const VehicleInformation = () => {
           pt: "10px",
           pb: "10px",
         }}>
-        <Grid container columnGap={"12px"} rowGap={"12px"}>
+        <Grid columnGap={"12px"} rowGap={"12px"} flexDirection={"row"} display={"flex"}>
           <Grid
             flex={"1 1 auto"}
             sx={{
@@ -172,107 +168,8 @@ const VehicleInformation = () => {
                 boxShadow: "none",
                 p: "0px",
               }}>
-              <Grid sx={{ mr: "10px" }}>
-                {price1.map((item, index) => (
-                  <Grid key={index} flex={"1 1 auto"} item>
-                    <Item
-                      sx={{
-                        p: "10px 0px 20px 0px",
-                        fontSize: "14px",
-                        color: "#000",
-                        boxShadow: "none",
-                        borderBottom: "2px solid #ECECEC",
-                        borderRadius: "0px",
-                        textAlign: "left",
-                        fontWeight: "700",
-                      }}>
-                      {item.text}
-                      <Typography
-                        sx={{
-                          fontSize: "12px",
-                          color: index === 0 ? "#FF2C2C" : "#707070",
-                          mt: "10px",
-                          fontWeight: "600",
-                          display: "flex",
-                          alignItems: "center",
-                          // justifyContent: "space-between",
-                        }}>
-                        {item.price}
-                        {index === 1 ? <Button sx={{ textTransform: "none" }}>Set to base</Button> : ""}
-                        {index === 1 ? (
-                          <Typography sx={{ width: "70%", display: "flex", justifyContent: "flex-end" }}>
-                            <Typography
-                              sx={{
-                                border: "2px solid #ECECEC",
-                                p: "8px 20px 8px 20px",
-                                borderRadius: "5px",
-                                color: "#000",
-                                fontWeight: "600",
-                              }}>
-                              18000mi
-                            </Typography>
-                          </Typography>
-                        ) : (
-                          ""
-                        )}
-                      </Typography>
-                    </Item>
-                  </Grid>
-                ))}
-              </Grid>
-              <Grid columnGap={"10px"} container>
-                <Grid
-                  flex={"1 1 auto"}
-                  sx={{
-                    borderRight: "2px solid #ECECEC",
-                    mt: "10px",
-                  }}
-                  item>
-                  <Item
-                    sx={{
-                      p: "0px 20px 0px 0px",
-                      fontSize: "14px",
-                      color: "#000",
-                      boxShadow: "none",
-                      textAlign: "left",
-                      borderRadius: "0px",
-                    }}>
-                    Colors
-                    <Box sx={{ display: "flex", justifyContent: "space-between", width: "75%", mt: "10px" }}>
-                      <Box sx={{ p: "10px", bgcolor: "whitesmoke", borderRadius: "5px", border: "1px solid #ECECEC" }}></Box>
-                      <Typography>Exterior</Typography>
-                      <Box sx={{ p: "10px", bgcolor: "black", borderRadius: "5px" }}></Box>
-                      <Typography>Black</Typography>
-                    </Box>
-                  </Item>
-                </Grid>
-                <Grid
-                  flex={"1 1 auto"}
-                  sx={{
-                    pt: "15px",
-                    ml: "30px",
-                  }}
-                  item>
-                  <Item
-                    sx={{
-                      p: "0px",
-                      fontSize: "14px",
-                      color: "#000",
-                      boxShadow: "none",
-                      textAlign: "left",
-                    }}>
-                    Keys
-                    <Typography sx={{ display: "flex", justifyContent: "space-between", width: "70%", mt: "10px" }}>
-                      {[0, 1, 2, "+3"].map((item) => (
-                        <Typography
-                          sx={{ fontSize: "16px", color: "#000", mb: "20px", border: "2px solid #ECECEC", p: "0px 10px 0px 10px" }}>
-                          {item}
-                        </Typography>
-                      ))}
-                    </Typography>
-                  </Item>
-                </Grid>
-              </Grid>
+              <Odometer />
+              <Colors />
               <Box
                 sx={{
                   width: "100%",
@@ -328,6 +225,7 @@ const VehicleInformation = () => {
               sx={{
                 // pt: "20px",
                 // pb: "20px",
+                bgcolor: "red",
                 fontSize: "12px",
                 fontWeight: "700",
                 color: "#000",
@@ -335,6 +233,29 @@ const VehicleInformation = () => {
                 boxShadow: "none",
                 p: "0px",
               }}></Item>
+          </Grid>
+          <Grid
+            flex={"1 1 auto"}
+            sx={{
+              ml: "10px",
+              mr: "10px",
+              borderRight: "2px solid #ECECEC",
+              maxWidth: "50%",
+            }}
+            item>
+            <Item
+              sx={{
+                // pt: "20px",
+                // pb: "20px",
+                fontSize: "12px",
+                fontWeight: "700",
+                color: "#000",
+                textAlign: "left",
+                boxShadow: "none",
+                p: "0px",
+              }}>
+              <OptionAndServiceStatus />
+            </Item>
           </Grid>
         </Grid>
       </Box>
