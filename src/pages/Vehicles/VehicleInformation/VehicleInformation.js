@@ -155,7 +155,8 @@ const VehicleInformation = () => {
           <Grid
             flex={"1 1 auto"}
             xs={12}
-            sm={5.8}
+            sm={5.6}
+            xl={5.8}
             sx={{
               ml: "10px",
               mr: "10px",
@@ -243,7 +244,8 @@ const VehicleInformation = () => {
           <Grid
             flex={"1 1 auto"}
             xs={12}
-            sm={5.7}
+            sm={5.6}
+            xl={5.8}
             sx={{
               ml: "10px",
               mr: "10px",
