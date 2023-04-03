@@ -344,7 +344,7 @@ const PermanentDrawerRight = () => {
             <Index />
           </Item>
         </Box>
-        {location.pathname === '/staff'||
+        {/* {location.pathname === '/staff'||
         location.pathname === '/staff/update'||
          location.pathname==='/vehicles/negotiating'||
          location.pathname==='/customers'||
@@ -375,7 +375,7 @@ const PermanentDrawerRight = () => {
               </Button>
             </DialogActions>
           </Dialog>
-        }
+        } */}
         <AlertDialog
           title={"Are you sure you want to logout"}
           open={openLogoutAlert}

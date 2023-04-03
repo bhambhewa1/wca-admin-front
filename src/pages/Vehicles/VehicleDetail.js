@@ -44,9 +44,9 @@ const VehicleDetail = ({getVehicleData}) => {
   ];
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    getVehicleData(data).then((res) => {
-      console.log(res.data);
-    })
+    // getVehicleData(data).then((res) => {
+    //   console.log(res.data);
+    // })
   }, []);
   const openMenu = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -158,7 +158,7 @@ const VehicleDetail = ({getVehicleData}) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-      getVehicleData: (data) => dispatch(getVehicleData(data)),
+      // getVehicleData: (data) => dispatch(getVehicleData(data)),
     };
   };
   
