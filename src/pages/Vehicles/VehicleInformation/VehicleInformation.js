@@ -13,6 +13,8 @@ import Colors from "./customs/Colors";
 import OptionAndServiceStatus from "./customs/OptionAndServiceStatus";
 import ConditionDisclosure from "./customs/ConditionDisclosure";
 import ScoreCard from "./customs/ScoreCard";
+import LocalMarket from "./customs/LocalMarket";
+import ManheimReport from "./customs/ManheimReport";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -280,6 +282,10 @@ const VehicleInformation = () => {
         <ConditionDisclosure />
       </Box>
       <ScoreCard />
+
+      <ManheimReport />
+
+      <LocalMarket />
     </>
   );
 };
