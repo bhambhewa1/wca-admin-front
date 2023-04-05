@@ -6,7 +6,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
 
-const AlertDialog = ({ title, text, open, onClickButton, onClickButtonCancel }) => {
+const AlertDialog = ({ title, image, text, open, onClickButton, onClickButtonCancel }) => {
   return (
     <div>
       <Dialog
@@ -19,7 +19,7 @@ const AlertDialog = ({ title, text, open, onClickButton, onClickButtonCancel }) 
         </DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ fontSize: "16px", color: "#A8A8A8", minWidth: "260px" }} id="alert-dialog-description">
-            {text}
+           {image ? <img src={image} alt="img" /> : text }
           </DialogContentText>
         </DialogContent>
         <DialogActions>
