@@ -25,6 +25,7 @@ import {
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
+import { CONFIGURATION } from '../../routes/constURL';
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -265,7 +266,8 @@ const VehicleLoan = () => {
     };
     return (
         <>
-            <Grid container rowGap={"20px"} flex={"1 1 auto"} columnGap={"20px"} sx={{ borderTop: "1px solid #ECECEC", borderBottom: "1px solid #ECECEC" }}>
+    <Item >
+            <Grid container rowGap={"20px"} flex={"1 1 auto"} columnGap={"20px"} >
                 {/* <Grid flex="1 1 auto" sx={{
                     display: 'flex', flexDirection: { xs: 'column', sm: 'row' },
                     // "&.MuiGrid-root": {
@@ -355,19 +357,19 @@ const VehicleLoan = () => {
                         <Item sx={{
                             fontWeight: 700,
                             bgcolor: "#4969B2",
-                            width: '100px',
+                            // width: '100px',
                             mt: { xs:2, sm: 2 },
                             mb: 2,
                             mr: 2,
                             // height: { xs: '40%', sm: '55%' }
                         }}>
-                            <Link style={{
+                            <Link to={CONFIGURATION} style={{
                                 display: 'flex',
                                 textDecoration: "none",
                                 justifyContent: 'space-around'
                             }}>
                                 <EditIcon sx={{ color: "white", fontSize: "20px" }} />
-                                <Typography sx={{ color: 'white', fontSize: "14px" }}>Configure</Typography>
+                                <Typography sx={{ color: 'white', fontSize: "14px" }}>Configuration</Typography>
                             </Link>
                         </Item>
                     </Grid>
@@ -637,6 +639,7 @@ const VehicleLoan = () => {
                     </Grid>
                 </Grid>
             </Item>
+    </Item >
         </>
     )
 }

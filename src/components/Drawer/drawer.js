@@ -48,7 +48,8 @@ const PermanentDrawerRight = () => {
   const [data, setData] = React.useState(drawerData);
 
   let URL = location.pathname;
-
+  const trimmedURL = URL.slice(0, 15);
+  
   React.useEffect(() => {
 
     const trimmedURL = URL.slice(0, 6);
@@ -308,7 +309,7 @@ const PermanentDrawerRight = () => {
                       className="drawerItemLinks"
                       style={{ color: text.isActive ? "#fff" : "#B2C1F0" }}
                       to={text.Routes}
-                      onClick={() => (index === 4 ? Logout() : '')}>
+                      onClick={() => (index === 5 ? Logout() : '')}>
                       <ListItemIcon
                         sx={{
                           color: text.isActive ? "#fff" : "#B2C1F0",
@@ -340,12 +341,12 @@ const PermanentDrawerRight = () => {
             ml: open ? "auto" : "",
             bgcolor: "#f9fafe",
           }}>
-          {location.pathname === '/vehicles/details/info' &&
+          {trimmedURL === '/vehicles/detai' &&
             <Box sx={{ m: { xs: 1, sm: 2 } }}>
               <Index />
             </Box>
           }
-          {location.pathname !== '/vehicles/details/info' &&
+          {trimmedURL !== '/vehicles/detai' &&
             <Item sx={{ m: { xs: 1, sm: 2 } }}>
               <Index />
             </Item>

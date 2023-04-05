@@ -58,7 +58,7 @@ const VehicleInfoData = () => {
                             flex={"1 1 auto"}
                             sx={{
                                 ml: "10px",
-                                mr: "10px",
+                                // mr: "10px",
                                 borderRight: index === 0 || index === 1 ? "2px solid #ECECEC" : "",
                                 pt: "15px",
                                 pb: "10px",
@@ -152,16 +152,17 @@ const VehicleInfoData = () => {
                 }}>
                 <Grid container sx={{
                     borderBottom: "2px solid #ECECEC",
+                    pb: "10px",
 
                 }}>
                     <Grid
                         flex={"1 1 auto"}
                         xs={12}
-                        sm={5.6}
-                        xl={5.8}
+                        sm={5.8}
+                        xl={5.9}
                         sx={{
                             ml: "10px",
-                            mr: "10px",
+                            // mr: "10px",
                             borderRight: "2px solid #ECECEC",
                             // maxWidth: "50%",
                         }}
@@ -246,16 +247,9 @@ const VehicleInfoData = () => {
                     <Grid
                         flex={"1 1 auto"}
                         xs={12}
-                        sm={5.6}
-                        xl={5.8}
-                        sx={{
-                            ml: "10px",
-                            mr: "10px",
-                            // borderRight: "2px solid #ECECEC",
-
-                            // maxWidth: "50%",
-                        }}
-                        item>
+                        sm={5.8}
+                        xl={5.9}
+                        item sx={{ml:'10px'}}>
                         <Item
                             sx={{
                                 // pt: "20px",

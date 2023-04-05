@@ -27,7 +27,6 @@ const TruckingCompaniesList = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        p: 3,
       }}>
       <TopBox
         headerText={"Trucking companies"}
@@ -40,13 +39,14 @@ const TruckingCompaniesList = () => {
       />
       <Dialog open={open}>
         <form handleSubmit={Submit}>
-          <DialogTitle sx={{ borderBottom: "1px solid #dddddd" }}>Add Vehicle</DialogTitle>
-          <DialogContent sx={{ borderBottom: "1px solid #dddddd" }}>
-            <FormLabel>Enter VIN number</FormLabel>
+          <DialogTitle sx={{ borderBottom: "1px solid #dddddd" ,fontSize:'16px',fontWeight:'700'}}>Add Trucking company</DialogTitle>
+          <DialogContent sx={{ borderBottom: "1px solid #dddddd" ,p:'20px'}}>
+            <FormLabel sx={{fontSize:'14px'}}>Add Company name</FormLabel>
             <TextField
               variant="filled"
               sx={{ width: "100%" }}
               InputProps={{ disableUnderline: true }}
+              placeholder="Please enter company name"
               inputProps={{
                 style: {
                   paddingTop: "8px",
@@ -119,8 +119,8 @@ const TruckingCompaniesList = () => {
                 variant="outlined"
                 className="btn"
                 // type="submit"
-                onClick={Submit}>
-                Next
+                >
+                Save
               </Button>
             </Box>
           </DialogActions>
@@ -140,14 +140,14 @@ const TruckingCompaniesList = () => {
           <TableBody sx={{ border: "1px solid #ECECEC" }}>
             {rows.map((row) => (
               <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell sx={Style.table.tableCell} align="left">
+                <TableCell sx={Style.table.tableCell} style={{width:'530px'}} align="left">
                   {row.name}
                 </TableCell>
-                <TableCell sx={Style.table.tableCell} align="left">
+                <TableCell sx={Style.table.tableCell}style={{width:'230px'}} align="left">
                   {row.createdOn}
                 </TableCell>
 
-                <TableCell align="left" sx={Style.table.tableCell}>
+                <TableCell align="left" >
                   <IconLinkButton buttonName={"Edit"} onClickLink={VEHICLEINFO} />
                   <IconLinkButton />
                 </TableCell>

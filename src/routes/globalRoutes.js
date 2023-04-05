@@ -18,6 +18,7 @@ import { VEHICLEDETAIL } from "./constURL";
 import { LOGIN } from "./constURL";
 import { SOLDANDUNSOLDVEHICLES } from "./constURL";
 import { STAFFADD } from "./constURL";
+import { CONFIGURATION } from "./constURL";
 
 import TruckingCompaniesList from "../pages/TruckingCompanies/TruckingCompaniesList";
 import VehicleList from "../pages/Vehicles/VehicleList";
@@ -41,6 +42,7 @@ import EsignDocument from "../pages/Vehicles/EsignDocument";
 import Checks from "../pages/Vehicles/Checks";
 import Notes from "../pages/Vehicles/Notes";
 import OpenRoutes from "./openRoutes";
+import Configuration from "../pages/Vehicles/Configuration";
 
 export const globalRoutes = [
   {
@@ -135,6 +137,7 @@ export const globalRoutes = [
         element: Notes,
         routeType: ProtectedRoute,
       },
+      
     ],
   },
   {
@@ -145,6 +148,11 @@ export const globalRoutes = [
   {
     path: STAFFADD,
     element: StaffForm,
+    routeType: ProtectedRoute,
+  },
+  {
+    path: CONFIGURATION,
+    element: Configuration,
     routeType: ProtectedRoute,
   },
 ];

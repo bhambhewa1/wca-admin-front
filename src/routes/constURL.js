@@ -19,3 +19,4 @@ export const STAFFADD = "/staff/update";
 export const VEHICLELOAN = "/vehicles/details/loan"
 export const DOCUMENTSUPLOAD = "/vehicles/details/documentsupload"
 export const CUSTOMERUPDATE = '/customers/update'
+export const CONFIGURATION = '/loan/configuration'

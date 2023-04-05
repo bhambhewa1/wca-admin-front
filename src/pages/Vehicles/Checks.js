@@ -48,6 +48,7 @@ const Checks = () => {
   };
   return (
     <>
+    <Item >
       <Grid container sx={{ boxShadow: '1px solid #dddddd', borderTop: '1px solid #dddddd' }}>
         <Dialog open={open}>
           <form handleSubmit={Submit}>
@@ -347,6 +348,7 @@ const Checks = () => {
           </TableBody>
         </Table>
       </Grid>
+      </Item >
     </>
   )
 }

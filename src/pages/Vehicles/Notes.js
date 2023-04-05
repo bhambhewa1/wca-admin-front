@@ -1,10 +1,19 @@
-import { FormLabel, Grid, TextField } from '@mui/material'
+import styled from '@emotion/styled';
+import { FormLabel, Grid, Paper, TextField } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+const Item = styled(Paper)(({ theme }) => ({
+    // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    // ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'left',
+    // color: theme.palette.text.secondary,
+    boxShadow: 'none'
+}));
 const Notes = () => {
   return (
+    <Item >
    <Grid sx={{p:2,borderTop:'1px solid #dddddd',pt:5,pb:15}}>
     <form>
         <Box sx={{display:'flex',flexDirection:'column'}}>
@@ -37,6 +46,7 @@ const Notes = () => {
         </Link>
     </form>
    </Grid>
+   </Item >
   )
 }
 
