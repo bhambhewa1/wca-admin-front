@@ -45,17 +45,17 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     setLoading(true);
     getStaffList(data).then((res) => {
       setLoading(false);
-      if (res?.data?.total_records === 0) {
-        setTotal(res?.data?.total_records);
-        setPages(res?.data?.pages);
-        setRows(res?.data?.staff_list);
-      } else if (res?.data?.status) {
-        setRows(res?.data?.staff_list);
-        setPages(res?.data?.pages);
-        setTotal(res?.data?.total_records);
+      if (res?.data?.data?.total_records === 0) {
+        setTotal(res?.data?.data?.total_records);
+        setPages(res?.data?.data?.pages);
+        setRows(res?.data?.data?.staff_list);
+      } else if (res?.data?.data?.status) {
+        setRows(res?.data?.data?.staff_list);
+        setPages(res?.data?.data?.pages);
+        setTotal(res?.data?.data?.total_records);
       } else {
-        setRows(res?.data?.staff_list);
-        setPages(res?.data?.pages);
+        setRows(res?.data?.data?.staff_list);
+        setPages(res?.data?.data?.pages);
         res?.data?.errors.map((error) => {
           toast.error(error);
         });
@@ -109,25 +109,24 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         toast.success(res?.data?.message);
         getStaffList(data).then((res) => {
           setLoading(false);
-          if (res?.data?.total_records === 0) {
-            setTotal(res?.data?.total_records);
-            setPages(res?.data?.pages);
-            setRows(res?.data?.staff_list);
-          } else if (res?.data?.status) {
-            setRows(res?.data?.staff_list);
-            setLength(res?.data?.total_records <= 10 ? 10 : 20)
-            setPages(res?.data?.pages);
-            setPage(1)
-            setTotal(res?.data?.total_records);
+          if (res?.data?.data?.total_records === 0) {
+            setTotal(res?.data?.data?.total_records);
+            setPages(res?.data?.data?.pages);
+            setRows(res?.data?.data?.staff_list);
+          } else if (res?.data?.data?.status) {
+            setRows(res?.data?.data?.staff_list);
+            setLength(res?.data?.data?.total_records <= 10 ? 10 : 20);
+            setPages(res?.data?.data?.pages);
+            setPage(1);
+            setTotal(res?.data?.data?.total_records);
           } else {
-            setRows(res?.data?.staff_list);
-            setPages(res?.data?.pages);
+            setRows(res?.data?.data?.staff_list);
+            setPages(res?.data?.data?.pages);
             res?.data?.errors.map((error) => {
               toast.error(error);
             });
           }
-        }
-        )
+        });
       } else {
         res?.data?.errors.map((error) => {
           toast.error(error);
@@ -157,6 +156,9 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     setLength(e.target.value);
     // getList();
   };
+  {
+  }
+
   return (
     <Box
       sx={{
@@ -281,34 +283,43 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
             justifyContent: "space-between",
             p: 1,
           }}>
-          <Typography sx={{
-            pl: { xs: 0, sm: 3 }, fontWeight: 400, fontSize: { xs: "12px", sm: "16px" },
-            '&.MuiTypography-root': {
-              width: '100%',
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: { xs: "center", md: "flex-start" },
+          <Typography
+            sx={{
+              pl: { xs: 0, sm: 3 },
+              fontWeight: 400,
+              fontSize: { xs: "12px", sm: "16px" },
+              "&.MuiTypography-root": {
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: { xs: "center", md: "flex-start" },
 
-              mb: 1
-            }
-          }}>
+                mb: 1,
+              },
+            }}>
             Number of Rows per Page
             <Select
               variant="standard"
               value={length}
               disableUnderline
               SelectDisplayProps={{
-                style: { padding: "0px 10px", color: 'rgba(0, 0, 0, 0.6)', backgroundColor: 'transparent' ,display: 'flex',
-                justifyContent: 'space-between',marginRight:'4px'}
+                style: {
+                  padding: "0px 10px",
+                  color: "rgba(0, 0, 0, 0.6)",
+                  backgroundColor: "transparent",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginRight: "4px",
+                },
               }}
               onChange={handleChange}
               sx={{
                 ml: { xs: 0, sm: 1 },
                 mr: { xs: 0, sm: 1 },
                 // width: {xs:'20%',sm:'5%'},
-                fontSize: {xs:"14px",sm:"16px"},
-                display: 'flex',
-                justifyContent: 'space-between',
+                fontSize: { xs: "14px", sm: "16px" },
+                display: "flex",
+                justifyContent: "space-between",
               }}>
               <MenuItem value={5}>5</MenuItem>
               {total > 5 && <MenuItem value={10}>10</MenuItem>}
@@ -321,7 +332,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
               count={pages}
               page={page}
               boundaryCount={1}
-              sx={{ button: { fontSize: "16px", mr: 1 }, width: '100%', display: 'flex', justifyContent: { xs: 'center', md: 'flex-end' } }}
+              sx={{ button: { fontSize: "16px", mr: 1 }, width: "100%", display: "flex", justifyContent: { xs: "center", md: "flex-end" } }}
               onChange={handlePageChange}
               siblingCount={0}
             />
