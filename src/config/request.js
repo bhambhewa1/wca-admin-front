@@ -23,10 +23,10 @@ export const apiRequest = async (url, data, contentTypeJson = false) => {
       });
       if (res.data.code == 401) {
         toast.error("Token is expired. Please login again");
-        // setTimeout(() => {
-        //   localStorage.clear();
-        //   window.location.href = "/";
-        // }, 2000);
+        setTimeout(() => {
+          localStorage.clear();
+          window.location.href = "/";
+        }, 2000);
       } else {
         return res ? res : res.data;
       }
@@ -50,10 +50,10 @@ export const PostRequest = async (url, data) => {
     });
     if (res.data.code == 401) {
       toast.error("Token is expired. Please login again");
-      // setTimeout(() => {
-      //   localStorage.clear();
-      //   window.location.href = "/";
-      // }, 2000);
+      setTimeout(() => {
+        localStorage.clear();
+        window.location.href = "/";
+      }, 2000);
     } else {
       return res ? res : res.data;
     }
