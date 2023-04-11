@@ -2,7 +2,7 @@ export const Style = {
   table: {
     tableWrapBox: {
       overflow: "auto",
-      p: 3,
+      p: {xs:1,sm:3},
       
     },
     tableBox: {

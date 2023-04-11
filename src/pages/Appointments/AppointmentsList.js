@@ -175,7 +175,7 @@ const AppointmentsList = ({ getAppointmentList, deleteAppointment }) => {
             justifyContent: "center",
             pt: 20,
             pb: 20,
-            fontSize: "35px",
+            fontSize:  {xs:'20px',sm:"35px"},
             color: "#A8A8A8",
             fontWeight: "700",
           }}

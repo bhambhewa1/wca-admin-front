@@ -26,7 +26,16 @@ const Item = styled(Paper)(({ theme }) => ({
   fontSize: "12px",
   fontWeight: "600",
 }));
-
+const Item1 = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "left",
+  color: theme.palette.text.secondary,
+  border: "none",
+  boxShadow: "2px",
+  fontSize: "12px",
+  fontWeight: "600",
+}));
 const VehicleDetail = ({ getVehicleData }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -65,11 +74,11 @@ const VehicleDetail = ({ getVehicleData }) => {
   // }));
   return (
     <>
-    <Item sx={{textAlign:'left'}}>
+    <Item1>
       <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600"}}>
         Vehicle Details
       </Typography>
-      </Item>
+      </Item1>
       <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none" ,mt:2}}>
         <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }} item xs={5} sm={6} lg={2} md={3} xl={1.5}>
           <Item sx={{ boxShadow: "none" ,bgcolor: "#F5F9FA"}}>

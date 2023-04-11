@@ -48,7 +48,7 @@ const VehicleInfoData = () => {
             <Box
                 sx={{
                     width: "100%",
-                    mt: "20px",
+                    // mt: "20px",
                     borderTop: "2px solid #ECECEC",
                 }}>
                 <Grid container columnGap={"12px"}>

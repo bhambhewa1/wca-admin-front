@@ -431,11 +431,13 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
 
                         </Box>
                         <Box sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            width: '100%',
-                            pl: 3,
-                            pr: 3
+                            display: "flex",
+                            flexDirection: { xs: 'column', sm: "row" },
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "95%",
+                            // pl: 3,
+                            // pr: 3
                         }}>
                             {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
                             {!loading && (
@@ -477,7 +479,10 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                             )}
                             {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
                             {!loading && (
-                                <Box sx={{ width: { xs: '100%', sm: '65%' } }}>
+                                <Box sx={{
+                                    width: { xs: '100%', sm: '65%' },
+                                    pt: { xs: 2, sm: 0 }
+                                }}>
                                     <FormLabel sx={Style.label}>
                                         Address
                                         <span style={Style.star}>*</span>
@@ -514,7 +519,7 @@ const StaffForm = ({ getCustomerdata, updateCustomer }) => {
                         </Box>
                     </Box>
                     {location.state && (
-                        <Typography sx={{ mb: 2, ml: 3,mt:1 }}>
+                        <Typography sx={{ mb: 2, ml: 3, mt: 1 }}>
                             <input
                                 type="checkbox"
                                 name="validate_Password"

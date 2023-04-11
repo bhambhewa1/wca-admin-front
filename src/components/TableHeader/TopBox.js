@@ -141,7 +141,7 @@ const TopBox = ({
             aria-label="basic tabs example"
             sx={{
               borderBottom: "none",
-              width: {xs:"100%",sm:"50%"},pl:3
+              width: {xs:"100%",sm:"50%"},pl:{xs:1,sm:3}
             }}>
             <Tab classes={tabClasses}
               label={button_two}
@@ -164,7 +164,7 @@ const TopBox = ({
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           justifyContent: "space-between",
-          p: 3,
+          p: {xs:1,sm:3},
           pb: 0,
         }}>
         <Box
@@ -188,8 +188,8 @@ const TopBox = ({
                 borderRadius: "5px",
                 fontSize: "16px",
                 width: {
-                  xs: "30vw",
-                  sm: "30vw",
+                  xs: "100%",
+                  sm: "100%",
                   md: "210px",
                   lg: "262px",
                   xl: "262px",
@@ -268,7 +268,7 @@ const style = {
     // width: "120px",
     textTransform: "none",
     height: "40px",
-    fontSize: "18px",
+    fontSize: {xs:'12px',sm:"18px"},
   },
   button_two: {
     bgcolor: "#FF8D2A",
@@ -285,11 +285,12 @@ const style = {
     fontSize: "18px",
   },
   headingText: {
-    fontSize: "20px",
+    fontSize: {xs:'14px',sm:"20px"},
     fontWeight: "700",
     color: "#000000",
     p: { xs: 1, sm: 3 },
-    pt: 2.5
+    display:'flex',
+    alignItems:'center'
   },
   typographyStyle1: {
     fontFamily: "Effra",

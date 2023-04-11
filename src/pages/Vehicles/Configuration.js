@@ -43,7 +43,7 @@ const Configuration = () => {
         // navigate("/vehicles/details/esigndocument");
     };
     return (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: {xs:1,sm:3} }}>
             <Dialog open={open} >
                 <form handleSubmit={Submit} style={{ width: '100%' }}>
                     <DialogTitle sx={{ borderBottom: "1px solid #dddddd", fontSize: '16px', fontWeight: '700' }}>Edit Pay off status</DialogTitle>
