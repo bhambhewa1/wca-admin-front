@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-const IconLinkButton = ({ buttonName, onClickLink, onClickButton }) => {
+const IconLinkButton = ({ buttonName, onClickLink, onClickButton, state }) => {
   return (
     <>
       {buttonName === "Edit" ? (
-        <Link to={onClickLink} style={{ textTransform: "none" }}>
+        <Link state={state} to={onClickLink} style={{ textTransform: "none" }}>
           <img
             alt="edit"
             style={{

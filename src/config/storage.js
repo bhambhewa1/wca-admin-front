@@ -6,6 +6,7 @@ const LS_KEY = {
   user: "User",
   user_id: "User_id",
   staff_id: "staff_id",
+  vehicle_id: "vehicle_id",
 };
 
 const set = {
@@ -21,6 +22,9 @@ const set = {
   user: (data) => {
     localStorage.setItem(LS_KEY.user, JSON.stringify(data));
   },
+  vehicleId: (data) => {
+    localStorage.setItem(LS_KEY.vehicle_id, data);
+  },
   staffId: (data) => {
     localStorage.setItem(LS_KEY.staff_id, data);
   },
@@ -29,6 +33,15 @@ const set = {
 const fetch = {
   authToken: () => {
     const data = localStorage.getItem(LS_KEY.auth_token);
+    if (data) {
+      try {
+        const decoded = data;
+        return decoded;
+      } catch (err) {}
+    }
+  },
+  vehicleId: () => {
+    const data = localStorage.getItem(LS_KEY.vehicle_id);
     if (data) {
       try {
         const decoded = data;
