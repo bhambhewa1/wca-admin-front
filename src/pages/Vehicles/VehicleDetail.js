@@ -30,7 +30,7 @@ const Item = styled(Paper)(({ theme }) => ({
   fontWeight: "600",
 }));
 
-const VehicleDetail = ({ getVehicleData,editVehicleItem }) => {
+const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   const location = useLocation();
   // let data = location.state;
   const id = useParams();
@@ -82,12 +82,10 @@ const VehicleDetail = ({ getVehicleData,editVehicleItem }) => {
   // }));
   return (
     <>
-    <Item sx={{textAlign:'left'}}>
-      <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600"}}>
-        Vehicle Details
-      </Typography>
+      <Item sx={{ textAlign: "left" }}>
+        <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600" }}>Vehicle Details</Typography>
       </Item>
-      <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none" ,mt:2}}>
+      <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}>
         <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }} item xs={5} sm={6} lg={2} md={3} xl={1.5}>
           <Item sx={{ boxShadow: "none", bgcolor: "#F5F9FA" }}>
             <img alt="carimage" className="carImage" src={require("../../assests/BMW2.jfif")} />
@@ -111,12 +109,17 @@ const VehicleDetail = ({ getVehicleData,editVehicleItem }) => {
               {loading && <Skeleton sx={{ width: "300px", height: "60px" }} />}
               {carName && carName?.map((item, index) => <Typography sx={{ mr: "10px" }}>{item === "undefined" ? "" : item}</Typography>)}
             </Typography>
-            <Typography sx={{ color: "rgba(0, 0, 0, 0.36)", fontSize: { xs: "12px", sm: "14px" } }}>
+            <Typography sx={{ color: "rgba(0, 0, 0, 0.36)", fontSize: { xs: "12px", sm: "14px" }, fontWeight: "700" }}>
               {typeof vehicData != "undefined" ? vehicData?.vin : <Skeleton sx={{ width: "100px", height: "30px" }} />}
             </Typography>
             <button
               className="copyButton"
-              style={{ backgroundColor: "transparent", cursor: "pointer" }}
+              style={{
+                backgroundColor: "transparent",
+                cursor: "pointer",
+                border: "0.5px solid rgba(0, 0, 0, 0.10)",
+                width: "10%",
+              }}
               onClick={() => navigator.clipboard.writeText(vehicData?.vin)}>
               <FileCopyOutlinedIcon sx={{ mr: "5px" }} />
               Copy VIN

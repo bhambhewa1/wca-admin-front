@@ -233,6 +233,8 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
       <LoaderComponent open={loading} />
       <Dialog open={open}>
         <DialogTitle sx={{ borderBottom: "1px solid #dddddd" }}>Add Vehicle</DialogTitle>
+        <LoaderComponent open={loading} />
+
         <DialogContent
           sx={{
             borderBottom: "1px solid #dddddd",
@@ -349,7 +351,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
               justifyContent: "center",
               pt: 20,
               pb: 20,
-              fontSize:  {xs:'20px',sm:"35px"},
+              fontSize: { xs: "20px", sm: "35px" },
               color: "#A8A8A8",
               fontWeight: "700",
             }}>
