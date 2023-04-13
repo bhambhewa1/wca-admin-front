@@ -43,12 +43,12 @@ const useStyles = makeStyles((theme) => ({
       },
       [theme.breakpoints.down("xs")]: {
         fontSize: "0.65rem",
-        width: "50%"
+        width: "50%",
       },
       backgroundColor: "rgba(42, 34, 70, 0.1)",
       color: "#3D2E57",
       textTransform: "none",
-      marginRight: '7%',
+      marginRight: "7%",
     },
   },
 }));
@@ -80,7 +80,7 @@ const TopBox = ({
 
   const navigate = useNavigate();
   const location = useLocation();
-  const handleTabChange = (event, newValue) => { };
+  const handleTabChange = (event, newValue) => {};
 
   const handleSearch = (e) => {
     setSearch_val(e.target.value);
@@ -97,7 +97,7 @@ const TopBox = ({
   //     onSubmit("");
   //   }
   // };
- 
+
   return (
     <Box
       sx={{
@@ -107,7 +107,6 @@ const TopBox = ({
         flexDirection: "column",
         // justifyContent: "space-between",
       }}>
-      
       <Box
         sx={{
           display: "flex",
@@ -119,19 +118,21 @@ const TopBox = ({
           // borderTop: "3px solid rgba(0, 0, 0, 0.06)",
         }}>
         <Typography sx={style.headingText}>{headerText}</Typography>
-        {location.pathname !== "/vehicles/purchased" && location.pathname !== "/vehicles/soldandunsold" && location.pathname !== "/appointments" && (
-          <Button variant="contained" onClick={button_one_onClick} sx={style.button_one}>
-            {button_one}
-          </Button>
-        )}
+        {location.pathname !== "/vehicles/purchased" &&
+          location.pathname !== "/vehicles/soldandunsold" &&
+          location.pathname !== "/appointments" && (
+            <Button variant="contained" onClick={button_one_onClick} sx={style.button_one}>
+              {button_one}
+            </Button>
+          )}
       </Box>
 
       {(location.pathname === "/vehicles/negotiating" || location.pathname === "/vehicles/purchased") && (
         <Box
           sx={{
             display: "flex",
-            pb: 2,
-            pt: 2,
+            // pb: 2,
+            pt: "20px",
             borderColor: "divider",
           }}>
           <Tabs
@@ -141,20 +142,11 @@ const TopBox = ({
             aria-label="basic tabs example"
             sx={{
               borderBottom: "none",
-              width: {xs:"100%",sm:"50%"},pl:{xs:1,sm:3}
+              width: { xs: "100%", sm: "50%" },
+              pl: { xs: 1, sm: 3 },
             }}>
-            <Tab classes={tabClasses}
-              label={button_two}
-              value={route[0]}
-              LinkComponent={Link}
-              to={route[0]}
-            />
-            <Tab classes={tabClasses}
-              label={button_three}
-              value={route[1]}
-              LinkComponent={Link}
-              to={route[1]}
-            />
+            <Tab classes={tabClasses} label={button_two} value={route[0]} LinkComponent={Link} to={route[0]} />
+            <Tab classes={tabClasses} label={button_three} value={route[1]} LinkComponent={Link} to={route[1]} />
           </Tabs>
         </Box>
       )}
@@ -164,15 +156,14 @@ const TopBox = ({
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           justifyContent: "space-between",
-          p: {xs:1,sm:3},
-          pb: 0,
+          p: { xs: 1, sm: "20px 0px 0px 24px " },
         }}>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
           }}>
-          <Typography sx={{ mb: "15px" }}>{searchText}</Typography>
+          <Typography sx={{ mb: "16px", color: "#000", fontWeight: "600" }}>{searchText}</Typography>
           <TextField
             variant="filled"
             inputProps={{
@@ -268,7 +259,7 @@ const style = {
     // width: "120px",
     textTransform: "none",
     height: "40px",
-    fontSize: {xs:'12px',sm:"18px"},
+    fontSize: { xs: "12px", sm: "18px" },
   },
   button_two: {
     bgcolor: "#FF8D2A",
@@ -285,12 +276,12 @@ const style = {
     fontSize: "18px",
   },
   headingText: {
-    fontSize: {xs:'14px',sm:"20px"},
+    fontSize: { xs: "14px", sm: "20px" },
     fontWeight: "700",
     color: "#000000",
     p: { xs: 1, sm: 3 },
-    display:'flex',
-    alignItems:'center'
+    display: "flex",
+    alignItems: "center",
   },
   typographyStyle1: {
     fontFamily: "Effra",

@@ -14,6 +14,7 @@ const IconLinkButton = ({ buttonName, onClickLink, onClickButton, state }) => {
               height: "19px",
               marginRight: "40px",
               cursor: "pointer",
+              color: "#4969B2",
             }}
             src={require("../../assests/edit.png")}
           />

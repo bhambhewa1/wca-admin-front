@@ -16,6 +16,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import * as yup from "yup";
 import React, { useState } from "react";
 import IconLinkButton from "../../components/Buttons/IconLinkButton";
 import { EnhancedTableHead } from "../../components/TableHeader/TableHeader";
@@ -32,29 +33,28 @@ import { addVIN } from "../../redux/action/vehicle/vehicle";
 import LoaderComponent from "../../components/Loader/LoaderComponent";
 import Toastify from "../../components/SnackBar/Toastify";
 import AlertDialog from "../../components/Dialog/Dialog";
-const rows1 = [
-  { id: 1, VIN: "1FM5K8D8XFGA24638", createdOn: "1/1/2022 10:11 AM" },
-  { id: 2, VIN: "1FM5K8D8XFGA24638", createdOn: "1/1/2022 10:11 AM" },
-];
-
+const schema = yup.object().shape({
+  vin: yup.string().required("Please enter valid VIN number").min(10, `Enter minimum 11 numbers `).max(10, `Enter maximum 17 numbers`),
+});
 const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [order, setOrder] = React.useState("asc");
-  const [model, setModal] = React.useState(false);
   const [orderBy, setOrderBy] = React.useState("");
-  const [pages, setPages] = useState(0);
   const [dialog, setDialog] = useState(false);
-  const [total, setTotal] = useState(0);
   const [page, setPage] = React.useState(1);
-  const [rows, setRows] = React.useState([]);
+  const [tableData, setTableData] = React.useState({
+    rows: [],
+    pages: 0,
+    total: 0,
+  });
   const [perv_search_val, setPerv_Search_val] = React.useState("");
   const [search_val, setSearch_val] = React.useState("");
   const [length, setLength] = useState(5);
   const [Id, setId] = useState("");
   const navigate = useNavigate();
   let data = {
-    page: page,
+    page: 1,
     limit: length,
     sort: "desc",
     search: "",
@@ -69,18 +69,14 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
     formik.values.vin = "";
     setLoading(true);
     getVehiclesList(data).then((res) => {
+      const response = res?.data?.data;
       setLoading(false);
       if (res?.data?.data?.total_records === 0) {
-        setTotal(res?.data?.data?.total_records);
-        setPages(res?.data?.data?.pages);
-        setRows(res?.data?.data?.vehicles_list);
+        setTableData({ total: response?.total_records, pages: response?.pages, rows: response?.vehicles_list });
       } else if (res?.data?.status) {
-        setRows(res?.data?.data?.vehicles_list);
-        setPages(res?.data?.data?.pages);
-        setTotal(res?.data?.data?.total_records);
+        setTableData({ total: response?.total_records, pages: response?.pages, rows: response?.vehicles_list });
       } else {
-        setRows(res?.data?.data?.vehicles_list);
-        setPages(res?.data?.data?.pages);
+        setTableData({ pages: response?.pages, rows: response?.vehicles_list });
         res?.data?.errors.map((error) => {
           toast.error(error);
         });
@@ -127,28 +123,22 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
     getList();
   };
   const handleDelete = (id) => {
-    console.log("deleteeee=>>>>");
     let vehicles_id = { vehicles_id: id };
     setDialog(true);
-    // if (dialog === "Yes") {
     deleteVehicleItem(vehicles_id).then((res) => {
       if (res.data.status) {
         setDialog(false);
 
         toast.success(res?.data?.message);
         getVehiclesList(data).then((res) => {
+          const response = res?.data?.data;
           setLoading(false);
-          if (res?.data?.data?.total_records === 0) {
-            setTotal(res?.data?.data?.total_records);
-            setPages(res?.data?.data?.pages);
-            setRows(res?.data?.data?.vehicles_list);
+          if (response?.total_records === 0) {
+            setTableData({ total: response?.total_records, pages: response?.pages, rows: response?.vehicles_list });
           } else if (res?.data?.status) {
-            setRows(res?.data?.data?.vehicles_list);
-            setPages(res?.data?.data?.pages);
-            setTotal(res?.data?.data?.total_records);
+            setTableData({ total: response?.total_records, pages: response?.pages, rows: response?.vehicles_list });
           } else {
-            setRows(res?.data?.data?.vehicles_list);
-            setPages(res?.data?.data?.pages);
+            setTableData({ pages: response?.pages, rows: response?.vehicles_list });
             res?.data?.errors.map((error) => {
               toast.error(error);
             });
@@ -162,9 +152,9 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
     });
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
   const Submit = (value) => {
     if ((value !== "" && value.trim().length !== 0) || perv_search_val !== "") {
       setPerv_Search_val(value);
@@ -186,6 +176,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
     initialValues: {
       vin: "",
     },
+    validationSchema: schema,
     onSubmit: (value) => {
       onSubmit(value);
     },
@@ -260,6 +251,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
                 },
               }}
             />
+            {formik.errors.vin && formik.touched.vin ? <p style={{ color: "red", margin: "10px" }}>{formik.errors.vin}</p> : null}
             <DialogActions
               sx={{
                 "&.MuiDialogActions-root": {
@@ -344,7 +336,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
         onClickButtonCancel={() => setDialog(false)}
       />
       <Box sx={Style.table.tableWrapBox}>
-        {rows?.length == 0 && (
+        {tableData?.rows?.length == 0 && (
           <Typography
             sx={{
               display: "flex",
@@ -358,7 +350,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
             No Vehicle Found
           </Typography>
         )}
-        {!rows?.length == 0 && (
+        {!tableData?.rows?.length == 0 && (
           <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
             <EnhancedTableHead
               totalColumn={["VIN", "Make", "Year", "Model", "Price", "CreatedOn", "Action"]}
@@ -370,7 +362,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
             />
 
             <TableBody sx={{ border: "1px solid #ECECEC" }}>
-              {rows.map((row) => (
+              {tableData?.rows.map((row) => (
                 <TableRow key={row.Name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell sx={Style.table.tableCell} align="left">
                     {row.vin}
@@ -406,7 +398,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
           </Table>
         )}
       </Box>
-      {total !== 0 && (
+      {tableData?.total !== 0 && (
         <Box
           sx={{
             display: "flex",
@@ -453,14 +445,14 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
                 justifyContent: "space-between",
               }}>
               <MenuItem value={5}>5</MenuItem>
-              {total > 5 && <MenuItem value={10}>10</MenuItem>}
-              {total > 10 && <MenuItem value={20}>20</MenuItem>}
+              {tableData?.total > 5 && <MenuItem value={10}>10</MenuItem>}
+              {tableData?.total > 10 && <MenuItem value={20}>20</MenuItem>}
             </Select>
-            out of {total}{" "}
+            out of {tableData?.total}{" "}
           </Typography>
-          {pages > 1 && (
+          {tableData?.pages > 1 && (
             <Pagination
-              count={pages}
+              count={tableData?.pages}
               page={page}
               boundaryCount={1}
               sx={{ button: { fontSize: "16px", mr: 1 }, width: "100%", display: "flex", justifyContent: { xs: "center", md: "flex-end" } }}
