@@ -26,17 +26,18 @@ import { VEHICLEINFO } from "../../routes/constURL";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
-import { getVehiclesList } from "../../redux/action/vehicle/vehicle";
+import { deleteVehicleItem, getVehiclesList } from "../../redux/action/vehicle/vehicle";
 import { useFormik } from "formik";
 import { addVIN } from "../../redux/action/vehicle/vehicle";
 import LoaderComponent from "../../components/Loader/LoaderComponent";
 import Toastify from "../../components/SnackBar/Toastify";
+import AlertDialog from "../../components/Dialog/Dialog";
 const rows1 = [
   { id: 1, VIN: "1FM5K8D8XFGA24638", createdOn: "1/1/2022 10:11 AM" },
   { id: 2, VIN: "1FM5K8D8XFGA24638", createdOn: "1/1/2022 10:11 AM" },
 ];
 
-const VehicleList = ({ getVehiclesList, addVIN }) => {
+const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [order, setOrder] = React.useState("asc");
@@ -65,6 +66,7 @@ const VehicleList = ({ getVehiclesList, addVIN }) => {
     getList();
   }, [length]);
   const getList = () => {
+    formik.values.vin = "";
     setLoading(true);
     getVehiclesList(data).then((res) => {
       setLoading(false);
@@ -124,42 +126,41 @@ const VehicleList = ({ getVehiclesList, addVIN }) => {
     }
     getList();
   };
-  // const handleDelete = (id) => {
-  //   let delete_data = { staff_id: id };
-  //   // setDialog(true);
-  //   // if (dialog === "Yes") {
-  //   deleteStaff(delete_data).then((res) => {
-  //     if (res.data.status) {
-  //       setDialog(false);
+  const handleDelete = (id) => {
+    console.log("deleteeee=>>>>");
+    let vehicles_id = { vehicles_id: id };
+    setDialog(true);
+    // if (dialog === "Yes") {
+    deleteVehicleItem(vehicles_id).then((res) => {
+      if (res.data.status) {
+        setDialog(false);
 
-  //       toast.success(res?.data?.message);
-  //       getStaffList(data).then((res) => {
-  //         setLoading(false);
-  //         if (res?.data?.total_records === 0) {
-  //           setTotal(res?.data?.total_records);
-  //           setPages(res?.data?.pages);
-  //           setRows(res?.data?.staff_list);
-  //         } else if (res?.data?.status) {
-  //           setRows(res?.data?.staff_list);
-  //           setLength(res?.data?.total_records <= 10 ? 10 : 20)
-  //           setPages(res?.data?.pages);
-  //           setTotal(res?.data?.total_records);
-  //         } else {
-  //           setRows(res?.data?.staff_list);
-  //           setPages(res?.data?.pages);
-  //           res?.data?.errors.map((error) => {
-  //             toast.error(error);
-  //           });
-  //         }
-  //       }
-  //       )
-  //     } else {
-  //       res?.data?.errors.map((error) => {
-  //         toast.error(error);
-  //       });
-  //     }
-  //   });
-  // };
+        toast.success(res?.data?.message);
+        getVehiclesList(data).then((res) => {
+          setLoading(false);
+          if (res?.data?.data?.total_records === 0) {
+            setTotal(res?.data?.data?.total_records);
+            setPages(res?.data?.data?.pages);
+            setRows(res?.data?.data?.vehicles_list);
+          } else if (res?.data?.status) {
+            setRows(res?.data?.data?.vehicles_list);
+            setPages(res?.data?.data?.pages);
+            setTotal(res?.data?.data?.total_records);
+          } else {
+            setRows(res?.data?.data?.vehicles_list);
+            setPages(res?.data?.data?.pages);
+            res?.data?.errors.map((error) => {
+              toast.error(error);
+            });
+          }
+        });
+      } else {
+        res?.data?.errors.map((error) => {
+          toast.error(error);
+        });
+      }
+    });
+  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -191,12 +192,17 @@ const VehicleList = ({ getVehiclesList, addVIN }) => {
     enableReinitialize: true,
   });
   const onSubmit = (val) => {
-    addVIN(val).then((res) => {
+    let id = { vehicles_id: "" };
+    Object.assign(id, val);
+    setLoading(true);
+    addVIN(id).then((res) => {
       if (res?.data?.status) {
         toast.success(res.data.message);
         setOpen(false);
+        setLoading(false);
         getList();
       } else {
+        setLoading(false);
         res?.data?.errors.map((error) => {
           toast.error(error);
         });
@@ -328,31 +334,13 @@ const VehicleList = ({ getVehiclesList, addVIN }) => {
           </form>
         </DialogContent>
       </Dialog>
-      {/* <Dialog
-            open={dialog}
-            // onClose={onClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description">
-            <DialogTitle sx={{ fontSize: "18px", color: "#3D2E57" }} id="alert-dialog-title">
-              This is under progress
-            </DialogTitle>
-            <DialogContent>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                variant="contained"
-                sx={{
-                  bgcolor: "#27AE60",
-                  textTransform: "none",
-                  "&.MuiButtonBase-root:hover": {
-                    bgcolor: "#27AE60",
-                  },
-                }}
-                onClick={() => setDialog(false)}>
-                OK
-              </Button>
-            </DialogActions>
-          </Dialog> */}
+
+      <AlertDialog
+        title={"Are you sure you want to delete this vehicle item?"}
+        open={dialog}
+        onClickButton={() => handleDelete(Id)}
+        onClickButtonCancel={() => setDialog(false)}
+      />
       <Box sx={Style.table.tableWrapBox}>
         {rows?.length == 0 && (
           <Typography
@@ -395,15 +383,20 @@ const VehicleList = ({ getVehiclesList, addVIN }) => {
                     {row.model}
                   </TableCell>
                   <TableCell sx={Style.table.tableCell} align="left">
-                    {row.price}
+                    {row.trade_price}
                   </TableCell>
                   <TableCell sx={Style.table.tableCell} align="left">
                     {row.created_on}
                   </TableCell>
 
                   <TableCell align="left" sx={Style.table.tableCell}>
-                    <IconLinkButton buttonName={"Edit"} onClickLink={VEHICLEINFO} />
-                    <IconLinkButton onClickButton={() => setDialog(true)} />
+                    <IconLinkButton buttonName={"Edit"} onClickLink={`/vehicles/details/info/${row.vehicles_id}`} id={row.vehicles_id} />
+                    <IconLinkButton
+                      onClickButton={() => {
+                        setDialog(true);
+                        setId(row.vehicles_id);
+                      }}
+                    />
                   </TableCell>
                 </TableRow>
               ))}
@@ -481,6 +474,7 @@ const VehicleList = ({ getVehiclesList, addVIN }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getVehiclesList: (data) => dispatch(getVehiclesList(data)),
+    deleteVehicleItem: (data) => dispatch(deleteVehicleItem(data)),
     addVIN: (data) => dispatch(addVIN(data)),
   };
 };
