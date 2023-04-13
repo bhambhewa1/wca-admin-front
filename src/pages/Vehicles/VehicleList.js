@@ -26,17 +26,17 @@ import { VEHICLEINFO } from "../../routes/constURL";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
-import { getVehiclesList } from "../../redux/action/vehicle/vehicle"
+import { getVehiclesList } from "../../redux/action/vehicle/vehicle";
 import { useFormik } from "formik";
-import { addVIN } from '../../redux/action/vehicle/vehicle'
+import { addVIN } from "../../redux/action/vehicle/vehicle";
 import LoaderComponent from "../../components/Loader/LoaderComponent";
 import Toastify from "../../components/SnackBar/Toastify";
 const rows1 = [
-  { id: 1, VIN: "1FM5K8D8XFGA24638",createdOn: "1/1/2022 10:11 AM" },
+  { id: 1, VIN: "1FM5K8D8XFGA24638", createdOn: "1/1/2022 10:11 AM" },
   { id: 2, VIN: "1FM5K8D8XFGA24638", createdOn: "1/1/2022 10:11 AM" },
 ];
 
-const VehicleList = ({ getVehiclesList,addVIN }) => {
+const VehicleList = ({ getVehiclesList, addVIN }) => {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [order, setOrder] = React.useState("asc");
@@ -68,17 +68,17 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
     setLoading(true);
     getVehiclesList(data).then((res) => {
       setLoading(false);
-      if (res?.data?.total_records === 0) {
-        setTotal(res?.data?.total_records);
-        setPages(res?.data?.pages);
-        setRows(res?.data?.vehicles_list);
+      if (res?.data?.data?.total_records === 0) {
+        setTotal(res?.data?.data?.total_records);
+        setPages(res?.data?.data?.pages);
+        setRows(res?.data?.data?.vehicles_list);
       } else if (res?.data?.status) {
-        setRows(res?.data?.vehicles_list);
-        setPages(res?.data?.pages);
-        setTotal(res?.data?.total_records);
+        setRows(res?.data?.data?.vehicles_list);
+        setPages(res?.data?.data?.pages);
+        setTotal(res?.data?.data?.total_records);
       } else {
-        setRows(res?.data?.vehicles_list);
-        setPages(res?.data?.pages);
+        setRows(res?.data?.data?.vehicles_list);
+        setPages(res?.data?.data?.pages);
         res?.data?.errors.map((error) => {
           toast.error(error);
         });
@@ -183,7 +183,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
   };
   const formik = useFormik({
     initialValues: {
-      vin:''
+      vin: "",
     },
     onSubmit: (value) => {
       onSubmit(value);
@@ -191,17 +191,17 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
     enableReinitialize: true,
   });
   const onSubmit = (val) => {
-    addVIN(val).then((res)=>{
-      if(res?.data?.status){
-          toast.success(res.data.message);
-          setOpen(false)
-        getList()
-      }else{
+    addVIN(val).then((res) => {
+      if (res?.data?.status) {
+        toast.success(res.data.message);
+        setOpen(false);
+        getList();
+      } else {
         res?.data?.errors.map((error) => {
           toast.error(error);
         });
       }
-    })
+    });
   };
   return (
     <Box
@@ -210,7 +210,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
         flexDirection: "column",
         // p: 3,
       }}>
-        <Toastify/>
+      <Toastify />
       <TopBox
         headerText={"Vehicles"}
         button_one={"+ Add Vehicle"}
@@ -222,14 +222,19 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
         setSearch_val={setSearch_val}
         onSubmit={Submit}
         onClick={onclick}
-        button_one_onClick={()=>setOpen(true)}
+        button_one_onClick={() => setOpen(true)}
       />
-      <LoaderComponent open={loading}/>
+      <LoaderComponent open={loading} />
       <Dialog open={open}>
         <DialogTitle sx={{ borderBottom: "1px solid #dddddd" }}>Add Vehicle</DialogTitle>
-        <DialogContent sx={{ borderBottom: "1px solid #dddddd",mt:2,'&.MuiDialogContent-root':{
-          pb:0
-        } }}>
+        <DialogContent
+          sx={{
+            borderBottom: "1px solid #dddddd",
+            mt: 2,
+            "&.MuiDialogContent-root": {
+              pb: 0,
+            },
+          }}>
           <form onSubmit={formik.handleSubmit}>
             <FormLabel>Enter VIN number</FormLabel>
             <TextField
@@ -245,12 +250,14 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
                   paddingBottom: "8px",
                   color: "#A8A8A8",
                 },
-              }} />
-            <DialogActions sx={{
-              '&.MuiDialogActions-root':{
-                pr:0
-              }
-            }}>
+              }}
+            />
+            <DialogActions
+              sx={{
+                "&.MuiDialogActions-root": {
+                  pr: 0,
+                },
+              }}>
               <Box
                 sx={{
                   width: { xs: "100%", md: "35%", lg: "70%" },
@@ -313,8 +320,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
                   }}
                   variant="outlined"
                   className="btn"
-                  type="submit"
-                >
+                  type="submit">
                   Next
                 </Button>
               </Box>
@@ -348,7 +354,7 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
             </DialogActions>
           </Dialog> */}
       <Box sx={Style.table.tableWrapBox}>
-      {rows?.length == 0 && (
+        {rows?.length == 0 && (
           <Typography
             sx={{
               display: "flex",
@@ -363,49 +369,48 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
           </Typography>
         )}
         {!rows?.length == 0 && (
-        <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
-          <EnhancedTableHead
-            totalColumn={["VIN", "Make", "Year", "Model", "Price", "CreatedOn", "Action"]}
-          // order={order}
-          // orderBy={orderBy}
-          // onSelectAllClick={handleSelectAllClick}
-          onRequestSort={handleRequestSort}
-          // rowCount={rows.length}
-          />
-          
-        
-          <TableBody sx={{ border: "1px solid #ECECEC" }}>
-            {rows.map((row) => (
-              <TableRow key={row.Name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell sx={Style.table.tableCell} align="left">
-                  {row.vin}
-                </TableCell>
-                <TableCell sx={Style.table.tableCell} align="left">
-                  {row.make}
-                </TableCell>
-                <TableCell sx={Style.table.tableCell} align="left">
-                  {row.year}
-                </TableCell>
-                <TableCell sx={Style.table.tableCell} align="left">
-                  {row.model}
-                </TableCell>
-                <TableCell sx={Style.table.tableCell} align="left">
-                  {row.price}
-                </TableCell>
-                <TableCell sx={Style.table.tableCell} align="left">
-                  {row.created_on}
-                </TableCell>
+          <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
+            <EnhancedTableHead
+              totalColumn={["VIN", "Make", "Year", "Model", "Price", "CreatedOn", "Action"]}
+              // order={order}
+              // orderBy={orderBy}
+              // onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              // rowCount={rows.length}
+            />
 
-                <TableCell align="left" sx={Style.table.tableCell}>
-                  <IconLinkButton buttonName={"Edit"} onClickLink={VEHICLEINFO} />
-                  <IconLinkButton onClickButton={()=>setDialog(true)} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-          )}
-          </Box>
+            <TableBody sx={{ border: "1px solid #ECECEC" }}>
+              {rows.map((row) => (
+                <TableRow key={row.Name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell sx={Style.table.tableCell} align="left">
+                    {row.vin}
+                  </TableCell>
+                  <TableCell sx={Style.table.tableCell} align="left">
+                    {row.make}
+                  </TableCell>
+                  <TableCell sx={Style.table.tableCell} align="left">
+                    {row.year}
+                  </TableCell>
+                  <TableCell sx={Style.table.tableCell} align="left">
+                    {row.model}
+                  </TableCell>
+                  <TableCell sx={Style.table.tableCell} align="left">
+                    {row.price}
+                  </TableCell>
+                  <TableCell sx={Style.table.tableCell} align="left">
+                    {row.created_on}
+                  </TableCell>
+
+                  <TableCell align="left" sx={Style.table.tableCell}>
+                    <IconLinkButton buttonName={"Edit"} onClickLink={VEHICLEINFO} />
+                    <IconLinkButton onClickButton={() => setDialog(true)} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
+      </Box>
       {total !== 0 && (
         <Box
           sx={{
@@ -414,34 +419,43 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
             justifyContent: "space-between",
             p: 1,
           }}>
-          <Typography sx={{
-            pl: { xs: 0, sm: 3 }, fontWeight: 400, fontSize: { xs: "12px", sm: "16px" },
-            '&.MuiTypography-root': {
-              width: '100%',
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: { xs: "center", md: "flex-start" },
+          <Typography
+            sx={{
+              pl: { xs: 0, sm: 3 },
+              fontWeight: 400,
+              fontSize: { xs: "12px", sm: "16px" },
+              "&.MuiTypography-root": {
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: { xs: "center", md: "flex-start" },
 
-              mb: 1
-            }
-          }}>
+                mb: 1,
+              },
+            }}>
             Number of Rows per Page
             <Select
               variant="standard"
               value={length}
               disableUnderline
               SelectDisplayProps={{
-                style: { padding: "0px 10px", color: 'rgba(0, 0, 0, 0.6)', backgroundColor: 'transparent' ,display: 'flex',
-                justifyContent: 'space-between',marginRight:'4px'}
+                style: {
+                  padding: "0px 10px",
+                  color: "rgba(0, 0, 0, 0.6)",
+                  backgroundColor: "transparent",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginRight: "4px",
+                },
               }}
               onChange={handleChange}
               sx={{
                 ml: { xs: 0, sm: 1 },
                 mr: { xs: 0, sm: 1 },
                 // width: {xs:'20%',sm:'5%'},
-                fontSize: {xs:"14px",sm:"16px"},
-                display: 'flex',
-                justifyContent: 'space-between',
+                fontSize: { xs: "14px", sm: "16px" },
+                display: "flex",
+                justifyContent: "space-between",
               }}>
               <MenuItem value={5}>5</MenuItem>
               {total > 5 && <MenuItem value={10}>10</MenuItem>}
@@ -454,20 +468,20 @@ const VehicleList = ({ getVehiclesList,addVIN }) => {
               count={pages}
               page={page}
               boundaryCount={1}
-              sx={{ button: { fontSize: "16px", mr: 1 }, width: '100%', display: 'flex', justifyContent: { xs: 'center', md: 'flex-end' } }}
+              sx={{ button: { fontSize: "16px", mr: 1 }, width: "100%", display: "flex", justifyContent: { xs: "center", md: "flex-end" } }}
               onChange={handlePageChange}
               siblingCount={0}
             />
           )}
         </Box>
       )}
-    </Box >
+    </Box>
   );
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     getVehiclesList: (data) => dispatch(getVehiclesList(data)),
-    addVIN: (data) =>dispatch(addVIN(data))
+    addVIN: (data) => dispatch(addVIN(data)),
   };
 };
 

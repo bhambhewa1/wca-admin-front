@@ -62,7 +62,7 @@ const Login = ({ getLogin }) => {
         // toast.error(res?.data?.errors);
         // storage.set.userId(res?.data?.data?.id);
         setTimeout(() => {
-          if (res?.data?.is_email_verified === 0) {
+          if (res?.data?.data?.is_email_verified === 0) {
             navigate("/");
           }
           setloader(false);

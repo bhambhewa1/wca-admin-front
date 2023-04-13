@@ -17,33 +17,35 @@ const AppointmentsList = ({ getAppointmentList, deleteAppointment }) => {
   const [dialog, setDialog] = useState(false);
 
   const [page, setPage] = React.useState(1);
-  const [rows, setRows] = React.useState([{
-    name:"John Doe",
-    contact:"+1 562 5623",
-    email:"Johndoe@wca.com",
-    vin:"1FM5K8D8XFGA24638",
-    price:"$25,000",
-    schedule:"14/12/2022 10:44 AM"
-  },
-  {
-    name:"Alex Smith",
-    contact:"+1 562 5823",
-    email:"alexsmith@wca.com",
-    vin:"3CZRE38579G775540",
-    price:"$25,000",
-    schedule:"14/12/2022 10:44 AM"
-  },
-  {
-    name:"Mike Tyson",
-    contact:"+1 567 5627",
-    email:"miketyson@wca.com",
-    vin:"1FMCU93G29KC81990",
-    price:"$22,000",
-    schedule:"14/12/2022 10:44 AM"
-  }]);
+  const [rows, setRows] = React.useState([
+    {
+      name: "John Doe",
+      contact: "+1 562 5623",
+      email: "Johndoe@wca.com",
+      vin: "1FM5K8D8XFGA24638",
+      price: "$25,000",
+      schedule: "14/12/2022 10:44 AM",
+    },
+    {
+      name: "Alex Smith",
+      contact: "+1 562 5823",
+      email: "alexsmith@wca.com",
+      vin: "3CZRE38579G775540",
+      price: "$25,000",
+      schedule: "14/12/2022 10:44 AM",
+    },
+    {
+      name: "Mike Tyson",
+      contact: "+1 567 5627",
+      email: "miketyson@wca.com",
+      vin: "1FMCU93G29KC81990",
+      price: "$22,000",
+      schedule: "14/12/2022 10:44 AM",
+    },
+  ]);
   const [perv_search_val, setPerv_Search_val] = React.useState("");
   const [search_val, setSearch_val] = React.useState("");
-  const [Id, setId] = useState("")
+  const [Id, setId] = useState("");
   const navigate = useNavigate();
   let length = 3;
   let data = {
@@ -63,11 +65,11 @@ const AppointmentsList = ({ getAppointmentList, deleteAppointment }) => {
     getAppointmentList(data).then((res) => {
       setLoading(false);
       if (res.data) {
-        setRows(res?.data?.staff_list);
-        setPages(res?.data?.pages);
+        setRows(res?.data?.data?.staff_list);
+        setPages(res?.data?.data?.pages);
       } else {
-        setRows(res?.data?.staff_list);
-        setPages(res?.data?.pages);
+        setRows(res?.data?.data?.staff_list);
+        setPages(res?.data?.data?.pages);
       }
     });
   };
@@ -116,7 +118,7 @@ const AppointmentsList = ({ getAppointmentList, deleteAppointment }) => {
     let data = { staff_id: id };
     // setDialog(true);
     // if (dialog === "Yes") {
-      deleteAppointment(data).then((res) => {
+    deleteAppointment(data).then((res) => {
       if (res.data.status) {
         setDialog(false);
         getAppointments();
@@ -156,7 +158,6 @@ const AppointmentsList = ({ getAppointmentList, deleteAppointment }) => {
         onSubmit={onSubmit}
         search_val={search_val}
         setSearch_val={setSearch_val}
-       
       />
       <AlertDialog
         title={"Are you sure?"}

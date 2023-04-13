@@ -8,9 +8,13 @@ export const requestVehicleData = async (data) => {
 export const requestAddVIN = async (data) => {
   return Api.PostRequest('/api/vehicles/add', data);
 };
+export const requestlocalMarket = async (data) => {
+  return Api.PostRequest('/api/localMarket', data);
+};
 const VehicleApi = {
   requestVehicleData,
   requestVehiclesList,
-  requestAddVIN
+  requestAddVIN,
+  requestlocalMarket
   };
   export default VehicleApi;

@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { toast } from "react-toastify";
 import { API_URL } from "./apiUrl";
@@ -37,7 +36,6 @@ export const apiRequest = async (url, data, contentTypeJson = false) => {
 };
 
 export const PostRequest = async (url, data) => {
-
   try {
     const res = await axios({
       url: API_URL + url,

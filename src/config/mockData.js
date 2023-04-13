@@ -7,6 +7,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import LogoutIcon from "@mui/icons-material/Logout";
+
 export const drawerData = [
   {
     val: "Customers",
@@ -173,90 +174,90 @@ export const FILE_TYPE = {
 export const ConfigurationData = {
   VehicleInfomation: [
     {
-      Title: 'Vehicle Inspection under review',
-      Status: 'Complete',
-      days:0
+      Title: "Vehicle Inspection under review",
+      Status: "Complete",
+      days: 0,
     },
     {
-      Title: 'Vehicle Inspection Confirmed',
-      Status: 'Complete',
-      days:0
+      Title: "Vehicle Inspection Confirmed",
+      Status: "Complete",
+      days: 0,
     },
     {
-      Title: 'Verification under process',
-      Status: 'Complete',
-      days:0
+      Title: "Verification under process",
+      Status: "Complete",
+      days: 0,
     },
     {
-      Title: 'Title Verification Complete',
-      Status: 'Pending',
-      days:0
-    }
+      Title: "Title Verification Complete",
+      Status: "Pending",
+      days: 0,
+    },
   ],
   Documents: [
     {
-      Title: 'Preparing Loan Payoff closing documents',
-      Status: 'Pending',
-      days:0
+      Title: "Preparing Loan Payoff closing documents",
+      Status: "Pending",
+      days: 0,
     },
     {
-      Title: 'Loan Payoff documents is being prepared',
-      Status: 'Pending',
-      days:0
+      Title: "Loan Payoff documents is being prepared",
+      Status: "Pending",
+      days: 0,
     },
     {
-      Title: 'Loan Payoff Documents prepared',
-      Status: 'Pending',
-      days:0
-    }
+      Title: "Loan Payoff Documents prepared",
+      Status: "Pending",
+      days: 0,
+    },
   ],
   Supervisior: [
     {
-      Title: 'Waiting for level #1 supervisor approval',
-      Status: 'Pending',
-      days:0
+      Title: "Waiting for level #1 supervisor approval",
+      Status: "Pending",
+      days: 0,
     },
     {
-      Title: 'Level 1 Supervisor Approved',
-      Status: 'Pending',
-      days:0
+      Title: "Level 1 Supervisor Approved",
+      Status: "Pending",
+      days: 0,
     },
     {
-      Title: 'Waiting for level #2 supervisor approval',
-      Status: 'Pending',
-      days:0
+      Title: "Waiting for level #2 supervisor approval",
+      Status: "Pending",
+      days: 0,
     },
     {
-      Title: 'Level 2 Supervisor Approved',
-      Status: 'Pending',
-      days:0
+      Title: "Level 2 Supervisor Approved",
+      Status: "Pending",
+      days: 0,
     },
     {
-      Title: 'Waiting for level #3 supervisor approval',
-      Status: 'Pending',
-      days:0
+      Title: "Waiting for level #3 supervisor approval",
+      Status: "Pending",
+      days: 0,
     },
     {
-      Title: 'Level 3 Supervisor approved',
-      Status: 'Pending',
-      days:0
-    }
+      Title: "Level 3 Supervisor approved",
+      Status: "Pending",
+      days: 0,
+    },
   ],
-  Payoff:[
+  Payoff: [
     {
-      Title: 'Loan Payoff check issued',
-      Status: 'Pending',
-      days:0
+      Title: "Loan Payoff check issued",
+      Status: "Pending",
+      days: 0,
     },
     {
-      Title: 'Payoff in Transit',
-      Status: 'Pending',
-      days:0
+      Title: "Payoff in Transit",
+      Status: "Pending",
+      days: 0,
     },
     {
-      Title: 'Payoff Complete',
-      Status: 'Pending',
-      days:0
-    }
-  ]
-}
+      Title: "Payoff Complete",
+      Status: "Pending",
+      days: 0,
+    },
+  ],
+};

@@ -135,7 +135,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
       } else {
         res?.data?.errors.map((error) => {
           toast.error(error);
-        })
+        });
       }
     });
   };
@@ -167,10 +167,10 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
           navigate("/staff");
         }, 2000);
       } else {
-        value.validate_Password = true
+        value.validate_Password = true;
         res.errors.map((error) => {
           toast.error(error);
-        })
+        });
       }
     });
     // }
@@ -182,7 +182,6 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
-
       }}>
       <form name="RegisterForm" onSubmit={formik.handleSubmit}>
         <Typography sx={Style.typographyStyle}>Staff</Typography>
@@ -193,8 +192,8 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
             borderTop: "3px solid rgba(0, 0, 0, 0.06)",
             // pb: 1,
             "&.css-drk5z1-MuiPaper-root": {
-              padding: 0
-            }
+              padding: 0,
+            },
           }}>
           <Typography sx={Style.typographyStyle}>Staff information</Typography>
           <Box
@@ -231,7 +230,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                     sx={{
                       width: "100%",
                       border: "none",
-                      fontSize: '14px'
+                      fontSize: "14px",
                     }}
                     autoComplete="false"
                   />
@@ -260,7 +259,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
-                        fontSize: '14px'
+                        fontSize: "14px",
                       },
                     }}
                     autoComplete="false"
@@ -294,7 +293,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
-                        fontSize: '14px'
+                        fontSize: "14px",
                       },
                     }}
                     color="primary"
@@ -329,7 +328,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                       style: {
                         paddingTop: "16px",
                         paddingBottom: "15px",
-                        fontSize: '14px'
+                        fontSize: "14px",
                       },
                     }}
                     autoComplete="false"
@@ -358,13 +357,13 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                     onBlur={formik.handleBlur}
                     displayEmpty
                     disableUnderline
-                    SelectDisplayProps={{ style: { padding: 3, marginLeft: "10px", color: '#000000', backgroundColor: 'transparent' } }}
+                    SelectDisplayProps={{ style: { padding: 3, marginLeft: "10px", color: "#000000", backgroundColor: "transparent" } }}
                     MenuProps={{ disableScrollLock: true }}
                     inputProps={{
                       style: {
                         paddingTop: "8px",
                         paddingBottom: "8px",
-                        fontSize: '14px'
+                        fontSize: "14px",
                       },
                     }}
                     sx={{
@@ -372,16 +371,14 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                       minWidth: "200px",
                       fontSize: "14px",
                       fontWeight: "400",
-                      width: '100%',
+                      width: "100%",
                       borderBottom: "none",
                     }}>
                     <MenuItem value="">Select</MenuItem>
                     <MenuItem value="level 1 supervisor"> level 1 supervisor</MenuItem>
                     <MenuItem value="level 2 supervisor"> level 2 supervisor</MenuItem>
                   </Select>
-                  {formik.errors.type && formik.touched.type ? (
-                    <p style={Style.validationStyle}>{formik.errors.type}</p>
-                  ) : null}
+                  {formik.errors.type && formik.touched.type ? <p style={Style.validationStyle}>{formik.errors.type}</p> : null}
                 </Box>
               )}
               {loading && <Skeleton sx={Style.inputStyle} variant="rectangular" height={50} />}
@@ -398,7 +395,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                 checked={formik.values.validate_Password}
                 value={formik.values.validate_Password}
               />
-             <label for="validate_Password" > Do you want to change the password?</label>
+              <label for="validate_Password"> Do you want to change the password?</label>
             </Typography>
           )}
           {formik.values.validate_Password && (
@@ -409,7 +406,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                   fontWeight: { xs: "500", md: "700" },
                   mb: 2,
                   pl: { xs: 1, md: 3 },
-                  color: "#000000"
+                  color: "#000000",
                 }}>
                 Password
               </Typography>
@@ -451,7 +448,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                           style: {
                             paddingTop: "16px",
                             paddingBottom: "15px",
-                            fontSize: '14px'
+                            fontSize: "14px",
                           },
                         }}
                         autoComplete="off"
@@ -497,7 +494,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
                           style: {
                             paddingTop: "16px",
                             paddingBottom: "15px",
-                            fontSize: '14px'
+                            fontSize: "14px",
                           },
                         }}
                         color="primary"
@@ -553,7 +550,7 @@ const StaffForm = ({ getstaffdata, updateStaff }) => {
             }}
             variant="outlined"
             className="btn"
-            onClick={() => navigate('/staff')}>
+            onClick={() => navigate("/staff")}>
             Cancel
           </Button>
           <Button

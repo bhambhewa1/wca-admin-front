@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
@@ -51,17 +51,16 @@ const Odometer = () => {
               {item.price}
               {index === 1 ? <Button sx={{ textTransform: "none" }}>Set to base</Button> : ""}
               {index === 1 ? (
-                <Typography sx={{ width: "70%", display: "flex", justifyContent: "flex-end" }}>
-                  <Typography
+                <Typography sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
+                  <TextField
+                  placeholder="Enter Miles"
                     sx={{
-                      border: "2px solid #ECECEC",
                       p: "8px 20px 8px 20px",
                       borderRadius: "5px",
                       color: "#000",
                       fontWeight: "600",
-                    }}>
-                    18000mi
-                  </Typography>
+                      width:'30%'
+                    }}/>
                 </Typography>
               ) : (
                 ""

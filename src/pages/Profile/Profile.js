@@ -370,7 +370,7 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
                 checked={formik.values.validate_Password}
                 value={userData.validate_Password}
               />
-             <label for="validate_Password" > Do you want to change the password?</label>
+              <label for="validate_Password"> Do you want to change the password?</label>
             </Typography>
             {formik.values.validate_Password && (
               <Box>
@@ -466,8 +466,8 @@ const ProfilePage = ({ getuserdata, updateUser }) => {
               justifyContent: { xs: "space-between", md: "flex-end" },
               pt: 4,
               pb: 2,
-              pr: {xs:1,sm:3},
-              pl:{xs:1,sm:0}
+              pr: { xs: 1, sm: 3 },
+              pl: { xs: 1, sm: 0 },
             }}>
             <Button
               disableRipple

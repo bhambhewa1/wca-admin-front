@@ -46,3 +46,19 @@ export const getVehicleData = (data) => async (dispatch) => {
     } catch (err) {
     }
   };
+
+  export const localMarket = (data) => async (dispatch) => {
+    try {
+      let response = await VehicleApi.requestlocalMarket(data);
+      if (response.status) {
+        // dispatch(userdata(response.data));
+        return response;
+      } else {
+        response?.data?.errors?.map((item) => {
+          return toast.error(item);
+        });
+        return response;
+      }
+    } catch (err) {
+    }
+  };

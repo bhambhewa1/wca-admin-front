@@ -1,5 +1,5 @@
-import { Box, Grid, Typography } from "@mui/material";
-import React from "react";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 const Item = styled(Paper)(({ theme }) => ({
@@ -11,6 +11,8 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: "none",
 }));
 const Colors = () => {
+  const [color, setColor] = useState(false)
+  const [index, setIndex] = useState()
   return (
     <Grid columnGap={"10px"} container>
       <Grid
@@ -54,11 +56,15 @@ const Colors = () => {
             textAlign: "left",
           }}>
           Keys
-          <Typography sx={{ display: "flex", justifyContent: "space-between", width: "70%", mt: "10px" }}>
-            {[0, 1, 2, "+3"].map((item) => (
-              <Typography sx={{ fontSize: "16px", color: "#000", mb: "20px", border: "2px solid #ECECEC", p: "0px 10px 0px 10px" }}>
+          <Typography sx={{ display: "flex", justifyContent: "space-between", width: "80%", mt: "10px" }}>
+            {[0, 1, 2, "+3"].map((item, ind) => (
+              <Button sx={{ fontSize: "16px", color: "#000", mb: "20px", border: color ? ind === index ? "2px solid #F15F23" : "2px solid #ECECEC" : "2px solid #ECECEC", p: "0px 10px 0px 10px" }}
+                onClick={() => { setColor(true)
+                   setIndex(ind)
+                   }}
+              >
                 {item}
-              </Typography>
+              </Button>
             ))}
           </Typography>
         </Item>
