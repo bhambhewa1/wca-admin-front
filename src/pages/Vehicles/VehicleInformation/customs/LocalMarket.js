@@ -52,8 +52,8 @@ const LocalMarket = ({ localMarket }) => {
     vin: '',
     price: '',
     stock_type: '',
-    mileage: ''
-
+    mileage: '',
+    engine:''
   }]);
   const handleSelect = (e) => {
     setDistance(e.target.value)
@@ -144,8 +144,8 @@ const LocalMarket = ({ localMarket }) => {
         overflow: 'scroll'
       }}>
         {data.map((item) => (
-          <Item sx={{ bgcolor: 'green', mt: 2 }}>
-            <Grid container xs={11.9} xl={12} sx={{ bgcolor: 'white', ml: 1, p: 2 }} >
+          <Item sx={{ bgcolor: 'green', mt: 2,width:'99%' }}>
+            <Grid container xs={11.9} xl={11.9} sx={{ bgcolor: 'white', ml: 1, p: 2 }} >
               <Grid xs={6} container >
                 <Grid xs={2}>
                   <img
@@ -159,7 +159,7 @@ const LocalMarket = ({ localMarket }) => {
                 </Grid>
                 <Grid xs={9} sx={{ fontSize: '14px' }}>
                   <Typography sx={{ fontWeight: 800, color: '#000000', fontSize: '16px'}}>{item.canonical_mmt}</Typography>
-                  <Typography>3.6L V6 24V GDI DOHC Flexible Fuel</Typography>
+                  <Typography>{item.engine}</Typography>
                   <Grid container>
                     <Typography sx={{ borderRight: '1px solid black', pr: 1 }}>{item.vin}</Typography>
                     <Typography sx={{ pl: 1,fontWeight:'700',color:'#000000' }}>{item.mileage}MI</Typography>
@@ -170,7 +170,7 @@ const LocalMarket = ({ localMarket }) => {
                 <Typography sx={{ fontSize: '14px', fontWeight: '800', color: '#000000' }}>${item.price}</Typography>
               </Grid>
             </Grid>
-            <Grid container xs={11.9} xl={12} sx={{ bgcolor: '#ECECEC', ml: 1 }}>
+            <Grid container xs={11.9}  sx={{ bgcolor: '#ECECEC', ml: 1 }}>
               <Grid xs={6} sx={{
                 p: 1
               }}>
