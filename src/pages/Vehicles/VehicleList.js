@@ -17,13 +17,11 @@ import {
   Typography,
 } from "@mui/material";
 import * as yup from "yup";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import IconLinkButton from "../../components/Buttons/IconLinkButton";
 import { EnhancedTableHead } from "../../components/TableHeader/TableHeader";
 import TopBox from "../../components/TableHeader/TopBox";
-import EditIcon from "@mui/icons-material/Edit";
 import { Style } from "../../const/Style";
-import { VEHICLEINFO } from "../../routes/constURL";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
@@ -34,22 +32,22 @@ import LoaderComponent from "../../components/Loader/LoaderComponent";
 import Toastify from "../../components/SnackBar/Toastify";
 import AlertDialog from "../../components/Dialog/Dialog";
 const schema = yup.object().shape({
-  vin: yup.string().required("Please enter valid VIN number").min(10, `Enter minimum 11 numbers `).max(10, `Enter maximum 17 numbers`),
+  vin: yup.string().required("Please enter valid VIN number").min(11, `Enter minimum 11 numbers `).max(17, `Enter maximum 17 numbers`),
 });
 const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("");
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("");
   const [dialog, setDialog] = useState(false);
-  const [page, setPage] = React.useState(1);
-  const [tableData, setTableData] = React.useState({
+  const [page, setPage] = useState(1);
+  const [tableData, setTableData] = useState({
     rows: [],
     pages: 0,
     total: 0,
   });
-  const [perv_search_val, setPerv_Search_val] = React.useState("");
-  const [search_val, setSearch_val] = React.useState("");
+  const [perv_search_val, setPerv_Search_val] = useState("");
+  const [search_val, setSearch_val] = useState("");
   const [length, setLength] = useState(5);
   const [Id, setId] = useState("");
   const navigate = useNavigate();
@@ -60,7 +58,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
     search: "",
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = "WCA - Vehicle";
     window.scrollTo(0, 0);
     getList();

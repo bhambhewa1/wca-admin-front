@@ -23,7 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "center",
-  color: theme.palette.text.secondary,
+  // color: theme.palette.text.secondary,
   border: "none",
   boxShadow: "2px",
   fontSize: "12px",
@@ -118,7 +118,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 backgroundColor: "transparent",
                 cursor: "pointer",
                 border: "0.5px solid rgba(0, 0, 0, 0.10)",
-                width: "10%",
+                width: "18vh",
               }}
               onClick={() => navigator.clipboard.writeText(vehicData?.vin)}>
               <FileCopyOutlinedIcon sx={{ mr: "5px" }} />

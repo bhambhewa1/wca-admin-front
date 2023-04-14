@@ -89,7 +89,7 @@ const ConditionDisclosure = () => {
             sx={{
               border: "2px solid #ECECEC",
               borderRadius: "5px",
-              minWidth: "15%",
+              minWidth: { xs: "10vh", sm: "15%" },
               maxWidth: "18%",
             }}
             item>
