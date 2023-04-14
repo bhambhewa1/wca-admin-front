@@ -79,7 +79,7 @@ const ConditionDisclosure = () => {
       </Grid>
       <Divider sx={{ width: "98%", ml: "10px", border: "1px solid #ECECEC" }} />
       <Grid
-        sx={{ ml: "10px", mr: "10px", width: "50%", flexWrap: "wrap", mt: "10px", mb: "10px" }}
+        sx={{ ml: "10px", mr: "10px", width: { xs: "100%", sm: "50%" }, flexWrap: "wrap", mt: "10px", mb: "10px" }}
         container
         rowGap={"10px"}
         columnGap={"10px"}>

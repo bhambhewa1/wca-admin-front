@@ -86,12 +86,12 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
         <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600" }}>Vehicle Details</Typography>
       </Item>
       <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}>
-        <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }} item xs={5} sm={6} lg={2} md={3} xl={1.5}>
+        <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }}>
           <Item sx={{ boxShadow: "none", bgcolor: "#F5F9FA" }}>
             <img alt="carimage" className="carImage" src={require("../../assests/BMW2.jfif")} />
           </Item>
         </Grid>
-        <Grid item xs={7} sm={6} md={9} lg={10} xl={10.5}>
+        <Grid>
           <Item
             sx={{
               boxShadow: "none",
