@@ -59,7 +59,7 @@ const Odometer = () => {
                       borderRadius: "5px",
                       color: "#000",
                       fontWeight: "600",
-                      width:'30%'
+                      width:{xs:'50%',xl:'30%'}
                     }}/>
                 </Typography>
               ) : (
