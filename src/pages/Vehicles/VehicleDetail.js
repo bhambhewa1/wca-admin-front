@@ -23,7 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "center",
-  color: theme.palette.text.secondary,
+  // color: theme.palette.text.secondary,
   border: "none",
   boxShadow: "2px",
   fontSize: "12px",
@@ -86,12 +86,12 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
         <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600" }}>Vehicle Details</Typography>
       </Item>
       <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}>
-        <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }} item xs={5} sm={6} lg={2} md={3} xl={1.5}>
+        <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }}>
           <Item sx={{ boxShadow: "none", bgcolor: "#F5F9FA" }}>
             <img alt="carimage" className="carImage" src={require("../../assests/BMW2.jfif")} />
           </Item>
         </Grid>
-        <Grid item xs={7} sm={6} md={9} lg={10} xl={10.5}>
+        <Grid>
           <Item
             sx={{
               boxShadow: "none",
@@ -118,7 +118,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 backgroundColor: "transparent",
                 cursor: "pointer",
                 border: "0.5px solid rgba(0, 0, 0, 0.10)",
-                width: {xs:'20%',xl:"10%"},
+                width: "18vh",
               }}
               onClick={() => navigator.clipboard.writeText(vehicData?.vin)}>
               <FileCopyOutlinedIcon sx={{ mr: "5px" }} />
