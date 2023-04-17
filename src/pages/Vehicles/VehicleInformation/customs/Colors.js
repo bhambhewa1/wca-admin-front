@@ -152,7 +152,7 @@ const Colors = () => {
             <Typography>Exterior</Typography>
 
             <Box
-              sx={{ p: "10px", bgcolor: colorpicker.hex, borderRadius: "5px" }}
+              sx={{ p: "10px", bgcolor: colorName[0], borderRadius: "5px" }}
               onClick={() => setOpen(true)}
             ></Box>
             <Typography>{colorName[1]}</Typography>

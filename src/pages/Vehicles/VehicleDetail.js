@@ -82,8 +82,8 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   // }));
   return (
     <>
-      <Item sx={{ textAlign: "left" }}>
-        <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600" }}>Vehicle Details</Typography>
+      <Item sx={{}}>
+        <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600", textAlign: "left" }}>Vehicle Details</Typography>
       </Item>
       <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}>
         <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }}>
@@ -104,6 +104,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 textAlign: "left",
               },
               bgcolor: "#F5F9FA",
+              ml: "20px",
             }}>
             <Typography sx={{ fontSize: { xs: "14px", sm: "20px", md: "30px" }, fontWeight: "800", display: "flex" }}>
               {loading && <Skeleton sx={{ width: "300px", height: "60px" }} />}

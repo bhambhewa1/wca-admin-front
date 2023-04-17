@@ -82,6 +82,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
     });
   };
   const handleChange = (e) => {
+    e.target.value = e.target.value.trim();
     setLength(e.target.value);
     // getList();
   };
