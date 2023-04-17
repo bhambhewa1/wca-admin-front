@@ -132,7 +132,11 @@ const VehicleInfoData = () => {
                   </Box>
                 ) : (
                   <Box sx={{}}>
-                    <Typography>Gibbrish</Typography>
+                    <img
+                      alt="reportIcons"
+                      style={{ maxWidth: "200px", maxHeight: "60px" }}
+                      src={require("../../../../assests/Image 32@2x.png")}
+                    />
                   </Box>
                 )}
               </Item>
