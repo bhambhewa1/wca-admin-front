@@ -1,5 +1,5 @@
 import { Button, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 const Item = styled(Paper)(({ theme }) => ({
@@ -13,24 +13,48 @@ const Item = styled(Paper)(({ theme }) => ({
 const OptionAndServiceStatus = () => {
   const price1 = [
     {
-      price:
-        "Standard:• dual power seats •std dual zone automatic ac std •leather std •stabilitrak std",
+      price: "Standard:• dual power seats •std dual zone automatic ac std •leather std •stabilitrak std",
       text: "Option",
-      box: ['Manual Transmission', '4 wheel Drive']
+      box: [
+        { name: "Manual Transmission", isSelect: false },
+        { name: "4 wheel Drive", isSelect: false },
+      ],
     },
-    { text: "Service Status", box: ['Extended warranty', 'Flunked Shop', 'Protection package'] },
+    {
+      text: "Service Status",
+      box: [
+        { name: "Extended warranty", isSelect: false },
+        { name: "Flunked Shop", isSelect: false },
+        { name: "Protection package", isSelect: false },
+      ],
+    },
   ];
+  const [priceData, setPricedata] = useState(price1);
+  const onSelectHandle = (item, index, ind) => {
+    // console.log(index, ind);
+    const duplicateData = priceData;
+    duplicateData[index]?.box?.map((item, i) => {
+      if (ind === i && !item.isSelect) {
+        item.isSelect = true;
+      } else if (item.isSelect && ind === i) {
+        item.isSelect = false;
+      }
+      return item;
+    });
+    // console.log(duplicateData);
+    setPricedata([...duplicateData]);
+  };
   return (
-    <Grid sx={{ mr: "10px"}}>
-      {price1.map((item, index) => (
-        <Grid key={index} flex={"1 1 auto"} item  >
+    <Grid sx={{ mr: "10px" }}>
+      {priceData.map((item, index) => (
+        <Grid key={index} flex={"1 1 auto"} item>
           <Item
             sx={{
-              p: index===1?"50px 0px 80px 0px":"10px 0px 80px 0px",
+              p: index === 1 ? "50px 0px 80px 0px" : "10px 0px 80px 0px",
               fontSize: "14px",
               color: "#000",
               boxShadow: "none",
-              borderBottom: index===0?"2px solid #ECECEC":'',
+              borderBottom: index === 0 ? "2px solid #ECECEC" : "",
               borderRadius: "0px",
               textAlign: "left",
               fontWeight: "700",
@@ -47,33 +71,33 @@ const OptionAndServiceStatus = () => {
                 // justifyContent: "space-between",
               }}>
               {item.price}
-              </Typography>
+            </Typography>
 
-              <Grid container>
-                {item.box.map((data) => (
-                  < Grid
-                    sx={{
-                      border: "2px solid #ECECEC",
-                      // p: "8px 15px 8px 15px",
-                      p:1,
-                      fontSize:'12px',
-                      borderRadius: "5px",
-                      color: "#000",
-                      fontWeight: "600",
-                      mr:2,
-                      mt:1
-                    }}>
-                    {data}
-                  </Grid>
-               ) )}
-
-
+            <Grid container>
+              {item.box.map((data, ind) => (
+                <Grid
+                  sx={{
+                    // p: "8px 15px 8px 15px",
+                    // p: 1,
+                    fontSize: "12px",
+                    borderRadius: "5px",
+                    color: "#000",
+                    fontWeight: "600",
+                    mr: 2,
+                    mt: 1,
+                  }}>
+                  <button
+                    onClick={() => onSelectHandle(item, index, ind)}
+                    style={{ width: "100%", padding: "10px", border: data?.isSelect ? "2px solid black" : "2px solid #ECECEC" }}>
+                    {data.name}
+                  </button>
+                </Grid>
+              ))}
             </Grid>
           </Item>
         </Grid>
-      ))
-      }
-    </Grid >
+      ))}
+    </Grid>
   );
 };
 
