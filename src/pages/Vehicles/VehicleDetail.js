@@ -118,7 +118,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 backgroundColor: "transparent",
                 cursor: "pointer",
                 border: "0.5px solid rgba(0, 0, 0, 0.10)",
-                width: "10%",
+                width: {xs:'20%',xl:"10%"},
               }}
               onClick={() => navigator.clipboard.writeText(vehicData?.vin)}>
               <FileCopyOutlinedIcon sx={{ mr: "5px" }} />

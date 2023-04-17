@@ -47,9 +47,10 @@ const VehicleInfoData = () => {
         <>
             <Box
                 sx={{
-                    width: "100%",
+                    width: "97%",
                     // mt: "20px",
                     borderTop: "2px solid #ECECEC",
+
                 }}>
                 <Grid container columnGap={"12px"}>
                     {price.map((item, index) => (
@@ -158,8 +159,8 @@ const VehicleInfoData = () => {
                     <Grid
                         flex={"1 1 auto"}
                         xs={12}
-                        sm={5.8}
-                        xl={5.9}
+                        // sm={5.8}
+                        lg={5.8}
                         sx={{
                             ml: "10px",
                             // mr: "10px",
@@ -247,8 +248,8 @@ const VehicleInfoData = () => {
                     <Grid
                         flex={"1 1 auto"}
                         xs={12}
-                        sm={5.8}
-                        xl={5.9}
+                        // sm={5.8}
+                        lg={5.8}
                         item sx={{ml:'10px'}}>
                         <Item
                             sx={{
