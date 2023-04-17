@@ -18,7 +18,7 @@ const Colors = () => {
   const [index, setIndex] = useState();
   const [open, setOpen] = useState();
   const [colorpicker, setColorpicker] = useColor("#000000");
-  const [colorName, setColorName] = useState([]);
+  const [colorName, setColorName] = useState(["#000000","Black",""]);
   useEffect(() => {
     // setColorName(ntc.name(colorpicker.hex));
   }, [colorpicker.hex]);
