@@ -12,6 +12,7 @@ import * as yup from "yup";
 import Odometer from "../customs/Odometer";
 import Colors from "../customs/Colors";
 import OptionAndServiceStatus from "../customs/OptionAndServiceStatus";
+import VehicleHistory from "./VehicleHistory";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -187,56 +188,7 @@ const VehicleInfoData = () => {
               }}>
               <Odometer />
               <Colors />
-              <Box
-                sx={{
-                  width: "100%",
-                  mt: "20px",
-                  borderTop: "2px solid #ECECEC",
-                  pt: "10px",
-                  pb: "10px",
-                }}>
-                <Grid columnGap={"10px"} container>
-                  <Grid
-                    flex={"1 1 auto"}
-                    sx={{
-                      borderRight: "2px solid #ECECEC",
-                      mt: "10px",
-                    }}
-                    item>
-                    <Item
-                      sx={{
-                        p: "0px 20px 0px 0px",
-                        fontSize: "14px",
-                        color: "#000",
-                        boxShadow: "none",
-                        textAlign: "left",
-                        borderRadius: "0px",
-                      }}>
-                      Vehicle History
-                      <Typography>Frame damage</Typography>
-                    </Item>
-                  </Grid>
-                  <Grid
-                    flex={"1 1 auto"}
-                    sx={{
-                      pt: "15px",
-                      ml: "30px",
-                    }}
-                    item>
-                    <Item
-                      sx={{
-                        p: "0px",
-                        fontSize: "14px",
-                        color: "#000",
-                        boxShadow: "none",
-                        textAlign: "left",
-                      }}>
-                      Owners
-                      <Typography sx={{ display: "flex", justifyContent: "space-between", width: "70%", mt: "10px" }}>Unknown</Typography>
-                    </Item>
-                  </Grid>
-                </Grid>
-              </Box>
+             <VehicleHistory/>
             </Item>
             <Item
               sx={{

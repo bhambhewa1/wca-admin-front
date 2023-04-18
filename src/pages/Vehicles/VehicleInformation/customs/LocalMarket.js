@@ -83,13 +83,13 @@ const LocalMarket = ({ localMarket }) => {
   }, [zip, distance]);
 
   const miles = [
-    { value: 1000, name: "1000" },
-    { value: 2000, name: "2000" },
-    { value: 4000, name: "4000" },
-    { value: 8000, name: "8000" },
-    { value: 12000, name: "12000" },
-    { value: 15000, name: "15000" },
-    { value: 20000, name: "20000" },
+    { value: 1000, name: "<1000" },
+    { value: 2000, name: "<2000" },
+    { value: 4000, name: "<4000" },
+    { value: 8000, name: "<8000" },
+    { value: 12000, name: "<12000" },
+    { value: 15000, name: "<15000" },
+    { value: 20000, name: "<20000" },
   ];
 
   return (
@@ -120,7 +120,7 @@ const LocalMarket = ({ localMarket }) => {
                 width: "40%",
               }}
             >
-              <FormLabel>Miles</FormLabel>
+              <FormLabel>Maximum Miles</FormLabel>
               <Select
                 name="mile"
                 value={distance}
