@@ -17,6 +17,10 @@ export const requestEditVIN = async (data) => {
 export const requestlocalMarket = async (data) => {
   return Api.PostRequest('/api/localMarket', data);
 };
+export const requestMarketCheck = async () => {
+  console.log('ko');
+  // return Api.PostRequest('/api/localMarket', data);
+};
 const VehicleApi = {
   requestVehicleData,
   requestVehiclesList,
@@ -24,6 +28,7 @@ const VehicleApi = {
   requestlocalMarket,
   requestDeleteVIN,
   requestEditVIN,
+  requestMarketCheck
   };
   export default VehicleApi;
   

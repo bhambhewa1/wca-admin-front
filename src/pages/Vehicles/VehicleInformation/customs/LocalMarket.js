@@ -15,6 +15,7 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { localMarket } from "../../../../redux/action/vehicle/vehicle";
 import { connect } from "react-redux";
+import axios from "axios";
 // const data = [
 //   {
 //     img: require('../../../../assests/download.jpg'),
@@ -74,22 +75,29 @@ const LocalMarket = ({ localMarket }) => {
     setZip(e.target.value);
   };
   useEffect(() => {
-    localMarket({ zip, distance }).then((res) => {
-      console.log(res.data);
-      if (res.data.status) {
-        setData(res.data.data);
-      }
-    });
+    // localMarket({ zip, distance }).then((res) => {
+    //   console.log(res.data);
+    //   if (res.data.status) {
+    //     setData(res.data.data);
+    //   }
+    // });
+    axios.get('https://www.cars.com/shopping/results')
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
   }, [zip, distance]);
 
   const miles = [
-    { value: 1000, name: "1000" },
-    { value: 2000, name: "2000" },
-    { value: 4000, name: "4000" },
-    { value: 8000, name: "8000" },
-    { value: 12000, name: "12000" },
-    { value: 15000, name: "15000" },
-    { value: 20000, name: "20000" },
+    { value: 1000, name: "<1000" },
+    { value: 2000, name: "<2000" },
+    { value: 4000, name: "<4000" },
+    { value: 8000, name: "<8000" },
+    { value: 12000, name: "<12000" },
+    { value: 15000, name: "<15000" },
+    { value: 20000, name: "<20000" },
   ];
 
   return (
@@ -120,7 +128,7 @@ const LocalMarket = ({ localMarket }) => {
                 width: "40%",
               }}
             >
-              <FormLabel>Miles</FormLabel>
+              <FormLabel>Maximum Miles</FormLabel>
               <Select
                 name="mile"
                 value={distance}
@@ -236,7 +244,7 @@ const LocalMarket = ({ localMarket }) => {
                 xs={5.5}
                 sx={{ display: "flex", justifyContent: "flex-end" }}
               >
-                <Typography sx={{ fontSize: "14px" }}>DOM:</Typography>
+                {/* <Typography sx={{ fontSize: "14px" }}>DOM:</Typography> */}
                 <Typography
                   sx={{ fontSize: "14px", fontWeight: "700", color: "#000000" }}
                 >

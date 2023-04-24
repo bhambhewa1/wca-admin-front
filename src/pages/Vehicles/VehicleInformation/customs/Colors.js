@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 import ntc from "ntc";
+import convertCssColorNameToHex from "convert-css-color-name-to-hex";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -13,18 +14,24 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   boxShadow: "none",
 }));
-const Colors = () => {
+const Colors = ({ ext_color, int_color }) => {
   const [color, setColor] = useState(false);
   const [index, setIndex] = useState();
   const [open, setOpen] = useState();
-  const [colorpicker, setColorpicker] = useColor("#000000");
-  const [colorName, setColorName] = useState(["#000000","Black",""]);
+  const [open1, setOpen1] = useState();
+  const ext_color_hex = convertCssColorNameToHex(ext_color);
+  const int_color_hex = convertCssColorNameToHex(int_color);
+  const [colorpicker, setColorpicker] = useColor(ext_color_hex);
+  const [colorpicker1, setColorpicker1] = useColor(int_color_hex);
+  const [colorName, setColorName] = useState([ext_color_hex, ext_color, ""]);
+  const [colorName1, setColorName1] = useState([int_color_hex, int_color, ""]);
   useEffect(() => {
     // setColorName(ntc.name(colorpicker.hex));
-  }, [colorpicker.hex]);
+  }, [colorpicker.hex, colorpicker1.hex]);
 
   console.log(colorpicker.hex);
-  console.log(colorName);
+  console.log(ext_color);
+  console.log(int_color);
 
   return (
     <Grid columnGap={"10px"} container>
@@ -105,15 +112,99 @@ const Colors = () => {
             variant="outlined"
             className="btn"
             onClick={() => {
-              setColorName(ntc.name(colorpicker.hex))
-              setOpen(false)
+              setColorName(ntc.name(colorpicker.hex));
+              setOpen(false);
             }}
           >
             Save
           </Button>
         </Box>
       </Dialog>
-
+      <Dialog open={open1}>
+        <Box sx={{ p: 2 }}>
+          <Typography>Select Color</Typography>
+          <ColorPicker
+            width={456}
+            height={228}
+            color={colorpicker1}
+            onChange={setColorpicker1}
+            hideHSV
+            dark
+          />
+        </Box>
+        <Box
+          sx={{
+            width: { xs: "100%", md: "35%", lg: "100%" },
+            float: "left",
+            display: "flex",
+            justifyContent: { xs: "space-between", md: "flex-end" },
+            pb: 2,
+            pr: { xs: 1, sm: 3 },
+            pl: { xs: 1, sm: 0 },
+          }}
+        >
+          <Button
+            disableRipple
+            sx={{
+              mr: { md: 3 },
+              pl: "35px",
+              pr: "35px",
+              pt: "10px",
+              pb: "10px",
+              fontSize: "16px",
+              lineHeight: "21px",
+              fontWeight: 400,
+              borderRadius: "5px",
+              textTransform: "none",
+              border: "1px solid #EB5757",
+              bgcolor: "#EB5757",
+              color: "white",
+              "&.MuiButtonBase-root:hover": {
+                border: "1px solid #EB5757",
+                bgcolor: "#EB5757",
+                color: "white",
+              },
+            }}
+            onClick={() => {
+              setOpen1(false);
+            }}
+            variant="outlined"
+            className="btn"
+          >
+            Cancel
+          </Button>
+          <Button
+            disableRipple
+            sx={{
+              pl: "35px",
+              pr: "35px",
+              pt: "10px",
+              pb: "10px",
+              fontSize: "16px",
+              lineHeight: "21px",
+              fontWeight: 400,
+              borderRadius: "5px",
+              textTransform: "none",
+              color: "white",
+              bgcolor: "#27AE60",
+              border: "1px solid #27AE60",
+              "&.MuiButtonBase-root:hover": {
+                border: "1px solid #27AE60",
+                color: "white",
+                bgcolor: "#27AE60",
+              },
+            }}
+            variant="outlined"
+            className="btn"
+            onClick={() => {
+              setColorName1(ntc.name(colorpicker1.hex));
+              setOpen1(false);
+            }}
+          >
+            Save
+          </Button>
+        </Box>
+      </Dialog>
       <Grid
         flex={"1 1 auto"}
         sx={{
@@ -136,26 +227,56 @@ const Colors = () => {
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "space-around",
               width: "100%",
               mt: "10px",
             }}
           >
             <Box
               sx={{
-                p: "10px",
-                bgcolor: "whitesmoke",
-                borderRadius: "5px",
-                border: "1px solid #ECECEC",
+                display: "flex",
+                flexDirection: "column",
+                width: "50%",
               }}
-            ></Box>
-            <Typography>Exterior</Typography>
-
+            >
+              <Typography>Exterior:</Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  mt: 1,
+                }}
+              >
+                <Box
+                  sx={{
+                    p: "10px",
+                    bgcolor: colorName1[0],
+                    borderRadius: "5px",
+                  }}
+                  onClick={() => setOpen1(true)}
+                ></Box>
+                <Typography sx={{ ml: 2 }}>{colorName1[1]}</Typography>
+              </Box>
+            </Box>
             <Box
-              sx={{ p: "10px", bgcolor: colorName[0], borderRadius: "5px" }}
-              onClick={() => setOpen(true)}
-            ></Box>
-            <Typography>{colorName[1]}</Typography>
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Typography>Interior:</Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  mt: 1,
+                }}
+              >
+                <Box
+                  sx={{ p: "10px", bgcolor: colorName[0], borderRadius: "5px" }}
+                  onClick={() => setOpen(true)}
+                ></Box>
+                <Typography sx={{ ml: 2 }}>{colorName[1]}</Typography>
+              </Box>
+            </Box>
           </Box>
         </Item>
       </Grid>

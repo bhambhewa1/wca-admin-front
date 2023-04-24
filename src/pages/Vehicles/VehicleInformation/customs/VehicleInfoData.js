@@ -18,6 +18,7 @@ import report5 from "../../../../assests/report5.png";
 import Odometer from "../customs/Odometer";
 import Colors from "../customs/Colors";
 import OptionAndServiceStatus from "../customs/OptionAndServiceStatus";
+import VehicleHistory from "./VehicleHistory";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -33,7 +34,8 @@ const schema = yup.object().shape({
   email: yup.string().required("Please enter your email").email("Please enter valid email"),
   password: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
 });
-const VehicleInfoData = () => {
+const VehicleInfoData = ({data,setData}) => {
+  // console.log(setData);
   const { control, formState, handleSubmit, setError } = useForm({
     mode: "onChange",
     defaultValues,
@@ -193,58 +195,9 @@ const VehicleInfoData = () => {
                 boxShadow: "none",
                 p: "0px",
               }}>
-              <Odometer />
-              <Colors />
-              <Box
-                sx={{
-                  width: "100%",
-                  mt: "20px",
-                  borderTop: "2px solid #ECECEC",
-                  pt: "10px",
-                  pb: "10px",
-                }}>
-                <Grid columnGap={"10px"} container>
-                  <Grid
-                    flex={"1 1 auto"}
-                    sx={{
-                      borderRight: "2px solid #ECECEC",
-                      mt: "10px",
-                    }}
-                    item>
-                    <Item
-                      sx={{
-                        p: "0px 20px 0px 0px",
-                        fontSize: "14px",
-                        color: "#000",
-                        boxShadow: "none",
-                        textAlign: "left",
-                        borderRadius: "0px",
-                      }}>
-                      Vehicle History
-                      <Typography>Frame damage</Typography>
-                    </Item>
-                  </Grid>
-                  <Grid
-                    flex={"1 1 auto"}
-                    sx={{
-                      pt: "15px",
-                      ml: "30px",
-                    }}
-                    item>
-                    <Item
-                      sx={{
-                        p: "0px",
-                        fontSize: "14px",
-                        color: "#000",
-                        boxShadow: "none",
-                        textAlign: "left",
-                      }}>
-                      Owners
-                      <Typography sx={{ display: "flex", justifyContent: "space-between", width: "70%", mt: "10px" }}>Unknown</Typography>
-                    </Item>
-                  </Grid>
-                </Grid>
-              </Box>
+              <Odometer data={data.odometer} setData={setData} />
+              <Colors  int_color={data.int_color} ext_color={data.ext_color} />
+             <VehicleHistory/>
             </Item>
             <Item
               sx={{
@@ -271,7 +224,7 @@ const VehicleInfoData = () => {
                 boxShadow: "none",
                 p: "0px",
               }}>
-              <OptionAndServiceStatus />
+              <OptionAndServiceStatus data={data.Option} setData={setData}/>
             </Item>
           </Grid>
         </Grid>
