@@ -88,7 +88,12 @@ const OptionAndServiceStatus = () => {
                   }}>
                   <button
                     onClick={() => onSelectHandle(item, index, ind)}
-                    style={{ width: "100%", padding: "10px", border: data?.isSelect ? "2px solid black" : "2px solid #ECECEC" }}>
+                    style={{
+                      width: "100%",
+                      padding: "10px",
+                      border: data?.isSelect ? "2px solid #ff0000" : "2px solid #ECECEC",
+                      backgroundColor: "transparent",
+                    }}>
                     {data.name}
                   </button>
                 </Grid>

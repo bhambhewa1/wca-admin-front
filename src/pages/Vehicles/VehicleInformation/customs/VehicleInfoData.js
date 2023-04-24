@@ -9,6 +9,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ConditionDisclosure from "../customs/ConditionDisclosure";
 import * as yup from "yup";
+import report1 from "../../../../assests/report1.png";
+import report2 from "../../../../assests/report2.png";
+import report3 from "../../../../assests/report3.png";
+import report4 from "../../../../assests/report4.png";
+import report5 from "../../../../assests/report5.png";
+
 import Odometer from "../customs/Odometer";
 import Colors from "../customs/Colors";
 import OptionAndServiceStatus from "../customs/OptionAndServiceStatus";
@@ -41,6 +47,7 @@ const VehicleInfoData = () => {
     { price: "$10,000", text: "Manhiem" },
     { price: "$10,000", text: "Trade in fair" },
   ];
+  const image = [report1, report2, report3, report4, report5];
 
   const purchasePrice = [{ price: "", text: "Enter Purchase price" }, ""];
   return (
@@ -51,9 +58,12 @@ const VehicleInfoData = () => {
           // mt: "20px",
           borderTop: "2px solid #ECECEC",
         }}>
-        <Grid container columnGap={"12px"} sx={{
-                width:'97%'
-        }}>
+        <Grid
+          container
+          columnGap={"12px"}
+          sx={{
+            width: "97%",
+          }}>
           {price.map((item, index) => (
             <Grid
               key={index}
@@ -133,12 +143,10 @@ const VehicleInfoData = () => {
                     />
                   </Box>
                 ) : (
-                  <Box sx={{}}>
-                    <img
-                      alt="reportIcons"
-                      style={{ maxWidth: "200px", maxHeight: "60px" }}
-                      src={require("../../../../assests/Image 32@2x.png")}
-                    />
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    {image.map((item) => (
+                      <img alt="reportIcons" style={{ maxWidth: "60px", maxHeight: "60px" }} src={item} />
+                    ))}
                   </Box>
                 )}
               </Item>
