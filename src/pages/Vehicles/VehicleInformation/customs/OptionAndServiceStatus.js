@@ -10,15 +10,17 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   boxShadow: "none",
 }));
-const OptionAndServiceStatus = () => {
+const OptionAndServiceStatus = ({data}) => {
+  console.log(data);
   const price1 = [
     {
       price: "Standard:• dual power seats •std dual zone automatic ac std •leather std •stabilitrak std",
       text: "Option",
-      box: [
-        { name: "Manual Transmission", isSelect: false },
-        { name: "4 wheel Drive", isSelect: false },
-      ],
+      box: data
+      // [
+      //   { name: "Manual Transmission", isSelect: false },
+      //   { name: "4 wheel Drive", isSelect: false },
+      // ],
     },
     {
       text: "Service Status",

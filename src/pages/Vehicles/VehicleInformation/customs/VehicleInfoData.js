@@ -28,7 +28,8 @@ const schema = yup.object().shape({
   email: yup.string().required("Please enter your email").email("Please enter valid email"),
   password: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
 });
-const VehicleInfoData = () => {
+const VehicleInfoData = ({data,setData}) => {
+  // console.log(setData);
   const { control, formState, handleSubmit, setError } = useForm({
     mode: "onChange",
     defaultValues,
@@ -186,8 +187,8 @@ const VehicleInfoData = () => {
                 boxShadow: "none",
                 p: "0px",
               }}>
-              <Odometer />
-              <Colors />
+              <Odometer data={data.odometer} setData={setData} />
+              <Colors  int_color={data.int_color} ext_color={data.ext_color} />
              <VehicleHistory/>
             </Item>
             <Item
@@ -215,7 +216,7 @@ const VehicleInfoData = () => {
                 boxShadow: "none",
                 p: "0px",
               }}>
-              <OptionAndServiceStatus />
+              <OptionAndServiceStatus data={data.Option} setData={setData}/>
             </Item>
           </Grid>
         </Grid>

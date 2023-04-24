@@ -46,7 +46,21 @@ export const addVIN = (data) => async (dispatch) => {
     
   }
 }
-
+export const MarketCheck = () => async (dispatch) => {
+  try {
+    let response = await VehicleApi.requestMarketCheck();
+    // if (response.status) {
+    //   // dispatch(userdata(response.data));
+    //   return response;
+    // } else {
+    //   response?.data?.errors?.map((item) => {
+    //     return toast.error(item);
+    //   });
+    //   return response;
+    // }
+  } catch (err) {
+  }
+};
   export const localMarket = (data) => async (dispatch) => {
     try {
       let response = await VehicleApi.requestlocalMarket(data);

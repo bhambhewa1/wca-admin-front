@@ -10,11 +10,14 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   boxShadow: "none",
 }));
-const Odometer = () => {
-  const [base,setBase] = useState(77000)
+const Odometer = ({data,setData}) => {
+  console.log(setData);
+  const [base,setBase] = useState(data)
   const handleChange = (e) =>{
     setBase(e.target.value)
+    // setData({Odometer:e.target.value})
   }
+  console.log(data,base)
   const price1 = [
     {
       price:

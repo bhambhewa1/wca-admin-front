@@ -6,6 +6,9 @@ import RetailDescription from "./customs/RetailDescription";
 import { Box, Paper } from "@mui/material";
 import VehicleInfoData from "./customs/VehicleInfoData";
 import styled from "@emotion/styled";
+import { MarketCheck } from "../../../redux/action/vehicle/vehicle";
+import { connect } from "react-redux";
+
 const Item = styled(Paper)(({ theme }) => ({
   // backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -14,14 +17,30 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
  
 }));
-const VehicleInformation = () => {
+const Market = {
+  Option:[
+    { name: "Manual Transmission", isSelect: false },
+    { name: "4 wheel Drive", isSelect: false },
+  ],
+  odometer:"25010",
+  int_color:'grey',
+  ext_color:'red',
+  
+}
+const VehicleInformation = ({ MarketCheck }) => {
+  const [data, setData] = React.useState(Market)
 
+  React.useEffect(() => {
+    // MarketCheck().then()
+    console.log(data);
+  }, [data])
+  
   return (
       <Box sx={{
         bgcolor: '#F9FAFE',
       }}>
         <Item>
-          <VehicleInfoData />
+          <VehicleInfoData data={data} setData={setData} />
         </Item>
         <Item sx={{ marginTop:2}}>
           <ScoreCard />
@@ -38,5 +57,12 @@ const VehicleInformation = () => {
       </Box>
   );
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    MarketCheck: () => dispatch(MarketCheck()),
+    // deleteStaff: (data) => dispatch(deleteStaff(data)),
+  };
+};
 
-export default VehicleInformation;
+export default connect(null, mapDispatchToProps)(VehicleInformation);
+
