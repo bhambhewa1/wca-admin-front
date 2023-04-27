@@ -75,19 +75,19 @@ const LocalMarket = ({ localMarket }) => {
     setZip(e.target.value);
   };
   useEffect(() => {
-    // localMarket({ zip, distance }).then((res) => {
-    //   console.log(res.data);
-    //   if (res.data.status) {
-    //     setData(res.data.data);
-    //   }
-    // });
-    axios.get('https://www.cars.com/shopping/results')
-  .then(response => {
-    console.log(response.data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+    localMarket({ zip, distance }).then((res) => {
+      console.log(res.data);
+      if (res.data.status) {
+        setData(res.data.data);
+      }
+    });
+    // axios.get('https://www.cars.com/shopping/results')
+  // .then(response => {
+  //   console.log(response.data);
+  // })
+  // .catch(error => {
+  //   console.error(error);
+  // });
   }, [zip, distance]);
 
   const miles = [

@@ -196,7 +196,7 @@ const VehicleInfoData = () => {
                 p: "0px",
               }}>
               <Odometer odoValue={vehicData?.miles} />
-              <Colors int_color={vehicData?.base_int_color} ext_color={vehicData?.base_ext_color} />
+              <Colors int_color={vehicData?.int_color} ext_color={vehicData?.ext_color} />
               <VehicleHistory />
             </Item>
             <Item
