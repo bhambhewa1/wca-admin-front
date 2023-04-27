@@ -2,6 +2,18 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
+import { Style } from "@mui/icons-material";
+
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() => ({
+  input: {
+    fontWeight: 600,
+    "&::placeholder": {
+      fontWeight: 700,
+    },
+  },
+}));
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -11,6 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: "none",
 }));
 const Odometer = ({ odoValue }) => {
+  const classes = useStyles();
   const [odometerValue, setOdometerValue] = useState(odoValue);
   const handleChange = (e) => {
     setOdometerValue(e.target.value);
@@ -72,6 +85,9 @@ const Odometer = ({ odoValue }) => {
                   sx={{ width: { xs: "35%", lg: "40%", xl: "35%" }, textAlign: "right", ml: { xs: "30px", lg: "100px", xl: "200px" } }}>
                   <TextField
                     placeholder="Enter Miles"
+                    InputProps={{
+                      classes: { input: classes.input },
+                    }}
                     value={odoValue}
                     onChange={handleChange}
                     sx={{
