@@ -20,13 +20,14 @@ const Colors = ({ ext_color, int_color }) => {
   const [index, setIndex] = useState();
   const [open, setOpen] = useState();
   const [open1, setOpen1] = useState();
-  const ext_color_hex = convertCssColorNameToHex(ext_color ? ext_color : "");
-  const int_color_hex = convertCssColorNameToHex(int_color ? int_color : "");
-  const [colorpicker, setColorpicker] = useColor(ext_color_hex);
-  const [colorpicker1, setColorpicker1] = useColor(int_color_hex);
+  let ext_color_hex = convertCssColorNameToHex(ext_color ? ext_color : "");
+  let int_color_hex = convertCssColorNameToHex(int_color ? int_color : "");
+  const [colorpicker, setColorpicker] = useColor({hex:ext_color_hex});
+  const [colorpicker1, setColorpicker1] = useColor({hex:int_color_hex});
   const [colorName, setColorName] = useState([ext_color_hex, ext_color, ""]);
   const [colorName1, setColorName1] = useState([int_color_hex, int_color, ""]);
   useEffect(() => {
+    console.log(colorpicker,colorpicker1);
     setColorName(ntc.name(colorpicker.hex));
   }, [colorpicker.hex, colorpicker1.hex]);
 
@@ -39,7 +40,7 @@ const Colors = ({ ext_color, int_color }) => {
       <Dialog open={open}>
         <Box sx={{ p: 2 }}>
           <Typography>Select Color</Typography>
-          <ColorPicker width={456} height={228} color={colorpicker} onChange={setColorpicker} hideHSV dark />
+          <ColorPicker width={456} height={228} color={colorpicker} onChange={setColorpicker} />
         </Box>
         <Box
           sx={{
@@ -114,7 +115,7 @@ const Colors = ({ ext_color, int_color }) => {
       <Dialog open={open1}>
         <Box sx={{ p: 2 }}>
           <Typography>Select Color</Typography>
-          <ColorPicker width={456} height={228} color={colorpicker1} onChange={setColorpicker1} hideHSV dark />
+          <ColorPicker width={456} height={228} color={colorpicker1} onChange={setColorpicker1} />
         </Box>
         <Box
           sx={{
