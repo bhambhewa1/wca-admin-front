@@ -91,7 +91,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
       <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}>
         <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }}>
           <Item sx={{ boxShadow: "none", bgcolor: "#F5F9FA" }}>
-            <img alt="carimage" className="carImage" src={vehicData?.photo_links[0]?.image_url} />
+            <img alt="carimage" className="carImage" src={vehicData?.photo_links[1]?.image_url || require("../../assests/error.png")} />
           </Item>
         </Grid>
         <Grid>
