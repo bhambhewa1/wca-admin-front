@@ -10,17 +10,26 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   boxShadow: "none",
 }));
-const OptionAndServiceStatus = ({data}) => {
+const OptionAndServiceStatus = ({ data }) => {
   console.log(data);
-  const price1 = [
+  const box1 = [
+    { name: data?.doors + "doors", isSelect: false },
+    { name: data?.fuel_type, isSelect: false },
+  ];
+  const box2 = [
+    { name: "Extended warranty", isSelect: false },
+    { name: "Flunked Shop", isSelect: false },
+    { name: "Protection package", isSelect: false },
+  ];
+
+  let price1 = [
     {
       price: "Standard:• dual power seats •std dual zone automatic ac std •leather std •stabilitrak std",
       text: "Option",
-      box: data
-      // [
-      //   { name: "Manual Transmission", isSelect: false },
-      //   { name: "4 wheel Drive", isSelect: false },
-      // ],
+      box: [
+        { name: data?.doors + "doors", isSelect: false },
+        { name: data?.fuel_type, isSelect: false },
+      ],
     },
     {
       text: "Service Status",
@@ -76,30 +85,55 @@ const OptionAndServiceStatus = ({data}) => {
             </Typography>
 
             <Grid container>
-              {item.box.map((data, ind) => (
-                <Grid
-                  sx={{
-                    // p: "8px 15px 8px 15px",
-                    // p: 1,
-                    fontSize: "12px",
-                    borderRadius: "5px",
-                    color: "#000",
-                    fontWeight: "600",
-                    mr: 2,
-                    mt: 1,
-                  }}>
-                  <button
-                    onClick={() => onSelectHandle(item, index, ind)}
-                    style={{
-                      width: "100%",
-                      padding: "10px",
-                      border: data?.isSelect ? "2px solid #ff0000" : "2px solid #ECECEC",
-                      backgroundColor: "transparent",
-                    }}>
-                    {data.name}
-                  </button>
-                </Grid>
-              ))}
+              {index === 0
+                ? box1.map((data, ind) => (
+                    <Grid
+                      sx={{
+                        // p: "8px 15px 8px 15px",
+                        // p: 1,
+                        fontSize: "12px",
+                        borderRadius: "5px",
+                        color: "#000",
+                        fontWeight: "600",
+                        mr: 2,
+                        mt: 1,
+                      }}>
+                      <button
+                        // onClick={() => onSelectHandle(item, index, ind)}
+                        style={{
+                          width: "100%",
+                          padding: "10px",
+                          border: data?.isSelect ? "2px solid #ff0000" : "2px solid #ECECEC",
+                          backgroundColor: "transparent",
+                        }}>
+                        {data.name}
+                      </button>
+                    </Grid>
+                  ))
+                : box2.map((data, ind) => (
+                    <Grid
+                      sx={{
+                        // p: "8px 15px 8px 15px",
+                        // p: 1,
+                        fontSize: "12px",
+                        borderRadius: "5px",
+                        color: "#000",
+                        fontWeight: "600",
+                        mr: 2,
+                        mt: 1,
+                      }}>
+                      <button
+                        // onClick={() => onSelectHandle(item, index, ind)}
+                        style={{
+                          width: "100%",
+                          padding: "10px",
+                          border: data?.isSelect ? "2px solid #ff0000" : "2px solid #ECECEC",
+                          backgroundColor: "transparent",
+                        }}>
+                        {data.name}
+                      </button>
+                    </Grid>
+                  ))}
             </Grid>
           </Item>
         </Grid>

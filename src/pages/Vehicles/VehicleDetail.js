@@ -50,8 +50,11 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
     { text: "Checks", route: VEHICLECHECKS },
     { text: "Notes", route: VEHICLENOTE },
   ];
+
   const carName = [`${vehicData?.year}`, `${vehicData?.make}`, `${vehicData?.model}`];
-  console.log(carName);
+  // console.log("vehicData", vehicData);
+  // console.log("vehicData", carName);
+
   React.useEffect(() => {
     storage.set.vehicleId(id.id);
     window.scrollTo(0, 0);
@@ -88,7 +91,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
       <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}>
         <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }}>
           <Item sx={{ boxShadow: "none", bgcolor: "#F5F9FA" }}>
-            <img alt="carimage" className="carImage" src={require("../../assests/BMW2.jfif")} />
+            <img alt="carimage" className="carImage" src={vehicData?.photo_links[0]?.image_url} />
           </Item>
         </Grid>
         <Grid>
@@ -187,7 +190,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
         </Menu>
       </Box>
       <Box>
-        <Outlet />
+        <Outlet context={[vehicData, setVehicleData]} />
       </Box>
     </>
   );

@@ -6,6 +6,7 @@ import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 import ntc from "ntc";
 import convertCssColorNameToHex from "convert-css-color-name-to-hex";
+import { useOutletContext } from "react-router-dom";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -19,33 +20,26 @@ const Colors = ({ ext_color, int_color }) => {
   const [index, setIndex] = useState();
   const [open, setOpen] = useState();
   const [open1, setOpen1] = useState();
-  const ext_color_hex = convertCssColorNameToHex(ext_color);
-  const int_color_hex = convertCssColorNameToHex(int_color);
+  const ext_color_hex = convertCssColorNameToHex(ext_color ? ext_color : "");
+  const int_color_hex = convertCssColorNameToHex(int_color ? int_color : "");
   const [colorpicker, setColorpicker] = useColor(ext_color_hex);
   const [colorpicker1, setColorpicker1] = useColor(int_color_hex);
   const [colorName, setColorName] = useState([ext_color_hex, ext_color, ""]);
   const [colorName1, setColorName1] = useState([int_color_hex, int_color, ""]);
   useEffect(() => {
-    // setColorName(ntc.name(colorpicker.hex));
+    setColorName(ntc.name(colorpicker.hex));
   }, [colorpicker.hex, colorpicker1.hex]);
 
-  console.log(colorpicker.hex);
-  console.log(ext_color);
-  console.log(int_color);
+  // console.log(colorpicker.hex);
+  // console.log(ext_color);
+  // console.log(int_color);
 
   return (
     <Grid columnGap={"10px"} container>
       <Dialog open={open}>
         <Box sx={{ p: 2 }}>
           <Typography>Select Color</Typography>
-          <ColorPicker
-            width={456}
-            height={228}
-            color={colorpicker}
-            onChange={setColorpicker}
-            hideHSV
-            dark
-          />
+          <ColorPicker width={456} height={228} color={colorpicker} onChange={setColorpicker} hideHSV dark />
         </Box>
         <Box
           sx={{
@@ -56,8 +50,7 @@ const Colors = ({ ext_color, int_color }) => {
             pb: 2,
             pr: { xs: 1, sm: 3 },
             pl: { xs: 1, sm: 0 },
-          }}
-        >
+          }}>
           <Button
             disableRipple
             sx={{
@@ -84,8 +77,7 @@ const Colors = ({ ext_color, int_color }) => {
               setOpen(false);
             }}
             variant="outlined"
-            className="btn"
-          >
+            className="btn">
             Cancel
           </Button>
           <Button
@@ -114,8 +106,7 @@ const Colors = ({ ext_color, int_color }) => {
             onClick={() => {
               setColorName(ntc.name(colorpicker.hex));
               setOpen(false);
-            }}
-          >
+            }}>
             Save
           </Button>
         </Box>
@@ -123,14 +114,7 @@ const Colors = ({ ext_color, int_color }) => {
       <Dialog open={open1}>
         <Box sx={{ p: 2 }}>
           <Typography>Select Color</Typography>
-          <ColorPicker
-            width={456}
-            height={228}
-            color={colorpicker1}
-            onChange={setColorpicker1}
-            hideHSV
-            dark
-          />
+          <ColorPicker width={456} height={228} color={colorpicker1} onChange={setColorpicker1} hideHSV dark />
         </Box>
         <Box
           sx={{
@@ -141,8 +125,7 @@ const Colors = ({ ext_color, int_color }) => {
             pb: 2,
             pr: { xs: 1, sm: 3 },
             pl: { xs: 1, sm: 0 },
-          }}
-        >
+          }}>
           <Button
             disableRipple
             sx={{
@@ -169,8 +152,7 @@ const Colors = ({ ext_color, int_color }) => {
               setOpen1(false);
             }}
             variant="outlined"
-            className="btn"
-          >
+            className="btn">
             Cancel
           </Button>
           <Button
@@ -199,8 +181,7 @@ const Colors = ({ ext_color, int_color }) => {
             onClick={() => {
               setColorName1(ntc.name(colorpicker1.hex));
               setOpen1(false);
-            }}
-          >
+            }}>
             Save
           </Button>
         </Box>
@@ -211,8 +192,7 @@ const Colors = ({ ext_color, int_color }) => {
           borderRight: "2px solid #ECECEC",
           mt: "10px",
         }}
-        item
-      >
+        item>
         <Item
           sx={{
             p: "0px 20px 0px 0px",
@@ -221,8 +201,7 @@ const Colors = ({ ext_color, int_color }) => {
             boxShadow: "none",
             textAlign: "left",
             borderRadius: "0px",
-          }}
-        >
+          }}>
           Colors
           <Box
             sx={{
@@ -230,30 +209,26 @@ const Colors = ({ ext_color, int_color }) => {
               justifyContent: "space-around",
               width: "100%",
               mt: "10px",
-            }}
-          >
+            }}>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 width: "50%",
-              }}
-            >
+              }}>
               <Typography>Exterior:</Typography>
               <Box
                 sx={{
                   display: "flex",
                   mt: 1,
-                }}
-              >
+                }}>
                 <Box
                   sx={{
                     p: "10px",
                     bgcolor: colorName1[0],
                     borderRadius: "5px",
                   }}
-                  onClick={() => setOpen1(true)}
-                ></Box>
+                  onClick={() => setOpen1(true)}></Box>
                 <Typography sx={{ ml: 2 }}>{colorName1[1]}</Typography>
               </Box>
             </Box>
@@ -261,19 +236,14 @@ const Colors = ({ ext_color, int_color }) => {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-              }}
-            >
+              }}>
               <Typography>Interior:</Typography>
               <Box
                 sx={{
                   display: "flex",
                   mt: 1,
-                }}
-              >
-                <Box
-                  sx={{ p: "10px", bgcolor: colorName[0], borderRadius: "5px" }}
-                  onClick={() => setOpen(true)}
-                ></Box>
+                }}>
+                <Box sx={{ p: "10px", bgcolor: colorName[0], borderRadius: "5px" }} onClick={() => setOpen(true)}></Box>
                 <Typography sx={{ ml: 2 }}>{colorName[1]}</Typography>
               </Box>
             </Box>
@@ -287,8 +257,7 @@ const Colors = ({ ext_color, int_color }) => {
             pt: "15px",
             ml: { xs: "0px", lg: "30px" },
           }}
-          item
-        >
+          item>
           <Item
             sx={{
               p: "0px",
@@ -296,15 +265,9 @@ const Colors = ({ ext_color, int_color }) => {
               color: "#000",
               boxShadow: "none",
               textAlign: "left",
-            }}
-          >
+            }}>
             Keys
-            <Grid
-              container
-              flex={"1 1 auto"}
-              columnGap={"5px"}
-              sx={{ width: "90%", pt: 1 }}
-            >
+            <Grid container flex={"1 1 auto"} columnGap={"5px"} sx={{ width: "90%", pt: 1 }}>
               {[0, 1, 2, "+3"].map((item, ind) => (
                 <Button
                   disableRipple
@@ -312,19 +275,14 @@ const Colors = ({ ext_color, int_color }) => {
                     fontSize: { xs: "12px", xl: "16px" },
                     color: "#000",
                     mb: "20px",
-                    border: color
-                      ? ind === index
-                        ? "2px solid #F15F23"
-                        : "2px solid #ECECEC"
-                      : "2px solid #ECECEC",
+                    border: color ? (ind === index ? "2px solid #F15F23" : "2px solid #ECECEC") : "2px solid #ECECEC",
                     p: "0px",
                     minWidth: "40px",
                   }}
                   onClick={() => {
                     setColor(true);
                     setIndex(ind);
-                  }}
-                >
+                  }}>
                   {item}
                 </Button>
               ))}

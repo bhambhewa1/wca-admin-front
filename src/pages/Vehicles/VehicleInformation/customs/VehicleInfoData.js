@@ -19,6 +19,7 @@ import Odometer from "../customs/Odometer";
 import Colors from "../customs/Colors";
 import OptionAndServiceStatus from "../customs/OptionAndServiceStatus";
 import VehicleHistory from "./VehicleHistory";
+import { useOutletContext } from "react-router-dom";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -34,8 +35,8 @@ const schema = yup.object().shape({
   email: yup.string().required("Please enter your email").email("Please enter valid email"),
   password: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
 });
-const VehicleInfoData = ({data,setData}) => {
-  // console.log(setData);
+const VehicleInfoData = () => {
+  const [vehicData, setVehicleData] = useOutletContext();
   const { control, formState, handleSubmit, setError } = useForm({
     mode: "onChange",
     defaultValues,
@@ -43,14 +44,13 @@ const VehicleInfoData = ({data,setData}) => {
   });
   const { isValid, dirtyFields, errors } = formState;
   const price = [
-    { price: "$10,000", text: "Trade price" },
-    { price: "$10,000", text: "Target auction" },
-    { price: "$10,000", text: "Target detail" },
-    { price: "$10,000", text: "Manhiem" },
-    { price: "$10,000", text: "Trade in fair" },
+    { price: vehicData?.trade_price, text: "Trade price" },
+    { price: "10,000", text: "Target auction" },
+    { price: vehicData?.target_retail, text: "Target Retail" },
+    { price: "10,000", text: "Manhiem" },
+    { price: "10,000", text: "Trade in fair" },
   ];
   const image = [report1, report2, report3, report4, report5];
-
   const purchasePrice = [{ price: "", text: "Enter Purchase price" }, ""];
   return (
     <>
@@ -88,7 +88,7 @@ const VehicleInfoData = ({data,setData}) => {
                   border: index === 3 || index === 4 ? "2px solid #ECECEC" : "",
                   borderRadius: "5px",
                 }}>
-                {item.price}
+                ${item.price}
                 <Typography sx={{ fontSize: "12px", color: "#707070" }}>{item.text}</Typography>
               </Item>
             </Grid>
@@ -195,9 +195,9 @@ const VehicleInfoData = ({data,setData}) => {
                 boxShadow: "none",
                 p: "0px",
               }}>
-              <Odometer data={data.odometer} setData={setData} />
-              <Colors  int_color={data.int_color} ext_color={data.ext_color} />
-             <VehicleHistory/>
+              <Odometer odoValue={vehicData?.miles} />
+              <Colors int_color={vehicData?.int_color} ext_color={vehicData?.ext_color} />
+              <VehicleHistory />
             </Item>
             <Item
               sx={{
@@ -224,7 +224,7 @@ const VehicleInfoData = ({data,setData}) => {
                 boxShadow: "none",
                 p: "0px",
               }}>
-              <OptionAndServiceStatus data={data.Option} setData={setData}/>
+              <OptionAndServiceStatus data={vehicData} />
             </Item>
           </Grid>
         </Grid>
