@@ -18,6 +18,8 @@ import { connect } from "react-redux";
 import { editVehicleItem } from "../../redux/action/vehicle/vehicle";
 import { storage } from "../../config/storage";
 import LoaderComponent from "../../components/Loader/LoaderComponent";
+import { toast } from "react-toastify";
+import Toastify from "../../components/SnackBar/Toastify";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -129,11 +131,15 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 border: "0.5px solid rgba(0, 0, 0, 0.10)",
                 minWidth: "100px",
               }}
-              onClick={() => navigator.clipboard.writeText(vehicData?.vin)}>
+              onClick={() =>{
+                navigator.clipboard.writeText(vehicData?.vin);
+                toast.success("Copied VIN")
+              } }>
               <FileCopyOutlinedIcon sx={{ mr: "5px" }} />
               Copy VIN
             </button>
           </Item>
+          <Toastify/>
         </Grid>
       </Grid>
       <Box sx={{ borderColor: "divider", p: 1, justifyContent: "flex-end", display: "flex", bgcolor: "white" }}>
