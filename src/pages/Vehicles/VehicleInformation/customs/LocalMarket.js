@@ -9,6 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { load } from "cheerio";
 import React, { useEffect, useState } from "react";
 import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
 import styled from "@emotion/styled";
@@ -56,8 +57,9 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 const LocalMarket = ({ localMarket }) => {
-  const [distance, setDistance] = useState("");
-  const [zip, setZip] = useState("");
+  const [distance, setDistance] = useState("100");
+  const [zip, setZip] = useState("40201");
+  const [model, setModel] = useState("40201");
   const [data, setData] = useState([
     {
       canonical_mmt: "",
@@ -74,21 +76,62 @@ const LocalMarket = ({ localMarket }) => {
   const handleChange = (e) => {
     setZip(e.target.value);
   };
-  useEffect(() => {
-    localMarket({ zip, distance }).then((res) => {
-      console.log(res.data);
-      if (res.data.status) {
-        setData(res.data.data);
-      }
-    });
+  useEffect( () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://wca-python-api.orientaloutsourcing.in/cars?zip=${zip}&maximum_distance=${distance}&model=${model}&`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        var $ = load(response.data);
+        var data = $(".listings-page").attr("data-site-activity");
+        var r = JSON.parse(data);
+        var resp = r.vehicleArray;
+        const cars = [];
+        const car = {};
+        $(".vehicle-card").each((i, el) => {
+          cars.push({
+            img:
+              $(el).find(".vehicle-image").attr("data-src") ||
+              $(el).find(".vehicle-image").attr("src"),
+          });
+        });
+        cars.forEach((j, ind) => {
+          resp[ind].image = j.img;
+        });
+        const data1 = [];
+        var length = resp.length;
+        $(".listings-page").each((i, el) => {
+          for (let index = 1; index <= length; index++) {
+            // console.log($(el).find("script")?.get(index) );
+            data1.push({ engine: $(el).find("script")?.get(index) });
+          }
+        });
+        data1.forEach((i, index) => {
+          // console.log(i?.engine?.firstChild?.data);
+          var dd = i?.engine?.firstChild?.data;
+          // console.log(dd?.vehicleEngine?.name);
+          resp[index].engine = dd?.vehicleEngine?.name;
+        });
+        console.log(resp);
+        setData(resp)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     // axios.get('https://www.cars.com/shopping/results')
-  // .then(response => {
-  //   console.log(response.data);
-  // })
-  // .catch(error => {
-  //   console.error(error);
-  // });
-  }, [zip, distance]);
+    // .then(response => {
+    //   console.log(response.data);
+    // })
+    // .catch(error => {
+    //   console.error(error);
+    // });
+  }, [zip, distance,data]);
 
   const miles = [
     { value: 1000, name: "<1000" },
