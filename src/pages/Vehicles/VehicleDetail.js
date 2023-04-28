@@ -94,11 +94,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
             {loading ? (
               <Skeleton sx={{ height: "170px", width: "120px", borderRadius: "100%" }} />
             ) : (
-              <img
-                alt="carimage"
-                className="carImage"
-                src={vehicData?.photo_links[1]?.image_url ? vehicData?.photo_links[1]?.image_url : require("../../assests/error.png")}
-              />
+              <img alt="carimage" className="carImage" src={vehicData?.photo_links[1]?.image_url} />
             )}
           </Item>
           <LoaderComponent open={loading} />
