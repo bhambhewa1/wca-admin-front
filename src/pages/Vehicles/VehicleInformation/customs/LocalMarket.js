@@ -117,7 +117,6 @@ const LocalMarket = ({ localMarket }) => {
           // console.log(dd?.vehicleEngine?.name);
           resp[index].engine = dd?.vehicleEngine?.name;
         });
-        console.log(resp);
         setData(resp)
       })
       .catch((error) => {
