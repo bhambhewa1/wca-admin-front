@@ -91,8 +91,17 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
       <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}>
         <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }}>
           <Item sx={{ boxShadow: "none", bgcolor: "#F5F9FA" }}>
-            <img alt="carimage" className="carImage" src={vehicData?.photo_links[1]?.image_url || require("../../assests/error.png")} />
+            {loading ? (
+              <Skeleton sx={{ height: "170px", width: "120px", borderRadius: "100%" }} />
+            ) : (
+              <img
+                alt="carimage"
+                className="carImage"
+                src={vehicData?.photo_links[1]?.image_url ? vehicData?.photo_links[1]?.image_url : require("../../assests/error.png")}
+              />
+            )}
           </Item>
+          <LoaderComponent open={loading} />
         </Grid>
         <Grid>
           <Item
@@ -122,7 +131,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 backgroundColor: "transparent",
                 cursor: "pointer",
                 border: "0.5px solid rgba(0, 0, 0, 0.10)",
-                width: "18vh",
+                minWidth: "100px",
               }}
               onClick={() => navigator.clipboard.writeText(vehicData?.vin)}>
               <FileCopyOutlinedIcon sx={{ mr: "5px" }} />

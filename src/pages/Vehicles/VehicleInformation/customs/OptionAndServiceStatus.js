@@ -15,6 +15,7 @@ const OptionAndServiceStatus = ({ data }) => {
   const box1 = [
     { name: data?.doors + "doors", isSelect: false },
     { name: data?.fuel_type, isSelect: false },
+    { name: data?.engine, isSelect: false },
   ];
   const box2 = [
     { name: "Extended warranty", isSelect: false },
@@ -24,7 +25,7 @@ const OptionAndServiceStatus = ({ data }) => {
 
   let price1 = [
     {
-      price: "Standard:• dual power seats •std dual zone automatic ac std •leather std •stabilitrak std",
+      price: "Standard:",
       text: "Option",
       box: [
         { name: data?.doors + "doors", isSelect: false },
