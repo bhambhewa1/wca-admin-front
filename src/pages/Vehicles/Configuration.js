@@ -41,11 +41,9 @@ const Configuration = () => {
     //     }
     // }
     // )
-    // console.log(e);
     // setData(name)
   };
   const handleInc = (index, name) => {
-    // console.log(index, name);
     name.map((item, ind) => {
       if (ind === index) {
         item.days += 1;
@@ -563,7 +561,6 @@ const Configuration = () => {
                           }}
                         />
                       </Grid>
-                      {console.log(index)}
                       <Button
                         sx={{
                           backgroundColor: "#F15F23",

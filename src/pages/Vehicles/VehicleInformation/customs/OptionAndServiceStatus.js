@@ -11,7 +11,6 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: "none",
 }));
 const OptionAndServiceStatus = ({ data }) => {
-  console.log(data);
   const box1 = [
     { name: data?.doors + `${"  "}doors`, isSelect: false },
     { name: data?.fuel_type, isSelect: false },
@@ -43,7 +42,6 @@ const OptionAndServiceStatus = ({ data }) => {
   ];
   const [priceData, setPricedata] = useState(price1);
   const onSelectHandle = (item, index, ind) => {
-    // console.log(index, ind);
     const duplicateData = priceData;
     duplicateData[index]?.box?.map((item, i) => {
       if (ind === i && !item.isSelect) {
@@ -53,7 +51,6 @@ const OptionAndServiceStatus = ({ data }) => {
       }
       return item;
     });
-    // console.log(duplicateData);
     setPricedata([...duplicateData]);
   };
   return (

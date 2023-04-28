@@ -59,7 +59,6 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
       engine: "",
     },
   ]);
-  // console.log(localMarketPayloads);
   var model = [localMarketPayloads?.make+'-'+localMarketPayloads?.model]
   var make = [localMarketPayloads?.make]
   const handleSelect = (e) => {
@@ -69,7 +68,6 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
     setZip(e.target.value);
   };
   useEffect(() => {
-    // console.log(localMarketPayloads)
     if(localMarketPayloads!==undefined)
     {
       let config = {
@@ -100,40 +98,30 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
         var length = resp.length;
         $(".listings-page").each((i, el) => {
           for (let index = 1; index <= length; index++) {
-            // console.log($(el).find("script")?.get(index) );
             data1.push({ engine: $(el).find("script")?.get(index) });
           }
         });
         data1.forEach((i, index) => {
-          // console.log(i?.engine?.firstChild?.data);
           var dd = i?.engine?.firstChild?.data;
-          // console.log(dd?.vehicleEngine?.name);
           resp[index].engine = dd?.vehicleEngine?.name;
         });
         setData(resp)
       })
       .catch((error) => {
-        console.log(error);
       });
     }
-    // axios.get('https://www.cars.com/shopping/results')
-    // .then(response => {
-    //   console.log(response.data);
-    // })
-    // .catch(error => {
-    //   console.error(error);
-    // });
+
   }, [zip, distance, data,localMarketPayloads]);
 
   const miles = [
     { value: "Select", name: "Select" },
-    { value: 10, name: "<1000" },
-    { value: 20, name: "<2000" },
-    { value: 40, name: "<4000" },
-    { value: 80, name: "<8000" },
-    { value: 120, name: "<12000" },
-    { value: 150, name: "<15000" },
-    { value: 200, name: "<20000" },
+    { value: 50, name: "<50" },
+    { value: 100, name: "<100" },
+    { value: 200, name: "<200" },
+    { value: 300, name: "<300" },
+    { value: 400, name: "<400" },
+    { value: 500, name: "<500" },
+    { value: 600, name: "<600" },
   ];
 
   return (

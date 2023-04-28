@@ -26,16 +26,13 @@ const Odometer = ({ odoValue }) => {
   const classes = useStyles();
   const [odometerValue, setOdometerValue] = useState("");
   const handleChange = (e) => {
-    console.log(e);
     setOdometerValue(e.target.value);
     // setData({Odometer:e.target.value})
   };
   useEffect(() => {
-    // console.log(odoValue);
     setOdometerValue(odoValue)
-  }, [])
+  }, [odoValue])
   
-  // console.log(data,base)
   const price1 = [
     {
       price:

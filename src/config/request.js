@@ -55,7 +55,6 @@ export const PostRequest = async (url, data) => {
         window.location.href = "/";
       }, 2000);
     } else if (res.data.code == 406) {
-      console.log("code 406");
       toast.error("Your staff id is expire , Please login again");
       setTimeout(() => {
         localStorage.clear();

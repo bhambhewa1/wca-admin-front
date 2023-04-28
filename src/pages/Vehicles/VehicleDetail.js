@@ -54,8 +54,6 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   ];
 
   const carName = [`${vehicData?.year}`, `${vehicData?.make}`, `${vehicData?.model}`];
-  // console.log("vehicData", vehicData);
-  // console.log("vehicData", carName);
 
   React.useEffect(() => {
     storage.set.vehicleId(id.id);
