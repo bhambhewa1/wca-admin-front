@@ -22,12 +22,18 @@ const Colors = ({ ext_color, int_color }) => {
   const [open1, setOpen1] = useState();
   let ext_color_hex = convertCssColorNameToHex(ext_color ? ext_color : "");
   let int_color_hex = convertCssColorNameToHex(int_color ? int_color : "");
-  const [colorpicker, setColorpicker] = useColor({hex:ext_color_hex});
-  const [colorpicker1, setColorpicker1] = useColor({hex:int_color_hex});
+  const [colorpicker, setColorpicker] = useColor(ext_color_hex);
+  const [colorpicker1, setColorpicker1] = useColor(int_color_hex);
   const [colorName, setColorName] = useState([ext_color_hex, ext_color, ""]);
   const [colorName1, setColorName1] = useState([int_color_hex, int_color, ""]);
   useEffect(() => {
     console.log(colorpicker,colorpicker1);
+    // setColorpicker({hex:ext_color_hex})
+    // setColorpicker1({hex:int_color_hex})
+    // setColorName(colorpicker,ext_color, "")
+    // setColorName1(colorpicker1,int_color, "")
+    console.log(colorpicker,colorpicker1);
+    console.log(colorName,colorName1);
     setColorName(ntc.name(colorpicker.hex));
   }, [colorpicker.hex, colorpicker1.hex]);
 

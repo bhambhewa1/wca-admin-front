@@ -14,6 +14,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.3.4",
+    "cheerio": "^1.0.0-rc.12",
     "convert-css-color-name-to-hex": "^0.1.1",
     "formik": "^2.2.9",
     "i": "^0.3.7",
