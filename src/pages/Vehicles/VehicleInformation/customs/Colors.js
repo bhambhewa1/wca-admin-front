@@ -20,6 +20,7 @@ const Colors = ({ ext_color, int_color }) => {
   const [index, setIndex] = useState();
   const [open, setOpen] = useState();
   const [open1, setOpen1] = useState();
+  // console.log(ex);
   let ext_color_hex = convertCssColorNameToHex(ext_color ? ext_color : "");
   let int_color_hex = convertCssColorNameToHex(int_color ? int_color : "");
   const [colorpicker, setColorpicker] = useColor(ext_color_hex);
@@ -35,7 +36,7 @@ const Colors = ({ ext_color, int_color }) => {
     console.log(colorpicker,colorpicker1);
     console.log(colorName,colorName1);
     setColorName(ntc.name(colorpicker.hex));
-  }, [colorpicker.hex, colorpicker1.hex]);
+  }, []);
 
   // console.log(colorpicker.hex);
   // console.log(ext_color);
@@ -43,7 +44,7 @@ const Colors = ({ ext_color, int_color }) => {
 
   return (
     <Grid columnGap={"10px"} container>
-      <Dialog open={open}>
+      {/* <Dialog open={open}>
         <Box sx={{ p: 2 }}>
           <Typography>Select Color</Typography>
           <ColorPicker width={456} height={228} color={colorpicker} onChange={setColorpicker} />
@@ -117,11 +118,11 @@ const Colors = ({ ext_color, int_color }) => {
             Save
           </Button>
         </Box>
-      </Dialog>
-      <Dialog open={open1}>
+      </Dialog> */}
+      {/* <Dialog open={open1}>
         <Box sx={{ p: 2 }}>
           <Typography>Select Color</Typography>
-          <ColorPicker width={456} height={228} color={colorpicker1} onChange={setColorpicker1} />
+          <ColorPicker width={456} height={228} color={ext_color_hex} onChange={setColorpicker1} />
         </Box>
         <Box
           sx={{
@@ -192,7 +193,7 @@ const Colors = ({ ext_color, int_color }) => {
             Save
           </Button>
         </Box>
-      </Dialog>
+      </Dialog> */}
       <Grid
         flex={"1 1 auto"}
         sx={{
@@ -232,11 +233,11 @@ const Colors = ({ ext_color, int_color }) => {
                 <Box
                   sx={{
                     p: "10px",
-                    bgcolor: colorName1[0],
+                    bgcolor: ext_color_hex,
                     borderRadius: "5px",
                   }}
                   onClick={() => setOpen1(true)}></Box>
-                <Typography sx={{ ml: 2 }}>{colorName1[1]}</Typography>
+                <Typography sx={{ ml: 2 }}>{ext_color}</Typography>
               </Box>
             </Box>
             <Box
@@ -250,8 +251,8 @@ const Colors = ({ ext_color, int_color }) => {
                   display: "flex",
                   mt: 1,
                 }}>
-                <Box sx={{ p: "10px", bgcolor: colorName[0], borderRadius: "5px" }} onClick={() => setOpen(true)}></Box>
-                <Typography sx={{ ml: 2 }}>{colorName[1]}</Typography>
+                <Box sx={{ p: "10px", bgcolor: int_color_hex, borderRadius: "5px" }} onClick={() => setOpen(true)}></Box>
+                <Typography sx={{ ml: 2 }}>{int_color}</Typography>
               </Box>
             </Box>
           </Box>

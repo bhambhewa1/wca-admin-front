@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { Style } from "@mui/icons-material";
@@ -24,11 +24,17 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 const Odometer = ({ odoValue }) => {
   const classes = useStyles();
-  const [odometerValue, setOdometerValue] = useState(odoValue);
+  const [odometerValue, setOdometerValue] = useState("");
   const handleChange = (e) => {
+    console.log(e);
     setOdometerValue(e.target.value);
     // setData({Odometer:e.target.value})
   };
+  useEffect(() => {
+    // console.log(odoValue);
+    setOdometerValue(odoValue)
+  }, [])
+  
   // console.log(data,base)
   const price1 = [
     {
@@ -88,8 +94,8 @@ const Odometer = ({ odoValue }) => {
                     InputProps={{
                       classes: { input: classes.input },
                     }}
-                    value={odoValue}
-                    onChange={handleChange}
+                    value={odometerValue}
+                    onChange={(e)=>handleChange(e)}
                     sx={{
                       p: "8px 20px 8px 20px",
                       borderRadius: "5px",
