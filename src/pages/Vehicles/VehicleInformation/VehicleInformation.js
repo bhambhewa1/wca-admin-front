@@ -31,7 +31,6 @@ const VehicleInformation = ({ editVehicleItem }) => {
   const [data, setData] = React.useState();
   const id = useParams();
   // let vehicle_id = id.id ? id.id : storage.fetch.vehicleId();
-  console.log(id);
   let data1 = { vehicles_id: id.id };
   React.useEffect(() => {
     // MarketCheck().then()
@@ -60,7 +59,7 @@ const VehicleInformation = ({ editVehicleItem }) => {
         <ManheimReport />
       </Item>
       <Item sx={{ marginTop: 2 }}>
-        <LocalMarket data={data} setData={setData} />
+        <LocalMarket localMarketPayloads={data} />
       </Item>
       <Item sx={{ marginTop: 2 }}>
         <RetailDescription />

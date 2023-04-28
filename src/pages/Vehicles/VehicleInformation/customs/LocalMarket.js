@@ -1,14 +1,4 @@
-import {
-  Box,
-  FormLabel,
-  Grid,
-  IconButton,
-  MenuItem,
-  Paper,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, FormLabel, Grid, IconButton, MenuItem, Paper, Select, TextField, Typography } from "@mui/material";
 import { load } from "cheerio";
 import React, { useEffect, useState } from "react";
 import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
@@ -56,7 +46,7 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "left",
   color: theme.palette.text.secondary,
 }));
-const LocalMarket = ({ localMarket }) => {
+const LocalMarket = ({ localMarket, localMarketPayloads }) => {
   const [distance, setDistance] = useState("100");
   const [zip, setZip] = useState("40201");
   const [model, setModel] = useState("40201");
@@ -70,13 +60,14 @@ const LocalMarket = ({ localMarket }) => {
       engine: "",
     },
   ]);
+  console.log(localMarketPayloads);
   const handleSelect = (e) => {
     setDistance(e.target.value);
   };
   const handleChange = (e) => {
     setZip(e.target.value);
   };
-  useEffect( () => {
+  useEffect(() => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
@@ -95,9 +86,7 @@ const LocalMarket = ({ localMarket }) => {
         const car = {};
         $(".vehicle-card").each((i, el) => {
           cars.push({
-            img:
-              $(el).find(".vehicle-image").attr("data-src") ||
-              $(el).find(".vehicle-image").attr("src"),
+            img: $(el).find(".vehicle-image").attr("data-src") || $(el).find(".vehicle-image").attr("src"),
           });
         });
         cars.forEach((j, ind) => {
@@ -118,7 +107,7 @@ const LocalMarket = ({ localMarket }) => {
           resp[index].engine = dd?.vehicleEngine?.name;
         });
         console.log(resp);
-        setData(resp)
+        setData(resp);
       })
       .catch((error) => {
         console.log(error);
@@ -131,7 +120,7 @@ const LocalMarket = ({ localMarket }) => {
     // .catch(error => {
     //   console.error(error);
     // });
-  }, [zip, distance,data]);
+  }, [zip, distance, data]);
 
   const miles = [
     { value: 1000, name: "<1000" },
@@ -155,29 +144,21 @@ const LocalMarket = ({ localMarket }) => {
             display: "flex",
             justifyContent: "flex-end",
             pb: 2,
-          }}
-        >
+          }}>
           <form
             style={{
               display: "flex",
               width: "100%",
               justifyContent: "space-around",
-            }}
-          >
+            }}>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 width: "40%",
-              }}
-            >
+              }}>
               <FormLabel>Maximum Miles</FormLabel>
-              <Select
-                name="mile"
-                value={distance}
-                onChange={handleSelect}
-                SelectDisplayProps={{ style: { padding: 5 } }}
-              >
+              <Select name="mile" value={distance} onChange={handleSelect} SelectDisplayProps={{ style: { padding: 5 } }}>
                 {miles.map((val) => (
                   <MenuItem value={val.value}>{val.name}</MenuItem>
                 ))}
@@ -188,8 +169,7 @@ const LocalMarket = ({ localMarket }) => {
                 display: "flex",
                 flexDirection: "column",
                 width: "40%",
-              }}
-            >
+              }}>
               <FormLabel>Zip</FormLabel>
               <TextField
                 onChange={handleChange}
@@ -212,16 +192,10 @@ const LocalMarket = ({ localMarket }) => {
         sx={{
           height: "500px",
           overflow: "scroll",
-        }}
-      >
+        }}>
         {data.map((item) => (
           <Item sx={{ bgcolor: "green", mt: 2, width: "99%" }}>
-            <Grid
-              container
-              xs={11.9}
-              xl={11.9}
-              sx={{ bgcolor: "white", ml: 1, p: 2 }}
-            >
+            <Grid container xs={11.9} xl={11.9} sx={{ bgcolor: "white", ml: 1, p: 2 }}>
               <Grid xs={6} container>
                 <Grid xs={2}>
                   <img
@@ -234,33 +208,16 @@ const LocalMarket = ({ localMarket }) => {
                   />
                 </Grid>
                 <Grid xs={9} sx={{ fontSize: "14px" }}>
-                  <Typography
-                    sx={{ fontWeight: 800, color: "#000000", fontSize: "16px" }}
-                  >
-                    {item.canonical_mmt}
-                  </Typography>
+                  <Typography sx={{ fontWeight: 800, color: "#000000", fontSize: "16px" }}>{item.canonical_mmt}</Typography>
                   <Typography>{item.engine}</Typography>
                   <Grid container>
-                    <Typography sx={{ borderRight: "1px solid black", pr: 1 }}>
-                      {item.vin}
-                    </Typography>
-                    <Typography
-                      sx={{ pl: 1, fontWeight: "700", color: "#000000" }}
-                    >
-                      {item.mileage}MI
-                    </Typography>
+                    <Typography sx={{ borderRight: "1px solid black", pr: 1 }}>{item.vin}</Typography>
+                    <Typography sx={{ pl: 1, fontWeight: "700", color: "#000000" }}>{item.mileage}MI</Typography>
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid
-                xs={5.5}
-                sx={{ display: "flex", justifyContent: "flex-end" }}
-              >
-                <Typography
-                  sx={{ fontSize: "14px", fontWeight: "800", color: "#000000" }}
-                >
-                  ${item.price}
-                </Typography>
+              <Grid xs={5.5} sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <Typography sx={{ fontSize: "14px", fontWeight: "800", color: "#000000" }}>${item.price}</Typography>
               </Grid>
             </Grid>
             <Grid container xs={11.9} sx={{ bgcolor: "#ECECEC", ml: 1 }}>
@@ -268,8 +225,7 @@ const LocalMarket = ({ localMarket }) => {
                 xs={6}
                 sx={{
                   p: 1,
-                }}
-              >
+                }}>
                 <Link
                   style={{
                     textDecoration: "none",
@@ -278,26 +234,16 @@ const LocalMarket = ({ localMarket }) => {
                     padding: "5px 30px 5px 30px",
                     fontSize: "14px",
                     borderRadius: "5px",
-                  }}
-                >
+                  }}>
                   {item.stock_type}
                 </Link>
               </Grid>
-              <Grid
-                xs={5.5}
-                sx={{ display: "flex", justifyContent: "flex-end" }}
-              >
+              <Grid xs={5.5} sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {/* <Typography sx={{ fontSize: "14px" }}>DOM:</Typography> */}
-                <Typography
-                  sx={{ fontSize: "14px", fontWeight: "700", color: "#000000" }}
-                >
-                  {item.dom}
-                </Typography>
+                <Typography sx={{ fontSize: "14px", fontWeight: "700", color: "#000000" }}>{item.dom}</Typography>
               </Grid>
               <Grid>
-                <Typography sx={{ fontSize: "14px", pl: 1 }}>
-                  {item.type}
-                </Typography>
+                <Typography sx={{ fontSize: "14px", pl: 1 }}>{item.type}</Typography>
               </Grid>
             </Grid>
           </Item>
