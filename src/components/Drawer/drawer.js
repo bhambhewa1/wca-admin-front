@@ -13,7 +13,21 @@ import ListItemText from "@mui/material/ListItemText";
 import Index from "../../routes/index.js";
 import { drawerData } from "../../config/mockData";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Button, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Menu, MenuItem, Paper, Toolbar, Typography, useMediaQuery } from "@mui/material";
+import {
+  Button,
+  Collapse,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Menu,
+  MenuItem,
+  Paper,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { useTheme } from "@emotion/react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -42,16 +56,15 @@ const PermanentDrawerRight = () => {
   const [open, setOpen] = React.useState(true);
   const [openLogoutAlert, setOpenLogoutAlert] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [underProgress, setUnderProgress] = React.useState(false)
+  const [underProgress, setUnderProgress] = React.useState(false);
   const adminInfo = React.useContext(UserContext);
   const [first, setfirst] = React.useState();
   const [data, setData] = React.useState(drawerData);
 
   let URL = location.pathname;
   const trimmedURL = URL.slice(0, 15);
-  
-  React.useEffect(() => {
 
+  React.useEffect(() => {
     const trimmedURL = URL.slice(0, 6);
     data.map((item, index) => {
       let trimmedRoute = item?.Routes?.slice(0, 6);
@@ -191,7 +204,7 @@ const PermanentDrawerRight = () => {
               justifyContent: "space-between",
             }}>
             <Link
-              to="/"
+              to="/profile"
               style={{
                 textDecoration: "none",
                 display: "flex",
@@ -309,7 +322,7 @@ const PermanentDrawerRight = () => {
                       className="drawerItemLinks"
                       style={{ color: text.isActive ? "#fff" : "#B2C1F0" }}
                       to={text.Routes}
-                      onClick={() => (index === 5 ? Logout() : '')}>
+                      onClick={() => (index === 5 ? Logout() : "")}>
                       <ListItemIcon
                         sx={{
                           color: text.isActive ? "#fff" : "#B2C1F0",
@@ -341,16 +354,16 @@ const PermanentDrawerRight = () => {
             ml: open ? "auto" : "",
             bgcolor: "#f9fafe",
           }}>
-          {trimmedURL === '/vehicles/detai' &&
+          {trimmedURL === "/vehicles/detai" && (
             <Box sx={{ m: { xs: 1, sm: 2 } }}>
               <Index />
             </Box>
-          }
-          {trimmedURL !== '/vehicles/detai' &&
+          )}
+          {trimmedURL !== "/vehicles/detai" && (
             <Item sx={{ m: { xs: 1, sm: 2 } }}>
               <Index />
             </Item>
-           } 
+          )}
         </Box>
         {/* {location.pathname === '/staff'||
         location.pathname === '/staff/update'||

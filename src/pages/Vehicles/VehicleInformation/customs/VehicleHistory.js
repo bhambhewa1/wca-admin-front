@@ -1,14 +1,5 @@
 import styled from "@emotion/styled";
-import {
-  Box,
-  Button,
-  FormLabel,
-  Grid,
-  MenuItem,
-  Paper,
-  Select,
-  Typography,
-} from "@mui/material";
+import { Box, Button, FormLabel, Grid, MenuItem, Paper, Select, Typography } from "@mui/material";
 import React from "react";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -28,8 +19,7 @@ const VehicleHistory = () => {
           borderTop: "2px solid #ECECEC",
           pt: "10px",
           pb: "10px",
-        }}
-      >
+        }}>
         <Grid container>
           <Grid
             flex={"1 1 auto"}
@@ -38,8 +28,7 @@ const VehicleHistory = () => {
               mt: "10px",
             }}
             xs={5.8}
-            item
-          >
+            item>
             <Item
               sx={{
                 // p: "0px 20px 0px 0px",
@@ -48,8 +37,7 @@ const VehicleHistory = () => {
                 boxShadow: "none",
                 textAlign: "left",
                 borderRadius: "0px",
-              }}
-            >
+              }}>
               <Typography sx={{ color: "#000000" }}>Vehicle History</Typography>
               <Button
                 disableRipple
@@ -62,9 +50,8 @@ const VehicleHistory = () => {
                   p: "5px",
                   minWidth: "40px",
                   textTransform: "none",
-                }}
-              >
-                Frame Demage
+                }}>
+                Frame Damage
               </Button>
             </Item>
           </Grid>
@@ -75,8 +62,7 @@ const VehicleHistory = () => {
               ml: "20px",
             }}
             xs={5.5}
-            item
-          >
+            item>
             <Item
               sx={{
                 p: "0px",
@@ -87,17 +73,13 @@ const VehicleHistory = () => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",
-              }}
-            >
-              <Typography sx={{ textAlign: "left", pb: 2, color: "#000000" }}>
-                Owners
-              </Typography>
+              }}>
+              <Typography sx={{ textAlign: "left", pb: 2, color: "#000000" }}>Owners</Typography>
               <Select
                 SelectDisplayProps={{ style: { padding: 5 } }}
                 sx={{
                   width: "70%",
-                }}
-              >
+                }}>
                 <MenuItem>Null</MenuItem>
                 <MenuItem>Null</MenuItem>
                 <MenuItem>Null</MenuItem>

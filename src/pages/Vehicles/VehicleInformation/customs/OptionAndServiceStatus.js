@@ -13,7 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const OptionAndServiceStatus = ({ data }) => {
   console.log(data);
   const box1 = [
-    { name: data?.doors + "doors", isSelect: false },
+    { name: data?.doors + `${"  "}doors`, isSelect: false },
     { name: data?.fuel_type, isSelect: false },
     { name: data?.engine, isSelect: false },
   ];
@@ -28,7 +28,7 @@ const OptionAndServiceStatus = ({ data }) => {
       price: "Standard:",
       text: "Option",
       box: [
-        { name: data?.doors + "doors", isSelect: false },
+        { name: data?.doors, isSelect: false },
         { name: data?.fuel_type, isSelect: false },
       ],
     },
@@ -106,6 +106,8 @@ const OptionAndServiceStatus = ({ data }) => {
                           padding: "10px",
                           border: data?.isSelect ? "2px solid #ff0000" : "2px solid #ECECEC",
                           backgroundColor: "transparent",
+                          fontWeight: "550",
+                          fontSize: "12px",
                         }}>
                         {data.name}
                       </button>
@@ -130,6 +132,8 @@ const OptionAndServiceStatus = ({ data }) => {
                           padding: "10px",
                           border: data?.isSelect ? "2px solid #ff0000" : "2px solid #ECECEC",
                           backgroundColor: "transparent",
+                          fontWeight: "550",
+                          fontSize: "12px",
                         }}>
                         {data.name}
                       </button>
