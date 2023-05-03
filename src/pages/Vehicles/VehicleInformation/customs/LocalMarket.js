@@ -91,6 +91,7 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
         var $ = load(response.data);
         var data = $(".listings-page").attr("data-site-activity");
         var r = JSON.parse(data);
+        console.log("r", r);
         var resp = r.vehicleArray;
         const cars = [];
         const car = {};
