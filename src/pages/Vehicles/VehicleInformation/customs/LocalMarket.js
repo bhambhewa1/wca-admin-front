@@ -63,14 +63,22 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
   var make = [localMarketPayloads?.make]
   const handleSelect = (e) => {
     setDistance(e.target.value);
+    market()
   };
   const handleChange = (e) => {
     setZip(e.target.value);
+    market()
   };
   useEffect(() => {
     if(localMarketPayloads!==undefined)
     {
-      let config = {
+      market()
+    }
+
+  }, [zip,distance,localMarketPayloads]);
+  
+  const market = ()=>{
+    let config = {
       method: "get",
       maxBodyLength: Infinity,
       url: `https://wca-python-api.orientaloutsourcing.in/cars?zip=${zip}&maximum_distance=${distance}&models[]=${model}&makes[]=${make}&year_min=${localMarketPayloads?.year}`,
@@ -109,9 +117,7 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
       })
       .catch((error) => {
       });
-    }
-
-  }, [zip, distance, data,localMarketPayloads]);
+  }
 
   const miles = [
     { value: "Select", name: "Select" },

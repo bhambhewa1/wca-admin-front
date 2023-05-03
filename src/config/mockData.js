@@ -22,7 +22,7 @@ export const drawerData = [
     Routes: "/customers",
   },
   {
-    val: "Vehicles",
+    val: "Appraisal Vehicles",
     isActive: false,
     src: (
       <DirectionsCarFilledIcon

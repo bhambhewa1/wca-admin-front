@@ -56,6 +56,7 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
   const [perv_search_val, setPerv_Search_val] = React.useState("");
   const [search_val, setSearch_val] = React.useState("");
   const [length, setLength] = useState(5);
+  const [columns, setColumns] = React.useState([]);
   const [Id, setId] = useState("");
   const navigate = useNavigate();
   let data = {
@@ -68,6 +69,21 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     getList();
+    const headCells = [
+      {label:"First Name",name:"FirstName"},
+      {label:"Last Name",name:"LastName"},
+      {label:"Email",name:"Email"},
+      {label:"Phone",name:"Phone"},
+      {label:"Created On",name:"created_on"},
+      {label:"Vehicles",name:"Vehicles"},
+      // {label:"Action",name:"Action"},
+    ].map((item, index) => ({
+      id: item === "" ? "none" : item.name,
+      numeric: false,
+      disablePadding: true,
+      label: item.label,
+    }));
+    setColumns(headCells);
   }, [length]);
 
   const getList = () => {
@@ -232,8 +248,9 @@ const CustomersList = ({ getCustomerList, deleteCustomer }) => {
         {!rows?.length == 0 && (
           <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
             <EnhancedTableHead
-              totalColumn={["FirstName", "LastName", "Email", "Phone", "CreatedOn", "Vehicles", "Action"]}
               // numSelected={selected.length}
+              columns={columns}
+              setColumns={setColumns}
               order={order}
               orderBy={orderBy}
               // onSelectAllClick={handleSelectAllClick}

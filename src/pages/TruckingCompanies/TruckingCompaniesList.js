@@ -1,5 +1,5 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormLabel, Table, TableBody, TableCell, TableRow, TextField } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import IconLinkButton from "../../components/Buttons/IconLinkButton";
 import { EnhancedTableHead } from "../../components/TableHeader/TableHeader";
 import TopBox from "../../components/TableHeader/TopBox";
@@ -16,6 +16,21 @@ const rows = [
 const TruckingCompaniesList = () => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const [columns, setColumns] = React.useState([]);
+  useEffect(() => {
+            const headCells = [
+      {label:"Company Name",name:"Company Name"},
+      {label:"Created on",name:"Created on"},
+      // {label:"Action",name:"Action"},
+    ].map((item, index) => ({
+      id: item === "" ? "none" : item.name,
+      numeric: false,
+      disablePadding: true,
+      label: item.label,
+    }));
+    setColumns(headCells);
+  }, [])
+  
   const handleOpen = () => {
     setOpen(true);
   };
@@ -129,7 +144,8 @@ const TruckingCompaniesList = () => {
       <Box sx={Style.table.tableWrapBox}>
         <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
           <EnhancedTableHead
-            totalColumn={["Company Name", "Created on","Action"]}
+           columns={columns}
+           setColumns={setColumns}
             // numSelected={selected.length}
             // order={order}
             // orderBy={orderBy}

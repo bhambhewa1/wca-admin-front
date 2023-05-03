@@ -126,7 +126,7 @@ const TopBox = ({
             </Button>
           )}
       </Box>
-
+{/* 
       {(location.pathname === "/vehicles/negotiating" || location.pathname === "/vehicles/purchased") && (
         <Box
           sx={{
@@ -149,7 +149,7 @@ const TopBox = ({
             <Tab classes={tabClasses} label={button_three} value={route[1]} LinkComponent={Link} to={route[1]} />
           </Tabs>
         </Box>
-      )}
+      )} */}
 
       <Box
         sx={{

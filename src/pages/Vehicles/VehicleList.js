@@ -25,14 +25,21 @@ import { Style } from "../../const/Style";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
-import { deleteVehicleItem, getVehiclesList } from "../../redux/action/vehicle/vehicle";
+import {
+  deleteVehicleItem,
+  getVehiclesList,
+} from "../../redux/action/vehicle/vehicle";
 import { useFormik } from "formik";
 import { addVIN } from "../../redux/action/vehicle/vehicle";
 import LoaderComponent from "../../components/Loader/LoaderComponent";
 import Toastify from "../../components/SnackBar/Toastify";
 import AlertDialog from "../../components/Dialog/Dialog";
 const schema = yup.object().shape({
-  vin: yup.string().required("Please enter valid VIN number").min(11, `Enter minimum 11 numbers `).max(17, `Enter maximum 17 numbers`),
+  vin: yup
+    .string()
+    .required("Please enter valid VIN number")
+    .min(17, `Enter minimum 17 numbers `)
+    .max(17, `Enter maximum 17 numbers`),
 });
 const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
   const [loading, setLoading] = useState(true);
@@ -41,6 +48,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
   const [orderBy, setOrderBy] = useState("");
   const [dialog, setDialog] = useState(false);
   const [page, setPage] = useState(1);
+  const [columns, setColumns] = React.useState([]);
   const [tableData, setTableData] = useState({
     rows: [],
     pages: 0,
@@ -62,6 +70,21 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
     document.title = "WCA - Vehicle";
     window.scrollTo(0, 0);
     getList();
+    const headCells = [
+      {label:"VIN",name:"vin"},
+      {label:"Make",name:"make"},
+      {label:"Year",name:"year"},
+      {label:"Model",name:"model"},
+      {label:"Price",name:"trade_price"},
+      {label:"Created On",name:"created_on"},
+      // {label:"Action",name:"Action"},
+    ].map((item, index) => ({
+      id: item === "" ? "none" : item.name,
+      numeric: false,
+      disablePadding: true,
+      label: item.label,
+    }));
+    setColumns(headCells);
   }, [length]);
   const getList = () => {
     formik.values.vin = "";
@@ -70,9 +93,17 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
       const response = res?.data?.data;
       setLoading(false);
       if (res?.data?.data?.total_records === 0) {
-        setTableData({ total: response?.total_records, pages: response?.pages, rows: response?.vehicles_list });
+        setTableData({
+          total: response?.total_records,
+          pages: response?.pages,
+          rows: response?.vehicles_list,
+        });
       } else if (res?.data?.status) {
-        setTableData({ total: response?.total_records, pages: response?.pages, rows: response?.vehicles_list });
+        setTableData({
+          total: response?.total_records,
+          pages: response?.pages,
+          rows: response?.vehicles_list,
+        });
       } else {
         setTableData({ pages: response?.pages, rows: response?.vehicles_list });
         res?.data?.errors.map((error) => {
@@ -133,11 +164,22 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
           const response = res?.data?.data;
           setLoading(false);
           if (response?.total_records === 0) {
-            setTableData({ total: response?.total_records, pages: response?.pages, rows: response?.vehicles_list });
+            setTableData({
+              total: response?.total_records,
+              pages: response?.pages,
+              rows: response?.vehicles_list,
+            });
           } else if (res?.data?.status) {
-            setTableData({ total: response?.total_records, pages: response?.pages, rows: response?.vehicles_list });
+            setTableData({
+              total: response?.total_records,
+              pages: response?.pages,
+              rows: response?.vehicles_list,
+            });
           } else {
-            setTableData({ pages: response?.pages, rows: response?.vehicles_list });
+            setTableData({
+              pages: response?.pages,
+              rows: response?.vehicles_list,
+            });
             res?.data?.errors.map((error) => {
               toast.error(error);
             });
@@ -161,16 +203,10 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
       setSearch_val(value);
       setPage(1);
       data.search = value;
-      // Object.assign(data, { staff_id: staff })
-
-      // if (order && orderBy) {
-      //   let sort_column = { sort_column: orderBy };
-      //   let sort = { sort_by: order };
-      //   Object.assign(data, sort_column, sort);
-      // }
       getList();
     }
   };
+
   const formik = useFormik({
     initialValues: {
       vin: "",
@@ -199,19 +235,21 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
       }
     });
   };
+
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
         // p: 3,
-      }}>
+      }}
+    >
       <Toastify />
       <TopBox
-        headerText={"Vehicles"}
+        headerText={"Appraisal Vehicles"}
         button_one={"+ Add Vehicle"}
-        button_two={"Negotiating vehicles"}
-        button_three={"Purchased vehicles"}
+        // button_two={"Negotiating vehicles"}
+        // button_three={"Purchased vehicles"}
         searchText={"Search vehicle"}
         sortingText={"Customer"}
         value={""}
@@ -222,7 +260,9 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
       />
       <LoaderComponent open={loading} />
       <Dialog open={open}>
-        <DialogTitle sx={{ borderBottom: "1px solid #dddddd" }}>Add Vehicle</DialogTitle>
+        <DialogTitle sx={{ borderBottom: "1px solid #dddddd" }}>
+          Add Vehicle
+        </DialogTitle>
         <LoaderComponent open={loading} />
 
         <DialogContent
@@ -232,7 +272,8 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
             "&.MuiDialogContent-root": {
               pb: 0,
             },
-          }}>
+          }}
+        >
           <form onSubmit={formik.handleSubmit}>
             <FormLabel>Enter VIN number</FormLabel>
             <TextField
@@ -250,13 +291,18 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
                 },
               }}
             />
-            {formik.errors.vin && formik.touched.vin ? <p style={{ color: "red", margin: "10px" }}>{formik.errors.vin}</p> : null}
+            {formik.errors.vin && formik.touched.vin ? (
+              <p style={{ color: "red", margin: "10px" }}>
+                {formik.errors.vin}
+              </p>
+            ) : null}
             <DialogActions
               sx={{
                 "&.MuiDialogActions-root": {
                   pr: 0,
                 },
-              }}>
+              }}
+            >
               <Box
                 sx={{
                   width: { xs: "100%", md: "35%", lg: "70%" },
@@ -266,7 +312,8 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
                   pb: 3,
                   // pr: 3,
                   pl: { xs: 2, md: 0 },
-                }}>
+                }}
+              >
                 <Button
                   disableRipple
                   sx={{
@@ -292,7 +339,8 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
                   }}
                   variant="outlined"
                   className="btn"
-                  onClick={() => setOpen(false)}>
+                  onClick={() => setOpen(false)}
+                >
                   Cancel
                 </Button>
                 <Button
@@ -319,7 +367,8 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
                   }}
                   variant="outlined"
                   className="btn"
-                  type="submit">
+                  type="submit"
+                >
                   Next
                 </Button>
               </Box>
@@ -345,54 +394,53 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
               fontSize: { xs: "20px", sm: "35px" },
               color: "#A8A8A8",
               fontWeight: "700",
-            }}>
+            }}
+          >
             No Vehicle Found
           </Typography>
         )}
         {!tableData?.rows?.length == 0 && (
           <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
             <EnhancedTableHead
-              totalColumn={["VIN", "Make", "Year", "Model", "Price", "CreatedOn", "Action"]}
-              // order={order}
-              // orderBy={orderBy}
-              // onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              // rowCount={rows.length}
+              columns={columns}
+              setColumns={setColumns}
             />
+            <TableBody>
+              {tableData?.rows.map((row, index) => {
+                const labelId = `enhanced-table-checkbox-${index}`;
 
-            <TableBody sx={{ border: "1px solid #ECECEC" }}>
-              {tableData?.rows.map((row) => (
-                <TableRow key={row.Name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell sx={Style.table.tableCell} align="left">
-                    {row.vin}
-                  </TableCell>
-                  <TableCell sx={Style.table.tableCell} align="left">
-                    {row.make}
-                  </TableCell>
-                  <TableCell sx={Style.table.tableCell} align="left">
-                    {row.year}
-                  </TableCell>
-                  <TableCell sx={Style.table.tableCell} align="left">
-                    {row.model}
-                  </TableCell>
-                  <TableCell sx={Style.table.tableCell} align="left">
-                    {row.trade_price}
-                  </TableCell>
-                  <TableCell sx={Style.table.tableCell} align="left">
-                    {row.created_on}
-                  </TableCell>
-
-                  <TableCell align="left" sx={Style.table.tableCell}>
-                    <IconLinkButton buttonName={"Edit"} onClickLink={`/vehicles/details/info/${row.vehicles_id}`} id={row.vehicles_id} />
-                    <IconLinkButton
-                      onClickButton={() => {
-                        setDialog(true);
-                        setId(row.vehicles_id);
-                      }}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
+                return (
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    {columns.map((item) => (
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        padding="none"
+                        sx={Style.table.tableCell}
+                      >
+                        {row[item.id]}
+                      </TableCell>
+                       
+                    ))}
+                     <TableCell sx={Style.table.tableCell}>
+                        <IconLinkButton buttonName={"Edit"} onClickLink={`/vehicles/details/info/${row.vehicles_id}`} id={row.vehicles_id} />
+                        <IconLinkButton
+                          onClickButton={() => {
+                            setDialog(true);
+                            setId(row.vehicles_id);
+                          }}
+                        />
+                      </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         )}
@@ -404,7 +452,8 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
             flexDirection: { xs: "column", md: "row" },
             justifyContent: "space-between",
             p: 1,
-          }}>
+          }}
+        >
           <Typography
             sx={{
               pl: { xs: 0, sm: 3 },
@@ -418,7 +467,8 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
 
                 mb: 1,
               },
-            }}>
+            }}
+          >
             Number of Rows per Page
             <Select
               variant="standard"
@@ -442,7 +492,8 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
                 fontSize: { xs: "14px", sm: "16px" },
                 display: "flex",
                 justifyContent: "space-between",
-              }}>
+              }}
+            >
               <MenuItem value={5}>5</MenuItem>
               {tableData?.total > 5 && <MenuItem value={10}>10</MenuItem>}
               {tableData?.total > 10 && <MenuItem value={20}>20</MenuItem>}
@@ -454,7 +505,12 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
               count={tableData?.pages}
               page={page}
               boundaryCount={1}
-              sx={{ button: { fontSize: "16px", mr: 1 }, width: "100%", display: "flex", justifyContent: { xs: "center", md: "flex-end" } }}
+              sx={{
+                button: { fontSize: "16px", mr: 1 },
+                width: "100%",
+                display: "flex",
+                justifyContent: { xs: "center", md: "flex-end" },
+              }}
               onChange={handlePageChange}
               siblingCount={0}
             />
@@ -473,46 +529,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(null, mapDispatchToProps)(VehicleList);
-
-// import { Typography } from '@mui/material';
-// import { Box } from '@mui/system';
-// import React, { useEffect, useState } from 'react'
-// import { connect } from 'react-redux';
-// import { getVehicleData } from '../../redux/action/vehicle/vehicle';
-// import LoaderComponent from '../../components/Loader/LoaderComponent'
-// const VehicleList = ({ getVehicleData }) => {
-//   const [data, setData] = useState([])
-//   const [open, setOpen] = useState(true)
-//   useEffect(() => {
-//     getVehicleData({ vin: "2C4RDGBG1CR385500" }).then((res) => {
-//       setOpen(false)
-//       if (res?.data?.status) {
-//         setData(res?.data?.data?.used_vehicles?.used_vehicle_list)
-//       }
-//     })
-//   }, [])
-//   return (
-//     <Box sx={{
-//       p:5
-//     }}>
-//       <LoaderComponent open={open}/>
-//         {data.map((list)=>(<>
-//           <Typography>{" { "}</Typography>
-//           <Typography>model:{list.model}</Typography>
-//           <Typography>model_year:{list.model_year}</Typography>
-//           <Typography>vin:{list.vin}</Typography>
-//           <Typography>make:{list.make}</Typography>
-//           <Typography>{" } "}</Typography>
-//           </> ))}
-//           {/* {data} */}
-//     </Box >
-//   )
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     getVehicleData: (data) => dispatch(getVehicleData(data)),
-//   };
-// };
-
-// export default connect(null, mapDispatchToProps)(VehicleList);

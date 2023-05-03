@@ -10,7 +10,7 @@ export const Style = {
       border: "1px solid #dddddd",
       borderRadius: "25px",
     },
-    tableCell: { width: "100px", fontSize: "13px", color: "#707070", fontWeight: "600" },
+    tableCell: { width: "100px", fontSize: "13px", color: "#707070", fontWeight: "600",padding:'20px' },
   },
   button: {
     textTransform: "none",

@@ -259,7 +259,7 @@ const PermanentDrawerRight = () => {
             </Typography>
             {data.map((text, index) => (
               <>
-                {text.val === "Vehicles" && (
+                {text.val === "Appraisal Vehicles" && (
                   <List
                     sx={{
                       "&.MuiList-root": {
@@ -306,7 +306,7 @@ const PermanentDrawerRight = () => {
                     </Collapse>
                   </List>
                 )}
-                {text.val !== "Vehicles" && (
+                {text.val !== "Appraisal Vehicles" && (
                   <ListItem
                     sx={{
                       color: "#B2C1F0",
