@@ -18,7 +18,6 @@ export const requestlocalMarket = async (data) => {
   return Api.PostRequest('/api/localMarket', data);
 };
 export const requestMarketCheck = async () => {
-  console.log('ko');
   // return Api.PostRequest('/api/localMarket', data);
 };
 const VehicleApi = {

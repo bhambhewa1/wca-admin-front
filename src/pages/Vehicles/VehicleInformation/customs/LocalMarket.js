@@ -47,9 +47,8 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 const LocalMarket = ({ localMarket, localMarketPayloads }) => {
-  const [distance, setDistance] = useState("100");
-  const [zip, setZip] = useState("40201");
-  const [model, setModel] = useState("40201");
+  const [distance, setDistance] = useState("Select");
+  const [zip, setZip] = useState("");
   const [data, setData] = useState([
     {
       canonical_mmt: "",
@@ -60,7 +59,8 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
       engine: "",
     },
   ]);
-  console.log(localMarketPayloads);
+  var model = [localMarketPayloads?.make+'-'+localMarketPayloads?.model]
+  var make = [localMarketPayloads?.make]
   const handleSelect = (e) => {
     setDistance(e.target.value);
   };
@@ -68,10 +68,12 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
     setZip(e.target.value);
   };
   useEffect(() => {
-    let config = {
+    if(localMarketPayloads!==undefined)
+    {
+      let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `https://wca-python-api.orientaloutsourcing.in/cars?zip=${zip}&maximum_distance=${distance}&model=${model}&`,
+      url: `https://wca-python-api.orientaloutsourcing.in/cars?zip=${zip}&maximum_distance=${distance}&models[]=${model}&makes[]=${make}&year_min=${localMarketPayloads?.year}`,
       headers: {},
     };
 
@@ -97,40 +99,30 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
         var length = resp.length;
         $(".listings-page").each((i, el) => {
           for (let index = 1; index <= length; index++) {
-            // console.log($(el).find("script")?.get(index) );
             data1.push({ engine: $(el).find("script")?.get(index) });
           }
         });
         data1.forEach((i, index) => {
-          // console.log(i?.engine?.firstChild?.data);
           var dd = i?.engine?.firstChild?.data;
-          // console.log(dd?.vehicleEngine?.name);
           resp[index].engine = dd?.vehicleEngine?.name;
         });
-        console.log(resp);
-        setData(resp);
+        setData(resp)
       })
       .catch((error) => {
-        console.log(error);
       });
+    }
 
-    // axios.get('https://www.cars.com/shopping/results')
-    // .then(response => {
-    //   console.log(response.data);
-    // })
-    // .catch(error => {
-    //   console.error(error);
-    // });
-  }, [zip, distance, data]);
+  }, [zip, distance, data,localMarketPayloads]);
 
   const miles = [
-    { value: 1000, name: "<1000" },
-    { value: 2000, name: "<2000" },
-    { value: 4000, name: "<4000" },
-    { value: 8000, name: "<8000" },
-    { value: 12000, name: "<12000" },
-    { value: 15000, name: "<15000" },
-    { value: 20000, name: "<20000" },
+    { value: "Select", name: "Select" },
+    { value: 50, name: "<50" },
+    { value: 100, name: "<100" },
+    { value: 200, name: "<200" },
+    { value: 300, name: "<300" },
+    { value: 400, name: "<400" },
+    { value: 500, name: "<500" },
+    { value: 600, name: "<600" },
   ];
 
   return (

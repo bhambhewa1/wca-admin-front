@@ -82,7 +82,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
     });
   };
   const handleChange = (e) => {
-    e.target.value = e.target.value.trim();
+    e.target.value = e.target.values;
     setLength(e.target.value);
     // getList();
   };
@@ -329,7 +329,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
       </Dialog>
 
       <AlertDialog
-        title={"Are you sure you want to delete this vehicle item?"}
+        title={"Are you sure you want to delete this vehicle ?"}
         open={dialog}
         onClickButton={() => handleDelete(Id)}
         onClickButtonCancel={() => setDialog(false)}
