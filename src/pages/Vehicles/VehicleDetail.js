@@ -53,7 +53,8 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
     { text: "Notes", route: VEHICLENOTE },
   ];
 
-  const carName = [`${vehicData?.year + " "} `, `${vehicData?.make + " "}`, `${vehicData?.model + " "}`];
+  const carName =
+    vehicleData?.make === undefined ? "" : [`${vehicData?.year + " "} `, `${vehicData?.make + " "}`, `${vehicData?.model + " "}`];
   const heading = vehicData?.heading ? vehicData?.heading : carName;
   React.useEffect(() => {
     storage.set.vehicleId(id.id);
