@@ -96,12 +96,15 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
         const cars = [];
         const car = {};
         $(".vehicle-card").each((i, el) => {
+          console.log($(el).find("strong").text());
           cars.push({
             img: $(el).find(".vehicle-image").attr("data-src") || $(el).find(".vehicle-image").attr("src"),
+            dealerName: $(el).find("strong").text()
           });
         });
         cars.forEach((j, ind) => {
           resp[ind].image = j.img;
+          resp[ind].dealerName = j.dealerName;
         });
         const data1 = [];
         var length = resp.length;
@@ -209,6 +212,7 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
                 <Grid xs={9} sx={{ fontSize: "14px" }}>
                   <Typography sx={{ fontWeight: 800, color: "#000000", fontSize: "16px" }}>{item.canonical_mmt}</Typography>
                   <Typography>{item.engine}</Typography>
+                  <Typography sx={{ fontWeight: 800, color: "#000000", fontSize: "14px" }}>{item.dealerName}</Typography>
                   <Grid container>
                     <Typography sx={{ borderRight: "1px solid black", pr: 1 }}>{item.vin}</Typography>
                     <Typography sx={{ pl: 1, fontWeight: "700", color: "#000000" }}>{item.mileage}MI</Typography>
@@ -216,7 +220,7 @@ const LocalMarket = ({ localMarket, localMarketPayloads }) => {
                 </Grid>
               </Grid>
               <Grid xs={5.5} sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Typography sx={{ fontSize: "14px", fontWeight: "800", color: "#000000" }}>${item.price}</Typography>
+                <Typography sx={{ fontSize: "14px", fontWeight: "800", color: "#000000" }}>${ Number(item.price).toLocaleString()}</Typography>
               </Grid>
             </Grid>
             <Grid container xs={11.9} sx={{ bgcolor: "#ECECEC", ml: 1 }}>

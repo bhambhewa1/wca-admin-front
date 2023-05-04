@@ -1,4 +1,15 @@
-import { Box, MenuItem, Pagination, Select, Skeleton, Table, TableBody, TableCell, TableRow, Typography } from "@mui/material";
+import {
+  Box,
+  MenuItem,
+  Pagination,
+  Select,
+  Skeleton,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +32,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
   const [dialog, setDialog] = useState(false);
   const [total, setTotal] = useState(0);
   const [page, setPage] = React.useState(1);
+  const [columns, setColumns] = React.useState([]);
   const [rows, setRows] = React.useState([]);
   const [perv_search_val, setPerv_Search_val] = React.useState("");
   const [search_val, setSearch_val] = React.useState("");
@@ -40,6 +52,21 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
     document.title = "WCA - Staff";
     window.scrollTo(0, 0);
     getList();
+    const headCells = [
+      { label: "First Name", name: "Firstname" },
+      { label: "Last Name", name: "Lastname" },
+      { label: "Type", name: "Type" },
+      { label: "Contact No", name: "Contact No" },
+      { label: "Email", name: "Email" },
+      { label: "Created On", name: "CreatedOn" },
+      // {label:"Action",name:"Action"},
+    ].map((item, index) => ({
+      id: item === "" ? "none" : item.name,
+      numeric: false,
+      disablePadding: true,
+      label: item.label,
+    }));
+    setColumns(headCells);
   }, [length]);
   const getList = () => {
     setLoading(true);
@@ -55,6 +82,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
         setTotal(res?.data?.data?.total_records);
       } else {
         setRows(res?.data?.data?.staff_list);
+        setTotal(res?.data?.data?.total_records);
         setPages(res?.data?.data?.pages);
         res?.data?.errors.map((error) => {
           toast.error(error);
@@ -62,6 +90,7 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       }
     });
   };
+  console.log(total);
   const handleRequestSort = (event, property) => {
     setLoading(true);
     let isAsc = orderBy === property && order === "asc";
@@ -164,7 +193,8 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-      }}>
+      }}
+    >
       <Toastify />
       <TopBox
         headerText={"Staff"}
@@ -195,25 +225,30 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
               justifyContent: "center",
               pt: 20,
               pb: 20,
-              fontSize:  {xs:'20px',sm:"35px"},
+              fontSize: { xs: "20px", sm: "35px" },
               color: "#A8A8A8",
               fontWeight: "700",
-            }}>
+            }}
+          >
             No Staff Member Found
           </Typography>
         )}
         {!rows?.length == 0 && (
           <Table sx={Style.table.tableBox} aria-labelledby="tableTitle">
             <EnhancedTableHead
-              totalColumn={["Firstname", "Lastname", "Type", "Contact No", "Email", "CreatedOn", "Action"]}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              columns={columns}
+              setColumns={setColumns}
             />
             <TableBody>
               {rows?.map((row) => (
-                <TableRow key={row.staff_id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableRow
+                  key={row.staff_id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
                   <TableCell sx={Style.table.tableCell}>
                     {loading && <Skeleton sx={{ width: "100px" }} />}
                     {!loading && row.firstName}
@@ -282,7 +317,8 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
             flexDirection: { xs: "column", md: "row" },
             justifyContent: "space-between",
             p: 1,
-          }}>
+          }}
+        >
           <Typography
             sx={{
               pl: { xs: 0, sm: 3 },
@@ -296,7 +332,8 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
 
                 mb: 1,
               },
-            }}>
+            }}
+          >
             Number of Rows per Page
             <Select
               variant="standard"
@@ -320,7 +357,8 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
                 fontSize: { xs: "14px", sm: "16px" },
                 display: "flex",
                 justifyContent: "space-between",
-              }}>
+              }}
+            >
               <MenuItem value={5}>5</MenuItem>
               {total > 5 && <MenuItem value={10}>10</MenuItem>}
               {total > 10 && <MenuItem value={20}>20</MenuItem>}
@@ -332,7 +370,12 @@ const StaffList = ({ getStaffList, deleteStaff }) => {
               count={pages}
               page={page}
               boundaryCount={1}
-              sx={{ button: { fontSize: "16px", mr: 1 }, width: "100%", display: "flex", justifyContent: { xs: "center", md: "flex-end" } }}
+              sx={{
+                button: { fontSize: "16px", mr: 1 },
+                width: "100%",
+                display: "flex",
+                justifyContent: { xs: "center", md: "flex-end" },
+              }}
               onChange={handlePageChange}
               siblingCount={0}
             />
