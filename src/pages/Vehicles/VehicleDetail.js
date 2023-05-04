@@ -53,8 +53,8 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
     { text: "Notes", route: VEHICLENOTE },
   ];
 
-  const carName = [`${vehicData?.year}`, `${vehicData?.make}`, `${vehicData?.model}`];
-
+  const carName = [`${vehicData?.year + " "} `, `${vehicData?.make + " "}`, `${vehicData?.model + " "}`];
+  const heading = vehicData?.heading ? vehicData?.heading : carName;
   React.useEffect(() => {
     storage.set.vehicleId(id.id);
     window.scrollTo(0, 0);
@@ -116,7 +116,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
             }}>
             <Typography sx={{ fontSize: { xs: "14px", sm: "20px", md: "30px" }, fontWeight: "800", display: "flex" }}>
               {loading && <Skeleton sx={{ width: "300px", height: "60px" }} />}
-              {carName && carName?.map((item, index) => <Typography sx={{ mr: "10px" }}>{item === "undefined" ? "" : item}</Typography>)}
+              <Typography sx={{ mr: "10px" }}>{heading === undefined ? "" : heading}</Typography>
             </Typography>
             <Typography sx={{ color: "rgba(0, 0, 0, 0.36)", fontSize: { xs: "12px", sm: "14px" }, fontWeight: "700" }}>
               {typeof vehicData != "undefined" ? vehicData?.vin : <Skeleton sx={{ width: "100px", height: "30px" }} />}
@@ -129,15 +129,15 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 border: "0.5px solid rgba(0, 0, 0, 0.10)",
                 minWidth: "100px",
               }}
-              onClick={() =>{
+              onClick={() => {
                 navigator.clipboard.writeText(vehicData?.vin);
-                toast.success("Copied VIN")
-              } }>
+                toast.success("Copied VIN");
+              }}>
               <FileCopyOutlinedIcon sx={{ mr: "5px" }} />
               Copy VIN
             </button>
           </Item>
-          <Toastify/>
+          <Toastify />
         </Grid>
       </Grid>
       <Box sx={{ borderColor: "divider", p: 1, justifyContent: "flex-end", display: "flex", bgcolor: "white" }}>
