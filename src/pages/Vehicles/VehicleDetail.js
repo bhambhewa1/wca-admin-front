@@ -45,6 +45,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   const [menuButton, setMenuButton] = React.useState("Vehicle Information");
   const vehicleData = [
     { text: "Vehicle Information", route: `/vehicles/details/info/${vehicle_id}` },
+    { text: "MDA", route: `/vehicles/details/mda/${vehicle_id}` },
     { text: "Customer information", route: CUSTOMERINFO },
     { text: "Documents upload", route: DOCUMENTSUPLOAD },
     { text: "Loan Payoff", route: VEHICLELOAN },

@@ -55,9 +55,9 @@ const VehicleInformation = ({ editVehicleItem }) => {
       <Item sx={{ marginTop: 2 }}>
         <ScoreCard />
       </Item>
-      <Item sx={{ marginTop: 2 }}>
+      {/* <Item sx={{ marginTop: 2 }}>
         <ManheimReport />
-      </Item>
+      </Item> */}
       <Item sx={{ marginTop: 2 }}>
         <LocalMarket localMarketPayloads={data} />
       </Item>

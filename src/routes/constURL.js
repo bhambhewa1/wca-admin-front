@@ -10,6 +10,7 @@ export const LOCATIONLIST = "/location";
 export const PROFILE = "/profile";
 export const VEHICLEDETAIL = "/vehicles/details";
 export const VEHICLEINFO = "/vehicles/details/info/:id";
+export const MDA = "/vehicles/details/mda/:id";
 export const VEHICLEESINGDOCUMENT = "/vehicles/details/esigndocument";
 export const VEHICLECHECKS = "/vehicles/details/checks";
 export const VEHICLENOTE = "/vehicles/details/note";

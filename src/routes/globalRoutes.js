@@ -6,6 +6,7 @@ import {
   VEHICLELOAN,
   VEHICLESPURCHASED,
   CUSTOMERUPDATE,
+  MDA,
 } from "./constURL";
 import { CUSTOMERINFO, CUSTOMERLIST, DOCUMENTSUPLOAD, VEHICLEINFO } from "./constURL";
 import { APPOINTMENTLIST } from "./constURL";
@@ -43,6 +44,7 @@ import Checks from "../pages/Vehicles/Checks";
 import Notes from "../pages/Vehicles/Notes";
 import OpenRoutes from "./openRoutes";
 import Configuration from "../pages/Vehicles/Configuration";
+import MarketData from "../pages/Vehicles/MarketData";
 
 export const globalRoutes = [
   {
@@ -109,6 +111,10 @@ export const globalRoutes = [
       {
         path: VEHICLEINFO,
         element: VehicleInformation,
+      },
+      {
+        path: MDA,
+        element: MarketData,
       },
       {
         path: CUSTOMERINFO,
