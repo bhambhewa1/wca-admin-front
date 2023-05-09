@@ -85,6 +85,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   //   color: theme.palette.text.secondary,
 
   // }));
+
   return (
     <>
       <Item sx={{}}>
