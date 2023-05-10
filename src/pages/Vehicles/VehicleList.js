@@ -70,7 +70,9 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
       { label: "Model", name: "model" },
       { label: "Price", name: "trade_price" },
       { label: "Created On", name: "created_on" },
-      // {label:"Action",name:"Action"},
+      { label: "Miles", name: "miles" },
+      { label: "Int Color", name: `base_int_color` },
+      { label: "Ext Color", name: `base_ext_color` },
     ].map((item, index) => ({
       id: item === "" ? "none" : item.name,
       numeric: false,
@@ -212,7 +214,8 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
   });
   const onSubmit = (val) => {
     let id = { vehicles_id: "" };
-    Object.assign(id, val);
+    let otherdata = { miles: "", base: "", purchase_price: "" };
+    Object.assign(id, val, otherdata);
     setLoading(true);
     addVIN(id).then((res) => {
       if (res?.data?.status) {
@@ -392,9 +395,9 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
 
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    {columns.map((item) => (
+                    {columns.map((item, index) => (
                       <TableCell component="th" scope="row" padding="none" sx={Style.table.tableCell}>
-                        {row[item.id]}
+                        {index === 4 || index === 6 ? Number(row[item.id]).toLocaleString() : row[item.id]}
                       </TableCell>
                     ))}
                     <TableCell sx={Style.table.tableCell}>

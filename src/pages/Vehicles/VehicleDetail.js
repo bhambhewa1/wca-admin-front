@@ -1,25 +1,7 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogContent,
-  Grid,
-  IconButton,
-  Menu,
-  MenuItem,
-  Paper,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Dialog, DialogContent, Grid, IconButton, Menu, MenuItem, Paper, Skeleton, Typography } from "@mui/material";
 import React from "react";
 import { styled } from "@mui/styles";
-import {
-  Link,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
@@ -64,6 +46,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [menuButton, setMenuButton] = React.useState("Vehicle Information");
+  const [carName, setCarName] = React.useState("");
   const vehicleData = [
     {
       text: "Vehicle Information",
@@ -77,16 +60,6 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
     { text: "Checks", route: VEHICLECHECKS },
     { text: "Notes", route: VEHICLENOTE },
   ];
-
-  const carName =
-    vehicleData?.make === undefined
-      ? ""
-      : [
-          `${vehicData?.year + " "} `,
-          `${vehicData?.make + " "}`,
-          `${vehicData?.model + " "}`,
-        ];
-  const heading = vehicData?.heading ? vehicData?.heading : carName;
   React.useEffect(() => {
     storage.set.vehicleId(id.id);
     window.scrollTo(0, 0);
@@ -99,6 +72,12 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
         setLoading(false);
       }
     });
+
+    if (vehicData?.heading.length > 0) {
+      setCarName(vehicData?.heading);
+    } else {
+      setCarName(`${vehicData?.year + " "} `, `${vehicData?.make + " "}`, `${vehicData?.model + " "}`);
+    }
   }, []);
   const openMenu = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -119,23 +98,13 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   return (
     <>
       <Item sx={{}}>
-        <Typography
-          sx={{ p: 1, fontSize: "18px", fontWeight: "600", textAlign: "left" }}
-        >
-          Vehicle Details
-        </Typography>
+        <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600", textAlign: "left" }}>Vehicle Details</Typography>
       </Item>
-      <Grid
-        container
-        spacing={0}
-        sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}
-      >
+      <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}>
         <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }}>
           <Item sx={{ boxShadow: "none", bgcolor: "#F5F9FA" }}>
             {loading ? (
-              <Skeleton
-                sx={{ height: "170px", width: "120px", borderRadius: "100%" }}
-              />
+              <Skeleton sx={{ height: "170px", width: "120px", borderRadius: "100%" }} />
             ) : (
               // {/* <input
               //   style={{ padding: "17px 12px" }}
@@ -145,12 +114,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
               //   // onChange={handlePersonliseImg}
               // > */}
               // {/* </input> */}
-              <img
-                alt="carimage"
-                className="carImage"
-                src={vehicData?.photo_links[1]?.image_url}
-                onClick={() => setOpen(true)}
-              />
+              <img alt="carimage" className="carImage" src={vehicData?.photo_links[1]?.image_url} onClick={() => setOpen(true)} />
             )}
           </Item>
           <Dialog open={open}>
@@ -159,12 +123,8 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 display: "flex",
                 justifyContent: "flex-end",
                 p: 2,
-              }}
-            >
-              <CloseIcon
-                sx={{ width: "30px", height: "30px" }}
-                onClick={() => setOpen(false)}
-              />
+              }}>
+              <CloseIcon sx={{ width: "30px", height: "30px" }} onClick={() => setOpen(false)} />
             </Box>
             <DialogContent
               sx={{
@@ -174,8 +134,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 flexWrap: "wrap",
                 justifyContent: "space-evenly",
                 bgcolor: "white",
-              }}
-            >
+              }}>
               {vehicData?.photo_links.map((link) => (
                 <>
                   <Grid>
@@ -192,14 +151,8 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                }}
-              >
-                <IconButton
-                  color="primary"
-                  aria-label="upload picture"
-                  component="label"
-                  sx={{ width: "150px", height: "150px" }}
-                >
+                }}>
+                <IconButton color="primary" aria-label="upload picture" component="label" sx={{ width: "150px", height: "150px" }}>
                   <input hidden accept="image/*" type="file" />
                   <AddIcon sx={{ width: "150px", height: "150px" }} />
                 </IconButton>
@@ -222,32 +175,28 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
               },
               bgcolor: "#F5F9FA",
               ml: "20px",
-            }}
-          >
+            }}>
             <Typography
               sx={{
                 fontSize: { xs: "14px", sm: "20px", md: "30px" },
                 fontWeight: "800",
                 display: "flex",
-              }}
-            >
-              {loading && <Skeleton sx={{ width: "300px", height: "60px" }} />}
-              <Typography sx={{ mr: "10px" }}>
-                {heading === undefined ? "" : heading}
-              </Typography>
+              }}>
+              {loading || vehicData === undefined ? (
+                <Skeleton sx={{ width: "300px", height: "60px" }} />
+              ) : (
+                <Typography sx={{ mr: "10px" }}>
+                  {vehicData?.heading || `${vehicData?.year}  ${vehicData?.make} ${vehicData?.model}`}
+                </Typography>
+              )}
             </Typography>
             <Typography
               sx={{
                 color: "rgba(0, 0, 0, 0.36)",
                 fontSize: { xs: "12px", sm: "14px" },
                 fontWeight: "700",
-              }}
-            >
-              {typeof vehicData != "undefined" ? (
-                vehicData?.vin
-              ) : (
-                <Skeleton sx={{ width: "100px", height: "30px" }} />
-              )}
+              }}>
+              {typeof vehicData != "undefined" ? vehicData?.vin : <Skeleton sx={{ width: "100px", height: "30px" }} />}
             </Typography>
             <button
               className="copyButton"
@@ -260,8 +209,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
               onClick={() => {
                 navigator.clipboard.writeText(vehicData?.vin);
                 toast.success("Copied VIN");
-              }}
-            >
+              }}>
               <FileCopyOutlinedIcon sx={{ mr: "5px" }} />
               Copy VIN
             </button>
@@ -276,14 +224,8 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
           justifyContent: "flex-end",
           display: "flex",
           bgcolor: "white",
-        }}
-      >
-        <Grid
-          sx={{ display: { xs: "none", sm: "flex" } }}
-          container
-          rowGap={"6px"}
-          columnGap={"6px"}
-        >
+        }}>
+        <Grid sx={{ display: { xs: "none", sm: "flex" } }} container rowGap={"6px"} columnGap={"6px"}>
           {vehicleData.map((item, index) => (
             <Grid item flex={"1 1 auto"}>
               <Link style={{ textDecoration: "none" }} to={item.route}>
@@ -292,11 +234,9 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                     fontSize: "12px",
                     fontWeight: "600",
                     color: item.route === location.pathname ? "white" : "#000",
-                    bgcolor:
-                      item.route === location.pathname ? "#F15F23" : "#DDDDDD",
+                    bgcolor: item.route === location.pathname ? "#F15F23" : "#DDDDDD",
                     boxShadow: "none",
-                  }}
-                >
+                  }}>
                   {item.text}
                 </Item>
               </Link>
@@ -316,8 +256,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
             "&.MuiButtonBase-root:hover": {
               bgcolor: "#F15F23",
             },
-          }}
-        >
+          }}>
           {menuButton}
           <ArrowDropDownIcon sx={{ fontSize: "20px" }} />
         </Button>
@@ -337,8 +276,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 navigate(item.route);
                 handleClose();
                 setMenuButton(item.text);
-              }}
-            >
+              }}>
               {item.text}
             </MenuItem>
           ))}
