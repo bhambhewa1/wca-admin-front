@@ -43,6 +43,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [vehicData, setVehicleData] = React.useState();
+  const [selected, setSelected] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [menuButton, setMenuButton] = React.useState("Vehicle Information");
@@ -53,12 +54,12 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
       route: `/vehicles/details/info/${vehicle_id}`,
     },
     { text: "MDA", route: `/vehicles/details/mda/${vehicle_id}` },
-    { text: "Customer information", route: CUSTOMERINFO },
-    { text: "Documents upload", route: DOCUMENTSUPLOAD },
-    { text: "Loan Payoff", route: VEHICLELOAN },
-    { text: "E-sign Document", route: VEHICLEESINGDOCUMENT },
-    { text: "Checks", route: VEHICLECHECKS },
-    { text: "Notes", route: VEHICLENOTE },
+    // { text: "Customer information", route: CUSTOMERINFO },
+    // { text: "Documents upload", route: DOCUMENTSUPLOAD },
+    // { text: "Loan Payoff", route: VEHICLELOAN },
+    // { text: "E-sign Document", route: VEHICLEESINGDOCUMENT },
+    // { text: "Checks", route: VEHICLECHECKS },
+    // { text: "Notes", route: VEHICLENOTE },
   ];
   React.useEffect(() => {
     storage.set.vehicleId(id.id);
@@ -92,9 +93,15 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   //   // padding: theme.spacing(1),
   //   textAlign: "left",
   //   color: theme.palette.text.secondary,
-
   // }));
-
+  const handleSelected = (index) => {
+    vehicData?.photo_links.map((item, ind) => {
+      if (ind === index) {
+        setSelected(ind);
+      }
+    });
+  };
+  console.log(selected);
   return (
     <>
       <Item sx={{}}>
@@ -102,7 +109,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
       </Item>
       <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}>
         <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }}>
-          <Item sx={{ boxShadow: "none", bgcolor: "#F5F9FA" }}>
+          <Item sx={{ boxShadow: "none", bgcolor: "#F5F9FA", cursor: "pointer" }}>
             {loading ? (
               <Skeleton sx={{ height: "170px", width: "120px", borderRadius: "100%" }} />
             ) : (
@@ -114,7 +121,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
               //   // onChange={handlePersonliseImg}
               // > */}
               // {/* </input> */}
-              <img alt="carimage" className="carImage" src={vehicData?.photo_links[1]?.image_url} onClick={() => setOpen(true)} />
+              <img alt="carimage" className="carImage" src={vehicData?.photo_links[selected]?.image_url} onClick={() => setOpen(true)} />
             )}
           </Item>
           <Dialog open={open}>
@@ -124,7 +131,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 justifyContent: "flex-end",
                 p: 2,
               }}>
-              <CloseIcon sx={{ width: "30px", height: "30px" }} onClick={() => setOpen(false)} />
+              <CloseIcon sx={{ width: "30px", height: "30px", cursor: "pointer" }} onClick={() => setOpen(false)} />
             </Box>
             <DialogContent
               sx={{
@@ -135,11 +142,20 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 justifyContent: "space-evenly",
                 bgcolor: "white",
               }}>
-              {vehicData?.photo_links.map((link) => (
+              {vehicData?.photo_links.map((link, index) => (
                 <>
-                  <Grid>
+                  <Grid sx={{}}>
                     {console.log(vehicData.photo_links)}
-                    <img width="180px" height="180px" src={link.image_url} />
+                    <img
+                      width="180px"
+                      height="180px"
+                      src={link.image_url}
+                      style={{
+                        border: index === selected ? "2px solid blue" : "",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => handleSelected(index)}
+                    />
                   </Grid>
                 </>
               ))}
