@@ -251,7 +251,7 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
                 boxShadow: "none",
                 p: "0px",
               }}>
-              <Odometer odoValue={vehicData?.miles} Vin={vehicData?.vin} />
+              <Odometer odoValue={vehicData?.miles} Vin={vehicData?.vin} base={vehicData?.base} />
               <Colors int_color={vehicData?.base_int_color} ext_color={vehicData?.base_ext_color} />
               <VehicleHistory />
             </Item>
