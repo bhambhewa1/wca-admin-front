@@ -24,6 +24,7 @@ import {
   editVehicleItem,
 } from "../../../../redux/action/vehicle/vehicle";
 import { storage } from "../../../../config/storage";
+import { useOutletContext } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   input: {
@@ -45,10 +46,13 @@ const Item = styled(Paper)(({ theme }) => ({
 const Odometer = ({ odoValue, base, addVIN, Vin, editVehicleItem }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [vehicData, setVehicleData] = useOutletContext();
   const classes = useStyles();
   const [odometerValue, setOdometerValue] = useState("");
   const handleChange = (e) => {
-    setOdometerValue(e.target.value);
+    if (e.target.value === '' || (Number(e.target.value) >= 0 && !Number.isNaN(Number(e.target.value)))) {
+      setOdometerValue(e.target.value);
+    }
     // setData({Odometer:e.target.value})
   };
   const handleSubmit = () => {
@@ -67,7 +71,8 @@ const Odometer = ({ odoValue, base, addVIN, Vin, editVehicleItem }) => {
       if (res?.data?.status) {
         editVehicleItem(data1).then((res) => {
           if (res?.data?.status) {
-            // setOdometerValue(res.data.data.odoValue);
+            setOdometerValue(res?.data?.data?.miles);
+            setVehicleData(res?.data?.data);
             setLoading(false);
           }
         });
@@ -93,7 +98,9 @@ const Odometer = ({ odoValue, base, addVIN, Vin, editVehicleItem }) => {
         editVehicleItem(data1).then((res) => {
           if (res?.data?.status) {
             setOdometerValue(res.data.data.miles);
+            setVehicleData(res?.data?.data);
             setLoading(false);
+            // return(<VehicleInfoData/>)
           }
         });
       } else {
@@ -120,6 +127,7 @@ const Odometer = ({ odoValue, base, addVIN, Vin, editVehicleItem }) => {
         bgcolor: "white",
       }}
     >
+      <LoaderComponent open={loading} />
       <Dialog open={open}>
         <DialogTitle
           sx={{ borderBottom: "1px solid #dddddd", overflow: "hidden" }}
@@ -136,12 +144,17 @@ const Odometer = ({ odoValue, base, addVIN, Vin, editVehicleItem }) => {
             },
           }}
         >
+          
           {/* <form onSubmit={formik.handleSubmit}> */}
           <TextField
             placeholder="Enter Miles"
             onClick={() => setOpen(true)}
             InputProps={{
               classes: { input: classes.input },
+              // inputProps: { min: 0 }
+            }}
+            inputProps={{
+              pattern: "[0-9]*",
             }}
             value={odometerValue}
             onChange={(e) => handleChange(e)}
@@ -154,7 +167,7 @@ const Odometer = ({ odoValue, base, addVIN, Vin, editVehicleItem }) => {
             }}
           />
           {/* {formik.errors.vin && formik.touched.vin ? <p style={{ color: "red", margin: "10px" }}>{formik.errors.vin}</p> : null} */}
-        <LoaderComponent open={loading} />
+          <LoaderComponent open={loading} />
 
           <DialogActions
             sx={{
@@ -263,7 +276,7 @@ const Odometer = ({ odoValue, base, addVIN, Vin, editVehicleItem }) => {
                 // justifyContent: "space-between",
               }}
             >
-              {item.price + base + "/"}
+              {item.price + Number(base).toLocaleString() + "/"}
               {index === 1 ? (
                 <Button
                   sx={{ textTransform: "none", minWidth: "100px" }}
@@ -297,7 +310,7 @@ const Odometer = ({ odoValue, base, addVIN, Vin, editVehicleItem }) => {
                       p: 2,
                     }}
                   >
-                    {odometerValue}
+                    {Number(odoValue).toLocaleString()}
                   </Typography>
                 </Box>
               ) : (

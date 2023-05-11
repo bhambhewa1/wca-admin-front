@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Button, Dialog, DialogContent, Grid, IconButton, Menu, MenuItem, Paper, Skeleton, Typography } from "@mui/material";
 import React from "react";
 import { styled } from "@mui/styles";
@@ -25,8 +26,8 @@ import CloseIcon from "@mui/icons-material/Close";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
+  // padding: theme.spacing(1),
+  // textAlign: "center",
   // color: theme.palette.text.secondary,
   border: "none",
   boxShadow: "2px",
@@ -145,10 +146,10 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
               {vehicData?.photo_links.map((link, index) => (
                 <>
                   <Grid sx={{}}>
-                    {console.log(vehicData.photo_links)}
                     <img
                       width="180px"
                       height="180px"
+                      alt="carimage"
                       src={link.image_url}
                       style={{
                         border: index === selected ? "2px solid blue" : "",
@@ -243,7 +244,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
         }}>
         <Grid sx={{ display: { xs: "none", sm: "flex" }, width: "60%" }} container rowGap={"6px"} columnGap={"6px"}>
           {vehicleData.map((item, index) => (
-            <Grid item flex={"1 1 auto"}>
+            <Grid item>
               <Link style={{ textDecoration: "none" }} to={item.route}>
                 <Item
                   sx={{
@@ -252,6 +253,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                     color: item.route === location.pathname ? "white" : "#000",
                     bgcolor: item.route === location.pathname ? "#F15F23" : "#DDDDDD",
                     boxShadow: "none",
+                    p: "10px 50px 10px 50px",
                   }}>
                   {item.text}
                 </Item>

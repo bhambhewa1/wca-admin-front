@@ -45,11 +45,13 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
   const [vehicData, setVehicleData] = useOutletContext();
   const [purchaseprice, setPrice] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [tradeprice, setTradeprice] = React.useState(vehicData?.trade_price);
 
   React.useEffect(() => {
     setPrice(vehicData?.purchase_price);
+    setTradeprice(vehicData?.trade_price);
   }, [vehicData]);
-
+  let changeInMiles;
   const handleChange = (e) => {
     setPrice(e.target.value);
   };
@@ -71,11 +73,11 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
     });
   };
   const price = [
-    { price: vehicData?.trade_price, text: "Trade price" },
-    { price: "10,000", text: "Target auction" },
+    { price: tradeprice, text: "Trade price" },
+    { price: "10000", text: "Target auction" },
     { price: vehicData?.target_retail, text: "Target Retail" },
-    { price: "10,000", text: "Manhiem" },
-    { price: "10,000", text: "Trade in fair" },
+    { price: "10000", text: "Manhiem" },
+    { price: "10000", text: "Trade in fair" },
   ];
   const image = [report1, report2, report3, report4, report5];
   const purchase_Price = [{ price: "", text: "Enter Purchase price" }, ""];
@@ -115,7 +117,7 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
                   border: index === 3 || index === 4 ? "2px solid #ECECEC" : "",
                   borderRadius: "5px",
                 }}>
-                ${item.price}
+                ${Number(item.price).toLocaleString()}
                 <Typography sx={{ fontSize: "12px", color: "#707070" }}>{item.text}</Typography>
               </Item>
             </Grid>
@@ -159,7 +161,9 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
                 {index === 0 ? (
                   <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Box sx={{ width: "70%" }}>
-                      <Typography sx={{ fontSize: "14px", fontWeight: "650" }}>Enter purchase price</Typography>
+                      <Typography sx={{ fontSize: "14px", fontWeight: "800", textAlign: "left", color: "#000" }}>
+                        Enter purchase price
+                      </Typography>
                       <TextField
                         placeholder="Enter purchase price"
                         variant="filled"
@@ -303,7 +307,7 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addVIN: (data) => dispatch(addVIN(data)),
-    editVehicleItem: (data) => dispatch(editVehicleItem(data)),
+    editVehicleItem: (data1) => dispatch(editVehicleItem(data1)),
   };
 };
 
