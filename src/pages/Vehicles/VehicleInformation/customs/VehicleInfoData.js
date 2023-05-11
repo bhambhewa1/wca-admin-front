@@ -52,7 +52,9 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
     setTradeprice(vehicData?.trade_price);
   }, [vehicData]);
   const handleChange = (e) => {
-    setPrice(e.target.value);
+    if (e.target.value === "" || (Number(e.target.value) >= 0 && !Number.isNaN(Number(e.target.value)))) {
+      setPrice(e.target.value);
+    }
   };
   const OnSavingPurchasePrice = () => {
     setLoading(true);
@@ -166,6 +168,7 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
                       </Typography>
                       <TextField
                         placeholder="Enter purchase price"
+                        type="number"
                         variant="filled"
                         inputProps={{
                           style: { padding: "20px 20px 20px 20px", borderRadius: "5px", fontWeight: "600" },
