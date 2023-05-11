@@ -72,10 +72,10 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
   };
   const price = [
     { price: vehicData?.trade_price, text: "Trade price" },
-    { price: "10,000", text: "Target auction" },
+    { price: "10000", text: "Target auction" },
     { price: vehicData?.target_retail, text: "Target Retail" },
-    { price: "10,000", text: "Manhiem" },
-    { price: "10,000", text: "Trade in fair" },
+    { price: "10000", text: "Manhiem" },
+    { price: "10000", text: "Trade in fair" },
   ];
   const image = [report1, report2, report3, report4, report5];
   const purchase_Price = [{ price: "", text: "Enter Purchase price" }, ""];
@@ -115,7 +115,7 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
                   border: index === 3 || index === 4 ? "2px solid #ECECEC" : "",
                   borderRadius: "5px",
                 }}>
-                ${item.price}
+                ${Number(item.price).toLocaleString()}
                 <Typography sx={{ fontSize: "12px", color: "#707070" }}>{item.text}</Typography>
               </Item>
             </Grid>
