@@ -20,6 +20,9 @@ export const requestlocalMarket = async (data) => {
 export const requestMarketCheck = async () => {
   // return Api.PostRequest('/api/localMarket', data);
 };
+export const requestaddImg = async (data) => {
+  return Api.PostRequest('/api/vehicles/uploadimages', data);
+};
 const VehicleApi = {
   requestVehicleData,
   requestVehiclesList,
@@ -27,7 +30,8 @@ const VehicleApi = {
   requestlocalMarket,
   requestDeleteVIN,
   requestEditVIN,
-  requestMarketCheck
+  requestMarketCheck,
+  requestaddImg
   };
   export default VehicleApi;
   

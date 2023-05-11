@@ -104,3 +104,18 @@ export const editVehicleItem = (data) => async (dispatch) => {
     }
   } catch (err) {}
 };
+
+export const addImg = (data) => async (dispatch) => {
+  try {
+    let response = await VehicleApi.requestaddImg(data);
+    if (response.status) {
+      // dispatch(userdata(response.data));
+      return response;
+    } else {
+      response?.data?.errors?.map((item) => {
+        return toast.error(item);
+      });
+      return response;
+    }
+  } catch (err) {}
+};

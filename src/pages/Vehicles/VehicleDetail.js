@@ -1,8 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Button, Dialog, DialogContent, Grid, IconButton, Menu, MenuItem, Paper, Skeleton, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
+  Paper,
+  Skeleton,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { styled } from "@mui/styles";
-import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
@@ -23,6 +41,7 @@ import LoaderComponent from "../../components/Loader/LoaderComponent";
 import { toast } from "react-toastify";
 import Toastify from "../../components/SnackBar/Toastify";
 import CloseIcon from "@mui/icons-material/Close";
+import { addImg } from "../../redux/action/vehicle/vehicle";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -35,7 +54,7 @@ const Item = styled(Paper)(({ theme }) => ({
   fontWeight: "600",
 }));
 
-const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
+const VehicleDetail = ({ getVehicleData, editVehicleItem, addImg }) => {
   const location = useLocation();
   // let data = location.state;
   const id = useParams();
@@ -49,6 +68,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   const [loading, setLoading] = React.useState(false);
   const [menuButton, setMenuButton] = React.useState("Vehicle Information");
   const [carName, setCarName] = React.useState("");
+  const [Img, setImg] = React.useState({ path: "", src: "" });
   const vehicleData = [
     {
       text: "Vehicle Information",
@@ -78,7 +98,11 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
     if (vehicData?.heading.length > 0) {
       setCarName(vehicData?.heading);
     } else {
-      setCarName(`${vehicData?.year + " "} `, `${vehicData?.make + " "}`, `${vehicData?.model + " "}`);
+      setCarName(
+        `${vehicData?.year + " "} `,
+        `${vehicData?.make + " "}`,
+        `${vehicData?.model + " "}`
+      );
     }
   }, []);
   const openMenu = Boolean(anchorEl);
@@ -95,6 +119,27 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   //   textAlign: "left",
   //   color: theme.palette.text.secondary,
   // }));
+  const handleChange = (e) => {
+    console.log(e.target.files[0]);
+    setImg({
+      path: e.target.files[0],
+      src: URL.createObjectURL(e.target.files[0]),
+    });
+    console.log(URL.createObjectURL(e.target.files[0]));
+    const duplicateArray=vehicData?.photo_links
+    duplicateArray.push({image_url:URL.createObjectURL(e.target.files[0])})
+    // setVehicleData({vehicData.photo_links:duplicateArray})
+    console.log(duplicateArray)
+    // const data = {
+    //   vin:vehicData?.vin,
+    //   car_images:e.target.files[0]
+    // }
+    // addImg(data).then((res)=>{
+    //   if(res.data.status){
+    //     setOpen(false)
+    //   }
+    // })
+  };
   const handleSelected = (index) => {
     vehicData?.photo_links.map((item, ind) => {
       if (ind === index) {
@@ -106,13 +151,25 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
   return (
     <>
       <Item sx={{}}>
-        <Typography sx={{ p: 1, fontSize: "18px", fontWeight: "600", textAlign: "left" }}>Vehicle Details</Typography>
+        <Typography
+          sx={{ p: 1, fontSize: "18px", fontWeight: "600", textAlign: "left" }}
+        >
+          Vehicle Details
+        </Typography>
       </Item>
-      <Grid container spacing={0} sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}>
+      <Grid
+        container
+        spacing={0}
+        sx={{ bgcolor: "#F5F9FA", boxShadow: "none", mt: 2 }}
+      >
         <Grid sx={{ bgcolor: "#F5F9FA", boxShadow: "none" }}>
-          <Item sx={{ boxShadow: "none", bgcolor: "#F5F9FA", cursor: "pointer" }}>
+          <Item
+            sx={{ boxShadow: "none", bgcolor: "#F5F9FA", cursor: "pointer" }}
+          >
             {loading ? (
-              <Skeleton sx={{ height: "170px", width: "120px", borderRadius: "100%" }} />
+              <Skeleton
+                sx={{ height: "170px", width: "120px", borderRadius: "100%" }}
+              />
             ) : (
               // {/* <input
               //   style={{ padding: "17px 12px" }}
@@ -122,7 +179,12 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
               //   // onChange={handlePersonliseImg}
               // > */}
               // {/* </input> */}
-              <img alt="carimage" className="carImage" src={vehicData?.photo_links[selected]?.image_url} onClick={() => setOpen(true)} />
+              <img
+                alt="carimage"
+                className="carImage"
+                src={vehicData?.photo_links[selected]?.image_url}
+                onClick={() => setOpen(true)}
+              />
             )}
           </Item>
           <Dialog open={open}>
@@ -131,8 +193,12 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 display: "flex",
                 justifyContent: "flex-end",
                 p: 2,
-              }}>
-              <CloseIcon sx={{ width: "30px", height: "30px", cursor: "pointer" }} onClick={() => setOpen(false)} />
+              }}
+            >
+              <CloseIcon
+                sx={{ width: "30px", height: "30px", cursor: "pointer" }}
+                onClick={() => setOpen(false)}
+              />
             </Box>
             <DialogContent
               sx={{
@@ -142,7 +208,8 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 flexWrap: "wrap",
                 justifyContent: "space-evenly",
                 bgcolor: "white",
-              }}>
+              }}
+            >
               {vehicData?.photo_links.map((link, index) => (
                 <>
                   <Grid sx={{}}>
@@ -160,6 +227,21 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                   </Grid>
                 </>
               ))}
+              {/* {Img && (
+                <Grid sx={{}}>
+                  <img
+                    width="180px"
+                    height="180px"
+                    alt="carimage"
+                    src={Img.src}
+                    style={{
+                      // border: index === selected ? "2px solid blue" : "",
+                      cursor: "pointer",
+                    }}
+                    // onClick={() => handleSelected(index)}
+                  />
+                </Grid>
+              )} */}
               <Grid
                 sx={{
                   border: "1px dashed #1976d2",
@@ -168,9 +250,19 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                }}>
-                <IconButton color="primary" aria-label="upload picture" component="label" sx={{ width: "150px", height: "150px" }}>
-                  <input hidden accept="image/*" type="file" />
+                }}
+              >
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="label"
+                  sx={{ width: "150px", height: "150px" }}
+                >
+                  <input
+                    type="file"
+                    accept="image/png, image/gif, image/jpeg"
+                    onChange={handleChange}
+                  />
                   <AddIcon sx={{ width: "150px", height: "150px" }} />
                 </IconButton>
               </Grid>
@@ -192,18 +284,21 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
               },
               bgcolor: "#F5F9FA",
               ml: "20px",
-            }}>
+            }}
+          >
             <Typography
               sx={{
                 fontSize: { xs: "14px", sm: "20px", md: "30px" },
                 fontWeight: "800",
                 display: "flex",
-              }}>
+              }}
+            >
               {loading || vehicData === undefined ? (
                 <Skeleton sx={{ width: "300px", height: "60px" }} />
               ) : (
                 <Typography sx={{ mr: "10px" }}>
-                  {vehicData?.heading || `${vehicData?.year}  ${vehicData?.make} ${vehicData?.model}`}
+                  {vehicData?.heading ||
+                    `${vehicData?.year}  ${vehicData?.make} ${vehicData?.model}`}
                 </Typography>
               )}
             </Typography>
@@ -212,8 +307,13 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 color: "rgba(0, 0, 0, 0.36)",
                 fontSize: { xs: "12px", sm: "14px" },
                 fontWeight: "700",
-              }}>
-              {typeof vehicData != "undefined" ? vehicData?.vin : <Skeleton sx={{ width: "100px", height: "30px" }} />}
+              }}
+            >
+              {typeof vehicData != "undefined" ? (
+                vehicData?.vin
+              ) : (
+                <Skeleton sx={{ width: "100px", height: "30px" }} />
+              )}
             </Typography>
             <button
               className="copyButton"
@@ -226,7 +326,8 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
               onClick={() => {
                 navigator.clipboard.writeText(vehicData?.vin);
                 toast.success("Copied VIN");
-              }}>
+              }}
+            >
               <FileCopyOutlinedIcon sx={{ mr: "5px" }} />
               Copy VIN
             </button>
@@ -241,8 +342,14 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
           // justifyContent: "flex-end",
           display: "flex",
           bgcolor: "white",
-        }}>
-        <Grid sx={{ display: { xs: "none", sm: "flex" }, width: "60%" }} container rowGap={"6px"} columnGap={"6px"}>
+        }}
+      >
+        <Grid
+          sx={{ display: { xs: "none", sm: "flex" }, width: "60%" }}
+          container
+          rowGap={"6px"}
+          columnGap={"6px"}
+        >
           {vehicleData.map((item, index) => (
             <Grid item>
               <Link style={{ textDecoration: "none" }} to={item.route}>
@@ -251,10 +358,12 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                     fontSize: "12px",
                     fontWeight: "600",
                     color: item.route === location.pathname ? "white" : "#000",
-                    bgcolor: item.route === location.pathname ? "#F15F23" : "#DDDDDD",
+                    bgcolor:
+                      item.route === location.pathname ? "#F15F23" : "#DDDDDD",
                     boxShadow: "none",
                     p: "10px 50px 10px 50px",
-                  }}>
+                  }}
+                >
                   {item.text}
                 </Item>
               </Link>
@@ -274,7 +383,8 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
             "&.MuiButtonBase-root:hover": {
               bgcolor: "#F15F23",
             },
-          }}>
+          }}
+        >
           {menuButton}
           <ArrowDropDownIcon sx={{ fontSize: "20px" }} />
         </Button>
@@ -294,7 +404,8 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
                 navigate(item.route);
                 handleClose();
                 setMenuButton(item.text);
-              }}>
+              }}
+            >
               {item.text}
             </MenuItem>
           ))}
@@ -309,6 +420,7 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     editVehicleItem: (data) => dispatch(editVehicleItem(data)),
+    addImg: (data) => dispatch(addImg(data)),
   };
 };
 
