@@ -120,7 +120,6 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem, addImg }) => {
   //   color: theme.palette.text.secondary,
   // }));
   const handleChange = (e) => {
-    console.log(e.target.files[0]);
     setImg({
       path: e.target.files[0],
       src: URL.createObjectURL(e.target.files[0]),
@@ -129,7 +128,6 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem, addImg }) => {
     const duplicateArray=vehicData?.photo_links
     duplicateArray.push({image_url:URL.createObjectURL(e.target.files[0])})
     // setVehicleData({vehicData.photo_links:duplicateArray})
-    console.log(duplicateArray)
     // const data = {
     //   vin:vehicData?.vin,
     //   car_images:e.target.files[0]
