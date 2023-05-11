@@ -147,7 +147,6 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem, addImg }) => {
       }
     });
   };
-  console.log(selected);
   return (
     <>
       <Item sx={{}}>

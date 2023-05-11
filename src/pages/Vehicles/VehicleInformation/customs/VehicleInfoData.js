@@ -46,14 +46,15 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
   const [purchaseprice, setPrice] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [tradeprice, setTradeprice] = React.useState(vehicData?.trade_price);
-
+  console.log("purchaseprice", purchaseprice);
   React.useEffect(() => {
     setPrice(vehicData?.purchase_price);
     setTradeprice(vehicData?.trade_price);
   }, [vehicData]);
-  let changeInMiles;
   const handleChange = (e) => {
-    setPrice(e.target.value);
+    if (e.target.value === "" || (Number(e.target.value) >= 0 && !Number.isNaN(Number(e.target.value)))) {
+      setPrice(e.target.value);
+    }
   };
   const OnSavingPurchasePrice = () => {
     setLoading(true);
@@ -63,6 +64,7 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
       if (res?.data?.status) {
         editVehicleItem(data1).then((res) => {
           if (res?.data?.status) {
+            setVehicleData(res?.data?.data);
             setPrice(res?.data?.data?.purchase_Price);
             setLoading(false);
           }
@@ -166,6 +168,7 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
                       </Typography>
                       <TextField
                         placeholder="Enter purchase price"
+                        type="number"
                         variant="filled"
                         inputProps={{
                           style: { padding: "20px 20px 20px 20px", borderRadius: "5px", fontWeight: "600" },
