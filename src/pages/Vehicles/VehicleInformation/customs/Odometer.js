@@ -19,7 +19,10 @@ import { makeStyles } from "@mui/styles";
 import AlertDialog from "../../../../components/Dialog/Dialog";
 import LoaderComponent from "../../../../components/Loader/LoaderComponent";
 import { connect } from "react-redux";
-import { addVIN, editVehicleItem } from "../../../../redux/action/vehicle/vehicle";
+import {
+  addVIN,
+  editVehicleItem,
+} from "../../../../redux/action/vehicle/vehicle";
 import { storage } from "../../../../config/storage";
 
 const useStyles = makeStyles(() => ({
@@ -39,7 +42,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   boxShadow: "none",
 }));
-const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
+const Odometer = ({ odoValue, base, addVIN, Vin, editVehicleItem }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const classes = useStyles();
@@ -51,7 +54,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
   const handleSubmit = () => {
     let data1 = {
       vehicles_id: storage.fetch.vehicleId(),
-    }
+    };
     setLoading(true);
     let data = {
       miles: odometerValue,
@@ -60,7 +63,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
       vin: Vin,
     };
     addVIN(data).then((res) => {
-      setOpen(false)
+      setOpen(false);
       if (res?.data?.status) {
         editVehicleItem(data1).then((res) => {
           if (res?.data?.status) {
@@ -76,7 +79,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
   const handleSubmit1 = () => {
     let data1 = {
       vehicles_id: storage.fetch.vehicleId(),
-    }
+    };
     setLoading(true);
     let data = {
       miles: base,
@@ -85,7 +88,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
       vin: Vin,
     };
     addVIN(data).then((res) => {
-      setOpen(false)
+      setOpen(false);
       if (res?.data?.status) {
         editVehicleItem(data1).then((res) => {
           if (res?.data?.status) {
@@ -123,7 +126,6 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
         >
           Enter miles
         </DialogTitle>
-        <LoaderComponent open={loading} />
 
         <DialogContent
           sx={{
@@ -152,6 +154,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
             }}
           />
           {/* {formik.errors.vin && formik.touched.vin ? <p style={{ color: "red", margin: "10px" }}>{formik.errors.vin}</p> : null} */}
+        <LoaderComponent open={loading} />
 
           <DialogActions
             sx={{
@@ -260,13 +263,13 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
                 // justifyContent: "space-between",
               }}
             >
-              {item.price + base+"/"}
+              {item.price + base + "/"}
               {index === 1 ? (
                 <Button
                   sx={{ textTransform: "none", minWidth: "100px" }}
                   onClick={() => {
                     // setOdometerValue(base)
-                    handleSubmit1()
+                    handleSubmit1();
                   }}
                 >
                   Set to base
@@ -275,30 +278,33 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
                 ""
               )}
               {index === 1 ? (
-                <Box sx={{
-                  display:'flex',
-                  justifyContent:'flex-end',
-                  width:'70%'
-                }}>
-                <Typography
-                  onClick={() => setOpen(true)}
+                <Box
                   sx={{
-                    width: { xs: "35%", lg: "40%", xl: "20%" },
-                    cursor: "pointer",
-                    textAlign: "center",
-                    ml: { xs: "30px", lg: "100px", xl: "200px" },
-                    border: "2px solid rgb(236, 236, 236)",
-                    color:"#000000",
-                    p:2,
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    width: "70%",
                   }}
                 >
-                  {odometerValue}
-                </Typography>
+                  <Typography
+                    onClick={() => setOpen(true)}
+                    sx={{
+                      width: { xs: "35%", lg: "40%", xl: "20%" },
+                      cursor: "pointer",
+                      textAlign: "center",
+                      ml: { xs: "30px", lg: "100px", xl: "200px" },
+                      border: "2px solid rgb(236, 236, 236)",
+                      color: "#000000",
+                      p: 2,
+                    }}
+                  >
+                    {odometerValue}
+                  </Typography>
                 </Box>
               ) : (
                 ""
               )}
             </Typography>
+            <LoaderComponent open={loading} />
           </Item>
         </Grid>
       ))}
@@ -356,7 +362,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addVIN: (data) => dispatch(addVIN(data)),
-    editVehicleItem: (data) => dispatch(editVehicleItem(data))
+    editVehicleItem: (data) => dispatch(editVehicleItem(data)),
   };
 };
 
