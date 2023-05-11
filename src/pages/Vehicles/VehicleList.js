@@ -214,7 +214,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
   });
   const onSubmit = (val) => {
     let id = { vehicles_id: "" };
-    let otherdata = { miles: "", base: "", purchase_price: "" };
+    let otherdata = { miles: "", purchase_price: "" };
     Object.assign(id, val, otherdata);
     setLoading(true);
     addVIN(id).then((res) => {

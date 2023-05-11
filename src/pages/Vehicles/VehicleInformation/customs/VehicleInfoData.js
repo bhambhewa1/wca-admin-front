@@ -1,14 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { styled } from "@mui/material/styles";
+import { makeStyles, styled } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 // import CustomGrid from "../../../../components/Grids/CustomGrid";
-import InputField from "../../../../components/Input/InputField";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import ConditionDisclosure from "../customs/ConditionDisclosure";
-import * as yup from "yup";
 import report1 from "../../../../assests/report1.png";
 import report2 from "../../../../assests/report2.png";
 import report3 from "../../../../assests/report3.png";
@@ -20,6 +17,9 @@ import Colors from "../customs/Colors";
 import OptionAndServiceStatus from "../customs/OptionAndServiceStatus";
 import VehicleHistory from "./VehicleHistory";
 import { useOutletContext } from "react-router-dom";
+import { addVIN } from "../../../../redux/action/vehicle/vehicle";
+import { storage } from "../../../../config/storage";
+import { connect } from "react-redux";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -28,21 +28,41 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   boxShadow: "none",
 }));
-const defaultValues = {
-  price: "",
-};
-const schema = yup.object().shape({
-  email: yup.string().required("Please enter your email").email("Please enter valid email"),
-  password: yup.string().required("Please enter your password.").min(8, "Password is too short - should be 8 char minimum."),
-});
-const VehicleInfoData = () => {
+
+const useStyles = makeStyles(() => ({
+  input: {
+    fontWeight: 600,
+    "&::placeholder": {
+      fontWeight: 700,
+    },
+    fontSize: "14px",
+    border: "none",
+  },
+}));
+const VehicleInfoData = ({ addVIN }) => {
+  const classes = useStyles();
   const [vehicData, setVehicleData] = useOutletContext();
-  const { control, formState, handleSubmit, setError } = useForm({
-    mode: "onChange",
-    defaultValues,
-    resolver: yupResolver(schema),
-  });
-  const { isValid, dirtyFields, errors } = formState;
+  const [purchaseprice, setPrice] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    setPrice(vehicData?.purchase_price);
+  }, [vehicData]);
+
+  const handleChange = (e) => {
+    setPrice(e.target.value);
+  };
+  const OnSavingPurchasePrice = () => {
+    setLoading(true);
+    let data = { vehicles_id: storage.fetch.vehicleId(), purchase_price: purchaseprice, vin: vehicData?.vin, miles: "" };
+    addVIN(data).then((res) => {
+      if (res?.data?.status) {
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    });
+  };
   const price = [
     { price: vehicData?.trade_price, text: "Trade price" },
     { price: "10,000", text: "Target auction" },
@@ -51,7 +71,7 @@ const VehicleInfoData = () => {
     { price: "10,000", text: "Trade in fair" },
   ];
   const image = [report1, report2, report3, report4, report5];
-  const purchasePrice = [{ price: "", text: "Enter Purchase price" }, ""];
+  const purchase_Price = [{ price: "", text: "Enter Purchase price" }, ""];
   return (
     <>
       <Box
@@ -104,7 +124,7 @@ const VehicleInfoData = () => {
           pb: "10px",
         }}>
         <Grid container rowGap={"12px"}>
-          {purchasePrice.map((item, index) => (
+          {purchase_Price.map((item, index) => (
             <Grid
               key={index}
               flex={"1 1 auto"}
@@ -130,19 +150,47 @@ const VehicleInfoData = () => {
                   p: "0px",
                 }}>
                 {index === 0 ? (
-                  <Box sx={{ width: "70%" }}>
-                    <InputField
-                      control={control}
-                      helperText={errors?.price?.message}
-                      errors={!!errors.price}
-                      type={"text"}
-                      placeholder={""}
-                      formlabel={item.text}
-                      size={"14px"}
-                      color={"#333333"}
-                      name="price"
-                      required={"*"}
-                    />
+                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Box sx={{ width: "70%" }}>
+                      <Typography>Enter purchase price</Typography>
+                      <TextField
+                        placeholder="Enter purchase price"
+                        variant="filled"
+                        inputProps={{
+                          style: { padding: "20px", borderRadius: "5px" },
+                        }}
+                        InputProps={{
+                          classes: { input: classes.input },
+                          disableUnderline: "true",
+                        }}
+                        value={purchaseprice}
+                        onChange={(e) => handleChange(e)}
+                        sx={{
+                          p: "8px 20px 8px 20px",
+                          borderRadius: "5px",
+                          color: "#000",
+                          fontWeight: "600",
+                          width: "100%",
+                          // bgcolor: "#D6D6D6",
+                        }}
+                      />
+                    </Box>
+                    <Button
+                      sx={{
+                        height: "50%",
+                        mr: "20px",
+                        bgcolor: "#F15F23",
+                        boxShadow: "none",
+                        textTransform: "none",
+                        "&.MuiButtonBase-root:hover": {
+                          bgcolor: "#F15F23",
+                          boxShadow: "none",
+                        },
+                      }}
+                      onClick={() => OnSavingPurchasePrice()}
+                      variant="contained">
+                      Save
+                    </Button>
                   </Box>
                 ) : (
                   <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -195,7 +243,7 @@ const VehicleInfoData = () => {
                 boxShadow: "none",
                 p: "0px",
               }}>
-              <Odometer odoValue={vehicData?.miles} />
+              <Odometer odoValue={vehicData?.miles} Vin={vehicData?.vin} />
               <Colors int_color={vehicData?.base_int_color} ext_color={vehicData?.base_ext_color} />
               <VehicleHistory />
             </Item>
@@ -243,4 +291,10 @@ const VehicleInfoData = () => {
   );
 };
 
-export default VehicleInfoData;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addVIN: (data) => dispatch(addVIN(data)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(VehicleInfoData);

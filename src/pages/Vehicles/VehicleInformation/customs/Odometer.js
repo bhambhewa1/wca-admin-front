@@ -1,10 +1,15 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormLabel, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { Style } from "@mui/icons-material";
 
 import { makeStyles } from "@mui/styles";
+import AlertDialog from "../../../../components/Dialog/Dialog";
+import LoaderComponent from "../../../../components/Loader/LoaderComponent";
+import { connect } from "react-redux";
+import { addVIN } from "../../../../redux/action/vehicle/vehicle";
+import { storage } from "../../../../config/storage";
 
 const useStyles = makeStyles(() => ({
   input: {
@@ -12,6 +17,7 @@ const useStyles = makeStyles(() => ({
     "&::placeholder": {
       fontWeight: 700,
     },
+    fontSize: "14px",
   },
 }));
 const Item = styled(Paper)(({ theme }) => ({
@@ -22,17 +28,31 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   boxShadow: "none",
 }));
-const Odometer = ({ odoValue }) => {
+const Odometer = ({ odoValue, addVIN, Vin }) => {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
   const [odometerValue, setOdometerValue] = useState("");
   const handleChange = (e) => {
     setOdometerValue(e.target.value);
     // setData({Odometer:e.target.value})
   };
+  const handleSubmit = () => {
+    setLoading(true);
+    let data = { miles: odometerValue, vehicles_id: storage.fetch.vehicleId(), purchase_price: "", vin: Vin };
+    addVIN(data).then((res) => {
+      if (res?.data?.status) {
+        setLoading(false);
+        setOdometerValue(res?.data?.data?.miles);
+      } else {
+        setLoading(false);
+      }
+    });
+  };
   useEffect(() => {
-    setOdometerValue(odoValue)
-  }, [odoValue])
-  
+    setOdometerValue(odoValue);
+  }, [odoValue]);
+
   const price1 = [
     {
       price:
@@ -47,6 +67,115 @@ const Odometer = ({ odoValue }) => {
         mr: "10px",
         bgcolor: "white",
       }}>
+      <Dialog open={open}>
+        <DialogTitle sx={{ borderBottom: "1px solid #dddddd", overflow: "hidden" }}>Enter miles</DialogTitle>
+        <LoaderComponent open={loading} />
+
+        <DialogContent
+          sx={{
+            borderBottom: "1px solid #dddddd",
+            mt: 2,
+            "&.MuiDialogContent-root": {
+              pb: 0,
+            },
+          }}>
+          {/* <form onSubmit={formik.handleSubmit}> */}
+          <TextField
+            placeholder="Enter Miles"
+            onClick={() => setOpen(true)}
+            InputProps={{
+              classes: { input: classes.input },
+            }}
+            value={odometerValue}
+            onChange={(e) => handleChange(e)}
+            sx={{
+              p: "8px 20px 8px 20px",
+              borderRadius: "5px",
+              color: "#000",
+              fontWeight: "600",
+              width: "100%",
+            }}
+          />
+          {/* {formik.errors.vin && formik.touched.vin ? <p style={{ color: "red", margin: "10px" }}>{formik.errors.vin}</p> : null} */}
+
+          <DialogActions
+            sx={{
+              "&.MuiDialogActions-root": {
+                pr: 0,
+              },
+            }}>
+            <Box
+              sx={{
+                width: { xs: "100%", md: "35%", lg: "70%" },
+                float: "right",
+                display: "flex",
+                justifyContent: { xs: "space-between", md: "flex-end" },
+                pb: 3,
+                // pr: 3,
+                pl: { xs: 2, md: 0 },
+              }}>
+              <Button
+                disableRipple
+                sx={{
+                  mr: { md: 3 },
+                  pl: "25px",
+                  pr: "25px",
+                  pt: "10px",
+                  pb: "10px",
+                  fontSize: "16px",
+                  lineHeight: "21px",
+                  // fontWeight: 400,
+                  borderRadius: "5px",
+                  textTransform: "none",
+                  border: "1px solid #EB5757",
+                  bgcolor: "#EB5757",
+                  width: { xs: "40%", md: "50%" },
+                  color: "white",
+                  "&.MuiButtonBase-root:hover": {
+                    border: "1px solid #EB5757",
+                    bgcolor: "#EB5757",
+                    color: "white",
+                  },
+                }}
+                variant="outlined"
+                className="btn"
+                onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+              <Button
+                disableRipple
+                sx={{
+                  pl: "25px",
+                  pr: "25px",
+                  pt: "10px",
+                  pb: "10px",
+                  fontSize: "16px",
+                  lineHeight: "21px",
+                  // fontWeight: 400,
+                  borderRadius: "5px",
+                  textTransform: "none",
+                  color: "white",
+                  bgcolor: "#27AE60",
+                  border: "1px solid #27AE60",
+                  width: { xs: "40%", md: "50%" },
+                  "&.MuiButtonBase-root:hover": {
+                    border: "1px solid #27AE60",
+                    color: "white",
+                    bgcolor: "#27AE60",
+                  },
+                }}
+                variant="outlined"
+                className="btn"
+                onClick={handleSubmit}
+                // type="submit"
+              >
+                Submit
+              </Button>
+            </Box>
+          </DialogActions>
+          {/* </form> */}
+        </DialogContent>
+      </Dialog>
       {price1.map((item, index) => (
         <Grid key={index} flex={"1 1 auto"} item>
           <Item
@@ -88,11 +217,12 @@ const Odometer = ({ odoValue }) => {
                   sx={{ width: { xs: "35%", lg: "40%", xl: "35%" }, textAlign: "right", ml: { xs: "30px", lg: "100px", xl: "200px" } }}>
                   <TextField
                     placeholder="Enter Miles"
+                    onClick={() => setOpen(true)}
                     InputProps={{
                       classes: { input: classes.input },
                     }}
                     value={odometerValue}
-                    onChange={(e)=>handleChange(e)}
+                    onChange={(e) => handleChange(e)}
                     sx={{
                       p: "8px 20px 8px 20px",
                       borderRadius: "5px",
@@ -160,5 +290,10 @@ const Odometer = ({ odoValue }) => {
     </Grid>
   );
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addVIN: (data) => dispatch(addVIN(data)),
+  };
+};
 
-export default Odometer;
+export default connect(null, mapDispatchToProps)(Odometer);

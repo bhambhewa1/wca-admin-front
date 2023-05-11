@@ -237,11 +237,11 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
         sx={{
           borderColor: "divider",
           p: 1,
-          justifyContent: "flex-end",
+          // justifyContent: "flex-end",
           display: "flex",
           bgcolor: "white",
         }}>
-        <Grid sx={{ display: { xs: "none", sm: "flex" } }} container rowGap={"6px"} columnGap={"6px"}>
+        <Grid sx={{ display: { xs: "none", sm: "flex" }, width: "60%" }} container rowGap={"6px"} columnGap={"6px"}>
           {vehicleData.map((item, index) => (
             <Grid item flex={"1 1 auto"}>
               <Link style={{ textDecoration: "none" }} to={item.route}>
