@@ -276,6 +276,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
               sx={{ width: "100%" }}
               InputProps={{ disableUnderline: true }}
               inputProps={{
+                maxLength: 17,
                 style: {
                   paddingTop: "8px",
                   paddingBottom: "8px",
