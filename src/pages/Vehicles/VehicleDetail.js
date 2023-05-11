@@ -102,7 +102,6 @@ const VehicleDetail = ({ getVehicleData, editVehicleItem }) => {
       }
     });
   };
-  console.log(selected);
   return (
     <>
       <Item sx={{}}>
