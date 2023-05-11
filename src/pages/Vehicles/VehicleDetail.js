@@ -26,8 +26,8 @@ import CloseIcon from "@mui/icons-material/Close";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
+  // padding: theme.spacing(1),
+  // textAlign: "center",
   // color: theme.palette.text.secondary,
   border: "none",
   boxShadow: "2px",

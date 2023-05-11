@@ -161,7 +161,9 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
                 {index === 0 ? (
                   <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Box sx={{ width: "70%" }}>
-                      <Typography sx={{ fontSize: "14px", fontWeight: "650" }}>Enter purchase price</Typography>
+                      <Typography sx={{ fontSize: "14px", fontWeight: "800", textAlign: "left", color: "#000" }}>
+                        Enter purchase price
+                      </Typography>
                       <TextField
                         placeholder="Enter purchase price"
                         variant="filled"

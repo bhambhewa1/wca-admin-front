@@ -282,7 +282,6 @@ const Odometer = ({ odoValue, base, addVIN, Vin, editVehicleItem }) => {
                 ""
               )}
             </Typography>
-            <LoaderComponent open={loading} />
           </Item>
         </Grid>
       ))}
