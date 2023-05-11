@@ -1,15 +1,4 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormLabel,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormLabel, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
@@ -21,6 +10,7 @@ import LoaderComponent from "../../../../components/Loader/LoaderComponent";
 import { connect } from "react-redux";
 import { addVIN, editVehicleItem } from "../../../../redux/action/vehicle/vehicle";
 import { storage } from "../../../../config/storage";
+import { useOutletContext } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   input: {
@@ -39,9 +29,10 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   boxShadow: "none",
 }));
-const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
+const Odometer = ({ odoValue, base, addVIN, Vin, editVehicleItem }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [vehicData, setVehicleData] = useOutletContext();
   const classes = useStyles();
   const [odometerValue, setOdometerValue] = useState("");
   const handleChange = (e) => {
@@ -51,7 +42,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
   const handleSubmit = () => {
     let data1 = {
       vehicles_id: storage.fetch.vehicleId(),
-    }
+    };
     setLoading(true);
     let data = {
       miles: odometerValue,
@@ -60,11 +51,12 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
       vin: Vin,
     };
     addVIN(data).then((res) => {
-      setOpen(false)
+      setOpen(false);
       if (res?.data?.status) {
         editVehicleItem(data1).then((res) => {
           if (res?.data?.status) {
-            // setOdometerValue(res.data.data.odoValue);
+            setOdometerValue(res?.data?.data?.miles);
+            setVehicleData(res?.data?.data);
             setLoading(false);
           }
         });
@@ -76,7 +68,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
   const handleSubmit1 = () => {
     let data1 = {
       vehicles_id: storage.fetch.vehicleId(),
-    }
+    };
     setLoading(true);
     let data = {
       miles: base,
@@ -85,12 +77,14 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
       vin: Vin,
     };
     addVIN(data).then((res) => {
-      setOpen(false)
+      setOpen(false);
       if (res?.data?.status) {
         editVehicleItem(data1).then((res) => {
           if (res?.data?.status) {
             setOdometerValue(res.data.data.miles);
+            setVehicleData(res?.data?.data);
             setLoading(false);
+            // return(<VehicleInfoData/>)
           }
         });
       } else {
@@ -115,15 +109,10 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
       sx={{
         mr: "10px",
         bgcolor: "white",
-      }}
-    >
+      }}>
+      <LoaderComponent open={loading} />
       <Dialog open={open}>
-        <DialogTitle
-          sx={{ borderBottom: "1px solid #dddddd", overflow: "hidden" }}
-        >
-          Enter miles
-        </DialogTitle>
-        <LoaderComponent open={loading} />
+        <DialogTitle sx={{ borderBottom: "1px solid #dddddd", overflow: "hidden" }}>Enter miles</DialogTitle>
 
         <DialogContent
           sx={{
@@ -132,8 +121,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
             "&.MuiDialogContent-root": {
               pb: 0,
             },
-          }}
-        >
+          }}>
           {/* <form onSubmit={formik.handleSubmit}> */}
           <TextField
             placeholder="Enter Miles"
@@ -152,14 +140,14 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
             }}
           />
           {/* {formik.errors.vin && formik.touched.vin ? <p style={{ color: "red", margin: "10px" }}>{formik.errors.vin}</p> : null} */}
+          <LoaderComponent open={loading} />
 
           <DialogActions
             sx={{
               "&.MuiDialogActions-root": {
                 pr: 0,
               },
-            }}
-          >
+            }}>
             <Box
               sx={{
                 width: { xs: "100%", md: "35%", lg: "70%" },
@@ -169,8 +157,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
                 pb: 3,
                 // pr: 3,
                 pl: { xs: 2, md: 0 },
-              }}
-            >
+              }}>
               <Button
                 disableRipple
                 sx={{
@@ -196,8 +183,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
                 }}
                 variant="outlined"
                 className="btn"
-                onClick={() => setOpen(false)}
-              >
+                onClick={() => setOpen(false)}>
                 Cancel
               </Button>
               <Button
@@ -246,8 +232,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
               borderRadius: "0px",
               textAlign: "left",
               fontWeight: "700",
-            }}
-          >
+            }}>
             {item.text}
             <Typography
               sx={{
@@ -258,47 +243,46 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
                 display: "flex",
                 alignItems: "center",
                 // justifyContent: "space-between",
-              }}
-            >
-              {item.price + base+"/"}
+              }}>
+              {item.price + base + "/"}
               {index === 1 ? (
                 <Button
                   sx={{ textTransform: "none", minWidth: "100px" }}
                   onClick={() => {
                     // setOdometerValue(base)
-                    handleSubmit1()
-                  }}
-                >
+                    handleSubmit1();
+                  }}>
                   Set to base
                 </Button>
               ) : (
                 ""
               )}
               {index === 1 ? (
-                <Box sx={{
-                  display:'flex',
-                  justifyContent:'flex-end',
-                  width:'70%'
-                }}>
-                <Typography
-                  onClick={() => setOpen(true)}
+                <Box
                   sx={{
-                    width: { xs: "35%", lg: "40%", xl: "20%" },
-                    cursor: "pointer",
-                    textAlign: "center",
-                    ml: { xs: "30px", lg: "100px", xl: "200px" },
-                    border: "2px solid rgb(236, 236, 236)",
-                    color:"#000000",
-                    p:2,
-                  }}
-                >
-                  {odometerValue}
-                </Typography>
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    width: "70%",
+                  }}>
+                  <Typography
+                    onClick={() => setOpen(true)}
+                    sx={{
+                      width: { xs: "35%", lg: "40%", xl: "20%" },
+                      cursor: "pointer",
+                      textAlign: "center",
+                      ml: { xs: "30px", lg: "100px", xl: "200px" },
+                      border: "2px solid rgb(236, 236, 236)",
+                      color: "#000000",
+                      p: 2,
+                    }}>
+                    {odometerValue}
+                  </Typography>
                 </Box>
               ) : (
                 ""
               )}
             </Typography>
+            <LoaderComponent open={loading} />
           </Item>
         </Grid>
       ))}
@@ -356,7 +340,7 @@ const Odometer = ({ odoValue,base, addVIN, Vin,editVehicleItem }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addVIN: (data) => dispatch(addVIN(data)),
-    editVehicleItem: (data) => dispatch(editVehicleItem(data))
+    editVehicleItem: (data) => dispatch(editVehicleItem(data)),
   };
 };
 

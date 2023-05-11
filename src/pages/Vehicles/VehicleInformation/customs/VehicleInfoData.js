@@ -45,11 +45,13 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
   const [vehicData, setVehicleData] = useOutletContext();
   const [purchaseprice, setPrice] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [tradeprice, setTradeprice] = React.useState(vehicData?.trade_price);
 
   React.useEffect(() => {
     setPrice(vehicData?.purchase_price);
+    setTradeprice(vehicData?.trade_price);
   }, [vehicData]);
-
+  let changeInMiles;
   const handleChange = (e) => {
     setPrice(e.target.value);
   };
@@ -71,7 +73,7 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
     });
   };
   const price = [
-    { price: vehicData?.trade_price, text: "Trade price" },
+    { price: tradeprice, text: "Trade price" },
     { price: "10000", text: "Target auction" },
     { price: vehicData?.target_retail, text: "Target Retail" },
     { price: "10000", text: "Manhiem" },
@@ -303,7 +305,7 @@ const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addVIN: (data) => dispatch(addVIN(data)),
-    editVehicleItem: (data) => dispatch(editVehicleItem(data)),
+    editVehicleItem: (data1) => dispatch(editVehicleItem(data1)),
   };
 };
 

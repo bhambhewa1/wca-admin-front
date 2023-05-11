@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import * as yup from "yup";
 import React, { useEffect, useState } from "react";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import IconLinkButton from "../../components/Buttons/IconLinkButton";
 import { EnhancedTableHead } from "../../components/TableHeader/TableHeader";
 import TopBox from "../../components/TableHeader/TopBox";
@@ -32,7 +33,7 @@ import LoaderComponent from "../../components/Loader/LoaderComponent";
 import Toastify from "../../components/SnackBar/Toastify";
 import AlertDialog from "../../components/Dialog/Dialog";
 const schema = yup.object().shape({
-  vin: yup.string().required("Please enter valid VIN number").min(17, `Enter minimum 17 numbers `).max(17, `Enter maximum 17 numbers`),
+  vin: yup.string().required("Please enter valid VIN number").min(14, `Enter minimum 14 characters `),
 });
 const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
   const [loading, setLoading] = useState(true);
@@ -285,10 +286,13 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
               }}
             />
             {formik.errors.vin && formik.touched.vin ? <p style={{ color: "red", margin: "10px" }}>{formik.errors.vin}</p> : null}
-            <Typography sx={{ fontSize: "12px", fontWeight: "500" }}>
-              All the Ford vehicle start with 2FAP etc. Honda and Toyota , GMC has their owns special characters which has been assigned to
-              each manufacture.
-            </Typography>
+            <Box sx={{ display: "flex", mt: "10px" }}>
+              <InfoOutlinedIcon sx={{ fontSize: "18px", mr: "10px" }} />
+              <Typography sx={{ fontSize: "12px", fontWeight: "500" }}>
+                All the Ford vehicle start with 2FAP etc. Honda and Toyota , GMC has their owns special characters which has been assigned
+                to each manufacture.
+              </Typography>
+            </Box>
             <DialogActions
               sx={{
                 "&.MuiDialogActions-root": {
