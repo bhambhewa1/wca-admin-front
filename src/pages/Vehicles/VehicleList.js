@@ -109,7 +109,7 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
     });
   };
   const handleChange = (e) => {
-    e.target.value = e.target.values;
+    // e.target.value = e.target.values;
     setLength(e.target.value);
     // getList();
   };
@@ -402,8 +402,8 @@ const VehicleList = ({ getVehiclesList, addVIN, deleteVehicleItem }) => {
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                     {columns.map((item, index) => (
                       <TableCell component="th" scope="row" padding="none" sx={Style.table.tableCell}>
-                        {index === 4 || index === 6 ? Number(row[item.id]).toLocaleString() : row[item.id]}
-                      </TableCell>
+                        { item.id === "trade_price" || item.id === "miles" ? Number(row[item.id]).toLocaleString() :row[item.id]}   
+                      </TableCell>  
                     ))}
                     <TableCell sx={Style.table.tableCell}>
                       <IconLinkButton buttonName={"Edit"} onClickLink={`/vehicles/details/info/${row.vehicles_id}`} id={row.vehicles_id} />
