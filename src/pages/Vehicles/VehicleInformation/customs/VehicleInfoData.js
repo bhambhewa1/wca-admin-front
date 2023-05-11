@@ -17,9 +17,10 @@ import Colors from "../customs/Colors";
 import OptionAndServiceStatus from "../customs/OptionAndServiceStatus";
 import VehicleHistory from "./VehicleHistory";
 import { useOutletContext } from "react-router-dom";
-import { addVIN } from "../../../../redux/action/vehicle/vehicle";
+import { addVIN, editVehicleItem } from "../../../../redux/action/vehicle/vehicle";
 import { storage } from "../../../../config/storage";
 import { connect } from "react-redux";
+import LoaderComponent from "../../../../components/Loader/LoaderComponent";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -39,7 +40,7 @@ const useStyles = makeStyles(() => ({
     border: "none",
   },
 }));
-const VehicleInfoData = ({ addVIN }) => {
+const VehicleInfoData = ({ addVIN, editVehicleItem }) => {
   const classes = useStyles();
   const [vehicData, setVehicleData] = useOutletContext();
   const [purchaseprice, setPrice] = React.useState("");
@@ -54,10 +55,16 @@ const VehicleInfoData = ({ addVIN }) => {
   };
   const OnSavingPurchasePrice = () => {
     setLoading(true);
+    let data1 = { vehicles_id: storage.fetch.vehicleId() };
     let data = { vehicles_id: storage.fetch.vehicleId(), purchase_price: purchaseprice, vin: vehicData?.vin, miles: "" };
     addVIN(data).then((res) => {
       if (res?.data?.status) {
-        setLoading(false);
+        editVehicleItem(data1).then((res) => {
+          if (res?.data?.status) {
+            setPrice(res?.data?.data?.purchase_Price);
+            setLoading(false);
+          }
+        });
       } else {
         setLoading(false);
       }
@@ -150,14 +157,14 @@ const VehicleInfoData = ({ addVIN }) => {
                   p: "0px",
                 }}>
                 {index === 0 ? (
-                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Box sx={{ width: "70%" }}>
-                      <Typography>Enter purchase price</Typography>
+                      <Typography sx={{ fontSize: "14px", fontWeight: "650" }}>Enter purchase price</Typography>
                       <TextField
                         placeholder="Enter purchase price"
                         variant="filled"
                         inputProps={{
-                          style: { padding: "20px", borderRadius: "5px" },
+                          style: { padding: "20px 20px 20px 20px", borderRadius: "5px", fontWeight: "600" },
                         }}
                         InputProps={{
                           classes: { input: classes.input },
@@ -166,7 +173,7 @@ const VehicleInfoData = ({ addVIN }) => {
                         value={purchaseprice}
                         onChange={(e) => handleChange(e)}
                         sx={{
-                          p: "8px 20px 8px 20px",
+                          p: "8px 20px 0px 0px",
                           borderRadius: "5px",
                           color: "#000",
                           fontWeight: "600",
@@ -177,10 +184,11 @@ const VehicleInfoData = ({ addVIN }) => {
                     </Box>
                     <Button
                       sx={{
-                        height: "50%",
                         mr: "20px",
+                        mt: "25px",
                         bgcolor: "#F15F23",
                         boxShadow: "none",
+                        p: "5px 30px 5px 30px",
                         textTransform: "none",
                         "&.MuiButtonBase-root:hover": {
                           bgcolor: "#F15F23",
@@ -287,6 +295,7 @@ const VehicleInfoData = ({ addVIN }) => {
           <ConditionDisclosure />
         </Box>
       </Box>
+      <LoaderComponent open={loading} />
     </>
   );
 };
@@ -294,6 +303,7 @@ const VehicleInfoData = ({ addVIN }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addVIN: (data) => dispatch(addVIN(data)),
+    editVehicleItem: (data) => dispatch(editVehicleItem(data)),
   };
 };
 
